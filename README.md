@@ -1,4 +1,4 @@
-musician
+Virtuoso
 ========
 
-Web-service for musicians
+Web-service for Virtuoso(Musicians)
