@@ -18,6 +18,8 @@ package com.coffeine.virtuoso.module.user.model.entity;
 import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Class for reflect table from persistence layout
@@ -25,6 +27,8 @@ import javax.persistence.Column;
  * @version 1.0
  */
 @SuppressWarnings( "serial" )
+@Entity
+@Table( name = "song" )
 public class Song implements Serializable {
 
 	///	***	Properties	***	///
@@ -37,14 +41,6 @@ public class Song implements Serializable {
 
 
 	///	***	Methods		***	///
-	public Song(
-		Long id,
-		String name
-	) {
-		//- Initialization -//
-		this.id = id;
-		this.title = name;
-	}
 
 	//- SECTION :: GET -//
 	public Long getId() {

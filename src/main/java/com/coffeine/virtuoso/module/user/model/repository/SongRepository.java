@@ -17,13 +17,14 @@ package com.coffeine.virtuoso.module.user.model.repository;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Class for work with table from persistence layout
  *
  * @version 1.0
  */
-public interface SongRepository {
+public interface SongRepository extends JpaRepository < Song, Long > {
 
 	///	***	Methods		***	///
 	/**
