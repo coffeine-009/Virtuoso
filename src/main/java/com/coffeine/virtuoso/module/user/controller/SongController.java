@@ -1,18 +1,18 @@
-///	***	User :: Controller :: Song	***	***	***	***	***	***	***	***	***	***	///
+/// *** User :: Controller :: Song  *** *** *** *** *** *** *** *** *** *** ///
 
-	/**	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
-	 *																	*
-	 * @copyright 2014 (c), by Coffeine
-	 *
-	 * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-	 *
-	 * @date 2014-03-25 15:26:32 :: ....-..-.. ..:..:..
-	 *
-	 * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-	 *																	*
-	*///***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-03-25 15:26:32 :: ....-..-.. ..:..:..
+     *
+     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-///	***	Code	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	///
+/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
@@ -38,14 +38,14 @@ public class SongController {
     private SongServiceImpl songService;
 
 
-	//- SECTION :: ACTIONS -//
-	@RequestMapping( value = "/list", method = RequestMethod.GET )
-	@ResponseStatus( value = HttpStatus.OK )
-	@ResponseBody
-	public List< Song > listAction( Model model ) {
-		//- Get list of song from persistence layout -//
-		List < Song > songList = songService.getList();
+    //- SECTION :: ACTIONS -//
+    @RequestMapping( value = "/list", method = RequestMethod.GET )
+    @ResponseStatus( value = HttpStatus.OK )
+    @ResponseBody
+    public List< Song > listAction( Model model ) {
+        //- Get list of song from persistence layout -//
+        List < Song > songList = songService.getList();
 
-		return songList;
-	}
+        return songList;
+    }
 }

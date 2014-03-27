@@ -1,18 +1,18 @@
-///	***	User :: Model :: Entity :: Song	***	***	***	***	***	***	***	***	***	///
+/// *** User :: Model :: Entity :: Song *** *** *** *** *** *** *** *** *** ///
 
-	/**	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
-	 *																	*
-	 * @copyright 2014 (c), by Coffeine
-	 *
-	 * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-	 *
-	 * @date 2014-03-25 14:26:32 :: ....-..-.. ..:..:..
-	 *
-	 * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-	 *																	*
-	*///***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-03-25 14:26:32 :: ....-..-.. ..:..:..
+     *
+     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
-///	***	Code	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	///
+/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
@@ -31,32 +31,52 @@ import javax.persistence.Table;
 @Table( name = "song" )
 public class Song implements Serializable {
 
-	///	***	Properties	***	///
-	@Id
-	@Column( name = "id" )
-	protected Long id;
+    /// *** Properties  *** ///
+    @Id
+    @Column( name = "id" )
+    protected Long id;
 
-	@Column( name = "title" )
-	protected String title;
+    @Column( name = "title" )
+    protected String title;
 
 
-	///	***	Methods		***	///
+    /// *** Methods     *** ///
 
-	//- SECTION :: GET -//
-	public Long getId() {
-		return this.id;
-	}
+    //- SECTION :: GET -//
+    /**
+     * Get ID of song
+     *
+     * @return Long ID of song
+     */
+    public Long getId() {
+        return this.id;
+    }
 
-	public String getTitle() {
-		return this.title;
-	}
+    /**
+     * Tmp method
+     *
+     * @return
+     */
+    public String getTitle() {
+        return this.title;
+    }
 
-	//- SECTION :: SET -//
-	public void setId( Long id ) {
-		this.id = id;
-	}
+    //- SECTION :: SET -//
+    /**
+     * Set ID of song
+     *
+     * @param id ID of song
+     */
+    public void setId( Long id ) {
+        this.id = id;
+    }
 
-	public void setTitle( String title ) {
-		this.title = title;
-	}
+    /**
+     * Tmp method
+     *
+     * @param title
+     */
+    public void setTitle( String title ) {
+        this.title = title;
+    }
 }
