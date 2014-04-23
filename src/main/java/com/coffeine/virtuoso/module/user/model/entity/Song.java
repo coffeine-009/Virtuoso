@@ -16,10 +16,20 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.Id;
+import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Class for reflect table from persistence layout
@@ -33,13 +43,45 @@ public class Song implements Serializable {
 
     /// *** Properties  *** ///
     @Id
-    @Column( name = "id" )
+    @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
     protected Long id;
 
-    @Column( name = "title" )
+    @JsonIgnore
+    @NotNull
+    @Valid
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_composer", columnDefinition = "BIGINT( 20 )" )
+    protected Composer composer;
+
+    @JsonIgnore
+    @NotNull
+    @Valid
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_poet", columnDefinition = "BIGINT( 20 )" )
+    protected Poet poet;
+
+    @NotNull
+    @NotEmpty
+    @Size( max = 5 )
+    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    protected String locale;
+
+    @NotNull
+    @NotEmpty
+    @Size( max = 64 )
+    @Column( name = "title", columnDefinition = "VARCHAR( 64 )" )
     protected String title;
 
+    @Column( name = "write_date", columnDefinition = "TIMESTAMP" )
+    protected Calendar writeDate;
 
+    @Column( 
+        name = "creation", 
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    )
+    protected Calendar creation;
+
+    
     /// *** Methods     *** ///
 
     //- SECTION :: GET -//
@@ -53,13 +95,59 @@ public class Song implements Serializable {
     }
 
     /**
-     * Tmp method
+     * Get composer of song
+     * 
+     * @return Composer
+     */
+    public Composer getComposer() {
+        return composer;
+    }
+
+    /**
+     * Get poet of song
      *
-     * @return
+     * @return Poet
+     */
+    public Poet getPoet() {
+        return poet;
+    }
+
+    /**
+     * Get locate of song
+     *
+     * @return String
+     */
+    public String getLocale() {
+        return locale;
+    }
+
+    /**
+     * Get title of song
+     *
+     * @return String
      */
     public String getTitle() {
         return this.title;
     }
+
+    /**
+     * Get song's date of write
+     *
+     * @return Calendar
+     */
+    public Calendar getWriteDate() {
+        return writeDate;
+    }
+
+    /**
+     * Get time of create record
+     *
+     * @return Calendar
+     */
+    public Calendar getCreation() {
+        return creation;
+    }
+
 
     //- SECTION :: SET -//
     /**
@@ -72,11 +160,29 @@ public class Song implements Serializable {
     }
 
     /**
-     * Tmp method
+     * Set locale of song
+     *
+     * @param locale 
+     */
+    public void setLocale( String locale ) {
+        this.locale = locale;
+    }
+
+    /**
+     * Set title of song
      *
      * @param title
      */
     public void setTitle( String title ) {
         this.title = title;
+    }
+
+    /**
+     * Set song's date of write
+     *
+     * @param writeDate 
+     */
+    public void setWriteDate( Calendar writeDate ) {
+        this.writeDate = writeDate;
     }
 }

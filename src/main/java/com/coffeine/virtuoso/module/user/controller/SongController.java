@@ -39,6 +39,12 @@ public class SongController {
 
 
     //- SECTION :: ACTIONS -//
+    /**
+     * GET list of songs
+     *
+     * @param model
+     * @return List<Song>
+     */
     @RequestMapping( value = "/list", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
@@ -46,6 +52,16 @@ public class SongController {
         //- Get list of song from persistence layout -//
         List < Song > songList = songService.getList();
 
+        Long composer = songList.get( 0 ).getComposer().getId();
         return songList;
+    }
+
+    @RequestMapping( value = "/create", method = RequestMethod.POST )
+    @ResponseStatus( value = HttpStatus.CREATED )
+    @ResponseBody
+    public Song createAction( Model model ) {
+        Song newSong = new Song();
+        
+        return newSong;
     }
 }

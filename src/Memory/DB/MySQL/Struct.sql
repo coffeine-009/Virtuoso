@@ -22,9 +22,11 @@ CREATE DATABASE virtuoso
  * Ex.: ADMIN, VIRUOSO, USER
 */--*** *** *** *** *** *** *** *** *** *
 CREATE TABLE `role`(
-    id          INTEGER NOT NULL AUTO_INCREMENT,
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    title       VARCHAR( 16 ) NOT NULL,
+    code        VARCHAR( 8 ) NOT NULL, 
+
+    title       VARCHAR( 32 ) NOT NULL,
     description TEXT,
 
     PRIMARY KEY( id )
@@ -34,16 +36,22 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 /** *** *** *** *** *** *** *** *** *** *
  * User
  *  --- --- --- --- --- --- --- --- --- *
- * Content data about users
+ * Data about users
 */--*** *** *** *** *** *** *** *** *** *
 CREATE TABLE user(
-    id          INTEGER NOT NULL AUTO_INCREMENT,
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    id_role     INTEGER NOT NULL,
+    id_role     BIGINT( 20 ) NOT NULL,
 
-    /* TODO: write */
+    first_name  VARCHAR( 16 ) NOT NULL, 
+    last_name   VARCHAR( 16 ), 
+    middle_name VARCHAR( 32 ), 
 
-    createion   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    gender      BOOLEAN, 
+
+    locale      VARCHAR( 5 ) NOT NULL, 
+
+    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY( id ),
 
@@ -56,12 +64,16 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 /** *** *** *** *** *** *** *** *** *** *
  * Composer
  *  --- --- --- --- --- --- --- --- --- *
- * Content data about composers
+ * Data about composers
 */--*** *** *** *** *** *** *** *** *** *
 CREATE TABLE composer(
-    id          INTEGER NOT NULL AUTO_INCREMENT,
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    id_user     INTEGER,
+    id_user     BIGINT( 20 ),
+
+    gender      BOOLEAN, 
+
+    locale      VARCHAR( 5 ) NOT NULL, 
 
     birthday    TIMESTAMP NOT NULL,
     deathday    TIMESTAMP,
@@ -72,17 +84,90 @@ CREATE TABLE composer(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
-/**
+/** *** *** *** *** *** *** *** *** *** *
+ * Composer locale
+ *  --- --- --- --- --- --- --- --- --- *
+ * Localized data about composers
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE composer_locale(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    id_composer BIGINT( 20 ) NOT NULL,
+
+    first_name  VARCHAR( 16 ) NOT NULL, 
+    last_name   VARCHAR( 16 ), 
+    middle_name VARCHAR( 32 ), 
+
+    locale      VARCHAR( 5 ) NOT NULL, 
+
+    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY( id ), 
+
+    FOREIGN KEY ( id_composer ) REFERENCES composer( id )
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Poet
+ *  --- --- --- --- --- --- --- --- --- *
+ * Data about poets
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE poet(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    id_user     BIGINT( 20 ),
+
+    gender      BOOLEAN, 
+
+    locale      VARCHAR( 5 ) NOT NULL, 
+
+    birthday    TIMESTAMP NOT NULL,
+    deathday    TIMESTAMP,
+
+    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY( id )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Poet locale
+ *  --- --- --- --- --- --- --- --- --- *
+ * Localized data about poets
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE poet_locale(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    id_poet     BIGINT( 20 ),
+
+    first_name  VARCHAR( 16 ) NOT NULL, 
+    last_name   VARCHAR( 16 ), 
+    middle_name VARCHAR( 32 ), 
+
+    locale      VARCHAR( 5 ) NOT NULL, 
+
+    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY( id )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
  * Song
- */
+ *  --- --- --- --- --- --- --- --- --- *
+ * Data about songs
+*/--*** *** *** *** *** *** *** *** *** *
 CREATE TABLE song(
-    id          INTEGER NOT NULL AUTO INCREMENT,
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    id_composer INTEGER,
-    id_poet     INTEGER,
+    id_composer BIGINT( 20 ),
+    id_poet     BIGINT( 20 ),
 
-    locale      VARCHAR( 5 ),
-    title       VARCHAR( 64 ),
+    locale      VARCHAR( 5 ) NOT NULL,
+
     write_date  TIMESTAMP,
 
     creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -92,13 +177,197 @@ CREATE TABLE song(
 
     FOREIGN KEY( id_composer ) REFERENCES composer( id )
         ON UPDATE CASCADE
+        ON DELETE RESTRICT, 
+
+    FOREIGN KEY( id_poet ) REFERENCES poet( id )
+        ON UPDATE CASCADE
         ON DELETE RESTRICT
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
-CREATE TABLE t(
-    id          INTEGER NOT NULL AUTO_INCREMENT,
+/** *** *** *** *** *** *** *** *** *** *
+ * Song locale
+ *  --- --- --- --- --- --- --- --- --- *
+ * Localized data about songs
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE song_locale(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    id_song     BIGINT( 20 ) NOT NULL,
+
+    locale      VARCHAR( 5 ) NOT NULL, 
+
+    title       VARCHAR( 64 ) NOT NULL, 
+
+    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    /* Keys */
+    PRIMARY KEY( id ),
+
+    FOREIGN KEY( id_song ) REFERENCES song( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Song text
+ *  --- --- --- --- --- --- --- --- --- *
+ * Text of songs
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE song_text(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    id_song     BIGINT( 20 ) NOT NULL,
+
+    locale      VARCHAR( 5 ), 
+
+    `text`      TEXT, 
+
+    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    /* Keys */
+    PRIMARY KEY( id ),
+
+    FOREIGN KEY( id_song ) REFERENCES song( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Style
+ *  --- --- --- --- --- --- --- --- --- *
+ * Styles
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE style(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT, 
+
+    code        VARCHAR( 32 ) NOT NULL, 
+
+    title       VARCHAR( 64 ) NOT NULL, 
+    description TEXT, 
 
     PRIMARY KEY( id )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Note type
+ *  --- --- --- --- --- --- --- --- --- *
+ * Content data about notes types.
+ * Ex.: NOTE, TAB, ACCORDS
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE `note_type`(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    code        VARCHAR( 8 ) NOT NULL, 
+
+    title       VARCHAR( 32 ) NOT NULL,
+    description TEXT,
+
+    PRIMARY KEY( id )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Song note
+ *  --- --- --- --- --- --- --- --- --- *
+ * Notes of songs
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE song_note(
+    id              BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
+
+    id_song         BIGINT( 20 ) NOT NULL, 
+    id_note_type    BIGINT( 20 ) NOT NULL, 
+    id_style        BIGINT( 20 ) NOT NULL, 
+
+    locale          VARCHAR( 5 ), 
+
+    note            TEXT, 
+
+    creation        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    /* Keys */
+    PRIMARY KEY( id ),
+
+    FOREIGN KEY( id_song ) REFERENCES song( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT, 
+
+    FOREIGN KEY( id_note_type ) REFERENCES note_type( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT, 
+
+    FOREIGN KEY( id_style ) REFERENCES style( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Video type
+ *  --- --- --- --- --- --- --- --- --- *
+ * Contain types of video
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE video_type(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT, 
+
+    code        VARCHAR( 32 ) NOT NULL, 
+
+    title       VARCHAR( 32 ) NOT NULL, 
+    description TEXT, 
+
+    PRIMARY KEY( id )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Video
+ *  --- --- --- --- --- --- --- --- --- *
+ * Contain klips, concerts, lessons
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE video(
+    id              BIGINT( 20 ) NOT NULL AUTO_INCREMENT, 
+
+    id_video_type   BIGINT( 20 ) NOT NULL, 
+    id_song         BIGINT( 20 ) NOT NULL, 
+
+    locale          VARCHAR( 5 ) NOT NULL, 
+
+    title           VARCHAR( 32 ) NOT NULL, 
+    description     TEXT, 
+
+    file_name       VARCHAR( 64 ) NOT NULL, 
+
+    PRIMARY KEY( id ), 
+
+    FOREIGN KEY( id_video_type ) REFERENCES video_type( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT, 
+
+    FOREIGN KEY( id_song ) REFERENCES song( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/** *** *** *** *** *** *** *** *** *** *
+ * Lesson
+ *  --- --- --- --- --- --- --- --- --- *
+ * Contain lessons
+*/--*** *** *** *** *** *** *** *** *** *
+CREATE TABLE lesson(
+    id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT, 
+
+    id_song     BIGINT( 20 ), 
+
+    locale      VARCHAR( 5 ) NOT NULL,
+
+    PRIMARY KEY( id ),
+
+    FOREIGN KEY( id_song ) REFERENCES song( id )
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
