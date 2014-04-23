@@ -46,8 +46,8 @@ public class Poet implements Serializable {
     protected Long id;
 
     @Valid
-    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.REFRESH )
-    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 ) NOT NULL" )
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 ) UNIQUE" )
     protected User user;
 
     @NotNull

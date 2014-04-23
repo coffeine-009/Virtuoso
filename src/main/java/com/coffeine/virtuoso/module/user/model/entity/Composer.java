@@ -27,9 +27,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -48,8 +50,8 @@ public class Composer implements Serializable {
     protected Long id;
 
     @Valid
-    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.REFRESH )
-    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 ) NOT NULL" )
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 ) UNIQUE" )
     protected User user;
 
     @Valid
