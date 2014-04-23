@@ -42,11 +42,12 @@ public class Role implements Serializable {
     @NotNull
     @NotEmpty
     @Size( max = 8 )
-    @Column( name = "code", columnDefinition = "VARCHAR( 8 ) NOT NULL" )
+    @Column( name = "code", columnDefinition = "VARCHAR( 8 )" )
     protected String code;
 
+    @NotNull
     @Size( max = 32 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 32 ) NOT NULL" )
+    @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
     protected String title;
 
     @Column( name = "description", columnDefinition = "TEXT" )
@@ -64,7 +65,6 @@ public class Role implements Serializable {
     /**
      * Constructor
      *
-     * @param id
      * @param code
      * @param title
      * @param description 
