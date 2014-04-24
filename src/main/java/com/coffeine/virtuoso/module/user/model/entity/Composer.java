@@ -31,7 +31,6 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -41,7 +40,14 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @SuppressWarnings( "serial" )
 @Entity
-@Table( name = "composer" )
+@Table( 
+    name = "composer", 
+    uniqueConstraints = @UniqueConstraint( 
+        columnNames = {
+            "id_user"
+        } 
+    ) 
+)
 public class Composer implements Serializable {
 
     /// *** Properties  *** ///
@@ -51,7 +57,7 @@ public class Composer implements Serializable {
 
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 ) UNIQUE" )
+    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
     protected User user;
 
     @Valid
@@ -124,6 +130,33 @@ public class Composer implements Serializable {
     }
 
     /**
+     * Get songs of this composer
+     *
+     * @return List<Song>
+     */
+    public List < Song > getSongs() {
+        return songs;
+    }
+
+    /**
+     * Get locale of this composer
+     *
+     * @return String
+     */
+    public String getLocale() {
+        return locale;
+    }
+
+    /**
+     * Get gender of this composer
+     *
+     * @return Boolean
+     */
+    public Boolean getGender() {
+        return gender;
+    }
+
+    /**
      * Get date of birthday
      *
      * @return Calendar
@@ -171,6 +204,33 @@ public class Composer implements Serializable {
     }
 
     /**
+     * Set songs of this composer
+     *
+     * @param songs 
+     */
+    public void setSongs( List < Song > songs ) {
+        this.songs = songs;
+    }
+
+    /**
+     * Set locale of this composer
+     *
+     * @param locale 
+     */
+    public void setLocale( String locale ) {
+        this.locale = locale;
+    }
+
+    /**
+     * Set gender of this composer
+     *
+     * @param gender 
+     */
+    public void setGender( Boolean gender ) {
+        this.gender = gender;
+    }
+
+    /**
      * Set date of birthday
      *
      * @param birthday 
@@ -186,5 +246,11 @@ public class Composer implements Serializable {
      */
     public void setDeathday( Calendar deathday ) {
         this.deathday = deathday;
+    }
+
+
+    //- SECTION :: MAIN -//
+    public void addSong( Song song ) {
+        this.songs.add( song );
     }
 }
