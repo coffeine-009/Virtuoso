@@ -17,6 +17,7 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,7 +40,16 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @SuppressWarnings( "serial" )
 @Entity
-@Table( name = "poet" )
+@Table( 
+    name = "poet", 
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {
+                "id_user"
+            }
+        )
+    }
+)
 public class Poet implements Serializable {
 
     /// *** Properties  *** ///
@@ -47,8 +59,14 @@ public class Poet implements Serializable {
 
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 ) UNIQUE" )
+    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
     protected User user;
+
+    @NotNull
+    @NotEmpty
+    @Valid
+    @OneToMany( mappedBy = "poet" )
+    protected List < PoetLocale > data;
 
     @NotNull
     @NotEmpty
@@ -116,6 +134,15 @@ public class Poet implements Serializable {
     }
 
     /**
+     * Get data for current locale
+     *
+     * @return 
+     */
+    public List < PoetLocale > getData() {
+        return data;
+    }
+
+    /**
      * Get date of birthday
      *
      * @return Calendar
@@ -160,6 +187,15 @@ public class Poet implements Serializable {
      */
     public void setUser( User user ) {
         this.user = user;
+    }
+
+    /**
+     * Set data of current locale
+     *
+     * @param data 
+     */
+    public void setData( List < PoetLocale > data ) {
+        this.data = data;
     }
 
     /**

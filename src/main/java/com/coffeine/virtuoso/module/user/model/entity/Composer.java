@@ -22,6 +22,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,17 +43,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table( 
     name = "composer", 
-    uniqueConstraints = @UniqueConstraint( 
-        columnNames = {
-            "id_user"
-        } 
-    ) 
+    uniqueConstraints = {
+        @UniqueConstraint( 
+            columnNames = {
+                "id_user"
+            } 
+        ) 
+    }
 )
 public class Composer implements Serializable {
 
     /// *** Properties  *** ///
     @Id
-    @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
+    @GeneratedValue
+    @Column( name = "id" )
     protected Long id;
 
     @Valid
@@ -61,11 +65,13 @@ public class Composer implements Serializable {
     protected User user;
 
     @Valid
-    @OneToMany( fetch = FetchType.EAGER, mappedBy = "composer" )
+    @OneToMany( mappedBy = "composer" )
     protected List < Song > songs;
 
+    @NotNull
+    @NotEmpty
     @Valid
-    @OneToMany( fetch = FetchType.EAGER, mappedBy = "composer" )
+    @OneToMany( mappedBy = "composer" )
     protected List < ComposerLocale > data;
 
     @NotNull
@@ -80,6 +86,7 @@ public class Composer implements Serializable {
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
     protected Calendar birthday;
 
+    //TODO: add validation
     @Column( name = "deathday", columnDefinition = "TIMESTAMP NULL" )
     protected Calendar deathday;
 
@@ -105,10 +112,14 @@ public class Composer implements Serializable {
      * @param deathday 
      */
     public Composer(
+        String locale, 
+        Boolean gender, 
         Calendar birthday, 
         Calendar deathday
     ) {
         //- Initializaation -//
+        this.locale = locale;
+        this.gender = gender;
         this.birthday = birthday;
         this.deathday = deathday;
     }
