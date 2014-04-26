@@ -64,6 +64,10 @@ public class Composer implements Serializable {
     @OneToMany( fetch = FetchType.EAGER, mappedBy = "composer" )
     protected List < Song > songs;
 
+    @Valid
+    @OneToMany( fetch = FetchType.EAGER, mappedBy = "composer" )
+    protected List < ComposerLocale > data;
+
     @NotNull
     @NotEmpty
     @Size( max = 5 )
@@ -139,6 +143,15 @@ public class Composer implements Serializable {
     }
 
     /**
+     * Get composer's data
+     *
+     * @return List<ComposerLocale>
+     */
+    public List < ComposerLocale > getData() {
+        return data;
+    }
+
+    /**
      * Get locale of this composer
      *
      * @return String
@@ -210,6 +223,15 @@ public class Composer implements Serializable {
      */
     public void setSongs( List < Song > songs ) {
         this.songs = songs;
+    }
+
+    /**
+     * Set composer's data
+     *
+     * @param data 
+     */
+    public void setData( List < ComposerLocale > data ) {
+        this.data = data;
     }
 
     /**
