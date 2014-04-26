@@ -52,7 +52,6 @@ public class SongController {
         //- Get list of song from persistence layout -//
         List < Song > songList = songService.getList();
 
-        Long composer = songList.get( 0 ).getComposer().getId();
         return songList;
     }
 

@@ -19,6 +19,7 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,7 @@ public class Role implements Serializable {
 
     /// *** Properties  *** ///
     @Id
+    @GeneratedValue
     @Column( name = "id" )
     protected Long id;
 
@@ -54,6 +56,7 @@ public class Role implements Serializable {
     protected String code;
 
     @NotNull
+    @NotEmpty
     @Size( max = 32 )
     @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
     protected String title;

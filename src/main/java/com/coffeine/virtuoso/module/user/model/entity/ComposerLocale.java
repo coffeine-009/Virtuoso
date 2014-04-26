@@ -15,11 +15,13 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,11 +39,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( name = "composer_locale" )
-public class ComposerLocale {
+public class ComposerLocale implements Serializable {
 
     /// *** Properties  *** ///
     @Id
-    @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
+    @GeneratedValue
+    @Column( name = "id" )
     protected Long id;
 
     @NotNull

@@ -120,8 +120,8 @@ CREATE TABLE composer(
 
     locale      VARCHAR( 5 ) NOT NULL, 
 
-    birthday    TIMESTAMP NOT NULL,
-    deathday    TIMESTAMP,
+    birthday    TIMESTAMP NULL,
+    deathday    TIMESTAMP NULL,
 
     creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
@@ -202,7 +202,13 @@ CREATE TABLE poet_locale(
 
     creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY( id )
+    PRIMARY KEY( id ), 
+
+    UNIQUE KEY( id_composer, locale ), 
+
+    FOREIGN KEY( id_poet ) REFERENCES poet( id )
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 

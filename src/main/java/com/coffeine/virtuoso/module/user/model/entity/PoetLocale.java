@@ -1,4 +1,4 @@
-/// *** User :: Model :: Entity :: User *** *** *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Entity :: PoetLocale   *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -6,7 +6,7 @@
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
-     * @date 2014-04-09 22:45:38 :: 2014-04-15 22:48:41
+     * @date 2014-04-26 23:31:15 :: 2014-04-27 00:11:40
      *
      * @address /Ukraine/Ivano-Frankivsk/Chornovola/104
      *                                                                  *
@@ -17,16 +17,14 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -34,14 +32,14 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Class for reflect table from persistence layout
+ * Class for reflect composer_locale table from persistence layout
  *
  * @version 1.0
  */
 @SuppressWarnings( "serial" )
 @Entity
-@Table( name = "user" )
-public class User implements Serializable {
+@Table( name = "poet_locale" )
+public class PoetLocale implements Serializable {
 
     /// *** Properties  *** ///
     @Id
@@ -52,22 +50,8 @@ public class User implements Serializable {
     @NotNull
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_role", columnDefinition = "BIGINT( 20 )" )
-    protected Role role;
-
-    @NotNull
-    @NotEmpty
-    @Valid
-    @OneToMany( mappedBy = "user" )
-    protected List < Email > emails;
-
-    @Valid
-    @OneToMany( mappedBy = "user" )
-    protected List < Composer > composers;
-
-    @Valid
-    @OneToMany( mappedBy = "user" )
-    protected List < Poet > poets;
+    @JoinColumn( name = "id_poet", columnDefinition = "BIGINT( 20 )" )
+    protected Poet poet;
 
     @NotNull
     @NotEmpty
@@ -83,9 +67,6 @@ public class User implements Serializable {
     @Column( name = "middle_name", columnDefinition = "VARCHAR( 32 )" )
     protected String middleName;
 
-    @Column( name = "gender" )
-    protected Boolean gender;
-
     @NotNull
     @NotEmpty
     @Size( max = 5 )
@@ -100,194 +81,149 @@ public class User implements Serializable {
 
 
     /// *** Methods     *** ///
+    /**
+     * Default constructor
+     */
+    public PoetLocale() {
+        
+    }
+
+    /**
+     * Create composer locale
+     *
+     * @param firstName
+     * @param lastName
+     * @param middleName
+     * @param locale 
+     */
+    public PoetLocale(
+        String firstName, 
+        String lastName, 
+        String middleName, 
+        String locale
+    ) {
+        //- Initialization -//
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.locale = locale;
+    }
+
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song
+     * Get ID of composer locale data
      *
-     * @return Long ID of song
+     * @return Long
      */
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     /**
-     * Get role
+     * Get composer for this locale data
      *
-     * @return Role
+     * @return Composer
      */
-    public Role getRole() {
-        return this.role;
+    public Poet getPoet() {
+        return poet;
     }
 
     /**
-     * Get emails for this user
-     *
-     * @return List<Emails>
-     */
-    public List < Email > getEmails() {
-        return emails;
-    }
-
-    /**
-     * Get composer's data for this user
-     *
-     * @return List<Composer>
-     */
-    public List < Composer > getComposers() {
-        return composers;
-    }
-
-    /**
-     * Get poet's data for this user
-     *
-     * @return List<Poet>
-     */
-    public List < Poet > getPoets() {
-        return poets;
-    }
-
-    /**
-     * Get first name
+     * Get first name for current locale
      *
      * @return String
      */
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
     /**
-     * Get last name
+     * Get last name for current locale
      *
      * @return String
      */
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
     /**
-     * Get middle name
+     * Get middle name for current locale
      *
      * @return String
      */
     public String getMiddleName() {
-        return this.middleName;
+        return middleName;
     }
 
     /**
-     * Get gender
-     *
-     * @return Boolean true - man, false - woman, null - undefined
-     */
-    public Boolean getGender() {
-        return gender;
-    }
-
-    /**
-     * Get locale code
+     * Get locale
      *
      * @return String
      */
     public String getLocale() {
-        return this.locale;
+        return locale;
     }
 
     /**
-     * Get time of create this record
+     * Get time of create
      *
      * @return Calendar
      */
     public Calendar getCreation() {
-        return this.creation;
+        return creation;
     }
-
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song
+     * Set ID of composer's data
      *
-     * @param id ID of song
+     * @param id 
      */
     public void setId( Long id ) {
         this.id = id;
     }
 
     /**
-     * Set role
+     * Set composer of this data
      *
-     * @param role
+     * @param poet 
      */
-    public void setRole( Role role ) {
-        this.role = role;
+    public void setPoet( Poet poet ) {
+        this.poet = poet;
     }
 
     /**
-     * Set email of this user
+     * Set first name in choosen locale
      *
-     * @param emails 
-     */
-    public void setEmails( List < Email > emails ) {
-        this.emails = emails;
-    }
-
-    /**
-     * Set composer's data of this user
-     *
-     * @param composers 
-     */
-    public void setComposers( List < Composer > composers ) {
-        this.composers = composers;
-    }
-
-    /**
-     * Set poet's data of this user
-     *
-     * @param poets 
-     */
-    public void setPoets( List < Poet > poets ) {
-        this.poets = poets;
-    }
-
-    /**
-     * Set first name
-     *
-     * @param firstName
+     * @param firstName 
      */
     public void setFirstName( String firstName ) {
         this.firstName = firstName;
     }
 
     /**
-     * Set last name
+     * Set last name in choosen locale
      *
-     * @param lastName
+     * @param lastName 
      */
     public void setLastName( String lastName ) {
         this.lastName = lastName;
     }
 
     /**
-     * Set middle name
+     * Set middle name in choosen locale
      *
-     * @param middleName
+     * @param middleName 
      */
     public void setMiddleName( String middleName ) {
         this.middleName = middleName;
     }
 
     /**
-     * Set gender
+     * Set locale
      *
-     * @param gender true - man, false - woman, null - undefined
-     */
-    public void setGender( Boolean gender ) {
-        this.gender = gender;
-    }
-
-    /**
-     * Set locale code
-     *
-     * @param locale Locale code
+     * @param locale 
      */
     public void setLocale( String locale ) {
         this.locale = locale;
