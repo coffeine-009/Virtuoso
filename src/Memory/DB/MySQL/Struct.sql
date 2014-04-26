@@ -153,6 +153,8 @@ CREATE TABLE composer_locale(
 
     PRIMARY KEY( id ), 
 
+    UNIQUE KEY( id_composer, locale ), 
+
     FOREIGN KEY ( id_composer ) REFERENCES composer( id )
         ON UPDATE CASCADE
         ON DELETE CASCADE
