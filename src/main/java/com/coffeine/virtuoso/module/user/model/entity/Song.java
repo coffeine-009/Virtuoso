@@ -17,6 +17,7 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +26,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -58,6 +60,11 @@ public class Song implements Serializable {
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_poet", columnDefinition = "BIGINT( 20 )" )
     protected Poet poet;
+
+    @NotNull
+    @NotEmpty
+    @OneToMany( mappedBy = "song" )
+    protected List < SongLocale > data;
 
     @NotNull
     @NotEmpty
