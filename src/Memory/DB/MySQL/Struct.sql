@@ -279,8 +279,6 @@ CREATE TABLE song_text(
 
     locale      VARCHAR( 5 ), 
 
-    `text`      TEXT, 
-
     creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     /* Keys */
@@ -318,7 +316,7 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 CREATE TABLE `note_type`(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    code        VARCHAR( 8 ) NOT NULL, 
+    code        VARCHAR( 32 ) NOT NULL, 
 
     title       VARCHAR( 32 ) NOT NULL,
     description TEXT,
