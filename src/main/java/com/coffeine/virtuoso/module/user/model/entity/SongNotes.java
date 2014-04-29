@@ -1,4 +1,4 @@
-/// *** User :: Model :: Entity :: SongText *** *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Entity :: SongNotes    *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -6,7 +6,7 @@
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
-     * @date 2014-04-28 21:21:55 :: 2014-04-28 23:07:30
+     * @date 2014-04-29 21:38:42 :: 2014-04-29 21:51:30
      *
      * @address /Ukraine/Ivano-Frankivsk/Chornovola/104
      *                                                                  *
@@ -38,8 +38,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @SuppressWarnings( "serial" )
 @Entity
-@Table( name = "song_text" )
-public class SongText implements Serializable {
+@Table( name = "song_notes" )
+public class SongNotes implements Serializable {
 
     /// *** Properties  *** ///
     @Id
@@ -52,6 +52,18 @@ public class SongText implements Serializable {
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
     protected Song song;
+
+    @NotNull
+    @NotEmpty
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_notes_type", columnDefinition = "BIGINT( 20 )" )
+    protected NotesType notesType;
+
+    @NotNull
+    @NotEmpty
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_style", columnDefinition = "BIGINT( 20 )" )
+    protected Style style;
 
     @NotNull
     @NotEmpty
@@ -70,7 +82,7 @@ public class SongText implements Serializable {
     /**
      * Default constructor
      */
-    public SongText() {
+    public SongNotes() {
        
     }
 
@@ -79,7 +91,7 @@ public class SongText implements Serializable {
      *
      * @param locale 
      */
-    public SongText(
+    public SongNotes(
         String locale
     ) {
         //- Initialization -//
@@ -89,7 +101,7 @@ public class SongText implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song text
+     * Get ID of song notes
      *
      * @return Long
      */
@@ -98,12 +110,30 @@ public class SongText implements Serializable {
     }
 
     /**
-     * Get composer for this song text
+     * Get song of this notes
      *
      * @return Song
      */
     public Song getSong() {
         return song;
+    }
+
+    /**
+     * Get notes type
+     *
+     * @return NotesType
+     */
+    public NotesType getNotesType() {
+        return notesType;
+    }
+
+    /**
+     * Get style of song
+     *
+     * @return Style
+     */
+    public Style getStyle() {
+        return style;
     }
 
     /**
@@ -126,7 +156,7 @@ public class SongText implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song text
+     * Set ID of song notes
      *
      * @param id 
      */
@@ -135,12 +165,30 @@ public class SongText implements Serializable {
     }
 
     /**
-     * Set song of text
+     * Set song of this notes
      *
      * @param song 
      */
     public void setSong( Song song ) {
         this.song = song;
+    }
+
+    /**
+     * Set type of notes
+     *
+     * @param notesType 
+     */
+    public void setNotesType( NotesType notesType ) {
+        this.notesType = notesType;
+    }
+
+    /**
+     * Set style of song
+     *
+     * @param style 
+     */
+    public void setStyle( Style style ) {
+        this.style = style;
     }
 
     /**
