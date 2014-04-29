@@ -6,7 +6,7 @@
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
-     * @date 2014-03-25 14:26:32 :: ....-..-.. ..:..:..
+     * @date 2014-03-25 14:26:32 :: 2014-04-29 21:57:53
      *
      * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
      *                                                                  *
@@ -65,6 +65,16 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     protected List < SongLocale > data;
+
+    @NotNull
+    @NotEmpty
+    @OneToMany( mappedBy = "song" )
+    protected List < SongNotes > notes;
+
+    @NotNull
+    @NotEmpty
+    @OneToMany( mappedBy = "song" )
+    protected List < SongText > texts;
 
     @NotNull
     @NotEmpty

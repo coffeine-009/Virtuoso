@@ -339,8 +339,6 @@ CREATE TABLE song_note(
 
     locale          VARCHAR( 5 ), 
 
-    note            TEXT, 
-
     creation        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     /* Keys */
