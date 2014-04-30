@@ -32,6 +32,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -39,16 +41,17 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @version 1.0
  */
+@JsonIgnoreProperties( ignoreUnknown = true )
 @SuppressWarnings( "serial" )
 @Entity
-@Table( 
-    name = "composer", 
+@Table(
+    name = "composer",
     uniqueConstraints = {
-        @UniqueConstraint( 
+        @UniqueConstraint(
             columnNames = {
                 "id_user"
-            } 
-        ) 
+            }
+        )
     }
 )
 public class Composer implements Serializable {
@@ -64,10 +67,12 @@ public class Composer implements Serializable {
     @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
     protected User user;
 
+    @JsonIgnore
     @Valid
     @OneToMany( mappedBy = "composer" )
     protected List < Song > songs;
 
+    @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
@@ -90,9 +95,9 @@ public class Composer implements Serializable {
     @Column( name = "deathday", columnDefinition = "TIMESTAMP NULL" )
     protected Calendar deathday;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -102,19 +107,19 @@ public class Composer implements Serializable {
      * Construct default
      */
     public Composer() {
-        
+
     }
 
     /**
      * Construct for create new composer
      *
      * @param birthday
-     * @param deathday 
+     * @param deathday
      */
     public Composer(
-        String locale, 
-        Boolean gender, 
-        Calendar birthday, 
+        String locale,
+        Boolean gender,
+        Calendar birthday,
         Calendar deathday
     ) {
         //- Initializaation -//
@@ -212,7 +217,7 @@ public class Composer implements Serializable {
     /**
      * Set ID of composer
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
@@ -221,7 +226,7 @@ public class Composer implements Serializable {
     /**
      * Set user-composer
      *
-     * @param user 
+     * @param user
      */
     public void setUser( User user ) {
         this.user = user;
@@ -230,7 +235,7 @@ public class Composer implements Serializable {
     /**
      * Set songs of this composer
      *
-     * @param songs 
+     * @param songs
      */
     public void setSongs( List < Song > songs ) {
         this.songs = songs;
@@ -239,7 +244,7 @@ public class Composer implements Serializable {
     /**
      * Set composer's data
      *
-     * @param data 
+     * @param data
      */
     public void setData( List < ComposerLocale > data ) {
         this.data = data;
@@ -248,7 +253,7 @@ public class Composer implements Serializable {
     /**
      * Set locale of this composer
      *
-     * @param locale 
+     * @param locale
      */
     public void setLocale( String locale ) {
         this.locale = locale;
@@ -257,7 +262,7 @@ public class Composer implements Serializable {
     /**
      * Set gender of this composer
      *
-     * @param gender 
+     * @param gender
      */
     public void setGender( Boolean gender ) {
         this.gender = gender;
@@ -266,7 +271,7 @@ public class Composer implements Serializable {
     /**
      * Set date of birthday
      *
-     * @param birthday 
+     * @param birthday
      */
     public void setBirthday( Calendar birthday ) {
         this.birthday = birthday;
@@ -275,7 +280,7 @@ public class Composer implements Serializable {
     /**
      * Set date of death
      *
-     * @param deathday 
+     * @param deathday
      */
     public void setDeathday( Calendar deathday ) {
         this.deathday = deathday;

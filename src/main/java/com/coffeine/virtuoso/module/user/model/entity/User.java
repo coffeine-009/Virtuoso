@@ -19,11 +19,11 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -31,6 +31,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -38,6 +40,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @version 1.0
  */
+@JsonIgnoreProperties( ignoreUnknown = true )
 @SuppressWarnings( "serial" )
 @Entity
 @Table( name = "user" )
@@ -55,16 +58,19 @@ public class User implements Serializable {
     @JoinColumn( name = "id_role", columnDefinition = "BIGINT( 20 )" )
     protected Role role;
 
+    @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
     @OneToMany( mappedBy = "user" )
     protected List < Email > emails;
 
+    @JsonIgnore
     @Valid
     @OneToMany( mappedBy = "user" )
     protected List < Composer > composers;
 
+    @JsonIgnore
     @Valid
     @OneToMany( mappedBy = "user" )
     protected List < Poet > poets;
@@ -92,9 +98,9 @@ public class User implements Serializable {
     @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
     protected String locale;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -224,7 +230,7 @@ public class User implements Serializable {
     /**
      * Set email of this user
      *
-     * @param emails 
+     * @param emails
      */
     public void setEmails( List < Email > emails ) {
         this.emails = emails;
@@ -233,7 +239,7 @@ public class User implements Serializable {
     /**
      * Set composer's data of this user
      *
-     * @param composers 
+     * @param composers
      */
     public void setComposers( List < Composer > composers ) {
         this.composers = composers;
@@ -242,7 +248,7 @@ public class User implements Serializable {
     /**
      * Set poet's data of this user
      *
-     * @param poets 
+     * @param poets
      */
     public void setPoets( List < Poet > poets ) {
         this.poets = poets;

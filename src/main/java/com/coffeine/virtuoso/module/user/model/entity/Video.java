@@ -6,7 +6,7 @@
      *
      * @author Namisnyk Valentyn <Valentun_Prodyser@ukr.net>
      *
-     * @date 2014-04-28 23:06:43 2014-04-27 12:59:38
+     * @date 2014-04-28 23:06:43 :: 2014-04-27 12:59:38
      *
      * @address /Ukraine/Ivano-Frankivsk/Chornovola/104
      *                                                                  *
@@ -29,6 +29,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -53,6 +54,7 @@ public class Video implements Serializable {
     @JoinColumn( name = "id_video_type", columnDefinition = "BIGINT( 20 )" )
     protected VideoType videoType;
 
+    @JsonIgnore
     @NotNull
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
@@ -73,26 +75,26 @@ public class Video implements Serializable {
 
     @Column( name = "description", columnDefinition = "TEXT" )
     protected String description;
-    
+
     @NotNull
     @NotEmpty
     @Size( max = 64 )
     @Column( name = "file_name", columnDefinition = "VARCHAR( 64 )" )
     protected String fileName;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
-    
-    
+
+
     /// *** Methods     *** ///
     /**
      * Default constructor
      */
     public Video() {
-       
+
     }
 
     /**
@@ -101,12 +103,12 @@ public class Video implements Serializable {
      * @param title
      * @param locale
      * @param description
-     * @param fileName 
+     * @param fileName
      */
     public Video(
-        String title, 
+        String title,
         String locale,
-        String description, 
+        String description,
         String fileName
     ) {
         //- Initialization -//
@@ -130,7 +132,7 @@ public class Video implements Serializable {
     /**
      * Get videotype for this video
      *
-     * @return VideoType 
+     * @return VideoType
      */
     public VideoType getVideoType() {
         return videoType;
@@ -155,7 +157,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get title for video
+     * Get title of video
      *
      * @return String
      */
@@ -164,17 +166,17 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get description for video
-     * 
+     * Get description of video
+     *
      * @return String
      */
-    
+
     public String getDescription() {
         return description;
     }
 
     /**
-     * Get filename for this video
+     * Get filename of this video
      * @return String
      */
     public String getFileName() {
@@ -194,25 +196,25 @@ public class Video implements Serializable {
     /**
      * Set ID of video
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
     }
 
     /**
-     * Set videotype
+     * Set video type
      *
-     * @param videoType for this video
+     * @param videoType
      */
     public void setVideoType( VideoType videoType ) {
         this.videoType = videoType;
     }
 
     /**
-     * Set song for this video
+     * Set song of this video
      *
-     * @param song 
+     * @param song
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -221,7 +223,7 @@ public class Video implements Serializable {
     /**
      * Set locale
      *
-     * @param locale 
+     * @param locale
      */
     public void setLocale( String locale ) {
         this.locale = locale;
@@ -230,7 +232,7 @@ public class Video implements Serializable {
     /**
      * Set title of video
      *
-     * @param title 
+     * @param title
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -239,7 +241,7 @@ public class Video implements Serializable {
     /**
      * Set description of video
      *
-     * @param description 
+     * @param description
      */
     public void setDescription( String description ) {
         this.description = description;
@@ -248,7 +250,7 @@ public class Video implements Serializable {
     /**
      * Set filename of video
      *
-     * @param fileName 
+     * @param fileName
      */
     public void setFileName( String fileName ) {
         this.fileName = fileName;
