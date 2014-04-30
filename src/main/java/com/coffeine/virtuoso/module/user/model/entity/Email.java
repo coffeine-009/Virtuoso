@@ -29,6 +29,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -36,16 +37,16 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @version 1.0
  */
+@JsonIgnoreProperties( ignoreUnknown = true )
 @SuppressWarnings( "serial" )
 @Entity
-@Table( 
-    name = "email", 
-    uniqueConstraints = @UniqueConstraint( 
+@Table(
+    name = "email",
+    uniqueConstraints = @UniqueConstraint(
         columnNames = {
-            "id_user", 
             "address"
-        } 
-    ) 
+        }
+    )
 )
 public class Email implements Serializable {
 
@@ -54,7 +55,7 @@ public class Email implements Serializable {
     @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
     protected Long id;
 
-    //@NotNull
+    @NotNull
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
@@ -68,9 +69,9 @@ public class Email implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Column( 
-        name = "creation", 
-        columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -80,7 +81,7 @@ public class Email implements Serializable {
      * Default constructor
      */
     public Email() {
-    
+
     }
 
     public Email(
@@ -131,7 +132,7 @@ public class Email implements Serializable {
     /**
      * Set ID of email
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
@@ -149,7 +150,7 @@ public class Email implements Serializable {
     /**
      * Set email address
      *
-     * @param address 
+     * @param address
      */
     public void setAddress( String address ) {
         this.address = address;

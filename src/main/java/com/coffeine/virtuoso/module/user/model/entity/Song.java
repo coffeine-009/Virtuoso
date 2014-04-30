@@ -31,6 +31,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -64,17 +66,24 @@ public class Song implements Serializable {
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongLocale > data;
 
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongNotes > notes;
 
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongText > texts;
+
+    @OneToMany( mappedBy = "song" )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    protected List < Video > videos;
 
     @NotNull
     @NotEmpty
@@ -82,28 +91,22 @@ public class Song implements Serializable {
     @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
     protected String locale;
 
-    @NotNull
-    @NotEmpty
-    @Size( max = 64 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 64 )" )
-    protected String title;
-
     @Column( name = "write_date", columnDefinition = "TIMESTAMP" )
     protected Calendar writeDate;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
-    
+
     /// *** Methods     *** ///
     /**
      * Default constructor
      */
     public Song() {
-    
+
     }
 
     //- SECTION :: GET -//
@@ -118,7 +121,7 @@ public class Song implements Serializable {
 
     /**
      * Get composer of song
-     * 
+     *
      * @return Composer
      */
     public Composer getComposer() {
@@ -135,21 +138,48 @@ public class Song implements Serializable {
     }
 
     /**
+     * Get data for locale
+     *
+     * @return List<SongLocale>
+     */
+    public List < SongLocale > getData() {
+        return data;
+    }
+
+    /**
+     * Get musical notes
+     *
+     * @return List<SongNotes>
+     */
+    public List < SongNotes > getNotes() {
+        return notes;
+    }
+
+    /**
+     * Get text
+     *
+     * @return List<SongText>
+     */
+    public List < SongText > getTexts() {
+        return texts;
+    }
+
+    /**
+     * Get video
+     *
+     * @return List<Video>
+     */
+    public List < Video > getVideos() {
+        return videos;
+    }
+
+    /**
      * Get locate of song
      *
      * @return String
      */
     public String getLocale() {
         return locale;
-    }
-
-    /**
-     * Get title of song
-     *
-     * @return String
-     */
-    public String getTitle() {
-        return this.title;
     }
 
     /**
@@ -184,7 +214,7 @@ public class Song implements Serializable {
     /**
      * Set composer of song
      *
-     * @param composer 
+     * @param composer
      */
     public void setComposer( Composer composer ) {
         this.composer = composer;
@@ -193,34 +223,61 @@ public class Song implements Serializable {
     /**
      * Set poet of this song
      *
-     * @param poet 
+     * @param poet
      */
     public void setPoet( Poet poet ) {
         this.poet = poet;
     }
 
     /**
+     * Set data for current locale
+     *
+     * @param data
+     */
+    public void setData( List < SongLocale > data ) {
+        this.data = data;
+    }
+
+    /**
+     * Set musical notes
+     *
+     * @param notes
+     */
+    public void setNotes( List < SongNotes > notes ) {
+        this.notes = notes;
+    }
+
+    /**
+     * Set text
+     *
+     * @param texts
+     */
+    public void setTexts( List < SongText > texts ) {
+        this.texts = texts;
+    }
+
+    /**
+     * Set video
+     *
+     * @param videos
+     */
+    public void setVideos( List < Video > videos ) {
+        this.videos = videos;
+    }
+
+    /**
      * Set locale of song
      *
-     * @param locale 
+     * @param locale
      */
     public void setLocale( String locale ) {
         this.locale = locale;
     }
 
     /**
-     * Set title of song
-     *
-     * @param title
-     */
-    public void setTitle( String title ) {
-        this.title = title;
-    }
-
-    /**
      * Set song's date of write
      *
-     * @param writeDate 
+     * @param writeDate
      */
     public void setWriteDate( Calendar writeDate ) {
         this.writeDate = writeDate;

@@ -29,6 +29,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -47,9 +48,10 @@ public class SongLocale implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonIgnore
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
     protected Song song;
 
@@ -65,9 +67,9 @@ public class SongLocale implements Serializable {
     @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
     protected String locale;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -77,17 +79,17 @@ public class SongLocale implements Serializable {
      * Default constructor
      */
     public SongLocale() {
-       
+
     }
 
     /**
      * Create composer locale
      *
      * @param title
-     * @param locale 
+     * @param locale
      */
     public SongLocale(
-        String title, 
+        String title,
         String locale
     ) {
         //- Initialization -//
@@ -146,7 +148,7 @@ public class SongLocale implements Serializable {
     /**
      * Set ID of composer's data
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
@@ -155,7 +157,7 @@ public class SongLocale implements Serializable {
     /**
      * Set composer of this data
      *
-     * @param song 
+     * @param song
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -164,7 +166,7 @@ public class SongLocale implements Serializable {
     /**
      * Set first name in choosen locale
      *
-     * @param title 
+     * @param title
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -173,7 +175,7 @@ public class SongLocale implements Serializable {
     /**
      * Set locale
      *
-     * @param locale 
+     * @param locale
      */
     public void setLocale( String locale ) {
         this.locale = locale;
