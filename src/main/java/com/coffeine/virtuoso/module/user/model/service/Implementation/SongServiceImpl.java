@@ -13,10 +13,11 @@
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service;
+package com.coffeine.virtuoso.module.user.model.service.Implementation;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.repository.SongRepository;
+import com.coffeine.virtuoso.module.user.model.service.SongService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class SongServiceImpl {
+public class SongServiceImpl implements SongService {
 
     /// *** Properties  *** ///
     @Autowired
@@ -39,16 +40,29 @@ public class SongServiceImpl {
      *
      * @return List < Song >
      */
+    @Override
     public List < Song > getList() {
         return songRespository.findAll();
     }
 
+    /**
+     * Get song by ID
+     *
+     * @param Id
+     * @return Song
+     */
+    @Override
+    public Song getSong( Long Id ) {
+        return songRespository.findOne( Id );
+    }
+    
     //- SECTION :: SET -//
     /**
      * Set repository for song. Use IoC(DI)
      *
      * @param songRespository
      */
+    @Override
     public void setSongRespository( SongRepository songRespository ) {
         this.songRespository = songRespository;
     }

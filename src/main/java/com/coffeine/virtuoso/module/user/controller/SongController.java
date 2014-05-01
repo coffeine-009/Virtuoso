@@ -16,7 +16,7 @@
 package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
-import com.coffeine.virtuoso.module.user.model.service.SongServiceImpl;
+import com.coffeine.virtuoso.module.user.model.service.SongService;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -35,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SongController {
 
     @Resource
-    private SongServiceImpl songService;
+    private SongService songService;
 
 
     //- SECTION :: ACTIONS -//
@@ -48,7 +49,7 @@ public class SongController {
     @RequestMapping( value = "/list", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public List< Song > listAction( Model model ) {
+    public List < Song > listAction( Model model ) {
         //- Get list of song from persistence layout -//
         List < Song > songList = songService.getList();
 
@@ -62,5 +63,19 @@ public class SongController {
         Song newSong = new Song();
         
         return newSong;
+    }
+
+    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    @ResponseStatus( value = HttpStatus.OK )
+    @ResponseBody
+    public Song readAction( 
+        @RequestParam( value = "id", required = true, defaultValue = "1" )
+        Long Id, 
+
+        Model model 
+    ) {
+        Song song = songService.getSong( Id );
+        
+        return song;
     }
 }
