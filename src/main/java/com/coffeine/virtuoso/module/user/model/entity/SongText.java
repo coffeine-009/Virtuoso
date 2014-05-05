@@ -17,10 +17,8 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -29,6 +27,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -47,9 +46,10 @@ public class SongText implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonIgnore
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
     protected Song song;
 
@@ -59,9 +59,9 @@ public class SongText implements Serializable {
     @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
     protected String locale;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -71,13 +71,13 @@ public class SongText implements Serializable {
      * Default constructor
      */
     public SongText() {
-       
+
     }
 
     /**
      * Create text for song
      *
-     * @param locale 
+     * @param locale
      */
     public SongText(
         String locale
@@ -128,7 +128,7 @@ public class SongText implements Serializable {
     /**
      * Set ID of song text
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
@@ -137,7 +137,7 @@ public class SongText implements Serializable {
     /**
      * Set song of text
      *
-     * @param song 
+     * @param song
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -146,7 +146,7 @@ public class SongText implements Serializable {
     /**
      * Set locale
      *
-     * @param locale 
+     * @param locale
      */
     public void setLocale( String locale ) {
         this.locale = locale;

@@ -29,6 +29,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -47,9 +48,10 @@ public class SongNotes implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonIgnore
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
     protected Song song;
 
@@ -71,9 +73,9 @@ public class SongNotes implements Serializable {
     @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
     protected String locale;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -83,13 +85,13 @@ public class SongNotes implements Serializable {
      * Default constructor
      */
     public SongNotes() {
-       
+
     }
 
     /**
      * Create text for song
      *
-     * @param locale 
+     * @param locale
      */
     public SongNotes(
         String locale
@@ -158,7 +160,7 @@ public class SongNotes implements Serializable {
     /**
      * Set ID of song notes
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
@@ -167,7 +169,7 @@ public class SongNotes implements Serializable {
     /**
      * Set song of this notes
      *
-     * @param song 
+     * @param song
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -176,7 +178,7 @@ public class SongNotes implements Serializable {
     /**
      * Set type of notes
      *
-     * @param notesType 
+     * @param notesType
      */
     public void setNotesType( NotesType notesType ) {
         this.notesType = notesType;
@@ -185,7 +187,7 @@ public class SongNotes implements Serializable {
     /**
      * Set style of song
      *
-     * @param style 
+     * @param style
      */
     public void setStyle( Style style ) {
         this.style = style;
@@ -194,7 +196,7 @@ public class SongNotes implements Serializable {
     /**
      * Set locale
      *
-     * @param locale 
+     * @param locale
      */
     public void setLocale( String locale ) {
         this.locale = locale;

@@ -31,6 +31,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -38,10 +40,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @version 1.0
  */
+@JsonIgnoreProperties( ignoreUnknown = true )
 @SuppressWarnings( "serial" )
 @Entity
-@Table( 
-    name = "poet", 
+@Table(
+    name = "poet",
     uniqueConstraints = {
         @UniqueConstraint(
             columnNames = {
@@ -57,11 +60,13 @@ public class Poet implements Serializable {
     @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
     protected Long id;
 
+    @JsonIgnore
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
     protected User user;
 
+    @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
@@ -83,9 +88,9 @@ public class Poet implements Serializable {
     @Column( name = "deathday", columnDefinition = "TIMESTAMP NULL" )
     protected Calendar deathday;
 
-    @Column( 
-        name = "creation", 
-        columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" 
+    @Column(
+        name = "creation",
+        columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     protected Calendar creation;
 
@@ -95,17 +100,17 @@ public class Poet implements Serializable {
      * Construct default
      */
     public Poet() {
-        
+
     }
 
     /**
      * Construct for create new poet
      *
      * @param birthday
-     * @param deathday 
+     * @param deathday
      */
     public Poet(
-        Calendar birthday, 
+        Calendar birthday,
         Calendar deathday
     ) {
         //- Initializaation -//
@@ -136,7 +141,7 @@ public class Poet implements Serializable {
     /**
      * Get data for current locale
      *
-     * @return 
+     * @return
      */
     public List < PoetLocale > getData() {
         return data;
@@ -174,7 +179,7 @@ public class Poet implements Serializable {
     /**
      * Set ID of poet
      *
-     * @param id 
+     * @param id
      */
     public void setId( Long id ) {
         this.id = id;
@@ -183,7 +188,7 @@ public class Poet implements Serializable {
     /**
      * Set user-poet
      *
-     * @param user 
+     * @param user
      */
     public void setUser( User user ) {
         this.user = user;
@@ -192,7 +197,7 @@ public class Poet implements Serializable {
     /**
      * Set data of current locale
      *
-     * @param data 
+     * @param data
      */
     public void setData( List < PoetLocale > data ) {
         this.data = data;
@@ -201,7 +206,7 @@ public class Poet implements Serializable {
     /**
      * Set date of birthday
      *
-     * @param birthday 
+     * @param birthday
      */
     public void setBirthday( Calendar birthday ) {
         this.birthday = birthday;
@@ -210,7 +215,7 @@ public class Poet implements Serializable {
     /**
      * Set date of death
      *
-     * @param deathday 
+     * @param deathday
      */
     public void setDeathday( Calendar deathday ) {
         this.deathday = deathday;
