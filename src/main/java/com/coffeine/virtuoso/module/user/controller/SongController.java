@@ -69,7 +69,7 @@ public class SongController {
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public Song readAction( 
-        @RequestParam( value = "id", required = true, defaultValue = "1" )
+        @RequestParam( value = "id", required = true, defaultValue = "-1" )
         Long Id, 
 
         Model model 
