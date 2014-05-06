@@ -31,6 +31,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -69,18 +70,21 @@ public class Song implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongLocale > data;
 
+    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongNotes > notes;
 
+    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongText > texts;
 
+    @JsonIgnore
     @OneToMany( mappedBy = "song" )
     @LazyCollection(LazyCollectionOption.FALSE)
     protected List < Video > videos;

@@ -3,12 +3,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
-<html lang = "en" data-framework = ""backbone.js>
+<html lang = "en" data-framework = "backbone.js">
 
     <head>
 
         <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
         <meta http-equiv = "X-UA-Compatible" content = "IE=edge,chrome=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet">
 
         <!-- Libraries -->
         <script src = "<c:url value = "/resources/client/library/require.js" />" type = "text/javascript"></script>

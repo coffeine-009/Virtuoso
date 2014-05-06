@@ -16,65 +16,69 @@
 package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
-import com.coffeine.virtuoso.module.user.model.service.SongService;
+import com.coffeine.virtuoso.module.user.model.entity.User;
 import java.util.List;
-import javax.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * SongController
+ *
+ * @author vitaliy
  */
 @Controller
-@RequestMapping( value = "/user/song" )
-public class SongController {
-
-    @Resource
-    private SongService songService;
-
+@RequestMapping( value = "/user" )
+public class AuthorizationController {
 
     //- SECTION :: ACTIONS -//
     /**
-     * GET list of songs
+     * Registration new user
      *
      * @param model
-     * @return List<Song>
+     * @return User
      */
-    @RequestMapping( value = "/list", method = RequestMethod.GET )
-    @ResponseStatus( value = HttpStatus.OK )
-    @ResponseBody
-    public List < Song > listAction( Model model ) {
-        //- Get list of song from persistence layout -//
-        List < Song > songList = songService.getList();
-
-        return songList;
-    }
-
-    @RequestMapping( value = "/create", method = RequestMethod.POST )
+    @RequestMapping( value = "/registration", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
-    public Song createAction( Model model ) {
-        Song newSong = new Song();
-        
-        return newSong;
+    public User registrationAction( Model model ) {
+        //- Create new user -//
+        User newUser = new User();
+            newUser.setFirstName("Vitaliy");
+
+        return newUser;
     }
 
-    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    /**
+     * Authorization
+     *
+     * @param model
+     * @return User
+     */
+    @RequestMapping( value = "/authorization", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public Song readAction( 
-        @PathVariable( value = "id" )
-        Long Id
+    public User authorizationAction( 
+        Model model 
     ) {
-        Song song = songService.getSong( Id );
-        
-        return song;
+        return new User();
+    }
+
+    /**
+     * Forgot password
+     *
+     * @param model
+     * @return Boolean
+     */
+    @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
+    @ResponseStatus( value = HttpStatus.OK )
+    @ResponseBody
+    public Boolean forgotPasswordAtion(
+        Model model
+    ) {
+        return false;
     }
 }
