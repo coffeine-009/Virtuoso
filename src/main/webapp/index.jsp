@@ -16,7 +16,6 @@
         <link href="<c:url value = "/resources/client/module/user/view/style/main.css" />" rel="stylesheet">
 
         <!-- Libraries -->
-        <!--<script src = "<c:url value = "/resources/client/library/require.js" />" type = "text/javascript"></script>-->
         <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type = "text/javascript"></script>
         <script src = "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js" type = "text/javascript"></script>
         <script src = "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" type = "text/javascript"></script>
