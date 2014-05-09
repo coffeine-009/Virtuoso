@@ -1,0 +1,109 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 8, 2014, 9:16:03 PM
+    Author     : vitaliy
+*/
+html, body
+{
+    margin : 0;
+    padding: 0;
+}
+
+body
+{
+    font-family	: "Times New Roman", serief;
+    font-size	: small;
+}
+
+header
+{
+    background: #0f0;
+    background: linear-gradient( to bottom, #fff, #eee, #ccc );
+    margin-bottom: 5px;
+    font-size: medium;
+}
+
+header>.logo
+{
+    float: left;
+    width: 140px;
+}
+
+header>nav
+{
+    font-weight: bold;
+    /*display: block;*/
+}
+
+header>nav>ul
+{
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    /*min-height: 40px;*/
+}
+
+header>nav>ul>li
+{
+    /*border-left: #fff solid 1px;*/ 
+    /*border-right: #fff solid 1px;*/ 
+    /*min-height: 40px;*/
+    /*min-width: 60px;*/
+    display: inline-block;
+    padding: 0 5px;
+    /*margin: 0 0 0 5px;*/
+    line-height: 3em;
+    text-align: center;
+    position: relative;
+}
+
+    header>nav>ul>li:hover
+    {
+        background: linear-gradient( to top, #bbb, #eee, #bbb );
+    }
+
+    header>nav>ul>li>a
+    {
+        /*min-height: 40px;*/
+        /*padding: 15px 0;*/
+    }
+
+/* Main */
+.main
+{
+    
+}
+
+nav.menu-left
+{
+    background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
+    margin-bottom: 5px;
+    float : left;
+    width: 150px;
+    padding: 5px;
+}
+
+nav.menu-left>ul
+{
+    margin:0;
+    /*padding: 0;*/
+}
+
+.content
+{
+    background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
+    margin-left: 165px;
+    margin-bottom: 5px;
+}
+
+footer
+{
+    background: linear-gradient( to top, #fff, #eee, #ccc );
+    text-align: center;
+    clear: both;
+    line-height: 2em;
+}
