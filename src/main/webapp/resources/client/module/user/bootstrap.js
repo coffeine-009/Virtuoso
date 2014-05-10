@@ -15,4 +15,6 @@ $(function(){
     new User.SongController();
 
     Backbone.history.start();
+
+    $("#songst").dataTable();
 });

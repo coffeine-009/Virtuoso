@@ -13,13 +13,18 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <link href="<c:url value = "/resources/client/module/user/view/style/main.css" />" rel="stylesheet">
+        <!-- Plugins -->
+        <link rel="stylesheet" href = "//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+
+        <link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/main.css" />">
 
         <!-- Libraries -->
         <script src = "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type = "text/javascript"></script>
         <script src = "http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js" type = "text/javascript"></script>
         <script src = "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" type = "text/javascript"></script>
         <!--<script src = "http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.0/backbone.localStorage-min.js" type = "text/javascript"></script>-->
+
+	<script type = "text/javascript" sr = "//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
 
         <script src = "<c:url value = "/resources/client/module/user/model/Song.js" />" type = "text/javascript"></script>
         <script src = "<c:url value = "/resources/client/module/user/model/Songs.js" />" type = "text/javascript"></script>

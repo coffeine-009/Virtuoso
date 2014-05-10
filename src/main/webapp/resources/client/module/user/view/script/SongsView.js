@@ -21,7 +21,7 @@ User.SongsView = Backbone.View.extend({
 
     initialize: function( Options ) {
         //- Init -//
-        this.template = _.template( "<table>"
+        this.template = _.template( "<table id='songst'>"
                 +"<thead>"
                     +"<tr>"
                         +"<th>#</th>"
@@ -41,6 +41,7 @@ User.SongsView = Backbone.View.extend({
 
     render: function() {
         $( this.el ).html( this.template({songs:[{id:1,name:"Rose"},{id:2,name:" Red Rose"}]}) );
+	$("#songst").dataTable();
 
         return this;
     }, 
