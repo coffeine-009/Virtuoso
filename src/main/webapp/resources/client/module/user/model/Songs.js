@@ -8,7 +8,7 @@ var User = User || {};
 
 User.Songs = Backbone.Collection.extend({
     model   : User.Song, 
-    url     : "/Virtuoso/user/song/list", 
+    url     : "/user/song/list",
 
     initialize: function() {
         this.fetch({

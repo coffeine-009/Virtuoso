@@ -1,0 +1,16 @@
+<table id="songst">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% _.each( songs, function( song ){ %>
+        <tr>
+            <td><%- song.id  %></td>
+            <td><%- song.name  %></td>
+        </tr>
+    <% }); %>
+    </tbody>
+</table>

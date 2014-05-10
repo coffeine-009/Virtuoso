@@ -98,6 +98,7 @@ nav.menu-left>ul
     background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
     margin-left: 165px;
     margin-bottom: 5px;
+    padding: 5px;
 }
 
 footer
