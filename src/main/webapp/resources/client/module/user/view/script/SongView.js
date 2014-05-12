@@ -5,32 +5,43 @@
  */
 var User = User || {};
 
-User.SongView = Backbone.View.extend({
-    /// *** Properties  *** ///
-    //- Parrent DOM element -//
-    el: "#main-content", 
+define(
+    [
+        "underscore",
+        "backbone"
+    ],
+    function(
+        _,
+        Backbone
+        ) {
+        User.SongView = Backbone.View.extend({
+            /// *** Properties  *** ///
+            //- Parrent DOM element -//
+            el: "#main-content",
 
-    //- Template -//
-    template: null, 
+            //- Template -//
+            template: null,
 
 
-    /// *** Methods     *** ///
-    events: {
-        "click #test": "checkr"
-    },
+            /// *** Methods     *** ///
+            events: {
+                "click #test": "checkr"
+            },
 
-    initialize: function( Options ) {
-        //- Init -//
-        this.template = _.template( $( "#song" ).html() );
-    },
+            initialize: function (Options) {
+                //- Init -//
+                //this.template = _.template($("#song").html());
+            },
 
-    render: function() {
-        $( this.el ).html( this.template() );
+            render: function () {
+                //$(this.el).html(this.template());
 
-        return this;
-    }, 
+                return this;
+            },
 
-    checkr: function() {
-        alert('ok');
+            checkr: function () {
+                alert('ok');
+            }
+        });
     }
-});
+);

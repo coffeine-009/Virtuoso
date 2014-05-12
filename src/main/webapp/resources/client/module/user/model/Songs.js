@@ -6,22 +6,31 @@
 
 var User = User || {};
 
-User.Songs = Backbone.Collection.extend({
-    model   : User.Song, 
-    url     : "/user/song/list",
+define(
+    [
+        "backbone"
+    ],
+    function(
+        Backbone
+        ) {
+        User.Songs = Backbone.Collection.extend({
+            model: User.Song,
+            url: "/user/song/list",
 
-    initialize: function() {
-        this.fetch({
-            success : this.success, 
-            error   : this.error
+            initialize: function () {
+                this.fetch({
+                    success: this.success,
+                    error: this.error
+                });
+            },
+
+            success: function (Collection, Response) {
+                console.log(Collection.models.length);
+            },
+
+            error: function (Collection, Response) {
+                console.log(Response);
+            }
         });
-    },
-
-    success: function( Collection, Response ) {
-        console.log(Collection.models.length);
-    }, 
-
-    error: function( Collection, Response ) {
-        console.log(Response);
     }
-});
+);

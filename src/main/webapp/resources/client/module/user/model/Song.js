@@ -6,27 +6,36 @@
 
 var User = User || {};
 
-User.Song = Backbone.Model.extend({
+define(
+    [
+        "backbone"
+    ],
+    function(
+        Backbone
+    ) {
+        User.Song = Backbone.Model.extend({
 
-    urlRoot : "/Virtuoso/user/song", 
+            urlRoot: "/user/song",
 
-    defaults: {
-        "id"    : "0"
-    }, 
-    
-    initialize: function() {
-//        this.fetch({
-//            success : this.success, 
-//            error   : this.error
-//        });
-    },
+            defaults: {
+                "id": "0"
+            },
 
-    success: function( Collection, Response ) {
-        console.log(Response);
-        console.log(this);
-    }, 
+            initialize: function () {
+                //        this.fetch({
+                //            success : this.success,
+                //            error   : this.error
+                //        });
+            },
 
-    error: function( Collection, Response ) {
-        console.log(Response);
+            success: function (Collection, Response) {
+                console.log(Response);
+                console.log(this);
+            },
+
+            error: function (Collection, Response) {
+                console.log(Response);
+            }
+        });
     }
-});
+);

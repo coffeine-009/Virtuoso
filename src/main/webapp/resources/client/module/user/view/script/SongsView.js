@@ -7,12 +7,19 @@ var User = User || {};
 
 define(
     [
-        "tpl!/resources/client/module/user/view/templates/Songs.html"
+        "underscore",
+        "jquery",
+        "dataTables",
+        "backbone",
+        "tpl!/resources/client/module/user/view/templates/Songs"
     ],
     function(
+        _,
+        $,
+        DataTables,
+        Backbone,
         SongsTpl
-    )
-    {
+    ) {
         User.SongsView = Backbone.View.extend({
             /// *** Properties  *** ///
             //- Parrent DOM element -//
@@ -29,11 +36,11 @@ define(
 
             initialize: function (Options) {
                 //- Init -//
-                this.template = _.template( SongsTpl );
+                //this.template = _.template( SongsTpl );
             },
 
             render: function () {
-                $(this.el).html(this.template({songs: [
+                $(this.el).html( SongsTpl( { songs: [
                     {id: 1, name: "Rose"},
                     {id: 2, name: " Red Rose"}
                 ]}));
