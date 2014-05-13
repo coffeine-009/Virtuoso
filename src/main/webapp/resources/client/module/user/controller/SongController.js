@@ -43,6 +43,7 @@ define(
                 if (!this.songList) {
                     this.songList = new User.Songs();
                 }
+                this.views[ 0 ].setSongs( this.songList.getSongs() );
                 this.views[ 0 ].render();
             },
 

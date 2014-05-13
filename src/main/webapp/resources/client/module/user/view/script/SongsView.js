@@ -7,18 +7,16 @@ var User = User || {};
 
 define(
     [
+        "tpl!/resources/client/module/user/view/templates/Songs",
         "underscore",
-        "jquery",
-        "dataTables",
         "backbone",
-        "tpl!/resources/client/module/user/view/templates/Songs"
+        "jquery",
+        "datatables"
     ],
     function(
+        SongsTpl,
         _,
-        $,
-        DataTables,
-        Backbone,
-        SongsTpl
+        Backbone
     ) {
         User.SongsView = Backbone.View.extend({
             /// *** Properties  *** ///
@@ -27,11 +25,16 @@ define(
 
             //- Template -//
             template: null,
+            songs: [],
 
 
             /// *** Methods     *** ///
             events: {
                 "click #test": "checkr"
+            },
+
+            setSongs: function( Models ) {
+                this.songs = Models;
             },
 
             initialize: function (Options) {
@@ -40,10 +43,7 @@ define(
             },
 
             render: function () {
-                $(this.el).html( SongsTpl( { songs: [
-                    {id: 1, name: "Rose"},
-                    {id: 2, name: " Red Rose"}
-                ]}));
+                $(this.el).html( SongsTpl( { songs: this.songs } ) );
                 $("#songst").dataTable();
 
                 return this;

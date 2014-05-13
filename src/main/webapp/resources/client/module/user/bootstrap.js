@@ -17,7 +17,7 @@ requirejs.config(
             tpl         : "/resources/client/library/tpl",
             text        : "/resources/client/library/text",
             jquery      : "/resources/client/library/jquery",
-            dataTables  : "/resources/client/library/jquery.dataTables",
+            datatables  : "/resources/client/library/jquery.dataTables",
             underscore  : "/resources/client/library/underscore",
             backbone    : "/resources/client/library/backbone",
             user        : "/resources/client/module/user"
@@ -26,7 +26,7 @@ requirejs.config(
             jquery      : {
                 exports : "$"
             },
-            dataTables  : {
+            datatables  : {
                 deps: [ "jquery" ]
             },
             underscore: {

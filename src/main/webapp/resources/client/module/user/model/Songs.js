@@ -12,7 +12,7 @@ define(
     ],
     function(
         Backbone
-        ) {
+    ) {
         User.Songs = Backbone.Collection.extend({
             model: User.Song,
             url: "/user/song/list",
@@ -24,12 +24,15 @@ define(
                 });
             },
 
-            success: function (Collection, Response) {
-                console.log(Collection.models.length);
+            success: function ( Collection, Response ) {
+                console.log(Collection.models[0].toJSON());
             },
 
             error: function (Collection, Response) {
                 console.log(Response);
+            },
+            getSongs: function() {
+                return this.models;
             }
         });
     }
