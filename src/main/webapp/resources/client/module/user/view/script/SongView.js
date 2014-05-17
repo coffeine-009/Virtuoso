@@ -7,11 +7,13 @@ var User = User || {};
 
 define(
     [
+        "tpl!/resources/client/module/user/view/templates/Song",
         "jquery",
         "underscore",
         "backbone"
     ],
     function(
+        SongTpl,
         $,
         _,
         Backbone
@@ -31,13 +33,13 @@ define(
                 "click #test": "checkr"
             },
 
-            initialize: function (Options) {
+            initialize: function () {
                 //- Init -//
-                this.template = _.template($("#song").html());
+//                this.template = _.template( SongTpl( {} ) );
             },
 
             render: function () {
-                $(this.el).html(this.template());
+                $(this.el).html( SongTpl( this.song ) );
 
                 return this;
             },

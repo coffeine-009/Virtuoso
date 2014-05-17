@@ -26,18 +26,6 @@
         <%--<script src = "http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js" type = "text/javascript"></script>--%>
         <!--<script src = "http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.0/backbone.localStorage-min.js" type = "text/javascript"></script>-->
 
-        <%--<script src = "<c:url value = "/resources/client/module/user/model/Song.js" />" type = "text/javascript"></script>--%>
-        <%--<script src = "<c:url value = "/resources/client/module/user/model/Songs.js" />" type = "text/javascript"></script>--%>
-        <%--<script src = "<c:url value = "/resources/client/module/user/view/script/SongView.js" />" type = "text/javascript"></script>--%>
-        <%--<script src = "<c:url value = "/resources/client/module/user/view/script/SongsView.js" />" type = "text/javascript"></script>--%>
-        <%--<script src = "<c:url value = "/resources/client/module/user/controller/SongController.js" />" type = "text/javascript"></script>--%>
-        <%--<script src = "<c:url value = "/resources/client/module/user/bootstrap.js" />" type = "text/javascript"></script>--%>
-
-        <script id="song" type="text/template">
-            Content:
-            <input id="test" type="button" value="ok" />
-        </script>
-
         <title>Virtuoso portal</title>
 
     </head>
@@ -55,9 +43,6 @@
                     <li>
                         <a href = "#user/songs">Songs</a>
                     </li>
-                    <li>
-                        <a href = "#user/song/">Song</a>
-                    </li>
                 </ul>
             </nav>
         </header>
@@ -68,9 +53,9 @@
                 Operations
                 <ul>
                     <li>Create</li>
-<!--                    <li>Load</li>
+                    <li>Load</li>
                     <li>Edit</li>
-                    <li>Delete</li>-->
+                    <li>Delete</li>
                 </ul>
             </nav>
 
@@ -80,7 +65,10 @@
 
         </div>
 
-        <footer>&copy; 2014 by Coffeine</footer>
+        <footer>
+            <div>&copy; 2014 by Coffeine</div>
+            <div>About</div>
+        </footer>
 
     </body>
 

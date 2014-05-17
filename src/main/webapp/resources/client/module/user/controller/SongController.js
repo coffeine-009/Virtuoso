@@ -15,9 +15,6 @@ define(
         ) {
         User.SongController = Backbone.Router.extend({
             /// *** Properties  *** ///
-            model   : null,
-            views   : null,
-            songList: null,
 
             routes: {
                 "user/songs"    : "songlistAction",
@@ -26,24 +23,21 @@ define(
 
             initialize: function() {
                 //- Init -//
-                this.songList = new User.Songs();
 
-                this.views = {
-                    "songs" : new User.SongsView(),
-                    "song"  : new User.SongView()
-                };
             },
 
             /**
              * Action list of songs
              */
             songlistAction: function () {
-                var self = this;
-                this.songList.fetch(
+                var songList = new User.Songs();
+                var view = new User.SongsView();
+
+                songList.fetch(
                     {
                         success: function() {
-                            self.views.songs.setSongs( self.songList.toJSON() );
-                            self.views.songs.render();
+                            view.setSongs( songList.toJSON() );
+                            view.render();
                         },
                         error: function() {
                             alert("Error");//TODO: call message system
@@ -68,7 +62,7 @@ define(
                 song.fetch(
                     {
                         success: function() {
-                            song.setSong( song.toJSON() );
+                            view.setSong( song.toJSON() );
                         },
                         error: function() {
                             //TODO: call msg system

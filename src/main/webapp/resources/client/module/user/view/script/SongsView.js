@@ -37,14 +37,18 @@ define(
                 this.songs = Models;
             },
 
-            initialize: function (Options) {
+            initialize: function () {
                 //- Init -//
                 //this.template = _.template( SongsTpl );
             },
 
             render: function () {
                 $(this.el).html( SongsTpl( { songs: this.songs } ) );
-                $("#songst").dataTable();
+                $("#songst").dataTable(
+//                    {
+//                        ajax    : "/user/song/list"
+//                    }
+                );
 
                 return this;
             },
