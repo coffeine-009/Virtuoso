@@ -15,40 +15,71 @@ define(
         ) {
         User.SongController = Backbone.Router.extend({
             /// *** Properties  *** ///
-            model: null,
-            views: null,
+            model   : null,
+            views   : null,
             songList: null,
 
             routes: {
-                "user/songs": "songlistAction",
-                "user/song/": "songAction"
+                "user/songs"    : "songlistAction",
+                "user/song/:id" : "songAction"
             },
 
-            initialize: function (Options) {
+            initialize: function() {
                 //- Init -//
-                //        this.model = new User.Song({id:1});
+                this.songList = new User.Songs();
 
-                if (this.views === null) {
-                    this.views = [
-                        new User.SongsView(),
-                        new User.SongView()
-                    ];
-                }
+                this.views = {
+                    "songs" : new User.SongsView(),
+                    "song"  : new User.SongView()
+                };
             },
 
             /**
              * Action list of songs
              */
             songlistAction: function () {
-                if (!this.songList) {
-                    this.songList = new User.Songs();
-                }
-                this.views[ 0 ].setSongs( this.songList.getSongs() );
-                this.views[ 0 ].render();
+                var self = this;
+                this.songList.fetch(
+                    {
+                        success: function() {
+                            self.views.songs.setSongs( self.songList.toJSON() );
+                            self.views.songs.render();
+                        },
+                        error: function() {
+                            alert("Error");//TODO: call message system
+                        }
+                    }
+                );
             },
 
-            songAction: function () {
-                this.views[ 1 ].render();
+            songAction: function ( /*int*/Id ) {
+                //- Create model -//
+                var song = new User.Song(
+                    {
+                        id  : Id
+                    }
+                );
+                //- Create view -//
+                var view = new User.SongView();
+
+                //TODO: Show msg wait
+
+                //- Synchronization with server -//
+                song.fetch(
+                    {
+                        success: function() {
+                            song.setSong( song.toJSON() );
+                        },
+                        error: function() {
+                            //TODO: call msg system
+                        }
+                    }
+                );
+
+                //- Render view -//
+                view.render();
+
+                //TODO: Hide msg wait
             }
         });
     }

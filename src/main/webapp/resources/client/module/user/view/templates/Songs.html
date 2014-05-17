@@ -3,13 +3,21 @@
         <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Composer</th>
+            <th>Poet</th>
+            <th>Time of create</th>
         </tr>
     </thead>
     <tbody>
     <% _.each( songs, function( song ){ %>
         <tr>
             <td><%- song.id  %></td>
-            <td>Rose</td>
+            <td>
+                <a href = "#user/song/<%- song.id %>"><%- song.locale  %></a>
+            </td>
+            <td><%- song.composer.id  %></td>
+            <td><%- song.poet.id  %></td>
+            <td><%- song.creation  %></td>
         </tr>
     <% }); %>
     </tbody>

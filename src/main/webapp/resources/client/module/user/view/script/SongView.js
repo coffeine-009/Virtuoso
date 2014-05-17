@@ -7,10 +7,12 @@ var User = User || {};
 
 define(
     [
+        "jquery",
         "underscore",
         "backbone"
     ],
     function(
+        $,
         _,
         Backbone
         ) {
@@ -18,6 +20,7 @@ define(
             /// *** Properties  *** ///
             //- Parrent DOM element -//
             el: "#main-content",
+            song: null,
 
             //- Template -//
             template: null,
@@ -30,17 +33,21 @@ define(
 
             initialize: function (Options) {
                 //- Init -//
-                //this.template = _.template($("#song").html());
+                this.template = _.template($("#song").html());
             },
 
             render: function () {
-                //$(this.el).html(this.template());
+                $(this.el).html(this.template());
 
                 return this;
             },
 
             checkr: function () {
                 alert('ok');
+            },
+
+            setSong: function( Song ) {
+                this.song = Song;
             }
         });
     }
