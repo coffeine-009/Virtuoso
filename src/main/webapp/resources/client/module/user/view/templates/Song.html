@@ -1,16 +1,35 @@
-<div id = "song" class = "">
-    <div id = "header">
-        <div id = "title"><%- title %></div>
-        <div id = "authors">
-            <div id = "composer"><%- composer.firstName %></div>
-            <div id = "poet"><%- poet.firstName %></div>
+<div id = "song" class = "song">
+    <div id = "header" class = "header">
+        <div id = "title" class = "title"><%- title %></div>
+        <div id = "authors" class = "authors">
+            <div id = "composer" class = "author"><%- composer.user.firstName %></div>
+            <div id = "poet" class = "author"><%- poet.user.firstName %></div>
         </div>
     </div>
-    <div id = "content">
-        <div id = "notes">
-            <div id = "tonalnist">Dm</div>
-            <div id = "editor">Tab</div>
+    <div id = "content" class = "song-content">
+        <div id = "notes" class = "notes">
+            <div id = "tonalnist" class = "tonalnist">
+                <roller>
+                    <item value = "C">C</item>
+                    <item value = "Cm">Cm</item>
+                    <item value = "D">D</item>
+                    <item value = "Dm">Dm</item>
+                    <item value = "D">E</item>
+                    <item value = "Dm" class = "active">Em</item>
+                    <item value = "D">F</item>
+                    <item value = "Dm">Fm</item>
+                    <item value = "D">G</item>
+                    <item value = "Dm">Gm</item>
+                    <item value = "D">B</item>
+                    <item value = "Dm">Bm</item>
+                </roller>
+            </div>
+            <div id = "editor">
+                <canvas id = "editor-notes" width = "320" height = "240"></canvas>
+            </div>
         </div>
-        <div id = "text"><%- text -></div>
+        <div id = "text">
+            <%- text %>
+        </div>
     </div>
 </div>

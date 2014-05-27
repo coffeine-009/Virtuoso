@@ -18,20 +18,12 @@ package com.coffeine.virtuoso.module.user.model.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -64,6 +56,15 @@ public class Song implements Serializable {
     @JoinColumn( name = "id_poet", columnDefinition = "BIGINT( 20 )" )
     protected Poet poet;
 
+    @JsonProperty( "title" )
+    @Transient
+    protected String title;
+
+    @JsonProperty( "text" )
+    @Transient
+    protected String text;
+
+    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
@@ -142,6 +143,14 @@ public class Song implements Serializable {
     }
 
     /**
+     * Get title of song
+     *
+     * @return String
+     */
+    public String getTitle() {
+        return title;
+    }
+    /**
      * Get data for locale
      *
      * @return List<SongLocale>
@@ -159,6 +168,14 @@ public class Song implements Serializable {
         return notes;
     }
 
+    /**
+     * Get text of song
+     *
+     * @return String
+     */
+    public String getText() {
+        return text;
+    }
     /**
      * Get text
      *
@@ -240,6 +257,9 @@ public class Song implements Serializable {
      */
     public void setData( List < SongLocale > data ) {
         this.data = data;
+
+        //- Initialization json property -//
+        this.title = data.get( 0 ).getTitle();
     }
 
     /**

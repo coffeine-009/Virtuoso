@@ -63,15 +63,15 @@ define(
                     {
                         success: function() {
                             view.setSong( song.toJSON() );
+
+                            //- Render view -//
+                            view.render();
                         },
                         error: function() {
                             //TODO: call msg system
                         }
                     }
                 );
-
-                //- Render view -//
-                view.render();
 
                 //TODO: Hide msg wait
             }

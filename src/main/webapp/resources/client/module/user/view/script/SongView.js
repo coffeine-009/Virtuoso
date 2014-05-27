@@ -39,7 +39,7 @@ define(
             },
 
             render: function () {
-                $(this.el).html( SongTpl( this.song ) );
+                $( this.el ).html( SongTpl( this.song ) );
 
                 return this;
             },

@@ -19,6 +19,23 @@ body
     font-size	: small;
 }
 
+/* Table */
+table
+{
+
+}
+
+    table tr
+    {
+        background: linear-gradient( to top, #eee, #fff, #eee );
+    }
+        table tr td
+        {
+            border: solid 0px #000;
+            padding: 5px;
+        }
+
+/* Custom */
 header
 {
     background: #0f0;
@@ -96,6 +113,7 @@ nav.menu-left>ul
 .content
 {
     background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
+    font-size: medium;
     margin-left: 165px;
     margin-bottom: 5px;
     padding: 5px;
@@ -108,3 +126,71 @@ footer
     clear: both;
     line-height: 2em;
 }
+
+/* Song */
+.song
+{
+
+}
+
+    .song>.header
+    {
+
+    }
+
+        .song>.header>.title
+        {
+            font-weight: bold;
+            font-size: 18pt;
+            text-align: center;
+        }
+
+        .song>.header>.authors
+        {
+            text-align: center;
+        }
+            .song>.header>.authors>.author
+            {
+                display:inline-block;
+                font-style: italic;
+                padding: 0 5px;
+            }
+
+    .song>.song-content
+    {
+
+    }
+        .song>.song-content>.notes
+        {
+
+        }
+            .song>.song-content>.notes>.tonalnist
+            {
+                margin-top: 10px;
+            }
+                .song>.song-content>.notes>.tonalnist>roller
+                {
+                    background: linear-gradient( to right, #eee, #fff, #eee );
+                    border-top: 1px solid #fff;
+                    border-bottom: 1px solid #fff;
+                    box-sizing: border-box;
+                    display:block;
+                    text-align: center;
+                }
+                    .song>.song-content>.notes>.tonalnist>roller>item
+                    {
+                        display:inline-block;
+                        min-width: 50px;
+                        text-align: center;
+                    }
+                    .song>.song-content>.notes>.tonalnist>roller>item:hover
+                    {
+                        background: linear-gradient( to top, #ccc, #eee, #ccc );
+                    }
+                    .song>.song-content>.notes>.tonalnist>roller>item.active
+                    {
+                        background: #eee;
+                        background: linear-gradient( to top, #eee, #fff, #eee );
+                        border-left: 1px solid #ccc;
+                        border-right: 1px solid #ccc;
+                    }

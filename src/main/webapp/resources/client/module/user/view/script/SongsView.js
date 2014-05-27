@@ -10,8 +10,7 @@ define(
         "tpl!/resources/client/module/user/view/templates/Songs",
         "underscore",
         "backbone",
-        "jquery",
-        "datatables"
+        "jquery"
     ],
     function(
         SongsTpl,
@@ -44,11 +43,11 @@ define(
 
             render: function () {
                 $(this.el).html( SongsTpl( { songs: this.songs } ) );
-                $("#songst").dataTable(
-//                    {
-//                        ajax    : "/user/song/list"
-//                    }
-                );
+//                $("#songst").dataTable(
+////                    {
+////                        ajax    : "/user/song/list"
+////                    }
+//                );
 
                 return this;
             },

@@ -60,7 +60,7 @@ public class Poet implements Serializable {
     @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
     protected Long id;
 
-    @JsonIgnore
+    @NotNull
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )

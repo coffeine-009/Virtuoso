@@ -14,7 +14,7 @@
         <meta name="author" content="">
 
         <!-- Plugins -->
-        <link rel="stylesheet" href = "//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+        <%--<link rel="stylesheet" href = "//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">--%>
 
         <link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/main.css" />">
 
