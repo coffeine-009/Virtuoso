@@ -19,6 +19,10 @@
         <link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/main.css" />">
 
         <script type = "text/javascript" data-main = "/resources/client/module/user/bootstrap.js" src = "/resources/client/library/require.js"></script>
+        <script type = "text/javascript" src = "/resources/client/library/Coffeine/NotesEditor/bootstrap.js"></script>
+        <script type = "text/javascript" src = "/resources/client/library/Coffeine/NotesEditor/view/ViewerView.js"></script>
+        <script type = "text/javascript" src = "/resources/client/library/Coffeine/NotesEditor/view/helper/StaffHelper.js"></script>
+        <script type = "text/javascript" src = "/resources/client/library/Coffeine/NotesEditor/controller/ViewerController.js"></script>
         <!-- Libraries -->
         <%--<script src = "//code.jquery.com/jquery-1.10.2.min.js" type = "text/javascript"></script>--%>
         <%--<script type = "text/javascript" src = "//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>--%>

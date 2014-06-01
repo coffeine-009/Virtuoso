@@ -41,6 +41,12 @@ define(
             render: function () {
                 $( this.el ).html( SongTpl( this.song ) );
 
+//                var notesEditor = new NotesEditor(
+//                    "editor-notes",
+//                    800,
+//                    200
+//                );
+
                 return this;
             },
 
