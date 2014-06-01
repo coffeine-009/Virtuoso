@@ -49,7 +49,7 @@ define(
                 renderer = new Vex.Flow.Renderer($('#editor-notes')[0],
                     Vex.Flow.Renderer.Backends.CANVAS);
 
-                artist = new Vex.Flow.Artist(10, 10, 600, {scale: 0.8});
+                artist = new Vex.Flow.Artist(10, 10, 800, {scale: 1.0});
                 vextab = new Vex.Flow.VexTab(artist);
 
                 function render() {
@@ -58,14 +58,11 @@ define(
                         artist.reset();
                         vextab.parse($("#blah").val());
                         artist.render(renderer);
-                        $("#error").text("");
                     } catch (e) {
                         console.log(e);
-                        $("#error").html(e.message.replace(/[\n]/g, '<br/>'));
                     }
                 }
 
-                $("#blah").keyup(_.throttle(render, 250));
                 render();
 
 //                var notesEditor = new NotesEditor(

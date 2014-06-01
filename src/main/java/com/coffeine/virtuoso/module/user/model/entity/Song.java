@@ -64,11 +64,11 @@ public class Song implements Serializable {
     @Transient
     protected String text;
 
-    @JsonIgnore
+//    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection( LazyCollectionOption.FALSE )
     protected List < SongLocale > data;
 
     @JsonIgnore
@@ -257,9 +257,6 @@ public class Song implements Serializable {
      */
     public void setData( List < SongLocale > data ) {
         this.data = data;
-
-        //- Initialization json property -//
-        this.title = data.get( 0 ).getTitle();
     }
 
     /**
@@ -305,5 +302,12 @@ public class Song implements Serializable {
      */
     public void setWriteDate( Calendar writeDate ) {
         this.writeDate = writeDate;
+    }
+
+
+    @PostLoad
+    public void reinit() {
+        this.title = this.data.get(0).getTitle();
+        this.text = this.texts.get(0).getCreation().toString();
     }
 }
