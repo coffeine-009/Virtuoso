@@ -68,6 +68,12 @@ define(
                 $("#blah").keyup(_.throttle(render, 250));
                 render();
 
+//                var notesEditor = new NotesEditor(
+//                    "editor-notes",
+//                    800,
+//                    200
+//                );
+
                 return this;
             },
 

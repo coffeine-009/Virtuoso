@@ -194,3 +194,13 @@ footer
                         border-left: 1px solid #ccc;
                         border-right: 1px solid #ccc;
                     }
+
+            .song>.song-content>.notes>.editor
+            {
+                text-align: center;
+            }
+            .song>.song-content>.notes>.editor>canvas
+            {
+                border: solid 1px #000;
+                margin: 10px;
+            }
