@@ -10,7 +10,9 @@ define(
         "tpl!/resources/client/module/user/view/templates/Song",
         "jquery",
         "underscore",
-        "backbone"
+        "backbone",
+        "vextab",
+        "vextabdiv"
     ],
     function(
         SongTpl,
@@ -40,6 +42,31 @@ define(
 
             render: function () {
                 $( this.el ).html( SongTpl( this.song ) );
+
+//                Vex.Flow.Artist.DEBUG = true;
+//                Vex.Flow.VexTab.DEBUG = true;
+
+                renderer = new Vex.Flow.Renderer($('#editor-notes')[0],
+                    Vex.Flow.Renderer.Backends.CANVAS);
+
+                artist = new Vex.Flow.Artist(10, 10, 600, {scale: 0.8});
+                vextab = new Vex.Flow.VexTab(artist);
+
+                function render() {
+                    try {
+                        vextab.reset();
+                        artist.reset();
+                        vextab.parse($("#blah").val());
+                        artist.render(renderer);
+                        $("#error").text("");
+                    } catch (e) {
+                        console.log(e);
+                        $("#error").html(e.message.replace(/[\n]/g, '<br/>'));
+                    }
+                }
+
+                $("#blah").keyup(_.throttle(render, 250));
+                render();
 
                 return this;
             },
