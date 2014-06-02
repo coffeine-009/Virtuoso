@@ -127,17 +127,21 @@ footer
     line-height: 2em;
 }
 
-/* Song */
+
+/**
+ * Song
+ * Styles for song UI
+ */
 .song
 {
 
 }
-
+    /* Header */
     .song>.header
     {
 
     }
-
+        /* Title */
         .song>.header>.title
         {
             font-weight: bold;
@@ -145,62 +149,126 @@ footer
             text-align: center;
         }
 
-        .song>.header>.authors
-        {
-            text-align: center;
-        }
-            .song>.header>.authors>.author
-            {
-                display:inline-block;
-                font-style: italic;
-                padding: 0 5px;
-            }
-
     .song>.song-content
     {
 
     }
-        .song>.song-content>.notes
+        /* Authors of song */
+        .song .authors
         {
-
+            margin-bottom: 10px;
         }
-            .song>.song-content>.notes>.tonalnist
+
+        /* Author. Ex. Poet, Composer */
+        .song .authors>.author
+        {
+            display:inline-block;
+            font-style: italic;
+            padding: 0 5px;
+        }
+
+        /* Staff */
+        .song>.song-content>.staff
+        {
+            /*display: inline-block;*/
+            /*max-width: 850px;*/
+        }
+
+            .song>.song-content ul
             {
-                margin-top: 10px;
+                display: inline-block;
+                list-style: none;
+                /*margin: 0 15px;*/
+                padding: 0;
             }
-                .song>.song-content>.notes>.tonalnist>roller
+
+                .song>.song-content ul>li
                 {
-                    background: linear-gradient( to right, #eee, #fff, #eee );
-                    border-top: 1px solid #fff;
-                    border-bottom: 1px solid #fff;
-                    box-sizing: border-box;
-                    display:block;
-                    text-align: center;
+
                 }
-                    .song>.song-content>.notes>.tonalnist>roller>item
+                    /*  */
+                    .song>.song-content .staff .transpose
                     {
-                        display:inline-block;
-                        min-width: 50px;
+                        /*margin-top: 10px;*/
+                    }
+                        .song>.song-content .staff .transpose>roller
+                        {
+                            background: linear-gradient( to right, #eee, #fff, #eee );
+                            border-top: 1px solid #fff;
+                            border-bottom: 1px solid #fff;
+                            box-sizing: border-box;
+                            display:block;
+                            text-align: center;
+                        }
+                            .song>.song-content .staff .transpose>roller>item
+                            {
+                                display:inline-block;
+                                min-width: 50px;
+                                text-align: center;
+                            }
+                            .song>.song-content .staff .transpose>roller>item:hover
+                            {
+                                background: linear-gradient( to top, #ccc, #eee, #ccc );
+                            }
+                            .song>.song-content .staff .transpose>roller>item.active
+                            {
+                                background: #eee;
+                                background: linear-gradient( to top, #eee, #fff, #eee );
+                                border-left: 1px solid #ccc;
+                                border-right: 1px solid #ccc;
+                            }
+
+                    /* Viewer */
+                    .song>.song-content .staff .viewer
+                    {
                         text-align: center;
                     }
-                    .song>.song-content>.notes>.tonalnist>roller>item:hover
+                    .song>.song-content .staff .viewer>canvas
                     {
-                        background: linear-gradient( to top, #ccc, #eee, #ccc );
-                    }
-                    .song>.song-content>.notes>.tonalnist>roller>item.active
-                    {
-                        background: #eee;
-                        background: linear-gradient( to top, #eee, #fff, #eee );
-                        border-left: 1px solid #ccc;
-                        border-right: 1px solid #ccc;
+                        border: solid 1px #000;
+                        margin: 10px;
                     }
 
-            .song .song-content .notes .editor
-            {
-                text-align: center;
-            }
-            .song .song-content .notes .editor canvas
-            {
-                border: solid 1px #000;
-                margin: 10px;
-            }
+    .song>.song-content>.text
+    {
+        /*max-width: 500px;*/
+        overflow-x: hidden;
+        vertical-align: top;
+    }
+
+        .song>.song-content>.text .viewer
+        {
+            padding: 0 10px 0 40px;
+        }
+
+    .song>.song-content>.item
+    {
+        /*display: inline-block;*/
+        border: dotted 1px #000;
+        margin-top: 10px;
+        max-width: 894px;
+    }
+
+    .song>.song-content>.item>.item-swipe
+    {
+        background: #000;
+        border: 1px solid #000;
+        color:#fff;
+        line-height: 400px;
+        opacity: 0.5;
+        text-align: center;
+        vertical-align: top;
+        width: 30px;
+    }
+
+    .song>.song-content>.item>.item-swipe-left
+    {
+        /*float:left;*/
+        display: inline-block;
+    }
+
+    .song>.song-content>.item>.item-swipe-right
+    {
+        /*float:right;*/
+        display: inline-block;
+    }

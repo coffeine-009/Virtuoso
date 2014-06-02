@@ -19,13 +19,15 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -36,6 +38,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( name = "song" )
+//@FilterDef(
+//    name = "locale",
+//    parameters = {
+//        @ParamDef( name = "locale", type = "String" )
+//    }
+//)
 public class Song implements Serializable {
 
     /// *** Properties  *** ///
@@ -60,25 +68,20 @@ public class Song implements Serializable {
     @Transient
     protected String title;
 
-    @JsonProperty( "text" )
-    @Transient
-    protected String text;
-
 //    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @LazyCollection( LazyCollectionOption.FALSE )
+    //@FilterJoinTable( name = "locale", condition = "locale = :locale" )
     protected List < SongLocale > data;
 
-    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongNotes > notes;
 
-    @JsonIgnore
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
@@ -168,14 +171,6 @@ public class Song implements Serializable {
         return notes;
     }
 
-    /**
-     * Get text of song
-     *
-     * @return String
-     */
-    public String getText() {
-        return text;
-    }
     /**
      * Get text
      *
@@ -308,6 +303,5 @@ public class Song implements Serializable {
     @PostLoad
     public void reinit() {
         this.title = this.data.get(0).getTitle();
-        this.text = this.texts.get(0).getCreation().toString();
     }
 }

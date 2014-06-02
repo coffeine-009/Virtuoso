@@ -78,7 +78,7 @@
         </footer>
 
         <textarea id="blah" style="display:none;">tabstave notation=true
-            notes 4-5-6/3 10/4</textarea>
+            notes 4-5-6/3 10/4 4-5-6/3 10/4 4-5-6/3 10/4 4-5-6/3 10/4 4-5-6/3</textarea>
     </body>
 
 </html>
