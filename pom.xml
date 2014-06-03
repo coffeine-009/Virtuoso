@@ -76,6 +76,10 @@
 
 		<!-- querydsl -->
 		<querydsl.version>2.9.0</querydsl.version>
+
+        <!-- Tests -->
+        <httpcore.version>4.3.2</httpcore.version>
+        <httpclient.version>4.3.3</httpclient.version>
     </properties>
 
     <dependencies>
@@ -250,6 +254,20 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- Tests -->
+        <!-- http client -->
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
         </dependency>
 
     </dependencies>

@@ -49,7 +49,7 @@ define(
                 renderer = new Vex.Flow.Renderer($('#editor-notes')[0],
                     Vex.Flow.Renderer.Backends.CANVAS);
 
-                artist = new Vex.Flow.Artist(10, 10, 800, {scale: 1.0});
+                artist = new Vex.Flow.Artist(10, 10, $('body').innerWidth() - 255, {scale: 1.0});
                 vextab = new Vex.Flow.VexTab(artist);
 
                 function render() {

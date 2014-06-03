@@ -38,6 +38,7 @@
         </div>
 
         <div id = "text" class = "text item">
+            <div class = "item-swipe item-swipe-left">L</div>
             <ul>
                 <% _.each( texts, function( text ) { %>
                 <li>
@@ -50,12 +51,24 @@
                 </li>
                 <% } ); %>
             </ul>
+            <div class = "item-swipe item-swipe-right">R</div>
         </div>
 
-        <div id = "video" class = "video">
+        <div id = "video" class = "video item">
+            <div class = "item-swipe item-swipe-left">L</div>
             <ul>
-                <li>Video</li>
+                <% _.each( texts, function( text ) { %>
+                <li>
+                    <div class = "authors">
+                        <div class = "author"><%- poet.user.firstName %></div>
+                    </div>
+                    <div class = "viewer">
+                        <%- text.id %>
+                    </div>
+                </li>
+                <% } ); %>
             </ul>
+            <div class = "item-swipe item-swipe-right">R</div>
         </div>
 
     </div>

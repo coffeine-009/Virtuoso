@@ -22,12 +22,7 @@ import javax.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * SongController
@@ -44,28 +39,48 @@ public class SongController {
     /**
      * GET list of songs
      *
-     * @param model
      * @return List<Song>
      */
     @RequestMapping( value = "/list", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public List < Song > listAction( Model model ) {
+    public List < Song > listAction() {
         //- Get list of song from persistence layout -//
         List < Song > songList = songService.getList();
 
         return songList;
     }
 
-    @RequestMapping( value = "/create", method = RequestMethod.POST )
+    /**
+     * Create new song
+     *
+     * @param song
+     * @return Song
+     */
+    @RequestMapping(
+        value = "/",
+        method = RequestMethod.POST,
+        produces = {
+            "application/json"
+        }
+    )
     @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
-    public Song createAction( Model model ) {
+    public Song createAction(
+        @RequestBody
+        Song song
+    ) {
         Song newSong = new Song();
-        
+        //TODO: to implement
         return newSong;
     }
 
+    /**
+     * Get data about song by ID
+     *
+     * @param Id
+     * @return Song
+     */
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
@@ -76,5 +91,36 @@ public class SongController {
         Song song = songService.getSong( Id );
         
         return song;
+    }
+
+    /**
+     * Update song by ID
+     *
+     * @param Id
+     * @return Song
+     */
+    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
+    @ResponseStatus( value = HttpStatus.OK )
+    @ResponseBody
+    public Song updateAction(
+        @PathVariable( value = "id" )
+        Long Id
+    ) {
+        //TODO: to implement
+        return null;
+    }
+
+    /**
+     * Delete song by ID
+     *
+     * @param Id
+     */
+    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
+    @ResponseStatus( value = HttpStatus.OK )
+    public void deleteAction(
+        @PathVariable( value = "id" )
+        Long Id
+    ) {
+        //TODO: to implement
     }
 }

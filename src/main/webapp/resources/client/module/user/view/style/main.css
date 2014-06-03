@@ -1,11 +1,9 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : May 8, 2014, 9:16:03 PM
-    Author     : vitaliy
+/**
+ * @copyright 2014 (c), By Vitaliy Tsutsman
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 2014-05-08 21:16:03 :: 2014-..-..
 */
 html, body
 {
@@ -53,7 +51,6 @@ header>.logo
 header>nav
 {
     font-weight: bold;
-    /*display: block;*/
 }
 
 header>nav>ul
@@ -61,18 +58,12 @@ header>nav>ul
     margin: 0;
     list-style: none;
     padding: 0;
-    /*min-height: 40px;*/
 }
 
 header>nav>ul>li
 {
-    /*border-left: #fff solid 1px;*/ 
-    /*border-right: #fff solid 1px;*/ 
-    /*min-height: 40px;*/
-    /*min-width: 60px;*/
     display: inline-block;
     padding: 0 5px;
-    /*margin: 0 0 0 5px;*/
     line-height: 3em;
     text-align: center;
     position: relative;
@@ -85,8 +76,7 @@ header>nav>ul>li
 
     header>nav>ul>li>a
     {
-        /*min-height: 40px;*/
-        /*padding: 15px 0;*/
+
     }
 
 /* Main */
@@ -151,12 +141,13 @@ footer
 
     .song>.song-content
     {
-
+        background: #000;
     }
         /* Authors of song */
         .song .authors
         {
-            margin-bottom: 10px;
+            border-bottom: solid 1px #bbb;
+            margin: 10px 0 0 0;
         }
 
         /* Author. Ex. Poet, Composer */
@@ -170,16 +161,16 @@ footer
         /* Staff */
         .song>.song-content>.staff
         {
-            /*display: inline-block;*/
-            /*max-width: 850px;*/
+
         }
 
             .song>.song-content ul
             {
-                display: inline-block;
+                display: block;
                 list-style: none;
-                /*margin: 0 15px;*/
+                margin: 0;
                 padding: 0;
+                width: 100%;
             }
 
                 .song>.song-content ul>li
@@ -189,11 +180,11 @@ footer
                     /*  */
                     .song>.song-content .staff .transpose
                     {
-                        /*margin-top: 10px;*/
+
                     }
                         .song>.song-content .staff .transpose>roller
                         {
-                            background: linear-gradient( to right, #eee, #fff, #eee );
+                            background: linear-gradient( to right, #ccc, #fff, #ccc );
                             border-top: 1px solid #fff;
                             border-bottom: 1px solid #fff;
                             box-sizing: border-box;
@@ -231,7 +222,6 @@ footer
 
     .song>.song-content>.text
     {
-        /*max-width: 500px;*/
         overflow-x: hidden;
         vertical-align: top;
     }
@@ -243,32 +233,31 @@ footer
 
     .song>.song-content>.item
     {
-        /*display: inline-block;*/
-        border: dotted 1px #000;
-        margin-top: 10px;
-        max-width: 894px;
+        background  : linear-gradient( to right, #ccc, #fff, #ccc );
+        display     : flex;
+        margin-top  : 2px;
     }
 
-    .song>.song-content>.item>.item-swipe
-    {
-        background: #000;
-        border: 1px solid #000;
-        color:#fff;
-        line-height: 400px;
-        opacity: 0.5;
-        text-align: center;
-        vertical-align: top;
-        width: 30px;
-    }
+        .song>.song-content>.item>.item-swipe
+        {
+            align-items     : center;
+            background      : #000;
+            color           : #fff;
+            display         : flex;
+            justify-content : center;
+            opacity         : 0.5;
+            text-align      : center;
+            vertical-align  : top;
+            width           : 30px;
+            align-items     : center;
+        }
 
-    .song>.song-content>.item>.item-swipe-left
-    {
-        /*float:left;*/
-        display: inline-block;
-    }
+        .song>.song-content>.item>.item-swipe-left
+        {
+            background:  linear-gradient(to left, #000, #333, #ccc);
+        }
 
-    .song>.song-content>.item>.item-swipe-right
-    {
-        /*float:right;*/
-        display: inline-block;
-    }
+        .song>.song-content>.item>.item-swipe-right
+        {
+            background:  linear-gradient(to right, #000, #333, #ccc);
+        }
