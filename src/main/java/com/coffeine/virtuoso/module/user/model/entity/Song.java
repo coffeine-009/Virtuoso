@@ -80,7 +80,7 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @LazyCollection(LazyCollectionOption.FALSE)
-    protected List < SongNotes > notes;
+    protected List <SongStaff> notes;
 
     @NotNull
     @NotEmpty
@@ -165,9 +165,9 @@ public class Song implements Serializable {
     /**
      * Get musical notes
      *
-     * @return List<SongNotes>
+     * @return List<SongStaff>
      */
-    public List < SongNotes > getNotes() {
+    public List <SongStaff> getNotes() {
         return notes;
     }
 
@@ -259,7 +259,7 @@ public class Song implements Serializable {
      *
      * @param notes
      */
-    public void setNotes( List < SongNotes > notes ) {
+    public void setNotes( List <SongStaff> notes ) {
         this.notes = notes;
     }
 

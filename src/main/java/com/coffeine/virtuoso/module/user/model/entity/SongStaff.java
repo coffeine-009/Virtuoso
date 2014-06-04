@@ -40,7 +40,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( name = "song_notes" )
-public class SongNotes implements Serializable {
+public class SongStaff implements Serializable {
 
     /// *** Properties  *** ///
     @Id
@@ -84,7 +84,7 @@ public class SongNotes implements Serializable {
     /**
      * Default constructor
      */
-    public SongNotes() {
+    public SongStaff() {
 
     }
 
@@ -93,8 +93,8 @@ public class SongNotes implements Serializable {
      *
      * @param locale
      */
-    public SongNotes(
-        String locale
+    public SongStaff(
+            String locale
     ) {
         //- Initialization -//
         this.locale = locale;

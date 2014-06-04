@@ -18,7 +18,11 @@ package com.coffeine.virtuoso.module.user.controller;
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +34,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping( value = "/user/song" )
 public class SongController {
+
+    @Autowired
+    MessageSource messageSource;
 
     @Resource
     private SongService songService;
@@ -68,11 +75,16 @@ public class SongController {
     @ResponseBody
     public Song createAction(
         @RequestBody
-        Song song
+        Song song,
+
+        Locale locale
     ) {
         Song newSong = new Song();
+            newSong.setLocale(
+                messageSource.getMessage("test", null, locale).substring(0, 4)
+            );
         //TODO: to implement
-        return newSong;
+        return song;
     }
 
     /**
@@ -122,5 +134,16 @@ public class SongController {
         Long Id
     ) {
         //TODO: to implement
+    }
+
+
+    //- SECTION :: SET -//
+    /**
+     * Setter for IoC(DI)
+     *
+     * @param messageSource
+     */
+    private void setMessageSource( MessageSource messageSource ) {
+        this.messageSource = messageSource;
     }
 }

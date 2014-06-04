@@ -15,7 +15,7 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.repository;
 
-import com.coffeine.virtuoso.module.user.model.entity.SongNotes;
+import com.coffeine.virtuoso.module.user.model.entity.SongStaff;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -23,7 +23,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface NotesRepository extends JpaRepository < SongNotes, Long > {
+public interface StaffRepository extends JpaRepository <SongStaff, Long > {
 
     /// *** Methods     *** ///
 }
