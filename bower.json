@@ -1,0 +1,27 @@
+{
+  "name": "Virtuoso",
+  "version": "0.0.0",
+  "homepage": "https://github.com/coffeine-009/Virtuoso",
+  "description": "Social network for musicians-virtuoso",
+  "main": "src/main/webapp/resources/client/module/user/bootstrap.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "Guitar",
+    "musician"
+  ],
+  "authors": [
+    "Vitaliy Tsutsman"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/main/webapp/resources/client/library",
+    "test",
+    "tests"
+  ]
+}
