@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -111,6 +112,7 @@ public class SongController {
      * @param Id
      * @return Song
      */
+    @Secured( "MUSICIAN" )
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
@@ -127,6 +129,7 @@ public class SongController {
      *
      * @param Id
      */
+    @Secured( "ADMIN" )
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseStatus( value = HttpStatus.OK )
     public void deleteAction(

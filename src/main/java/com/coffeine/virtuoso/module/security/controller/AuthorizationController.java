@@ -13,7 +13,7 @@
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.controller;
+package com.coffeine.virtuoso.module.security.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.entity.User;
@@ -28,10 +28,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
- * @author vitaliy
+ * @version 1.0
  */
 @Controller
-@RequestMapping( value = "/user" )
+@RequestMapping( value = "/security" )
 public class AuthorizationController {
 
     //- SECTION :: ACTIONS -//
@@ -58,7 +58,7 @@ public class AuthorizationController {
      * @param model
      * @return User
      */
-    @RequestMapping( value = "/authorization", method = RequestMethod.POST )
+    @RequestMapping( value = "/signin", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public User authorizationAction( 

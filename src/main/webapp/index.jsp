@@ -31,7 +31,7 @@
         <%--<script src = "/resources/client/library/tabdiv-min.js" type = "text/javascript"></script>--%>
         <%--<script src = "/resources/client/library/vexflow-min.js" type = "text/javascript"></script>--%>
 
-        <script type = "text/javascript" data-main = "/resources/client/module/user/bootstrap.js" src = "/resources/client/library/require.js"></script>
+        <script type = "text/javascript" data-main = "/resources/client/module/bootstrap.js" src = "/resources/client/library/require.js"></script>
 
         <title>Virtuoso portal</title>
 
@@ -52,12 +52,14 @@
                     </li>
                 </ul>
             </nav>
+            <div class = "security">
+                <a href = "#security/signin">Sign In</a>
+            </div>
         </header>
 
         <div class = "main">
 
             <nav class = "menu-left">
-                Operations
                 <ul>
                     <li>Create</li>
                     <li>Load</li>

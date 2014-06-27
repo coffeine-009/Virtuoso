@@ -45,12 +45,14 @@ header
 header>.logo
 {
     float: left;
+    display: inline-block;
     width: 140px;
 }
 
 header>nav
 {
     font-weight: bold;
+    display: inline-block;
 }
 
 header>nav>ul
@@ -79,6 +81,12 @@ header>nav>ul>li
 
     }
 
+header>.security
+{
+    float: right;
+    display: inline-block;
+}
+
 /* Main */
 .main
 {
@@ -87,24 +95,30 @@ header>nav>ul>li
 
 nav.menu-left
 {
-    background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
-    margin-bottom: 5px;
-    float : left;
-    width: 150px;
-    padding: 5px;
+    background      : #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
+    margin-bottom   : 5px;
+    float           : left;
+    list-style      : none;
+    width           : 50px;
+    padding         : 5px;
 }
 
-nav.menu-left>ul
-{
-    margin:0;
-    /*padding: 0;*/
-}
+    nav.menu-left>ul
+    {
+        margin:0;
+        padding-left: 15px;
+    }
+
+        nav.menu-left>ul>li
+        {
+
+        }
 
 .content
 {
     background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
     font-size: medium;
-    margin-left: 165px;
+    margin-left: 65px;
     margin-bottom: 5px;
     padding: 5px;
 }
