@@ -61,7 +61,7 @@
 
             <nav class = "menu-left">
                 <ul>
-                    <li>Create</li>
+                    <li><a href = "#user/song/create"">Create</a></li>
                     <li>Load</li>
                     <li>Edit</li>
                     <li>Delete</li>

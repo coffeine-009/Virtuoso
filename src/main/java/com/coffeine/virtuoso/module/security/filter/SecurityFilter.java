@@ -15,11 +15,15 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.filter;
 
-import org.springframework.security.core.AuthenticationException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -34,7 +38,7 @@ public class SecurityFilter extends UsernamePasswordAuthenticationFilter {
     /**
      * JSON mapper
      */
-//    ObjectMapper mapper;
+    ObjectMapper mapper;
 
 
     /// *** Methods     *** ///
@@ -47,7 +51,7 @@ public class SecurityFilter extends UsernamePasswordAuthenticationFilter {
     SecurityFilter() {
         super();
         //- Initialization -//
-//        this.mapper = new ObjectMapper();
+        this.mapper = new ObjectMapper();
     }
 
 
@@ -57,65 +61,49 @@ public class SecurityFilter extends UsernamePasswordAuthenticationFilter {
      *
      * @param request
      * @param response
-     * @return boolean
+     * @return Authentications
      */
     @Override
-    protected boolean requiresAuthentication(
+    public Authentication attemptAuthentication(
         HttpServletRequest request,
         HttpServletResponse response
     ) {
         //- Params -//
-        String username = request.getParameter( USERNAME );
-        String password = request.getParameter( PASSWORD );
+        String username = "";
+        String password = "";
 
-        if ( username == null || password == null ) {
-            return true;
-        }
-
+        StringBuilder data = new StringBuilder();
         try {
-            successfulAuthentication(
-                request,
-                response,
-                this.attemptAuthentication(
-                    request,
-                    response
-                )
-            );
-        }
-        catch ( AuthenticationException failed ) {
-            try {
-                unsuccessfulAuthentication( request, response, failed );
-            } catch ( Exception e ) {
-
+            //- Read request body -//
+            BufferedReader br = request.getReader();
+            String line;
+            while ( ( line = br.readLine() ) != null ) {
+                data.append( line );
             }
-            return false;
+
+            //- Create map of params -//
+            Map < String, Object > params = this.mapper.readValue(
+                    data.toString(),
+                    Map.class
+            );
+
+            //- Set params from request -//
+            username = params.get( USERNAME ).toString();
+            password = params.get( PASSWORD ).toString();
         }
         catch ( Exception e ) {
-            return false;
+            //- Bad request or something else -//
+            //TODO: add logging
         }
 
-        return false;
-    }
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
+            username,
+            password
+        );
 
+        // Allow subclasses to set the "details" property
+        setDetails( request, authRequest );
 
-    //- SECTION :: HELPER -//
-    /**
-     * Get username from request
-     *
-     * @param request
-     * @return String
-     */
-    protected String obtainUsername( HttpServletRequest request ) {
-        return request.getParameter( USERNAME );
-    }
-
-    /**
-     * Get password from request
-     *
-     * @param request
-     * @return String
-     */
-    protected String obtainPassword( HttpServletRequest request ) {
-        return request.getParameter( PASSWORD );
+        return this.getAuthenticationManager().authenticate( authRequest );
     }
 }

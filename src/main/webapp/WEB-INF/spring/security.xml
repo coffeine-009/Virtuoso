@@ -19,7 +19,7 @@
         entry-point-ref = "securityEntryPoint"
         use-expressions = "true"
     >
-        <!--<security:custom-filter ref = "securityFilter" before = "PRE_AUTH_FILTER" />-->
+        <security:custom-filter ref = "securityFilter" before = "FORM_LOGIN_FILTER" />
 
         <security:form-login
             authentication-success-handler-ref = "securitySuccessHandler"
@@ -57,9 +57,9 @@
     <security:authentication-manager alias = "authenticationManager">
         <security:authentication-provider>
             <security:user-service>
-                <security:user name="admin" password="pass" authorities="ADMIN" />
-                <security:user name="user1" password="1111" authorities="MUSICIAN" />
-                <security:user name="user2" password="2222" disabled="true" authorities="USER" />
+                <security:user name="admin" password="admin" authorities="ADMIN" />
+                <security:user name="musician" password="musician" authorities="MUSICIAN" />
+                <security:user name="user" password="user" authorities="USER" />
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>

@@ -3,7 +3,7 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-27 19:48:15 - 2014-05-.. ..:..:..
+ * @date 2014-06-27 19:48:15 - 2014-05-27 23:00:00
  *
  * @address /Ukraine/Petranka
  */
@@ -27,8 +27,8 @@ define(
 
             //- Set default values -//
             defaults: {
-                "j_username"    : "",
-                "j_password"    : ""
+                "username"    : "",
+                "password"    : ""
             },
 
 

@@ -17,8 +17,9 @@ define(
             /// *** Properties  *** ///
 
             routes: {
-                "user/songs"    : "songlistAction",
-                "user/song/:id" : "songAction"
+                "user/songs"        : "songlistAction",
+                "user/song/create"  : "songCreateAction",
+                "user/song/:id"     : "songAction"
             },
 
             initialize: function() {
@@ -74,6 +75,15 @@ define(
                 );
 
                 //TODO: Hide msg wait
+            },
+
+            /**
+             * Create new song
+             */
+            songCreateAction: function() {
+                var view = new User.Song.CreateView();
+
+                view.render();
             }
         });
     }

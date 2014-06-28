@@ -52,6 +52,7 @@ requirejs(
         //- Song -//
         "/resources/client/module/user/model/Song.js",
         "/resources/client/module/user/model/Songs.js",
+        "/resources/client/module/user/view/script/song/CreateView.js",
         "/resources/client/module/user/view/script/SongView.js",
         "/resources/client/module/user/view/script/SongsView.js",
         "/resources/client/module/user/controller/SongController.js"
