@@ -275,3 +275,23 @@ footer
         {
             background:  linear-gradient(to right, #000, #333, #ccc);
         }
+
+
+/* Form */
+input[ type = text ]
+{
+    background: linear-gradient( to right, #fff, #999, #fff );
+    border: solid 9px #fff;
+    border-radius: 20px;
+    color: #000;
+    font-weight: bold;
+    min-width: 250px;
+    min-height: 30px;
+    text-align: center;
+}
+
+.form-row
+{
+    display: block;
+    margin: 5px 0;
+}

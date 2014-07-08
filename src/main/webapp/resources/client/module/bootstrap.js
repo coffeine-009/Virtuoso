@@ -7,7 +7,12 @@
  *
  * @address /Ukraine/Ivano-Frankivsk/Chornovola/114/51
  */
-var Security = Security || {};
+var Security = Security || {
+    Model       : {},
+    View        : {},
+    Controller  : {}
+
+};
 var User = User || {};
 
 requirejs.config(
@@ -48,6 +53,7 @@ requirejs(
         //- Security -//
         "/resources/client/module/security/model/Authorization.js",
         "/resources/client/module/security/view/script/SignInView.js",
+        "/resources/client/module/security/view/script/security/RegistrationView.js",
         "/resources/client/module/security/controller/SecurityController.js",
         //- Song -//
         "/resources/client/module/user/model/Song.js",
@@ -58,13 +64,20 @@ requirejs(
         "/resources/client/module/user/controller/SongController.js"
     ],
     function(
+        //- Security -//
+        AuthorizationModel,
+        SignInView,
+        RegistrationView,
+        SecurityController,
+
+        //- Song -//
         SongModel,
         SongsModel,
         SongView,
         SongsView,
         SongController
     ) {
-        new Security.SecurityController();
+        new Security.Controller.SecurityController();
         new User.SongController();
 
         Backbone.history.start();

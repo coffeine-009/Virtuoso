@@ -4,20 +4,19 @@
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  */
 
-var Security = Security || {};
-
 define(
     [
         "backbone"
     ],
     function(
         Backbone
-        ) {
-        Security.SecurityController = Backbone.Router.extend({
+    ) {
+        return Security.Controller.SecurityController = Backbone.Router.extend({
             /// *** Properties  *** ///
 
             routes: {
-                "security/signin"   : "signinAction"
+                "security/signin"       : "signinAction",
+                "security/registration" : "registrationAction"
             },
 
             initialize: function() {
@@ -30,6 +29,15 @@ define(
              */
             signinAction: function () {
                 var view = new Security.SignInView();
+
+                view.render();
+            },
+
+            /**
+             * Action Registration. Display form
+             */
+            registrationAction: function() {
+                var view = new Security.View.RegistrationView();
 
                 view.render();
             }

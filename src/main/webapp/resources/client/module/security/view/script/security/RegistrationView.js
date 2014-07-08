@@ -3,33 +3,33 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-29 00:28:13 ::
+ * @date 2014-07-07 20:58:56 ::
  */
-var User = User || {};
+var Security = Security || {};
 
 define(
     [
-        "tpl!/resources/client/module/user/view/template/song/Create",
+        "tpl!/resources/client/module/security/view/template/security/Registration",
         "jquery",
         "underscore",
         "backbone"
     ],
     function(
-        SongCreateTpl,
+        RegistrationTpl,
         $,
         _,
         Backbone
     ) {
-        User.Song.CreateView = Backbone.View.extend({
+        return Security.View.RegistrationView = Backbone.View.extend({
             /// *** Properties  *** ///
             //- Parrent DOM element -//
             el: "#main-content",
-            song: null,
+
 
 
             /// *** Methods     *** ///
             events: {
-                "click #test": "checkr"
+
             },
 
             initialize: function () {
@@ -37,13 +37,9 @@ define(
             },
 
             render: function () {
-                $( this.el ).html( SongCreateTpl( {} ) );
+                $( this.el ).html( RegistrationTpl( {} ) );
 
                 return this;
-            },
-
-            checkr: function () {
-                alert('ok');
             }
         });
     }
