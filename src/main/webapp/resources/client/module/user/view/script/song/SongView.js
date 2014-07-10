@@ -7,7 +7,7 @@ var User = User || {};
 
 define(
     [
-        "tpl!/resources/client/module/user/view/template/song/song",
+        "tpl!/resources/client/module/user/view/template/song/Song",
         "jquery",
         "underscore",
         "backbone",
