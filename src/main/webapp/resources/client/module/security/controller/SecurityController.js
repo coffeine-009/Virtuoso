@@ -16,7 +16,7 @@ define(
 
             routes: {
                 "security/signin"       : "signinAction",
-                "security/registration" : "registrationAction"
+                "security/registration" : "signupAction"
             },
 
             initialize: function() {
@@ -34,9 +34,16 @@ define(
             },
 
             /**
+             * Action Sign Out
+             */
+            signoutAction: function() {
+                //TODO: implement
+            },
+
+            /**
              * Action Registration. Display form
              */
-            registrationAction: function() {
+            signupAction: function() {
                 var view = new Security.View.RegistrationView();
 
                 view.render();

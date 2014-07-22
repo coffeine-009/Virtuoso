@@ -75,10 +75,12 @@ public class SecurityFilter extends UsernamePasswordAuthenticationFilter {
         StringBuilder data = new StringBuilder();
         try {
             //- Read request body -//
-            BufferedReader br = request.getReader();
-            String line;
-            while ( ( line = br.readLine() ) != null ) {
-                data.append( line );
+            {
+                BufferedReader br = request.getReader();
+                String line;
+                while ( ( line = br.readLine() ) != null ) {
+                    data.append( line );
+                }
             }
 
             //- Create map of params -//
@@ -102,7 +104,7 @@ public class SecurityFilter extends UsernamePasswordAuthenticationFilter {
         );
 
         // Allow subclasses to set the "details" property
-        setDetails( request, authRequest );
+        this.setDetails( request, authRequest );
 
         return this.getAuthenticationManager().authenticate( authRequest );
     }

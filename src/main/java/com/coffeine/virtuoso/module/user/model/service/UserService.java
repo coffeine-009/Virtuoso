@@ -15,6 +15,7 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service;
 
+import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.repository.UserRepository;
 
 /**
@@ -23,11 +24,11 @@ import com.coffeine.virtuoso.module.user.model.repository.UserRepository;
 public interface UserService {
 
     //- SECTION :: MAIN -//
-    //- SECTION :: SET -//
     /**
-     * Set repository for user. Use IoC(DI)
+     * Save user
      *
-     * @param userRepository
+     * @param user
+     * @return User
      */
-    public void setUserRepository( UserRepository userRepository );
+    public User save( User user );
 }

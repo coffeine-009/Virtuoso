@@ -15,16 +15,17 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.controller;
 
+import com.coffeine.virtuoso.module.user.Form.RegistrationForm;
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.entity.User;
 import java.util.List;
+
+import com.coffeine.virtuoso.module.user.model.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -32,24 +33,34 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @RequestMapping( value = "/security" )
-public class AuthorizationController {
+public class SecurityController {
 
+    /// *** Properties  *** ///
+    //- SETION :: SERVICES -//
+    @Autowired
+    private UserService userService;
+
+
+    /// *** Methods     *** ///
     //- SECTION :: ACTIONS -//
     /**
      * Registration new user
      *
-     * @param model
+     * @param registrationForm
      * @return User
      */
-    @RequestMapping( value = "/registration", method = RequestMethod.POST )
+    @RequestMapping( value = "/signup", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
-    public User registrationAction( Model model ) {
+    public User registrationAction(
+        @RequestBody
+        RegistrationForm registrationForm
+    ) {
         //- Create new user -//
         User newUser = new User();
-            newUser.setFirstName("Vitaliy");
+            newUser.setFirstName( registrationForm.getFirstName() );
 
-        return newUser;
+        return this.userService.save( newUser );
     }
 
     /**

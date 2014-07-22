@@ -3,12 +3,10 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-27 19:48:15 - 2014-05-27 23:00:00
+ * @date 2014-07-17 22:08:40 - 2014-05-27 23:00:00
  *
- * @address /Ukraine/Petranka
+ * @address /Ukraine/Ivano-Frankivsk
  */
-
-var Security = Security || {};
 
 define(
     [
@@ -16,19 +14,18 @@ define(
     ],
     function(
         Backbone
-    ) {
+        ) {
         /**
-         * Model for work with song
+         * Model for work with Registration a new users
          */
-        return Security.Model.Authorization = Backbone.Model.extend({
+        return Security.Model.SignUp = Backbone.Model.extend({
             /// *** Properties  *** ///
             //- Path for get song from API -//
-            urlRoot: "/j_spring_security_check",
+            urlRoot: "/security/signup",
 
             //- Set default values -//
             defaults: {
-                "username"    : "",
-                "password"    : ""
+                "locale"    : ""
             },
 
 

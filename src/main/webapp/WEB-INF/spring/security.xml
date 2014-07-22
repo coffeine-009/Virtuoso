@@ -27,7 +27,7 @@
 
         <security:logout />
 
-        <security:anonymous username="guest" granted-authority="GUEST"/>
+        <security:anonymous username = "guest" granted-authority = "GUEST"/>
 
     </security:http>
 
