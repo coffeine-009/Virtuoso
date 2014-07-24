@@ -15,8 +15,8 @@ define(
             /// *** Properties  *** ///
 
             routes: {
-                "security/signin"       : "signinAction",
-                "security/registration" : "signupAction"
+                "security/signin"   : "signinAction",
+                "security/signup"   : "signupAction"
             },
 
             initialize: function() {
@@ -28,7 +28,7 @@ define(
              * Action SignIn. Display form
              */
             signinAction: function () {
-                var view = new Security.SignInView();
+                var view = new Security.View.SignInView();
 
                 view.render();
             },

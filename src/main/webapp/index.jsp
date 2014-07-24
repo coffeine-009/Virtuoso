@@ -25,6 +25,7 @@
         <%--<link rel = "stylesheet" href = "<c:url value = "/resources/client/library/bootstrap/dist/css/bootstrap.css" />">--%>
         <%--<link rel = "stylesheet" href = "<c:url value = "/resources/client/library/bootstrap/dist/css/bootstrap-theme.css" />">--%>
 
+        <link rel="stylesheet" href="<c:url value = "/resources/client/module/main/view/style/main.css" />">
         <%--<link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/main.css" />">--%>
 
         <!-- Scripts -->
@@ -61,7 +62,7 @@
             role = "banner"
         >
 
-            <div class = "container">
+            <div class = "">
                 <div class = "navbar-header">
                     <button
                         class = "navbar-toggle"
@@ -80,7 +81,7 @@
                     class = "collapse navbar-collapse bs-navbar-collapse"
                     role = "navigation"
                 >
-                    <ul class = "nav navbar-nav navbar-right">
+                    <ul class = "nav navbar-nav navbar-left">
                         <li class = "dropdown">
                             <a
                                 class = "dropdown-toggle"
@@ -144,14 +145,76 @@
                             </ul>
                         </li>
                     </ul>
+
+                    <!-- Profile -->
+                    <ul class = "nav navbar-nav navbar-right">
+                        <li>
+                            <a href = "/#security/signup">Sign Up</a>
+                        </li>
+                        <li>
+                            <a href = "/#security/signin">Sign In</a>
+                        </li>
+                        <%--<li class = "dropdown">--%>
+                            <%--<a--%>
+                                <%--class="dropdown-toggle"--%>
+                                <%--href = "#"--%>
+                                <%--data-toggle = "dropdown"--%>
+                            <%-->--%>
+                                <%--Hi... Apple K <b class="caret"></b>--%>
+                            <%--</a>--%>
+                            <%--<ul class = "dropdown-menu">--%>
+                                <%--<li align = "center" class = "well">--%>
+                                    <%--<div>--%>
+                                        <%--<img--%>
+                                            <%--class = "img-responsive"--%>
+                                             <%--src = "http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg"--%>
+                                        <%--/>--%>
+                                        <%--<a class = "change" href="">Change Picture</a>--%>
+                                    <%--</div>--%>
+                                    <%--<a href="#" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-lock"></span> Security</a>--%>
+                                    <%--<a href="#" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-log-out"></span> Logout</a>--%>
+                                <%--</li>--%>
+                            <%--</ul>--%>
+                        <%--</li>--%>
+                    </ul>
                 </nav>
             </div>
 
         </header>
 
-        <div id = "main-content">
+        <div>
+            <ul class="breadcrumb" >
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ul>
+        </div>
+
+
+        <div id = "main" class = "main">
+
+            <div id = "menu-left" class="">
+                <div class="col-md-1">
+                    <ul class="nav nav-pills nav-stacked well">
+                        <li  class="active"><a href="#"><i class="fa fa-envelope"></i> Compose</a></li>
+                        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
+                        <li><a href="#"><i class="fa fa-key"></i> Security</a></li>
+                        <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id = "main-content" class = "content col-md-11" ></div>
 
         </div>
+
+        <footer>
+
+            <div>Facebook | Twitter | Google+</div>
+            <div>&copy 2014 by Coffeine</div>
+
+        </footer>
 
 
 

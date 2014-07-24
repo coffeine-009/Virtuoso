@@ -38,7 +38,7 @@ header
 {
     background: #0f0;
     background: linear-gradient( to bottom, #fff, #eee, #ccc );
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     font-size: medium;
 }
 
@@ -278,15 +278,15 @@ footer
 
 
 /* Form */
-input[ type = text ]
+input[ type = "text" ], input[ type = "password" ]
 {
     background: linear-gradient( to right, #fff, #999, #fff );
     border: solid 9px #fff;
     border-radius: 20px;
     color: #000;
     font-weight: bold;
-    min-width: 250px;
-    min-height: 30px;
+    min-width: 320px;
+    min-height: 40px;
     text-align: center;
 }
 

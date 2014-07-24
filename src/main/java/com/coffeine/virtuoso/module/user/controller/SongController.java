@@ -20,6 +20,7 @@ import com.coffeine.virtuoso.module.user.model.service.SongService;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

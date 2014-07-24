@@ -9,7 +9,7 @@ var Security = Security || {};
 
 define(
     [
-        "tpl!/resources/client/module/security/view/template/security/Registration",
+        "tpl!/resources/client/module/security/view/template/security/SignUp",
         "jquery",
         "underscore",
         "backbone"

@@ -3,11 +3,10 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  */
-var Security = Security || {};
 
 define(
     [
-        "tpl!/resources/client/module/security/view/template/SignIn",
+        "tpl!/resources/client/module/security/view/template/security/SignIn",
         "jquery",
         "underscore",
         "backbone"
@@ -18,7 +17,7 @@ define(
         _,
         Backbone
         ) {
-        Security.SignInView = Backbone.View.extend({
+        Security.View.SignInView = Backbone.View.extend({
             /// *** Properties  *** ///
             //- Parrent DOM element -//
             el: "#main-content",
@@ -39,7 +38,7 @@ define(
              */
             initialize: function () {
                 //- Init -//
-                this.model = new Security.Authorization();
+                this.model = new Security.Model.Authorization();
             },
 
             /**

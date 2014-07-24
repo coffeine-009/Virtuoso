@@ -1,0 +1,45 @@
+/**
+ * @date 2014-07-24 17:05:40 ::
+ *
+ * @description Replace Bootstrap style
+*/
+.navbar
+{
+    margin-bottom: 5px;
+}
+
+.breadcrumb
+{
+    margin-bottom: 5px;
+}
+
+.content
+{
+    background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
+    /*font-size: medium;*/
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+footer
+{
+    background: linear-gradient( to top, #fff, #eee, #ccc );
+    clear: both;
+    line-height: 2em;
+    text-align: center;
+}
+
+
+/**
+ * Bootstrap
+*/
+.col-md-1
+{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.well
+{
+    margin-bottom: 5px;
+}
