@@ -110,10 +110,14 @@ public class Poet implements Serializable {
      * @param deathday
      */
     public Poet(
+        String locale,
+        Boolean gender,
         Calendar birthday,
         Calendar deathday
     ) {
         //- Initializaation -//
+        this.locale = locale;
+        this.gender = gender;
         this.birthday = birthday;
         this.deathday = deathday;
     }

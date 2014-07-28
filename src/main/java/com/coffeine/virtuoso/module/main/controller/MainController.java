@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * @version 1.0
  */
-@RequestMapping( value = "/" )
+@RequestMapping( value = "" )
 @Controller
 public class MainController {
 

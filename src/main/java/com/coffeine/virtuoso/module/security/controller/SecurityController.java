@@ -15,17 +15,23 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.controller;
 
-import com.coffeine.virtuoso.module.user.Form.RegistrationForm;
-import com.coffeine.virtuoso.module.user.model.entity.Song;
+import com.coffeine.virtuoso.module.security.Form.RegistrationForm;
+import com.coffeine.virtuoso.module.security.model.entity.Roles;
+import com.coffeine.virtuoso.module.user.model.entity.Composer;
+import com.coffeine.virtuoso.module.user.model.entity.Email;
+import com.coffeine.virtuoso.module.user.model.entity.Poet;
 import com.coffeine.virtuoso.module.user.model.entity.User;
-import java.util.List;
 
 import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  *
@@ -49,18 +55,58 @@ public class SecurityController {
      * @param registrationForm
      * @return User
      */
-    @RequestMapping( value = "/signup", method = RequestMethod.POST )
+    @Transactional
+    @RequestMapping( value = "/signup", method = RequestMethod.POST, consumes = "application/json")
     @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
     public User registrationAction(
         @RequestBody
+        @Valid
         RegistrationForm registrationForm
     ) {
         //- Create new user -//
         User newUser = new User();
+            newUser.addEmail(
+                new Email(
+                    registrationForm.getUsername()
+                )
+            );
+            //newUser.setPassword( registrationForm.getPassword() );
             newUser.setFirstName( registrationForm.getFirstName() );
+            newUser.setLastName(registrationForm.getLastName());
+            newUser.setGender(registrationForm.getGender());
+            newUser.setLocale(registrationForm.getLocale());
 
-        return this.userService.save( newUser );
+        User user = this.userService.save( newUser );
+
+        //- Create roles -//
+        List < String > roles = registrationForm.getRoles();
+
+        //- Create a new composer -//
+        if( roles.contains( Roles.COMPOSER ) ) {
+            Composer composer = new Composer(
+                user.getLocale(),
+                user.getGender(),
+                user.getCreation(),//TODO
+                user.getCreation()
+            );
+                composer.setUser( user );
+            //TODO
+        }
+
+        //- Create a new poet -//
+        if ( roles.contains( Roles.POET ) ) {
+            Poet poet = new Poet(
+                user.getLocale(),
+                user.getGender(),
+                user.getCreation(),//TODO
+                user.getCreation()
+            );
+                poet.setUser( user );
+            //TODO
+        }
+
+        return user;
     }
 
     /**

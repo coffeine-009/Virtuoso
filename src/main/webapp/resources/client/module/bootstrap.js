@@ -52,8 +52,9 @@ requirejs(
     [
         //- Security -//
         "/resources/client/module/security/model/Authorization.js",
+        "/resources/client/module/security/model/SignUp.js",
         "/resources/client/module/security/view/script/security/SignInView.js",
-        "/resources/client/module/security/view/script/security/RegistrationView.js",
+        "/resources/client/module/security/view/script/security/SignUpView.js",
         "/resources/client/module/security/controller/SecurityController.js",
         //- Song -//
         "/resources/client/module/user/model/Song.js",

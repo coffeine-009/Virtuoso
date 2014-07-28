@@ -1,6 +1,6 @@
-<div class="col-lg-4">
+<div class="col-lg-5">
     <div class="bs-component">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action = "#" method = "post">
             <fieldset>
                 <legend>Registration</legend>
                 <div class="form-group">
@@ -38,13 +38,13 @@
                     <div class="col-lg-10">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                <input type="radio" name="gender" id="optionsRadios1" value="1" checked="">
                                 Man
                             </label>
                         </div>
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                <input type="radio" name="gender" id="optionsRadios2" value="0">
                                 Woman
                             </label>
                         </div>
@@ -54,27 +54,35 @@
                 <div class="form-group">
                     <label for="role" class="col-lg-2 control-label">Role</label>
                     <div class="col-lg-10">
-                        <select id = "role" class="form-control">
-                            <option>Poet</option>
-                            <option>Composer</option>
+                        <select id = "role" name = "role" multiple = "multiple" class="form-control">
+                            <option value = "POET">Poet</option>
+                            <option value = "COMPOSER">Composer</option>
                         </select>
                     </div>
                 </div>
-
-
-
                 <div class="form-group">
-                    <label for="textArea" class="col-lg-2 control-label">Textarea</label>
+                    <label for="language" class="col-lg-2 control-label">Language</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" rows="3" id="textArea"></textarea>
-                        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                        <select id = "language" class="form-control">
+                            <option>en</option>
+                            <option>uk</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="col-lg-2 control-label">Country</label>
+                    <div class="col-lg-10">
+                        <select id = "country" class="form-control">
+                            <option>US</option>
+                            <option>UA</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button class="btn btn-default">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type = "reset" class="btn btn-default">Reset</button>
+                        <button id = "signup-submit" type = "button" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
             </fieldset>
