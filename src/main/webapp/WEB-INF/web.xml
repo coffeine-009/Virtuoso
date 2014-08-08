@@ -10,9 +10,15 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/spring/spring-context.xml
+            /WEB-INF/spring/spring-context-development.xml
             /WEB-INF/spring/security.xml
         </param-value>
+    </context-param>
+
+    <!-- Spring profile -->
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>development</param-value>
     </context-param>
 
     <!-- SECTION :: FILTER -->

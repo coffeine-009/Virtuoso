@@ -56,7 +56,7 @@ public class SecurityController {
      * @return User
      */
     @Transactional
-    @RequestMapping( value = "/signup", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping( value = "/signup", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
     public User registrationAction(

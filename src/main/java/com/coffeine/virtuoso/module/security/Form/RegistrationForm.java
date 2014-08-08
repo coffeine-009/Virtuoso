@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -59,6 +60,10 @@ public class RegistrationForm {
     @NotEmpty
     @Size( max = 5 )
     protected String locale;
+
+    protected Calendar birthday;
+
+    protected Calendar deathday;
 
 
     /// *** Methods     *** ///
