@@ -20,6 +20,7 @@ import com.coffeine.virtuoso.module.user.model.repository.SongRepository;
 import java.util.List;
 
 /**
+ * Service for work with song
  *
  * @version 1.0
  */
@@ -41,12 +42,11 @@ public interface SongService {
      */
     public Song getSong( Long Id );
 
-
-    //- SECTION :: SET -//
     /**
-     * Set repository for song. Use IoC(DI)
+     * Save song
      *
-     * @param songRespository
+     * @param song
+     * @return Song
      */
-    public void setSongRespository( SongRepository songRespository );
+    public Song save( Song song );
 }

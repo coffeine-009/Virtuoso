@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -77,16 +78,13 @@ public class SongController {
     @ResponseBody
     public Song createAction(
         @RequestBody
+        @Valid
         Song song,
 
         Locale locale
     ) {
-        Song newSong = new Song();
-            newSong.setLocale(
-                messageSource.getMessage("test", null, locale).substring(0, 4)
-            );
-        //TODO: to implement
-        return song;
+        //- Save song -//
+        return this.songService.save( song );
     }
 
     /**

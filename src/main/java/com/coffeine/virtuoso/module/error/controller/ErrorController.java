@@ -1,16 +1,16 @@
 /// *** Error :: Controller :: Error    *** *** *** *** *** *** *** *** *** ///
 
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
- *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
- *
- * @date 2014-07-25 15:21:04 :: 2014-07-25 17:22:29
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
-*///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-07-25 15:21:04 :: 2014-07-25 17:22:29
+     *
+     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.error.controller;

@@ -23,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
+ * Service for work with songs
  *
+ * @version 1.0
  */
 @Service
 public class SongServiceImpl implements SongService {
@@ -38,7 +40,7 @@ public class SongServiceImpl implements SongService {
     /**
      * Get list of Song
      *
-     * @return List < Song >
+     * @return List<Song> List of all songs
      */
     @Override
     public List < Song > getList() {
@@ -48,22 +50,22 @@ public class SongServiceImpl implements SongService {
     /**
      * Get song by ID
      *
-     * @param Id
-     * @return Song
+     * @param Id Unique identificator of song
+     * @return Song Found song
      */
     @Override
     public Song getSong( Long Id ) {
         return songRespository.findOne( Id );
     }
-    
-    //- SECTION :: SET -//
+
     /**
-     * Set repository for song. Use IoC(DI)
+     * Save song
      *
-     * @param songRespository
+     * @param song New song for save or update
+     * @return Song Created or updated song
      */
     @Override
-    public void setSongRespository( SongRepository songRespository ) {
-        this.songRespository = songRespository;
+    public Song save( Song song ) {
+        return this.songRespository.save( song );
     }
 }
