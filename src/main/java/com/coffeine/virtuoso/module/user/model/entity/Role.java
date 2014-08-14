@@ -15,16 +15,12 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * Class for reflect table role from persistence layout
@@ -71,6 +67,15 @@ public class Role implements Serializable {
      */
     public Role() {
         
+    }
+
+    /**
+     * Constructor
+     *
+     * @param code
+     */
+    public Role( String code ) {
+        this.code = code;
     }
 
     /**

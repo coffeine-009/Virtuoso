@@ -21,10 +21,11 @@ import com.coffeine.virtuoso.module.user.model.entity.Composer;
 import com.coffeine.virtuoso.module.user.model.entity.Email;
 import com.coffeine.virtuoso.module.user.model.entity.Poet;
 import com.coffeine.virtuoso.module.user.model.entity.User;
-
+import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -42,9 +43,18 @@ import java.util.List;
 public class SecurityController {
 
     /// *** Properties  *** ///
+    //- SECTION :: CRYPTOGRAPHIA -//
+    @Autowired
+    private ShaPasswordEncoder passwordEncoder;
+
+
     //- SETION :: SERVICES -//
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private UserService userService;
+
 
 
     /// *** Methods     *** ///
@@ -64,49 +74,57 @@ public class SecurityController {
         @Valid
         RegistrationForm registrationForm
     ) {
+        //- Recognise roles -//
+        List < String > roles = registrationForm.getRoles();
+
         //- Create new user -//
         User newUser = new User();
+            newUser.setRoles(
+                this.roleService.findByCodes( roles )
+            );
             newUser.addEmail(
                 new Email(
                     registrationForm.getUsername()
                 )
             );
-            //newUser.setPassword( registrationForm.getPassword() );
-            newUser.setFirstName( registrationForm.getFirstName() );
+//            newUser.setPassword(
+//                this.passwordEncoder.encodePassword(
+//                    registrationForm.getPassword(),
+//                    null
+//                )
+//            );
+            newUser.setFirstName(registrationForm.getFirstName());
             newUser.setLastName(registrationForm.getLastName());
-            newUser.setGender(registrationForm.getGender());
-            newUser.setLocale(registrationForm.getLocale());
+            newUser.setGender( registrationForm.getGender() );
+            newUser.setLocale( registrationForm.getLocale() );
 
-        User user = this.userService.save( newUser );
-
-        //- Create roles -//
-        List < String > roles = registrationForm.getRoles();
+        User createdUser = this.userService.save( newUser );
 
         //- Create a new composer -//
         if( roles.contains( Roles.COMPOSER ) ) {
             Composer composer = new Composer(
-                user.getLocale(),
-                user.getGender(),
-                user.getCreation(),//TODO
-                user.getCreation()
+                createdUser.getLocale(),
+                createdUser.getGender(),
+                createdUser.getCreation(),//TODO
+                createdUser.getCreation()
             );
-                composer.setUser( user );
+                composer.setUser( createdUser );
             //TODO
         }
 
         //- Create a new poet -//
         if ( roles.contains( Roles.POET ) ) {
             Poet poet = new Poet(
-                user.getLocale(),
-                user.getGender(),
-                user.getCreation(),//TODO
-                user.getCreation()
+                createdUser.getLocale(),
+                createdUser.getGender(),
+                createdUser.getCreation(),//TODO
+                createdUser.getCreation()
             );
-                poet.setUser( user );
+                poet.setUser( createdUser );
             //TODO
         }
 
-        return user;
+        return createdUser;
     }
 
     /**

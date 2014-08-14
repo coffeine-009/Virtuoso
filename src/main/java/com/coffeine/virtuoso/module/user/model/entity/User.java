@@ -47,9 +47,25 @@ public class User implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_role", columnDefinition = "BIGINT( 20 )" )
-    protected Role role;
+    @ManyToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = {
+            @JoinColumn(
+                name = "id_user",
+                nullable = false,
+                updatable = false
+            )
+        },
+        inverseJoinColumns = {
+            @JoinColumn(
+                name = "id_role",
+                nullable = false,
+                updatable = false
+            )
+        }
+    )
+    protected List < Role > roles;
 
     @JsonIgnore
     @NotNull
@@ -123,8 +139,8 @@ public class User implements Serializable {
      *
      * @return Role
      */
-    public Role getRole() {
-        return this.role;
+    public List < Role > getRoles() {
+        return this.roles;
     }
 
     /**
@@ -222,10 +238,10 @@ public class User implements Serializable {
     /**
      * Set role
      *
-     * @param role
+     * @param roles
      */
-    public void setRole( Role role ) {
-        this.role = role;
+    public void setRoles( List < Role > roles ) {
+        this.roles = roles;
     }
 
     /**

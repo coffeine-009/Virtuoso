@@ -1,4 +1,4 @@
-/// *** User :: Model :: Service :: Video   *** *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Service :: Staff   *** *** *** *** *** *** *** *** ///
 
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
@@ -6,24 +6,24 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-04 15:13:56 :: 2014-06-.. ..:..:..
+ * @date 2014-06-04 15:08:53 :: 2014-06-.. ..:..:..
  *
  * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service.Implementation;
+package com.coffeine.virtuoso.module.user.model.service.implementation;
 
-import com.coffeine.virtuoso.module.user.model.repository.VideoRepository;
-import com.coffeine.virtuoso.module.user.model.service.VideoService;
+import com.coffeine.virtuoso.module.user.model.repository.StaffRepository;
+import com.coffeine.virtuoso.module.user.model.service.StaffService;
 
 /**
  * @version 1.0
  */
-public class VideoServiceImpl implements VideoService {
+public class StaffServiceImpl implements StaffService {
     @Override
-    public void setVideoRepository(VideoRepository videoRepository) {
+    public void setStaffRepository(StaffRepository staffRepository) {
 
     }
 }

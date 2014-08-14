@@ -13,7 +13,7 @@
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service.Implementation;
+package com.coffeine.virtuoso.module.user.model.service.implementation;
 
 import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.repository.UserRepository;

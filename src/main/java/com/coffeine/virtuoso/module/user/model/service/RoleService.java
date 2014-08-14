@@ -1,4 +1,4 @@
-/// *** User :: Model :: Service :: Text    *** *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Service :: Role    *** *** *** *** *** *** *** *** ///
 
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
@@ -6,24 +6,31 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-04 15:11:06 :: 2014-06-.. ..:..:..
+ * @date 2014-08-14 16:47:47 :: ....-..-.. ..:..:..
  *
  * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service.Implementation;
+package com.coffeine.virtuoso.module.user.model.service;
 
-import com.coffeine.virtuoso.module.user.model.repository.TextRepository;
-import com.coffeine.virtuoso.module.user.model.service.TextService;
+import com.coffeine.virtuoso.module.user.model.entity.Role;
+
+import java.util.List;
 
 /**
+ * Interface for work with persistence layout
+ *
  * @version 1.0
  */
-public class TextServiceImpl implements TextService {
-    @Override
-    public void setTextRepository(TextRepository textRepository) {
+public interface RoleService {
 
-    }
+    /**
+     * Find roles by codes
+     *
+     * @param codes
+     * @return List<Role>
+     */
+    public List < Role > findByCodes( List< String > codes );
 }

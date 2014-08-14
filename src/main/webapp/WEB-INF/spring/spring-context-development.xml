@@ -23,8 +23,6 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd"
 >
-    <!--<import resource="security.xml" />-->
-
     <context:annotation-config />
 
 	<!-- Scans the classpath for @Components to deploy as beans -->
@@ -41,7 +39,9 @@
         />
 	</mvc:interceptors>
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up
+	    static resources in the ${webappRoot}/resources/ directory
+    -->
 	<mvc:resources mapping = "/resources/**" location = "/resources/" />
 
     <!-- SECTION :: LOCALIZATION -->

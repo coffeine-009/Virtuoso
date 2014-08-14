@@ -15,6 +15,8 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.Form;
 
+import com.coffeine.virtuoso.library.validator.anotation.InEnum;
+import com.coffeine.virtuoso.module.security.model.entity.Roles;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -54,6 +56,7 @@ public class RegistrationForm {
 
     @NotNull
     @NotEmpty
+    @InEnum( enumClass = Roles.class )
     protected List< String > roles;
 
     @NotNull

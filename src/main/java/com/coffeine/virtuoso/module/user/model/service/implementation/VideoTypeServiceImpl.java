@@ -1,4 +1,4 @@
-/// *** User :: Model :: Service :: Style   *** *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Service :: VideoType   *** *** *** *** *** *** *** ///
 
 /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
  *                                                                  *
@@ -6,24 +6,24 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-04 15:09:56 :: 2014-06-.. ..:..:..
+ * @date 2014-06-04 15:14:11 :: 2014-06-.. ..:..:..
  *
  * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
  *                                                                  *
  *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service.Implementation;
+package com.coffeine.virtuoso.module.user.model.service.implementation;
 
-import com.coffeine.virtuoso.module.user.model.repository.StyleRepository;
-import com.coffeine.virtuoso.module.user.model.service.StyleService;
+import com.coffeine.virtuoso.module.user.model.repository.VideoTypeRepository;
+import com.coffeine.virtuoso.module.user.model.service.VideoTypeService;
 
 /**
  * @version 1.0
  */
-public class StyleServiceImpl implements StyleService {
+public class VideoTypeServiceImpl implements VideoTypeService {
     @Override
-    public void setUserRepository(StyleRepository styleRepository) {
+    public void setVideoTypeRepository(VideoTypeRepository videoTypeRepository) {
 
     }
 }
