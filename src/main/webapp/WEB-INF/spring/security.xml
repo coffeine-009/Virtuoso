@@ -72,37 +72,82 @@
     >
         <beans:property name = "authenticationManager" ref = "authenticationManager" />
     </beans:bean>
-//TODO
-    <!-- BEAN : CUSTOM -->
-    <!-- Filter -->
-    <beans:bean
-        id = "securityFilter"
-        class = "com.coffeine.virtuoso.module.security.filter.SecurityFilter"
+
+    <!-- Authentication manager -->
+    <security:authentication-manager
+        alias = "authenticationManager"
     >
-        <beans:property name = "postOnly" value = "true" />
-        <beans:property name = "authenticationManager" ref= "authenticationManager" />
-        <beans:property name = "authenticationSuccessHandler" ref = "securitySuccessHandler" />
-    </beans:bean>
-
-    <!-- Handler :: Success -->
-    <beans:bean
-        id = "securitySuccessHandler"
-        class = "com.coffeine.virtuoso.module.security.SecuritySuccessHandler"
-    />
-
-    <security:authentication-manager alias = "authenticationManager">
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin" password="admin" authorities="ADMIN" />
-                <security:user name="musician" password="musician" authorities="MUSICIAN" />
-                <security:user name="user" password="user" authorities="USER" />
-            </security:user-service>
-        </security:authentication-provider>
+        <security:authentication-provider user-service-ref = "clientDetailsUserService" />
     </security:authentication-manager>
 
     <beans:bean
-        id = "passwordEncoder"
-        class = "org.springframework.security.authentication.encoding.ShaPasswordEncoder"
-    />
+        id = "clientDetailsUserService"
+        class = "org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService"
+    >
+        <beans:constructor-arg ref = "clientDetails" />
+    </beans:bean>
+
+    <beans:bean
+        id = "clientDetails"
+        class = "com.coffeine.virtuoso.module.security.model.service.implementation.GuestServiceImpl"
+    >
+        <beans:property name = "clientId" value = "developer" />
+        <beans:property name = "clientSecretKey" value = "developer32" />
+    </beans:bean>
+
+    <security:authentication-manager id = "userAuthenticationManager">
+        <security:authentication-provider ref="customUserAuthenticationProvider" />
+    </security:authentication-manager>
+
+    <!--<bean id="customUserAuthenticationProvider"-->
+          <!--class="it.iol.oauthaaa.security.AAAUserAuthenticationProvider">-->
+    <!--</bean>-->
+
+    <!--<oauth:authorization-server-->
+            <!--client-details-service-ref="clientDetails" token-services-ref="tokenServices">-->
+        <!--<oauth:authorization-code />-->
+        <!--<oauth:implicit/>-->
+        <!--<oauth:refresh-token/>-->
+        <!--<oauth:client-credentials />-->
+        <!--<oauth:password authentication-manager-ref="userAuthenticationManager"/>-->
+    <!--</oauth:authorization-server>-->
+
+    <!--<oauth:resource-server id="resourceServerFilter"-->
+                           <!--resource-id="springsec" token-services-ref="tokenServices" />-->
+
+    <!--<bean id="tokenStore"-->
+          <!--class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore" />-->
+
+    <!--<bean id="tokenServices"-->
+          <!--class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">-->
+        <!--<property name="tokenStore" ref="tokenStore" />-->
+        <!--<property name="supportRefreshToken" value="true" />-->
+        <!--<property name="accessTokenValiditySeconds" value="120"></property>-->
+        <!--<property name="clientDetailsService" ref="clientDetails" />-->
+    <!--</bean>-->
+
+    <!--<mvc:annotation-driven />-->
+
+    <!--<mvc:default-servlet-handler />-->
+
+    <!--<context:annotation-config/>-->
+
+    <!--<bean id="MyResource" class="it.iol.oauthaaa.resources.UserResource"></bean>-->
+    <!--<bean id="aaaProxy" class="it.iol.oauthaaa.security.AAAProxy"></bean-->
+
+    <!--<security:authentication-manager alias = "authenticationManager">-->
+        <!--<security:authentication-provider>-->
+            <!--<security:user-service>-->
+                <!--<security:user name="admin" password="admin" authorities="ADMIN" />-->
+                <!--<security:user name="musician" password="musician" authorities="MUSICIAN" />-->
+                <!--<security:user name="user" password="user" authorities="USER" />-->
+            <!--</security:user-service>-->
+        <!--</security:authentication-provider>-->
+    <!--</security:authentication-manager>-->
+
+    <!--<beans:bean-->
+        <!--id = "passwordEncoder"-->
+        <!--class = "org.springframework.security.authentication.encoding.ShaPasswordEncoder"-->
+    <!--/>-->
 
 </beans:beans>

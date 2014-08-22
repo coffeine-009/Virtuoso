@@ -134,7 +134,7 @@ public class SecurityController {
      * @param model
      * @return User
      */
-    @RequestMapping( value = "/signin", method = RequestMethod.POST )
+    @RequestMapping( value = "/signinn", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public User authorizationAction( 
