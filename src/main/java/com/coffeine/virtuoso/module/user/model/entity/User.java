@@ -47,7 +47,7 @@ public class User implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinTable(
         name = "user_roles",
         joinColumns = {

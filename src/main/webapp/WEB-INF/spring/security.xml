@@ -99,9 +99,10 @@
         <security:authentication-provider ref="customUserAuthenticationProvider" />
     </security:authentication-manager>
 
-    <!--<bean id="customUserAuthenticationProvider"-->
-          <!--class="it.iol.oauthaaa.security.AAAUserAuthenticationProvider">-->
-    <!--</bean>-->
+    <beans:bean
+        id = "customUserAuthenticationProvider"
+        class = "com.coffeine.virtuoso.module.security.model.provider.implementation.UserAuthenticationProvider"
+    />
 
     <!--<oauth:authorization-server-->
             <!--client-details-service-ref="clientDetails" token-services-ref="tokenServices">-->
