@@ -87,6 +87,7 @@ public class SecurityController {
                     registrationForm.getUsername()
                 )
             );
+        //TODO: Add entity access
 //            newUser.setPassword(
 //                this.passwordEncoder.encodePassword(
 //                    registrationForm.getPassword(),

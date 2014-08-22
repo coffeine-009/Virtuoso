@@ -1,4 +1,8 @@
 Virtuoso
 ========
 
-Web-service for Virtuoso(Musicians)
+Web-service for:
+<ul>
+    <li>Virtuoso(Musician)</li>
+    <li>Beginners</li>
+ </ul>
