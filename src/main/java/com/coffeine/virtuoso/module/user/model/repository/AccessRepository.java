@@ -15,24 +15,24 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.repository;
 
-import com.coffeine.virtuoso.module.user.model.entity.AccessOAuth;
+import com.coffeine.virtuoso.module.user.model.entity.Access;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @version 1.0
  */
-public interface AccessOAuthRepository extends JpaRepository < AccessOAuth, Long > {
+public interface AccessRepository extends JpaRepository <Access, Long > {
 
     /// *** Methods     *** ///
     /**
-     * Find AccessOAuth by userId and secretKey
+     * Find Access by userId and password
      *
      * @param userId ID of user
-     * @param secretKey Key of user for access
-     * @return AccessOAuth Access credentials
+     * @param password Key of user for access
+     * @return Access Access credentials
      */
-    public AccessOAuth findByUserIdAndSecretKey(
-        Long userId,
-        String secretKey
+    public Access findByUserIdAndPassword(
+            Long userId,
+            String password
     );
 }

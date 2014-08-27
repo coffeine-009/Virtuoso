@@ -134,7 +134,7 @@ public class SecurityController {
      * @param model
      * @return User
      */
-    @RequestMapping( value = "/signinn", method = RequestMethod.POST )
+    @RequestMapping( value = "/signin", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public User authorizationAction( 
@@ -152,7 +152,7 @@ public class SecurityController {
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public Boolean forgotPasswordAtion(
+    public Boolean forgotPasswordAction(
         Model model
     ) {
         return false;

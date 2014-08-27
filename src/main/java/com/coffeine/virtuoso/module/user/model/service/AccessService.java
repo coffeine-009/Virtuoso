@@ -15,22 +15,22 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service;
 
-import com.coffeine.virtuoso.module.user.model.entity.AccessOAuth;
+import com.coffeine.virtuoso.module.user.model.entity.Access;
 
 /**
  * @version 1.0
  */
-public interface AccessOAuthService {
+public interface AccessService {
 
     /// *** Methods     *** ///
     /**
-     * Find AccessOAuth by userId and secretKey
+     * Find Access by userId and password
      *
      * @param userId ID of user
      * @param secretKey Key of user for access
-     * @return AccessOAuth Access credentials
+     * @return Access Access credentials
      */
-    public AccessOAuth findByUserIdAndSecretKey(
+    public Access findByUserIdAndSecretKey(
         Long userId,
         String secretKey
     );

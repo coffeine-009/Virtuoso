@@ -11,7 +11,9 @@
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security.xsd"
 >
+    <!-- Enable anotation for set permits -->
     <security:global-method-security
+        access-decision-manager-ref = "accessDecisionManager"
         pre-post-annotations = "enabled"
         proxy-target-class = "false"
         secured-annotations = "enabled"
@@ -22,25 +24,37 @@
     <security:http
         authentication-manager-ref = "authenticationManager"
         create-session = "stateless"
-        pattern = "/security/signin"
+        pattern = "/oauth/token"
     >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
         <security:anonymous enabled = "false" />
-        <security:custom-filter ref = "clientCredentialsTokenEndpointFilter" before = "BASIC_AUTH_FILTER" />
+        <security:custom-filter
+            before = "BASIC_AUTH_FILTER"
+            ref = "clientCredentialsTokenEndpointFilter"
+        />
         <security:http-basic entry-point-ref = "securityEntryPoint" />
-        <security:intercept-url pattern = "/security/signin" access = "IS_AUTHENTICATED_FULLY" />
+        <security:intercept-url
+            pattern = "/oauth/token"
+            access = "IS_AUTHENTICATED_FULLY"
+        />
     </security:http>
 
     <!-- Access to resources -->
     <security:http
-            create-session = "never"
-            entry-point-ref = "securityAuthenticationEntryPoint"
-            pattern = "/user/**"
-            >
+        create-session = "never"
+        entry-point-ref = "securityAuthenticationEntryPoint"
+        pattern = "/**"
+    >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
         <security:anonymous enabled = "false" />
-        <security:custom-filter ref = "securityFilter" before = "PRE_AUTH_FILTER" />
-        <security:intercept-url pattern = "/user/**" access = "IS_AUTHENTICATED_FULLY" />
+        <security:custom-filter
+            before = "PRE_AUTH_FILTER"
+            ref = "resourceServerFilter"
+        />
+        <security:intercept-url
+            pattern = "/user/**"
+            access = "IS_AUTHENTICATED_FULLY"
+        />
     </security:http>
 
     <!-- BEAN :: SPRING -->
@@ -90,7 +104,7 @@
     <beans:bean
         id = "clientDetails"
         class = "com.coffeine.virtuoso.module.security.model.service.implementation.GuestServiceImpl"
-    >
+    ><!--TODO: use DB-->
         <beans:property name = "clientId" value = "developer" />
         <beans:property name = "clientSecretKey" value = "developer32" />
     </beans:bean>
@@ -104,51 +118,67 @@
         class = "com.coffeine.virtuoso.module.security.model.provider.implementation.UserAuthenticationProvider"
     />
 
-    <!--<oauth:authorization-server-->
-            <!--client-details-service-ref="clientDetails" token-services-ref="tokenServices">-->
-        <!--<oauth:authorization-code />-->
-        <!--<oauth:implicit/>-->
-        <!--<oauth:refresh-token/>-->
-        <!--<oauth:client-credentials />-->
-        <!--<oauth:password authentication-manager-ref="userAuthenticationManager"/>-->
-    <!--</oauth:authorization-server>-->
 
-    <!--<oauth:resource-server id="resourceServerFilter"-->
-                           <!--resource-id="springsec" token-services-ref="tokenServices" />-->
+    <!-- OAuth2 expressions -->
+    <oauth:expression-handler id = "oauthExpressionHandler"/>
 
-    <!--<bean id="tokenStore"-->
-          <!--class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore" />-->
+    <oauth:web-expression-handler id = "oauthWebExpressionHandler"/>
 
-    <!--<bean id="tokenServices"-->
-          <!--class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">-->
-        <!--<property name="tokenStore" ref="tokenStore" />-->
-        <!--<property name="supportRefreshToken" value="true" />-->
-        <!--<property name="accessTokenValiditySeconds" value="120"></property>-->
-        <!--<property name="clientDetailsService" ref="clientDetails" />-->
-    <!--</bean>-->
+    <!-- Security OAuth2 server -->
+    <oauth:authorization-server
+        client-details-service-ref="clientDetails"
+        token-services-ref="tokenServices"
+    >
+        <oauth:authorization-code />
+        <oauth:implicit/>
+        <oauth:refresh-token/>
+        <oauth:client-credentials />
+        <oauth:password
+            authentication-manager-ref = "userAuthenticationManager"
+        />
+    </oauth:authorization-server>
 
-    <!--<mvc:annotation-driven />-->
+    <oauth:resource-server
+        id = "resourceServerFilter"
+        resource-id = "springsec"
+        token-services-ref = "tokenServices"
+    />
 
-    <!--<mvc:default-servlet-handler />-->
 
-    <!--<context:annotation-config/>-->
+    <beans:bean
+        id = "tokenStore"
+        class = "org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore"
+    />
 
-    <!--<bean id="MyResource" class="it.iol.oauthaaa.resources.UserResource"></bean>-->
-    <!--<bean id="aaaProxy" class="it.iol.oauthaaa.security.AAAProxy"></bean-->
+    <beans:bean
+        id = "tokenServices"
+        class = "org.springframework.security.oauth2.provider.token.DefaultTokenServices"
+    >
+        <beans:property name = "tokenStore" ref = "tokenStore" />
+        <beans:property name = "supportRefreshToken" value = "true" />
+        <beans:property name = "accessTokenValiditySeconds" value = "1800" />
+        <beans:property name = "clientDetailsService" ref = "clientDetails" />
+    </beans:bean>
 
-    <!--<security:authentication-manager alias = "authenticationManager">-->
-        <!--<security:authentication-provider>-->
-            <!--<security:user-service>-->
-                <!--<security:user name="admin" password="admin" authorities="ADMIN" />-->
-                <!--<security:user name="musician" password="musician" authorities="MUSICIAN" />-->
-                <!--<security:user name="user" password="user" authorities="USER" />-->
-            <!--</security:user-service>-->
-        <!--</security:authentication-provider>-->
-    <!--</security:authentication-manager>-->
+    <!-- Password encoder -->
+    <beans:bean
+        id = "passwordEncoder"
+        class = "org.springframework.security.authentication.encoding.ShaPasswordEncoder"
+    />
 
-    <!--<beans:bean-->
-        <!--id = "passwordEncoder"-->
-        <!--class = "org.springframework.security.authentication.encoding.ShaPasswordEncoder"-->
-    <!--/>-->
+    <!-- Access voters -->
+    <bean
+        id="accessDecisionManager"
+        class="org.springframework.security.access.vote.UnanimousBased"
+        xmlns="http://www.springframework.org/schema/beans"
+    >
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans:beans>

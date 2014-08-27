@@ -34,6 +34,24 @@ public class UserServiceImpl implements UserService {
 
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
+     /**
+     * Find user by email and hash of password
+     *
+     * @param username
+     * @param password
+     * @return boolean true - user is exist, false - not exist
+     */
+    @Override
+    public User findByUsernameAndPassword(
+        String username,
+        String password
+    ) {
+        return this.userRepository.findByUsernameAndPassword(
+            username,
+            password
+        );
+    }
+
     /**
      * Save user
      *

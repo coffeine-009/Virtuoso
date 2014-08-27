@@ -25,6 +25,17 @@ public interface UserService {
 
     //- SECTION :: MAIN -//
     /**
+     * Find user by email and hach of password
+     * @param username
+     * @param password
+     * @return
+     */
+    public User findByUsernameAndPassword(
+        String username,
+        String password
+    );
+
+    /**
      * Save user
      *
      * @param user

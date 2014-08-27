@@ -14,13 +14,13 @@ CREATE DATABASE virtuoso
         CHARACTER SET utf8
         COLLATE utf8_general_ci;
 
---//- SECTION :: TABLES -//--
+/*//- SECTION :: TABLES -//*/
 /** *** *** *** *** *** *** *** *** *** *
  * Role
  *  --- --- --- --- --- --- --- --- --- *
  * Content data about roles.
  * Ex.: ADMIN, VIRUOSO, USER
-*/--*** *** *** *** *** *** *** *** *** *
+* *** *** *** *** *** *** *** *** *** ***/
 CREATE TABLE `role`(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
@@ -37,7 +37,7 @@ ENGINE = InnoDB CHARACTER SET = utf8;
  * User
  *  --- --- --- --- --- --- --- --- --- *
  * Data about users
-*/--*** *** *** *** *** *** *** *** *** *
+* *** *** *** *** *** *** *** *** *** ***/
 CREATE TABLE user(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 

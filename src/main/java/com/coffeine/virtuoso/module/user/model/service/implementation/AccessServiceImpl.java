@@ -15,9 +15,9 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service.implementation;
 
-import com.coffeine.virtuoso.module.user.model.entity.AccessOAuth;
-import com.coffeine.virtuoso.module.user.model.repository.AccessOAuthRepository;
-import com.coffeine.virtuoso.module.user.model.service.AccessOAuthService;
+import com.coffeine.virtuoso.module.user.model.entity.Access;
+import com.coffeine.virtuoso.module.user.model.repository.AccessRepository;
+import com.coffeine.virtuoso.module.user.model.service.AccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,32 +25,32 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  */
 @Service
-public class AccessOAuthServiceImpl implements AccessOAuthService {
+public class AccessServiceImpl implements AccessService {
 
     /// *** Properties  *** ///
     /**
      * Repository for access to persistence layout
      */
     @Autowired
-    AccessOAuthRepository accessOAuthRepository;
+    AccessRepository accessRepository;
 
 
     /// *** Methods     *** ///
     /**
-     * Find AccessOAuth by userId and secretKey
+     * Find Access by userId and password
      *
      * @param userId ID of user
      * @param secretKey Key of user for access
-     * @return AccessOAuth Access credentials
+     * @return Access Access credentials
      */
     @Override
-    public AccessOAuth findByUserIdAndSecretKey(
+    public Access findByUserIdAndSecretKey(
         Long userId,
         String secretKey
     ) {
-        return this.accessOAuthRepository.findByUserIdAndSecretKey(
-            userId,
-            secretKey
+        return this.accessRepository.findByUserIdAndPassword(
+                userId,
+                secretKey
         );
     }
 }

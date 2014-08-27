@@ -6,7 +6,7 @@
 	    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 >
     <!-- CONTEXT -->
-    <!-- Loads Spring Security config file -->
+    <!-- Load Spring Security config files -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>

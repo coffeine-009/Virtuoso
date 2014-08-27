@@ -29,14 +29,9 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(
-    name = "access_oauth",
-    uniqueConstraints = @UniqueConstraint(
-        columnNames = {
-            "secret_key"
-        }
-    )
+    name = "access"
 )
-public class AccessOAuth implements Serializable {
+public class Access implements Serializable {
 
     /// *** Properties  *** ///
     /**
@@ -60,9 +55,9 @@ public class AccessOAuth implements Serializable {
      */
     @NotNull
     @NotEmpty
-    @Length( min = 256, max = 256 )
-    @Column( name = "secret_key")
-    protected String secretKey;
+    @Length( max = 256 )
+    @Column( name = "password" )
+    protected String password;
 
     /**
      * Date and time of last modification
@@ -102,8 +97,8 @@ public class AccessOAuth implements Serializable {
      *
      * @return String Secret key 256 bytes
      */
-    public String getSecretKey() {
-        return secretKey;
+    public String getPassword() {
+        return password;
     }
 
     /**
@@ -147,9 +142,9 @@ public class AccessOAuth implements Serializable {
     /**
      * Set secret key
      *
-     * @param secretKey Secret key 256 bytes
+     * @param password Secret key 256 bytes
      */
-    public void setSecretKey( String secretKey ) {
-        this.secretKey = secretKey;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

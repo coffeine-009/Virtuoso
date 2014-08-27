@@ -72,6 +72,13 @@ public class User implements Serializable {
     @NotEmpty
     @Valid
     @OneToMany( mappedBy = "user" )
+    protected List < Access > access;
+
+    @JsonIgnore
+    @NotNull
+    @NotEmpty
+    @Valid
+    @OneToMany( mappedBy = "user" )
     protected List < Email > emails;
 
     @JsonIgnore
@@ -141,6 +148,15 @@ public class User implements Serializable {
      */
     public List < Role > getRoles() {
         return this.roles;
+    }
+
+    /**
+     * Get access
+     *
+     * @return List<Access>
+     */
+    public List < Access > getAccess() {
+        return access;
     }
 
     /**
@@ -242,6 +258,15 @@ public class User implements Serializable {
      */
     public void setRoles( List < Role > roles ) {
         this.roles = roles;
+    }
+
+    /**
+     * Set access
+     *
+     * @param access
+     */
+    public void setAccess( List < Access > access ) {
+        this.access = access;
     }
 
     /**
