@@ -1,28 +1,31 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!--DEVELOPMENT -->
 <beans
-        profile = "test"
+    profile = "test"
 
-        xmlns           = "http://www.springframework.org/schema/beans"
-        xmlns:xsi       = "http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:context   = "http://www.springframework.org/schema/context"
-        xmlns:jpa       = "http://www.springframework.org/schema/data/jpa"
-        xmlns:mvc       = "http://www.springframework.org/schema/mvc"
-        xmlns:tx        = "http://www.springframework.org/schema/tx"
-        xmlns:jdbc      = "http://www.springframework.org/schema/jdbc"
-        xsi:schemaLocation = "http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd
-        http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-        http://www.springframework.org/schema/jdbc
-        http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
-        http://www.springframework.org/schema/data/jpa
-        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd"
-        >
+    xmlns           = "http://www.springframework.org/schema/beans"
+    xmlns:xsi       = "http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context   = "http://www.springframework.org/schema/context"
+    xmlns:jpa       = "http://www.springframework.org/schema/data/jpa"
+    xmlns:mvc       = "http://www.springframework.org/schema/mvc"
+    xmlns:tx        = "http://www.springframework.org/schema/tx"
+    xmlns:jdbc      = "http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation = "http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+>
+    <!-- Include Security -->
+    <import resource = "security.xml" />
+
     <context:annotation-config />
 
     <!-- Scans the classpath for @Components to deploy as beans -->
@@ -35,8 +38,8 @@
     <mvc:interceptors>
         <!-- Manual change locale request contain locale(locale=en=US) -->
         <bean
-                class = "org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
-                />
+            class = "org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+        />
     </mvc:interceptors>
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up
@@ -47,9 +50,9 @@
     <!-- SECTION :: LOCALIZATION -->
     <!-- Save a locale to cookie -->
     <bean
-            id = "localeResolver"
-            class = "org.springframework.web.servlet.i18n.CookieLocaleResolver"
-            >
+        id = "localeResolver"
+        class = "org.springframework.web.servlet.i18n.CookieLocaleResolver"
+    >
         <property name = "defaultLocale" value = "en" />
         <property name = "cookieName" value = "locale" />
         <property name = "cookieMaxAge" value = "3600" />
@@ -57,9 +60,9 @@
 
     <!-- Application message bundle -->
     <bean
-            id = "messageSource"
-            class = "org.springframework.context.support.ReloadableResourceBundleMessageSource"
-            >
+        id = "messageSource"
+        class = "org.springframework.context.support.ReloadableResourceBundleMessageSource"
+    >
         <property name = "basenames">
             <list>
                 <value>classpath:i18n/messages</value>
@@ -74,46 +77,46 @@
 
 
     <bean
-            id = "dataSource"
-            class = "org.springframework.jdbc.datasource.DriverManagerDataSource"
-            >
+        id = "dataSource"
+        class = "org.springframework.jdbc.datasource.DriverManagerDataSource"
+    >
         <property name = "driverClassName" value = "com.mysql.jdbc.Driver" />
         <property
-                name = "url"
-                value = "jdbc:mysql://localhost:3306/virtuoso?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;sessionVariables=storage_engine=InnoDB&amp;zeroDateTimeBehavior=convertToNull"
-                />
+            name = "url"
+            value = "jdbc:mysql://localhost:3306/virtuoso?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;sessionVariables=storage_engine=InnoDB&amp;zeroDateTimeBehavior=convertToNull"
+        />
         <property name = "username" value = "root" />
         <property name = "password" value = "developer" />
     </bean>
 
     <bean
-            id = "jpaVendorAdapter"
-            class = "org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-            >
+        id = "jpaVendorAdapter"
+        class = "org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+    >
         <property name = "showSql" value = "true" />
         <property name = "generateDdl" value = "true" />
         <property name = "database" value = "MYSQL" />
     </bean>
 
     <bean
-            id = "entityManagerFactory"
-            class = "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-            >
+        id = "entityManagerFactory"
+        class = "org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    >
         <property name = "dataSource" ref = "dataSource" />
         <property name = "jpaVendorAdapter" ref = "jpaVendorAdapter" />
         <property name = "packagesToScan" value = "com.coffeine.virtuoso" />
     </bean>
 
     <bean
-            id = "transactionManager"
-            class = "org.springframework.orm.jpa.JpaTransactionManager"
-            >
+        id = "transactionManager"
+        class = "org.springframework.orm.jpa.JpaTransactionManager"
+    >
         <property name = "entityManagerFactory" ref = "entityManagerFactory" />
     </bean>
 
     <tx:annotation-driven
-            transaction-manager = "transactionManager"
-            proxy-target-class = "true"
-            />
+        transaction-manager = "transactionManager"
+        proxy-target-class = "true"
+    />
 
 </beans>

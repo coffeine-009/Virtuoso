@@ -11,6 +11,8 @@ package com.coffeine.virtuoso.module.controller;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -20,7 +22,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.annotation.Resource;
 
 /**
  * Abstract base test for controllers
@@ -31,8 +32,7 @@ import javax.annotation.Resource;
 @ContextConfiguration(
     locations = {
         "file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml",
-        "file:src/main/webapp/WEB-INF/spring/spring-context-test.xml",
-        "file:src/main/webapp/WEB-INF/spring/security.xml"
+        "file:src/main/webapp/WEB-INF/spring/spring-context-test.xml"
     }
 )
 @RunWith( SpringJUnit4ClassRunner.class )
@@ -50,8 +50,14 @@ public abstract class AbstractControllerTest
     /**
      * Application context
      */
-    @Resource
+    @Autowired
     private WebApplicationContext webApplicationContext;
+
+    /**
+     * Security
+     */
+    @Autowired
+    private FilterChainProxy springSecurityFilterChainProxy;
 
 
     /// *** Methods     *** ///
@@ -63,7 +69,7 @@ public abstract class AbstractControllerTest
         this.mockMvc = MockMvcBuilders.webAppContextSetup(
             this.webApplicationContext
         )
-            .dispatchOptions( true )
+            .addFilter( this.springSecurityFilterChainProxy )
             .build();
     }
 }

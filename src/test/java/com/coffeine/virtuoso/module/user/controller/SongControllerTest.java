@@ -69,7 +69,7 @@ public class SongControllerTest extends AbstractControllerTest {
         this.mockMvc.perform(
             get( "/user/song/list" )
         )
-            .andExpect( status().isOk() );
+            .andExpect( status().isUnauthorized() );
     }
 
     /**
