@@ -19,16 +19,17 @@ requirejs.config(
     {
         baseUrl : "/resources/client/library",
         paths   : {
-            templates   : "/resources/client/module/user/view/templates",
-            tpl         : "/resources/client/library/tpl",
-            text        : "/resources/client/library/text",
+            templates       : "/resources/client/module/user/view/templates",
+            tpl             : "/resources/client/library/tpl",
+            text            : "/resources/client/library/text",
 //            jquery      : "/resources/client/library/jquery",
-            datatables  : "/resources/client/library/jquery.dataTables",
-            underscore  : "/resources/client/library/underscore",
-            backbone    : "/resources/client/library/backbone",
-            vextab      : "/resources/client/library/vexflow-min",
-            vextabdiv   : "/resources/client/library/tabdiv-min",
-            user        : "/resources/client/module/user"
+            datatables      : "/resources/client/library/jquery.dataTables",
+            underscore      : "/resources/client/library/underscore",
+            backbone        : "/resources/client/library/backbone",
+            backboneoauth   : "/resources/client/library/backbone.oauth2",
+            vextab          : "/resources/client/library/vexflow-min",
+            vextabdiv       : "/resources/client/library/tabdiv-min",
+            user            : "/resources/client/module/user"
         },
         shim: {
 //            jquery      : {

@@ -1,4 +1,4 @@
-/* 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    /*
  * @copyright 2014 (c), by Coffeine
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
@@ -9,13 +9,15 @@ define(
         "tpl!/resources/client/module/security/view/template/security/SignIn",
         "jquery",
         "underscore",
-        "backbone"
+        "backbone",
+        "backboneoauth"
     ],
     function(
         SignInTpl,
         $,
         _,
-        Backbone
+        Backbone,
+        OAuth
         ) {
         Security.View.SignInView = Backbone.View.extend({
             /// *** Properties  *** ///
@@ -58,16 +60,30 @@ define(
              */
             submit: function() {
                 //- Send request for Sign In -//
-                this.model.save(
-                    {
-                        "username"  : $( "#username").val(),
-                        "password"  : $( "#password").val()
-                    },
-                    {
-                        success : this.signinSuccess,
-                        error   : this.signinFailure
-                    }
+                var oAuth = new Backbone.OAuth2({
+                    clientId: "developer",
+                    clientSecret: "developer32"
+                });
+                oAuth.access(
+                    $( "#username").val(),
+                    $( "#password").val(),
+                    this.signinSuccess,
+                    this.signinFailure
                 );
+//                this.model.save(
+//                    {
+//                        "username"  : $( "#username").val(),
+//                        "password"  : $( "#password").val()
+//                    },
+//                    {
+//                        success : this.signinSuccess,
+//                        error   : this.signinFailure,
+//                        beforeSend: function(xhr) {
+//                            xhr.setRequestHeader("Authorization", "Basic ZGV2ZWxvcGVyOmRldmVsb3BlcjMy")
+//                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+//                        }
+//                    }
+//                );
             },
 
             /**
@@ -76,7 +92,7 @@ define(
              * @param Model
              * @param Response
              */
-            signinSuccess: function( Model, Response ) {
+            signinSuccess: function( Response ) {
                 //TODO: do redirect
                 console.log( Response );
             },
@@ -87,7 +103,7 @@ define(
              * @param Model
              * @param Response
              */
-            signinFailure: function( Model, Response ) {
+            signinFailure: function( Response ) {
                 //TODO: display errors
                 console.log( Error.status );
             }

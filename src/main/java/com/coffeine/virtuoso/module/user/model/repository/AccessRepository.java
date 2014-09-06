@@ -21,7 +21,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @version 1.0
  */
-public interface AccessRepository extends JpaRepository <Access, Long > {
+public interface AccessRepository extends JpaRepository < Access, Long > {
 
     /// *** Methods     *** ///
     /**
@@ -31,8 +31,8 @@ public interface AccessRepository extends JpaRepository <Access, Long > {
      * @param password Key of user for access
      * @return Access Access credentials
      */
-    public Access findByUserIdAndPassword(
-            Long userId,
-            String password
-    );
+//    public Access findByUserIdAndPassword(
+//        Long userId,
+//        String password
+//    );
 }

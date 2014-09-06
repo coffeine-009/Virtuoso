@@ -1,4 +1,4 @@
-/* 
+/**
  * @copyright 2014 (c), by Coffeine
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
@@ -12,10 +12,12 @@ var Security = Security || {};
 
 define(
     [
-        "backbone"
+        "backbone",
+        "backboneoauth"
     ],
     function(
-        Backbone
+        Backbone,
+        OAuth
     ) {
         /**
          * Model for work with song
@@ -23,12 +25,16 @@ define(
         return Security.Model.Authorization = Backbone.Model.extend({
             /// *** Properties  *** ///
             //- Path for get song from API -//
-            urlRoot: "/j_spring_security_check",
+            urlRoot: "/oauth/token",
 
             //- Set default values -//
             defaults: {
-                "username"    : "",
-                "password"    : ""
+                "username"      : "",
+                "password"      : "",
+                "client_id"     : "developer",
+                "client_secret" : "developer32",
+                "grant_type"    : "password",
+                "scope"         : "read"
             },
 
 

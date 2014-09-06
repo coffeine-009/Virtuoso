@@ -130,8 +130,8 @@
         token-services-ref="tokenServices"
     >
         <oauth:authorization-code />
-        <oauth:implicit/>
-        <oauth:refresh-token/>
+        <oauth:implicit />
+        <oauth:refresh-token />
         <oauth:client-credentials />
         <oauth:password
             authentication-manager-ref = "userAuthenticationManager"

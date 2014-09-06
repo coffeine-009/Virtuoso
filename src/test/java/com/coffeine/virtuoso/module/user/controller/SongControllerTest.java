@@ -15,22 +15,19 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.controller;
 
+import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
 import junit.framework.TestCase;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests for SongController
  */
-public class SongControllerTest extends TestCase {
+public class SongControllerTest extends AbstractControllerTest {
 
     /// *** Constants   *** ///
     final String PROTOCOL   = "http";
@@ -41,13 +38,12 @@ public class SongControllerTest extends TestCase {
     final String URL_SONG_CREATE    = "/user/song";
 
     /**
-     * Init environment for run tests
+     * Init environment for run test
      *
      * @throws Exception
      */
     @Before
     public void setUp() throws Exception {
-        super.setUp();
 
 
     }
@@ -67,26 +63,13 @@ public class SongControllerTest extends TestCase {
      *
      * @throws Exception
      */
-    @Ignore
     @Test
     public void testListAction() throws Exception {
         // Do request for get list of songs
-//        HttpResponse songsResponse = HttpClientBuilder.create().build().execute(
-//            new HttpGet(
-//                String.format(
-//                    "%s://%s:%s%s",
-//                    //- Params -//
-//                    PROTOCOL,
-//                    DOMAIN,
-//                    PORT,
-//                    URL_SONG_LIST
-//                )
-//            )
-//        );
-//        String body = EntityUtils.toString(
-//            songsResponse.getEntity()
-//        );
-//        this.fail("To implement");
+        this.mockMvc.perform(
+            get( "/user/song/list" )
+        )
+            .andExpect( status().isOk() );
     }
 
     /**

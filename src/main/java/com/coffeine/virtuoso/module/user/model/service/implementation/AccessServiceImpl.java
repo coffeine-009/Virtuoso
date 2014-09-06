@@ -43,14 +43,14 @@ public class AccessServiceImpl implements AccessService {
      * @param secretKey Key of user for access
      * @return Access Access credentials
      */
-    @Override
-    public Access findByUserIdAndSecretKey(
-        Long userId,
-        String secretKey
-    ) {
-        return this.accessRepository.findByUserIdAndPassword(
-                userId,
-                secretKey
-        );
-    }
+//    @Override
+//    public Access findByUserIdAndSecretKey(
+//        Long userId,
+//        String secretKey
+//    ) {
+//        return this.accessRepository.findByUserIdAndPassword(
+//            userId,
+//            secretKey
+//        );
+//    }
 }

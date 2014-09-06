@@ -30,8 +30,8 @@ public interface AccessService {
      * @param secretKey Key of user for access
      * @return Access Access credentials
      */
-    public Access findByUserIdAndSecretKey(
-        Long userId,
-        String secretKey
-    );
+//    public Access findByUserIdAndSecretKey(
+//        Long userId,
+//        String secretKey
+//    );
 }
