@@ -1,16 +1,16 @@
 /// *** Security :: Model :: Service :: GuestService    *** *** *** *** *** ///
 
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
- *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
- *
- * @date 2014-08-22 12:28:32 :: 2014-08-22 12:48:08
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-08-22 12:28:32 :: 2014-08-22 12:48:08
+     *
+     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.model.service.implementation;

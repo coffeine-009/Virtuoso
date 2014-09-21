@@ -64,6 +64,7 @@ public class SongControllerTest extends AbstractControllerTest {
      * @throws Exception
      */
     @Test
+    @Ignore
     public void testListAction() throws Exception {
         // Do request for get list of songs
         this.mockMvc.perform(

@@ -71,24 +71,24 @@ public class User implements Serializable {
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "user" )
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
     protected List < Access > access;
 
     @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "user" )
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
     protected List < Email > emails;
 
     @JsonIgnore
     @Valid
-    @OneToMany( mappedBy = "user" )
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
     protected List < Composer > composers;
 
     @JsonIgnore
     @Valid
-    @OneToMany( mappedBy = "user" )
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
     protected List < Poet > poets;
 
     @NotNull
@@ -128,7 +128,10 @@ public class User implements Serializable {
      */
     public User() {
         //- Initialization -//
-        this.emails = new ArrayList();
+        this.access = new ArrayList<>();
+        this.emails = new ArrayList<>();
+        this.composers = new ArrayList<>();
+        this.poets = new ArrayList<>();
     }
 
     //- SECTION :: GET -//
@@ -343,12 +346,65 @@ public class User implements Serializable {
 
 
     //- SECTION :: MAIN -//
+    public void addAccess( Access access ) {
+
+        // Set user
+        access.setUser( this );
+
+        // Check exists access list
+        if ( !this.access.contains( access ) ) {
+            // Add a new access for user
+            this.access.add( access );
+        }
+    }
     /**
-     * Add new email
+     * Add a new email
      *
      * @param email
      */
     public void addEmail( Email email ) {
-        this.emails.add( email );
+
+        // Set user
+        email.setUser( this );
+
+        // Check exists email list
+        if ( !this.emails.contains( email ) ) {
+            // Add a new email for user
+            this.emails.add( email );
+        }
+    }
+
+    /**
+     * Add a new composer
+     *
+     * @param composer
+     */
+    public void addComposer( Composer composer ) {
+
+        // Set user
+        composer.setUser( this );
+
+        // Check exists composer list
+        if ( !this.composers.contains( composer ) ) {
+            // Add a new composer
+            this.composers.add( composer );
+        }
+    }
+
+    /**
+     * Add a new poet
+     *
+     * @param poet
+     */
+    public void addPoet( Poet poet ) {
+
+        // Set user
+        poet.setUser( this );
+
+        // Check exists poet list
+        if ( !this.poets.contains( poet ) ) {
+            // Add a new poet
+            this.poets.add( poet );
+        }
     }
 }

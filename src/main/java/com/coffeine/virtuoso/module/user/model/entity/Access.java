@@ -73,6 +73,25 @@ public class Access implements Serializable {
 
 
     /// *** Methods     *** ///
+
+    /**
+     * Default constructor
+     */
+    public Access() {
+
+    }
+
+    /**
+     * Constructor for create access
+     *
+     * @param password
+     */
+    public Access( String password ) {
+        //- Initialization -//
+        this.password = password;
+    }
+
+
     //- SECTION :: GET -//
     /**
      * Get ID

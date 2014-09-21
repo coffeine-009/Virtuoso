@@ -52,7 +52,7 @@
             ref = "resourceServerFilter"
         />
         <security:intercept-url
-            pattern = "/user/**"
+            pattern = "/**"
             access = "IS_AUTHENTICATED_FULLY"
         />
     </security:http>
