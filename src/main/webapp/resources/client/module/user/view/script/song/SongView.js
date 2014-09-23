@@ -66,7 +66,7 @@ define(
                 render();
 
 //                var notesEditor = new NotesEditor(
-//                    "editor-notes",
+//                    "editor-staffs",
 //                    800,
 //                    200
 //                );

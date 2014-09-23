@@ -310,7 +310,7 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 /** *** *** *** *** *** *** *** *** *** *
  * Note type
  *  --- --- --- --- --- --- --- --- --- *
- * Content data about notes types.
+ * Content data about staffs types.
  * Ex.: NOTE, TAB, ACCORDS
 */--*** *** *** *** *** *** *** *** *** *
 CREATE TABLE `note_type`(

@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Class for reflect table notes type from persistence layout
+ * Class for reflect table staffs type from persistence layout
  *
  * @version 1.0
  */
@@ -94,16 +94,16 @@ public class NotesType implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of notes type
+     * Get ID of staffs type
      *
-     * @return Long ID of notes type
+     * @return Long ID of staffs type
      */
     public Long getId() {
         return this.id;
     }
 
     /**
-     * Get code of notes type
+     * Get code of staffs type
      *
      * @return String
      */
@@ -112,7 +112,7 @@ public class NotesType implements Serializable {
     }
 
     /**
-     * Get title of notes type
+     * Get title of staffs type
      *
      * @return String
      */
@@ -121,7 +121,7 @@ public class NotesType implements Serializable {
     }
 
     /**
-     * Get description about notes type
+     * Get description about staffs type
      *
      * @return String
      */
@@ -132,16 +132,16 @@ public class NotesType implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of notes type
+     * Set ID of staffs type
      *
-     * @param id ID of notes type
+     * @param id ID of staffs type
      */
     public void setId( Long id ) {
         this.id = id;
     }
 
     /**
-     * Set code of notes type
+     * Set code of staffs type
      * Ex. TABULATRE
      *
      * @param code
@@ -151,7 +151,7 @@ public class NotesType implements Serializable {
     }
 
     /**
-     * Set title of notes type
+     * Set title of staffs type
      *
      * @param title
      */
@@ -160,7 +160,7 @@ public class NotesType implements Serializable {
     }
 
     /**
-     * Set description of notes type
+     * Set description of staffs type
      *
      * @param description 
      */

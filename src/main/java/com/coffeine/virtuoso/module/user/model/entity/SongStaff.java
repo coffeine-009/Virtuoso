@@ -103,7 +103,7 @@ public class SongStaff implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song notes
+     * Get ID of song staffs
      *
      * @return Long
      */
@@ -112,7 +112,7 @@ public class SongStaff implements Serializable {
     }
 
     /**
-     * Get song of this notes
+     * Get song of this staffs
      *
      * @return Song
      */
@@ -121,7 +121,7 @@ public class SongStaff implements Serializable {
     }
 
     /**
-     * Get notes type
+     * Get staffs type
      *
      * @return NotesType
      */
@@ -158,7 +158,7 @@ public class SongStaff implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song notes
+     * Set ID of song staffs
      *
      * @param id
      */
@@ -167,7 +167,7 @@ public class SongStaff implements Serializable {
     }
 
     /**
-     * Set song of this notes
+     * Set song of this staffs
      *
      * @param song
      */
@@ -176,7 +176,7 @@ public class SongStaff implements Serializable {
     }
 
     /**
-     * Set type of notes
+     * Set type of staffs
      *
      * @param notesType
      */

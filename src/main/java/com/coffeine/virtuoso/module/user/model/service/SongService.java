@@ -35,6 +35,15 @@ public interface SongService {
     public List < Song > getList();
 
     /**
+     * Get list of Song for page
+     *
+     * @param page Number of page for return
+     * @param limit Count items per page
+     * @return List < Song > List of found songs
+     */
+    public List < Song > getList( int page, int limit );
+
+    /**
      * Get song by ID
      *
      * @param Id

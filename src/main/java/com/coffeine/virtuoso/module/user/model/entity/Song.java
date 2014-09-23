@@ -38,65 +38,57 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( name = "song" )
-//@FilterDef(
-//    name = "locale",
-//    parameters = {
-//        @ParamDef( name = "locale", type = "String" )
-//    }
-//)
 public class Song implements Serializable {
 
     /// *** Properties  *** ///
     @Id
     @GeneratedValue
-    @Column( name = "id", columnDefinition = "BIGINT( 20 )" )
+    @Column( name = "id", columnDefinition = "AUTO_INCREMENT" )
     protected Long id;
 
     @NotNull
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_composer", columnDefinition = "BIGINT( 20 )" )
+    @JoinColumn( name = "id_composer" )
     protected Composer composer;
 
     @NotNull
     @Valid
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_poet", columnDefinition = "BIGINT( 20 )" )
+    @JoinColumn( name = "id_poet" )
     protected Poet poet;
 
     @JsonProperty( "title" )
     @Transient
     protected String title;
 
-//    @JsonIgnore
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song" )
+    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
     @LazyCollection( LazyCollectionOption.FALSE )
-    //@FilterJoinTable( name = "locale", condition = "locale = :locale" )
     protected List < SongLocale > data;
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song" )
-    @LazyCollection(LazyCollectionOption.FALSE)
-    protected List <SongStaff> notes;
+    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @LazyCollection( LazyCollectionOption.FALSE )
+    protected List <SongStaff> staffs;
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song" )
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @LazyCollection( LazyCollectionOption.FALSE )
     protected List < SongText > texts;
 
     @JsonIgnore
-    @OneToMany( mappedBy = "song" )
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @LazyCollection( LazyCollectionOption.FALSE )
     protected List < Video > videos;
 
     @NotNull
     @NotEmpty
     @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column( name = "write_date", columnDefinition = "TIMESTAMP" )
@@ -163,12 +155,12 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get musical notes
+     * Get musical staffs
      *
      * @return List<SongStaff>
      */
-    public List <SongStaff> getNotes() {
-        return notes;
+    public List <SongStaff> getStaffs() {
+        return staffs;
     }
 
     /**
@@ -255,12 +247,12 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set musical notes
+     * Set musical staffs
      *
-     * @param notes
+     * @param staffs
      */
-    public void setNotes( List <SongStaff> notes ) {
-        this.notes = notes;
+    public void setStaffs(List<SongStaff> staffs) {
+        this.staffs = staffs;
     }
 
     /**

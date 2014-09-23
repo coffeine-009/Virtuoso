@@ -19,6 +19,7 @@ import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.repository.SongRepository;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,6 +47,23 @@ public class SongServiceImpl implements SongService {
     @Override
     public List < Song > getList() {
         return songRespository.findAll();
+    }
+
+    /**
+     * Get list of song for page
+     *
+     * @param page Number of page for return
+     * @param limit Count items per page
+     * @return List < Song >
+     */
+    public List < Song > getList( int page, int limit ) {
+        return songRespository.findAll(
+            new PageRequest(
+                page,
+                limit
+            )
+        )
+            .getContent();
     }
 
     /**

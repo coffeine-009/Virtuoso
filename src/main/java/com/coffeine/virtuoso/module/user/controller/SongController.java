@@ -49,16 +49,22 @@ public class SongController {
     /**
      * GET list of songs
      *
-     * @return List<Song>
+     * @param page Number of page
+     * @param limit Count items per page
+     * @return List < Song > List of songs for requested page
      */
-    @RequestMapping( value = "/list", method = RequestMethod.GET )
+    @RequestMapping( value = "/list/{PAGE}/{LIMIT}", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public List < Song > listAction() {
-        //- Get list of song from persistence layout -//
-        List < Song > songList = songService.getList();
+    public List < Song > listAction(
+        @PathVariable( "PAGE" )
+        int page,
 
-        return songList;
+        @PathVariable( "LIMIT" )
+        int limit
+    ) {
+        //- Get list of song from persistence layout -//
+        return this.songService.getList( page, limit );
     }
 
     /**

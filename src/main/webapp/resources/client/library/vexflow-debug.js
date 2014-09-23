@@ -2426,7 +2426,7 @@ Vex.Flow.TabStave = (function() {
 }());// Vex Flow
 // Copyright Mohit Cheppudira <mohit@muthanna.com>
 //
-// A formatter for abstract tickable objects, such as notes, chords,
+// A formatter for abstract tickable objects, such as staffs, chords,
 // tabs, etc.
 
 /** @constructor */
@@ -2446,8 +2446,8 @@ Vex.Flow.TickContext = (function() {
       this.x = 0;
       this.tickables = [];   // Notes, tabs, chords, lyrics.
       this.notePx = 0;       // width of widest note in this context
-      this.extraLeftPx = 0;  // Extra left pixels for modifers & displace notes
-      this.extraRightPx = 0; // Extra right pixels for modifers & displace notes
+      this.extraLeftPx = 0;  // Extra left pixels for modifers & displace staffs
+      this.extraRightPx = 0; // Extra right pixels for modifers & displace staffs
 
       // Ignore this tick context for formatting and justification
       this.ignore_ticks = true;
@@ -2694,19 +2694,19 @@ Vex.Flow.Tickable = (function() {
 //
 // ## Description
 //
-// This file implements an abstract interface for notes and chords that
+// This file implements an abstract interface for staffs and chords that
 // are rendered on a stave. Notes have some common properties: All of them
 // have a value (e.g., pitch, fret, etc.) and a duration (quarter, half, etc.)
 //
-// Some notes have stems, heads, dots, etc. Most notational elements that
+// Some staffs have stems, heads, dots, etc. Most notational elements that
 // surround a note are called *modifiers*, and every note has an associated
-// array of them. All notes also have a rendering context and belong to a stave.
+// array of them. All staffs also have a rendering context and belong to a stave.
 
 Vex.Flow.Note = (function() {
   // To create a new note you need to provide a `note_struct`, which consists
   // of the following fields:
   //
-  // `type`: The note type (e.g., `r` for rest, `s` for slash notes, etc.)
+  // `type`: The note type (e.g., `r` for rest, `s` for slash staffs, etc.)
   // `dots`: The number of dots, which affects the duration.
   // `duration`: The time length (e.g., `q` for quarter, `h` for half, `8` for eighth etc.)
   //
@@ -2787,7 +2787,7 @@ Vex.Flow.Note = (function() {
     getPlayNote: function() { return this.playNote; },
     setPlayNote: function(note) { this.playNote = note; return this; },
 
-    // Don't play notes by default, call them rests. This is also used by things like
+    // Don't play staffs by default, call them rests. This is also used by things like
     // beams and dots for positioning.
     isRest: function() { return false; },
 
@@ -2812,13 +2812,13 @@ Vex.Flow.Note = (function() {
     // Set the rendering context for the note.
     setContext: function(context) { this.context = context; return this; },
 
-    // Get and set spacing to the left and right of the notes.
+    // Get and set spacing to the left and right of the staffs.
     getExtraLeftPx: function() { return this.extraLeftPx; },
     getExtraRightPx: function() { return this.extraRightPx; },
     setExtraLeftPx: function(x) { this.extraLeftPx = x; return this; },
     setExtraRightPx: function(x) { this.extraRightPx = x; return this; },
 
-    // Returns true if this note has no duration (e.g., bar notes, spacers, etc.)
+    // Returns true if this note has no duration (e.g., bar staffs, spacers, etc.)
     shouldIgnoreTicks: function() { return this.ignore_ticks; },
 
     // Get the stave line number for the note.
@@ -3045,7 +3045,7 @@ Vex.Flow.NoteHead = (function() {
       this.line = head_options.line;
 
       // Get glyph code based on duration and note type. This could be
-      // regular notes, rests, or other custom codes.
+      // regular staffs, rests, or other custom codes.
       this.glyph = Vex.Flow.durationToGlyph(this.duration, this.note_type);
       if (!this.glyph) {
         throw new Vex.RuntimeError("BadArguments",
@@ -3359,8 +3359,8 @@ Vex.Flow.Stem = (function() {
 //
 // ## Description
 //
-// `StemmableNote` is an abstract interface for notes with optional stems. 
-// Examples of stemmable notes are `StaveNote` and `TabNote`
+// `StemmableNote` is an abstract interface for staffs with optional stems.
+// Examples of stemmable staffs are `StaveNote` and `TabNote`
 Vex.Flow.StemmableNote = (function(){
   var StemmableNote = function(note_struct) {
     if (arguments.length > 0) this.init(note_struct);
@@ -3585,7 +3585,7 @@ Vex.Flow.StemmableNote = (function(){
 //
 // ## Description
 //
-// This file implements notes for standard notation. This consists of one or 
+// This file implements staffs for standard notation. This consists of one or
 // more `NoteHeads`, an optional stem, and an optional flag.
 //
 // *Throughout these comments, a "note" refers to the entire `StaveNote`,
@@ -3691,12 +3691,12 @@ Vex.Flow.StaveNote = (function() {
       var line_diff = null;
       var displaced = false;
 
-      // Draw notes from bottom to top.
+      // Draw staffs from bottom to top.
       var start_i = 0;
       var end_i = keys.length;
       var step_i = 1;
 
-      // For down-stem notes, we draw from top to bottom.
+      // For down-stem staffs, we draw from top to bottom.
       if (stem_direction === Stem.DOWN) {
         start_i = keys.length - 1;
         end_i = -1;
@@ -3742,7 +3742,7 @@ Vex.Flow.StaveNote = (function() {
     autoStem: function() {
       var auto_stem_direction;
 
-      // Figure out optimal stem direction based on given notes
+      // Figure out optimal stem direction based on given staffs
       this.min_line = this.keyProps[0].line;
       this.max_line = this.keyProps[this.keyProps.length - 1].line;
       var decider = (this.min_line + this.max_line) / 2;
@@ -3792,7 +3792,7 @@ Vex.Flow.StaveNote = (function() {
         this.keyProps.push(props);
       }
 
-      // Sort the notes from lowest line to highest line
+      // Sort the staffs from lowest line to highest line
       this.keyProps.sort(function(a, b) { return a.line - b.line; });
     },
 
@@ -4080,7 +4080,7 @@ Vex.Flow.StaveNote = (function() {
 
       var width = this.glyph.head_width + this.extraLeftPx + this.extraRightPx;
 
-      // For upward flagged notes, the width of the flag needs to be added
+      // For upward flagged staffs, the width of the flag needs to be added
       if (this.glyph.flag && this.beam === null && this.stem_direction == 1) {
         width += this.glyph.head_width;
       }
@@ -4297,7 +4297,7 @@ Vex.Flow.TabNote = (function() {
       var superclass = Vex.Flow.TabNote.superclass;
       superclass.init.call(this, tab_struct);
 
-      this.ghost = false; // Renders parenthesis around notes
+      this.ghost = false; // Renders parenthesis around staffs
       // Note properties
       this.positions = tab_struct.positions; // [{ str: X, fret: X }]
       Vex.Merge(this.render_options, {
@@ -4769,11 +4769,11 @@ Vex.Flow.Beam = (function() {
   Beam.prototype = {
     init: function(notes, auto_stem) {
       if (!notes || notes == []) {
-        throw new Vex.RuntimeError("BadArguments", "No notes provided for beam.");
+        throw new Vex.RuntimeError("BadArguments", "No staffs provided for beam.");
       }
 
       if (notes.length == 1) {
-        throw new Vex.RuntimeError("BadArguments", "Too few notes for beam.");
+        throw new Vex.RuntimeError("BadArguments", "Too few staffs for beam.");
       }
 
       // Validate beam line, direction and ticks.
@@ -4781,7 +4781,7 @@ Vex.Flow.Beam = (function() {
 
       if (this.ticks >= Vex.Flow.durationToTicks("4")) {
         throw new Vex.RuntimeError("BadArguments",
-            "Beams can only be applied to notes shorter than a quarter note.");
+            "Beams can only be applied to staffs shorter than a quarter note.");
       }
 
       var i; // shared iterator
@@ -4799,7 +4799,7 @@ Vex.Flow.Beam = (function() {
 
       var stem_direction = -1;
 
-      // Figure out optimal stem direction based on given notes
+      // Figure out optimal stem direction based on given staffs
       if (auto_stem && notes[0].getCategory() === 'stavenotes')  {
         // Auto Stem StaveNotes
         this.min_line = 1000;
@@ -4823,7 +4823,7 @@ Vex.Flow.Beam = (function() {
         stem_direction = stem_weight > -1 ? 1 : -1;
       }
 
-      // Apply stem directions and attach beam to notes
+      // Apply stem directions and attach beam to staffs
       for (i = 0; i < notes.length; ++i) {
         note = notes[i];
         if (auto_stem) {
@@ -4852,10 +4852,10 @@ Vex.Flow.Beam = (function() {
     // The the rendering `context`
     setContext: function(context) { this.context = context; return this; },
 
-    // Get the notes in this beam
+    // Get the staffs in this beam
     getNotes: function() { return this.notes; },
 
-    // Get the max number of beams in the set of notes
+    // Get the max number of beams in the set of staffs
     getBeamCount: function(){
       var beamCounts =  this.notes.map(function(note) {
         return note.getGlyph().beam_count;
@@ -4879,7 +4879,7 @@ Vex.Flow.Beam = (function() {
       return first_y_px + ((x - first_x_px) * slope);
     },
 
-    // Calculate the best possible slope for the provided notes
+    // Calculate the best possible slope for the provided staffs
     calculateSlope: function() {
       var first_note = this.notes[0];
       var first_y_px = first_note.getStemExtents().topY;
@@ -4898,7 +4898,7 @@ Vex.Flow.Beam = (function() {
         var total_stem_extension = 0;
         var y_shift_tmp = 0;
 
-        // iterate through notes, calculating y shift and stem extension
+        // iterate through staffs, calculating y shift and stem extension
         for (var i = 1; i < this.notes.length; ++i) {
           var note = this.notes[i];
 
@@ -4938,7 +4938,7 @@ Vex.Flow.Beam = (function() {
       this.y_shift = y_shift;
     },
 
-    // Create new stems for the notes in the beam, so that each stem
+    // Create new stems for the staffs in the beam, so that each stem
     // extends into the beams.
     applyStemExtensions: function(){
       var first_note = this.notes[0];
@@ -5088,7 +5088,7 @@ Vex.Flow.Beam = (function() {
       return beam_lines;
     },
 
-    // Render the stems for each notes
+    // Render the stems for each staffs
     drawStems: function() {
       this.notes.forEach(function(note) {
         if (note.getStem()) {
@@ -5146,7 +5146,7 @@ Vex.Flow.Beam = (function() {
     preFormat: function() { return this; },
 
     // Post-format the beam. This can only be called after
-    // the notes in the beam have both `x` and `y` values. ie: they've 
+    // the staffs in the beam have both `x` and `y` values. ie: they've
     // been formatted and have staves
     postFormat: function() {
       if (this.postFormatted) return;
@@ -5260,10 +5260,10 @@ Vex.Flow.Beam = (function() {
   // ```
   // 
   // Parameters:
-  // * `notes` - An array of notes to create the beams for
+  // * `staffs` - An array of staffs to create the beams for
   // * `config` - The configuration object
-  //    * `groups` - Array of `Fractions` that represent the beat structure to beam the notes
-  //    * `stem_direction` - Set to apply the same direction to all notes
+  //    * `groups` - Array of `Fractions` that represent the beat structure to beam the staffs
+  //    * `stem_direction` - Set to apply the same direction to all staffs
   //    * `beam_rests` - Set to `true` to include rests in the beams
   //    * `beam_middle_only` - Set to `true` to only beam rests in the middle of the beat
   //    * `show_stemlets` - Set to `true` to draw stemlets for rests 
@@ -5312,7 +5312,7 @@ Vex.Flow.Beam = (function() {
         if (unprocessedNote.shouldIgnoreTicks()) {
           noteGroups.push(currentGroup);
           currentGroup = nextGroup;
-          return; // Ignore untickables (like bar notes)
+          return; // Ignore untickables (like bar staffs)
         }
 
         currentGroup.push(unprocessedNote);
@@ -5337,7 +5337,7 @@ Vex.Flow.Beam = (function() {
         }
       });
 
-      // Adds any remainder notes
+      // Adds any remainder staffs
       if (currentGroup.length > 0)
         noteGroups.push(currentGroup);
     }
@@ -5433,13 +5433,13 @@ Vex.Flow.Beam = (function() {
     sanitizeGroups();
     formatStems();
 
-    // Get the notes to be beamed
+    // Get the staffs to be beamed
     var beamedNoteGroups = getBeamGroups();
 
     // Get the tuplets in order to format them accurately
     var tupletGroups = getTupletGroups();
 
-    // Create a Vex.Flow.Beam from each group of notes to be beamed
+    // Create a Vex.Flow.Beam from each group of staffs to be beamed
     var beams = [];
     beamedNoteGroups.forEach(function(group){
       var beam = new Vex.Flow.Beam(group);
@@ -5519,7 +5519,7 @@ Vex.Flow.Voice = (function() {
       this.largestTickWidth = 0;
       this.stave = null;
       this.boundingBox = null;
-      // Do we care about strictly timed notes
+      // Do we care about strictly timed staffs
       this.mode = Vex.Flow.Voice.Mode.STRICT;
 
       // This must belong to a VoiceGroup
@@ -5666,7 +5666,7 @@ Vex.Flow.Voice = (function() {
     },
 
     // Render the voice onto the canvas `context` and an optional `stave`.
-    // If `stave` is omitted, it is expected that the notes have staves
+    // If `stave` is omitted, it is expected that the staffs have staves
     // already set.
     draw: function(context, stave) {
       var boundingBox = null;
@@ -5739,7 +5739,7 @@ Vex.Flow.VoiceGroup = (function() {
 // one another.
 //
 // Typically, all modifiers to a note are part of the same `ModifierContext` instance. Also,
-// in multi-voice staves, all modifiers to notes on the same `tick` are part of the same
+// in multi-voice staves, all modifiers to staffs on the same `tick` are part of the same
 // `ModifierContext`. This ensures that multiple voices don't trample all over each other.
 
 Vex.Flow.Modifier = (function() {
@@ -5836,7 +5836,7 @@ Vex.Flow.Modifier = (function() {
 // VexFlow - Music Engraving for HTML5
 // Copyright Mohit Muthanna 2010
 //
-// This class implements various types of modifiers to notes (e.g. bends,
+// This class implements various types of modifiers to staffs (e.g. bends,
 // fingering positions etc.) Accidentals should also be implemented as
 // modifiers, eventually.
 
@@ -5883,7 +5883,7 @@ Vex.Flow.ModifierContext = (function() {
     rest.note.keyProps[0].line += delta;
   };
 
-// Called from formatNotes :: center a rest between two notes
+// Called from formatNotes :: center a rest between two staffs
   var centerRest = function(rest, noteU, noteL) {
     var delta = rest.line - Vex.MidLine(noteU.min_line, noteL.max_line);
     rest.note.keyProps[0].line -= delta;
@@ -6026,7 +6026,7 @@ Vex.Flow.ModifierContext = (function() {
 
       // For three voices, test if rests can be repositioned
       //
-      // Special case 1 :: middle voice rest between two notes
+      // Special case 1 :: middle voice rest between two staffs
       //
       if (noteM.isrest && !noteU.isrest && !noteL.isrest) {
         if (noteU.min_line <= noteM.max_line ||
@@ -6092,7 +6092,7 @@ Vex.Flow.ModifierContext = (function() {
       }
 
       if (!hasStave) throw new Vex.RERR("Stave Missing",
-        "All notes must have a stave - Vex.Flow.ModifierContext.formatMultiVoice!");
+        "All staffs must have a stave - Vex.Flow.ModifierContext.formatMultiVoice!");
 
       var x_shift = 0;
 
@@ -6221,7 +6221,7 @@ Vex.Flow.ModifierContext = (function() {
         var stave = note.getStave();
         var props = note.getKeyProps()[acc.getIndex()];
         if (note != prev_note) {
-           // Iterate through all notes to get the displaced pixels
+           // Iterate through all staffs to get the displaced pixels
            for (var n = 0; n < note.keys.length; ++n) {
               props_tmp = note.getKeyProps()[n];
               shiftL = (props_tmp.displaced ? note.getExtraLeftPx() : shiftL);
@@ -6618,7 +6618,7 @@ Vex.Flow.ModifierContext = (function() {
         var note = gracenote_group.getNote();
         var stave = note.getStave();
         if (note != prev_note) {
-           // Iterate through all notes to get the displaced pixels
+           // Iterate through all staffs to get the displaced pixels
            for (var n = 0; n < note.keys.length; ++n) {
               props_tmp = note.getKeyProps()[n];
               shiftL = (props_tmp.displaced ? note.getExtraLeftPx() : shiftL);
@@ -6693,7 +6693,7 @@ Vex.Flow.ModifierContext = (function() {
 // ## Description
 //
 // This file implements accidentals as modifiers that can be attached to
-// notes. Support is included for both western and microtonal accidentals.
+// staffs. Support is included for both western and microtonal accidentals.
 //
 // See `tests/accidental_tests.js` for usage examples.
 
@@ -6754,7 +6754,7 @@ Vex.Flow.Accidental = (function(){
       if (!note) throw new Vex.RERR("ArgumentError", "Bad note value: " + note);
       this.note = note;
 
-      // Accidentals attached to grace notes are rendered smaller.
+      // Accidentals attached to grace staffs are rendered smaller.
       if (this.note.getCategory() === 'gracenotes') {
         this.render_options.font_scale = 25;
         this.setWidth(this.accidental.gracenote_width);
@@ -6811,7 +6811,7 @@ Vex.Flow.Accidental = (function(){
 }());// VexFlow - Music Engraving for HTML5
 // Copyright Mohit Muthanna 2010
 //
-// This class implements dot modifiers for notes.
+// This class implements dot modifiers for staffs.
 
 /**
  * @constructor
@@ -6880,23 +6880,23 @@ Vex.Flow.Dot = (function() {
 // ## Description
 //
 // This file implements the formatting and layout algorithms that are used
-// to position notes in a voice. The algorithm can align multiple voices both
+// to position staffs in a voice. The algorithm can align multiple voices both
 // within a stave, and across multiple staves.
 //
 // To do this, the formatter breaks up voices into a grid of rational-valued
 // `ticks`, to which each note is assigned. Then, minimum widths are assigned
-// to each tick based on the widths of the notes and modifiers in that tick. This
+// to each tick based on the widths of the staffs and modifiers in that tick. This
 // establishes the smallest amount of space required for each tick.
 //
 // Finally, the formatter distributes the left over space proportionally to
-// all the ticks, setting the `x` values of the notes in each tick.
+// all the ticks, setting the `x` values of the staffs in each tick.
 //
 // See `tests/formatter_tests.js` for usage examples. The helper functions included
 // here (`FormatAndDraw`, `FormatAndDrawTab`) also serve as useful usage examples.
 
 Vex.Flow.Formatter = (function() {
   function Formatter() {
-    // Minimum width required to render all the notes in the voices.
+    // Minimum width required to render all the staffs in the voices.
     this.minTotalWidth = 0;
 
     // This is set to `true` after `minTotalWidth` is calculated.
@@ -6977,7 +6977,7 @@ Vex.Flow.Formatter = (function() {
 
       if (voice.getMode() == Vex.Flow.Voice.Mode.STRICT && !voice.isComplete())
         throw new Vex.RERR("IncompleteVoice",
-          "Voice does not have enough notes.");
+          "Voice does not have enough staffs.");
 
       var lcm = Vex.Flow.Fraction.LCM(resolutionMultiplier,
           voice.getResolutionMultiplier());
@@ -6986,7 +6986,7 @@ Vex.Flow.Formatter = (function() {
       }
     }
 
-    // For each voice, extract notes and create a context for every
+    // For each voice, extract staffs and create a context for every
     // new tick that hasn't been seen before.
     for (i = 0; i < voices.length; ++i) {
       voice = voices[i];
@@ -7032,14 +7032,14 @@ Vex.Flow.Formatter = (function() {
   // Parameters:
   // * `ctx` - The rendering context
   // * `stave` - The stave to which to draw (`Stave` or `TabStave`)
-  // * `notes` - Array of `Note` instances (`StaveNote`, `TextNote`, `TabNote`, etc.)
+  // * `staffs` - Array of `Note` instances (`StaveNote`, `TextNote`, `TabNote`, etc.)
   // * `params` - One of below:
-  //    * Setting `autobeam` only `(context, stave, notes, true)` or `(ctx, stave, notes, {autobeam: true})`
-  //    * Setting `align_rests` a struct is needed `(context, stave, notes, {align_rests: true})`
-  //    * Setting both a struct is needed `(context, stave, notes, {autobeam: true, align_rests: true})`
+  //    * Setting `autobeam` only `(context, stave, staffs, true)` or `(ctx, stave, staffs, {autobeam: true})`
+  //    * Setting `align_rests` a struct is needed `(context, stave, staffs, {align_rests: true})`
+  //    * Setting both a struct is needed `(context, stave, staffs, {autobeam: true, align_rests: true})`
   //
-  // `autobeam` automatically generates beams for the notes.
-  // `align_rests` aligns rests with nearby notes.
+  // `autobeam` automatically generates beams for the staffs.
+  // `align_rests` aligns rests with nearby staffs.
   Formatter.FormatAndDraw = function(ctx, stave, notes, params) {
     var opts = {
       auto_beam: false,
@@ -7052,7 +7052,7 @@ Vex.Flow.Formatter = (function() {
       opts.auto_beam = params;
     }
 
-    // Start by creating a voice and adding all the notes to it.
+    // Start by creating a voice and adding all the staffs to it.
     var voice = new Vex.Flow.Voice(Vex.Flow.TIME4_4).
       setMode(Vex.Flow.Voice.Mode.SOFT);
     voice.addTickables(notes);
@@ -7063,7 +7063,7 @@ Vex.Flow.Formatter = (function() {
       beams = Vex.Flow.Beam.applyAndGetBeams(voice);
     }
 
-    // Instantiate a `Formatter` and format the notes.
+    // Instantiate a `Formatter` and format the staffs.
     new Formatter().
       joinVoices([voice], {align_rests: opts.align_rests}).
       formatToStave([voice], stave, {align_rests: opts.align_rests});
@@ -7081,19 +7081,19 @@ Vex.Flow.Formatter = (function() {
     return voice.getBoundingBox();
   };
 
-  // Helper function to format and draw aligned tab and stave notes in two
+  // Helper function to format and draw aligned tab and stave staffs in two
   // separate staves.
   //
   // Parameters:
   // * `ctx` - The rendering context
   // * `tabstave` - A `TabStave` instance on which to render `TabNote`s.
   // * `stave` - A `Stave` instance on which to render `Note`s.
-  // * `notes` - Array of `Note` instances for the stave (`StaveNote`, `BarNote`, etc.)
+  // * `staffs` - Array of `Note` instances for the stave (`StaveNote`, `BarNote`, etc.)
   // * `tabnotes` - Array of `Note` instances for the tab stave (`TabNote`, `BarNote`, etc.)
   // * `autobeam` - Automatically generate beams.
   // * `params` - A configuration object:
-  //    * `autobeam` automatically generates beams for the notes.
-  //    * `align_rests` aligns rests with nearby notes.
+  //    * `autobeam` automatically generates beams for the staffs.
+  //    * `align_rests` aligns rests with nearby staffs.
   Formatter.FormatAndDrawTab = function(ctx,
       tabstave, stave, tabnotes, notes, autobeam, params) {
     var opts = {
@@ -7107,7 +7107,7 @@ Vex.Flow.Formatter = (function() {
       opts.auto_beam = params;
     }
 
-    // Create a `4/4` voice for `notes`.
+    // Create a `4/4` voice for `staffs`.
     var notevoice = new Vex.Flow.Voice(Vex.Flow.TIME4_4).
       setMode(Vex.Flow.Voice.Mode.SOFT);
     notevoice.addTickables(notes);
@@ -7124,7 +7124,7 @@ Vex.Flow.Formatter = (function() {
     }
 
 
-    // Instantiate a `Formatter` and align tab and stave notes.
+    // Instantiate a `Formatter` and align tab and stave staffs.
     new Formatter().
       joinVoices([notevoice], {align_rests: opts.align_rests}).
       joinVoices([tabvoice]).
@@ -7146,8 +7146,8 @@ Vex.Flow.Formatter = (function() {
   // Auto position rests based on previous/next note positions.
   //
   // Params:
-  // * `notes`: An array of notes.
-  // * `align_all_notes`: If set to false, only aligns non-beamed notes.
+  // * `staffs`: An array of staffs.
+  // * `align_all_notes`: If set to false, only aligns non-beamed staffs.
   // * `align_tuplets`: If set to false, ignores tuplets.
   Formatter.AlignRestsToNotes = function(notes, align_all_notes, align_tuplets) {
     for (var i = 0; i < notes.length; ++i) {
@@ -7163,7 +7163,7 @@ Vex.Flow.Formatter = (function() {
         }
 
         if (align_all_notes || note.beam != null) {
-          // Align rests with previous/next notes.
+          // Align rests with previous/next staffs.
           var props = note.getKeyProps()[0];
           if (i === 0) {
             props.line = lookAhead(notes, props.line, i, false);
@@ -7189,8 +7189,8 @@ Vex.Flow.Formatter = (function() {
   // ## Prototype Methods
   Formatter.prototype = {
     // Find all the rests in each of the `voices` and align them
-    // to neighboring notes. If `align_all_notes` is `false`, then only
-    // align non-beamed notes.
+    // to neighboring staffs. If `align_all_notes` is `false`, then only
+    // align non-beamed staffs.
     alignRests: function(voices, align_all_notes) {
       if (!voices || !voices.length) throw new Vex.RERR("BadArgument",
           "No voices to format rests");
@@ -7272,7 +7272,7 @@ Vex.Flow.Formatter = (function() {
     // This is the core formatter logic. Format voices and justify them
     // to `justifyWidth` pixels. `rendering_context` is required to justify elements
     // that can't retreive widths without a canvas. This method sets the `x` positions
-    // of all the tickables/notes in the formatter.
+    // of all the tickables/staffs in the formatter.
     preFormat: function(justifyWidth, rendering_context, voices, stave) {
       // Initialize context maps.
       var contexts = this.tContexts;
@@ -7280,7 +7280,7 @@ Vex.Flow.Formatter = (function() {
       var contextMap = contexts.map;
 
       // If voices and a stave were provided, set the Stave for each voice
-      // and preFormat to apply Y values to the notes;
+      // and preFormat to apply Y values to the staffs;
       if (voices && stave) {
         voices.forEach(function(voice) {
           voice.setStave(stave);
@@ -7388,7 +7388,7 @@ Vex.Flow.Formatter = (function() {
       this.hasMinTotalWidth = true;
       if (justifyWidth > 0) {
         // Pass 2: Take leftover width, and distribute it to proportionately to
-        // all notes.
+        // all staffs.
         var remaining_x = initial_justify_width - (x + prev_width);
         var leftover_pixels_per_tick = remaining_x / (this.totalTicks.value() * contexts.resolutionMultiplier);
         var accumulated_space = 0;
@@ -7406,7 +7406,7 @@ Vex.Flow.Formatter = (function() {
     },
 
     // This is the top-level call for all formatting logic completed
-    // after `x` *and* `y` values have been computed for the notes 
+    // after `x` *and* `y` values have been computed for the staffs
     // in the voices.
     postFormat: function() {
       // Postformat modifier contexts
@@ -7430,7 +7430,7 @@ Vex.Flow.Formatter = (function() {
       return this;
     },
 
-    // Align rests in voices, justify the contexts, and position the notes
+    // Align rests in voices, justify the contexts, and position the staffs
     // so voices are aligned and ready to render onto the stave. This method
     // mutates the `x` positions of all tickables in `voices`.
     //
@@ -7471,16 +7471,16 @@ Vex.Flow.Formatter = (function() {
 }());// VexFlow - Music Engraving for HTML5
 // Copyright Mohit Muthanna 2010
 //
-// This class implements varies types of ties between contiguous notes. The
+// This class implements varies types of ties between contiguous staffs. The
 // ties include: regular ties, hammer ons, pull offs, and slides.
 
 /**
- * Create a new tie from the specified notes. The notes must
+ * Create a new tie from the specified staffs. The staffs must
  * be part of the same line, and have the same duration (in ticks).
  *
  * @constructor
  * @param {!Object} context The canvas context.
- * @param {!Object} notes The notes to tie up.
+ * @param {!Object} staffs The staffs to tie up.
  * @param {!Object} Options
  */
 Vex.Flow.StaveTie = (function() {
@@ -7524,9 +7524,9 @@ Vex.Flow.StaveTie = (function() {
     setFont: function(font) { this.font = font; return this; },
 
     /**
-     * Set the notes to attach this tie to.
+     * Set the staffs to attach this tie to.
      *
-     * @param {!Object} notes The notes to tie up.
+     * @param {!Object} notes The staffs to tie up.
      */
     setNotes: function(notes) {
       if (!notes.first_note && !notes.last_note)
@@ -7537,10 +7537,10 @@ Vex.Flow.StaveTie = (function() {
       if (!notes.last_indices) notes.last_indices = [0];
 
       if (notes.first_indices.length != notes.last_indices.length)
-        throw new Vex.RuntimeError("BadArguments", "Tied notes must have similar" +
+        throw new Vex.RuntimeError("BadArguments", "Tied staffs must have similar" +
           " index sizes");
 
-      // Success. Lets grab 'em notes.
+      // Success. Lets grab 'em staffs.
       this.first_note = notes.first_note;
       this.first_indices = notes.first_indices;
       this.last_note = notes.last_note;
@@ -7653,16 +7653,16 @@ Vex.Flow.StaveTie = (function() {
 // VexFlow - Music Engraving for HTML5
 // Copyright Mohit Muthanna 2010
 //
-// This class implements varies types of ties between contiguous notes. The
+// This class implements varies types of ties between contiguous staffs. The
 // ties include: regular ties, hammer ons, pull offs, and slides.
 
 /**
- * Create a new tie from the specified notes. The notes must
+ * Create a new tie from the specified staffs. The staffs must
  * be part of the same line, and have the same duration (in ticks).
  *
  * @constructor
  * @param {!Object} context The canvas context.
- * @param {!Object} notes The notes to tie up.
+ * @param {!Object} staffs The staffs to tie up.
  * @param {!Object} Options
  */
 Vex.Flow.TabTie = (function() {
@@ -7742,16 +7742,16 @@ Vex.Flow.TabTie = (function() {
 // VexFlow - Music Engraving for HTML5
 // Copyright Mohit Muthanna 2010
 //
-// This class implements varies types of ties between contiguous notes. The
+// This class implements varies types of ties between contiguous staffs. The
 // ties include: regular ties, hammer ons, pull offs, and slides.
 
 /**
- * Create a new tie from the specified notes. The notes must
+ * Create a new tie from the specified staffs. The staffs must
  * be part of the same line, and have the same duration (in ticks).
  *
  * @constructor
  * @param {!Object} context The canvas context.
- * @param {!Object} notes The notes to tie up.
+ * @param {!Object} staffs The staffs to tie up.
  * @param {!Object} Options
  */
 Vex.Flow.TabSlide = (function() {
@@ -8184,7 +8184,7 @@ Vex.Flow.Vibrato = (function() {
 // ## Description
 //
 // This file implements text annotations as modifiers that can be attached to
-// notes.
+// staffs.
 //
 // See `tests/annotation_tests.js` for usage examples.
 
@@ -8342,7 +8342,7 @@ Vex.Flow.Annotation = (function() {
 // ## Description
 //
 // This file implements articulations and accents as modifiers that can be
-// attached to notes. The complete list of articulations is available in
+// attached to staffs. The complete list of articulations is available in
 // `tables.js` under `Vex.Flow.articulationCodes`.
 //
 // See `tests/articulation_tests.js` for usage examples.
@@ -9377,7 +9377,7 @@ Vex.Flow.Music = (function() {
         throw new Vex.RERR("BadArguments", "Invalid direction: " + direction);
       if (!this.isValidNoteValue(note1) || !this.isValidNoteValue(note2))
         throw new Vex.RERR("BadArguments",
-                           "Invalid notes: " + note1 + ", " + note2);
+                           "Invalid staffs: " + note1 + ", " + note2);
 
       var difference;
       if (direction == 1)
@@ -10347,14 +10347,14 @@ Vex.Flow.Barline = (function() {
 // Copyright Mohit Muthanna 2010
 // This class by Raffaele Viglianti, 2012 http://itisnotsound.wordpress.com/
 //
-// This class implements hairpins between notes.
+// This class implements hairpins between staffs.
 // Hairpins can be either Crescendo or Descrescendo.
 
 /**
- * Create a new hairpin from the specified notes.
+ * Create a new hairpin from the specified staffs.
  *
  * @constructor
- * @param {!Object} notes The notes to tie up.
+ * @param {!Object} staffs The staffs to tie up.
  * @param {!Object} type The type of hairpin
  */
 Vex.Flow.StaveHairpin = (function() {
@@ -10455,16 +10455,16 @@ Vex.Flow.StaveHairpin = (function() {
     },
 
     /**
-     * Set the notes to attach this hairpin to.
+     * Set the staffs to attach this hairpin to.
      *
-     * @param {!Object} notes The start and end notes.
+     * @param {!Object} notes The start and end staffs.
      */
     setNotes: function(notes) {
       if (!notes.first_note && !notes.last_note)
         throw new Vex.RuntimeError("BadArguments",
             "Hairpin needs to have either first_note or last_note set.");
 
-      // Success. Lets grab 'em notes.
+      // Success. Lets grab 'em staffs.
       this.first_note = notes.first_note;
       this.last_note = notes.last_note;
       return this;
@@ -11050,7 +11050,7 @@ Vex.Flow.BarNote = (function() {
       this.metrics.widths[TYPE.REPEAT_BOTH] = 18;
       this.metrics.widths[TYPE.NONE] = 0;
 
-      // Tell the formatter that bar notes have no duration.
+      // Tell the formatter that bar staffs have no duration.
       this.ignore_ticks = true;
       this.type = TYPE.SINGLE;
 
@@ -11155,11 +11155,11 @@ Vex.Flow.Tremolo = (function() {
   return Tremolo;
 }());
 /**
- * Create a new tuplet from the specified notes. The notes must
+ * Create a new tuplet from the specified staffs. The staffs must
  * be part of the same line, and have the same duration (in ticks).
  *
  * @constructor
- * @param {Array.<Vex.Flow.StaveNote>} A set of notes.
+ * @param {Array.<Vex.Flow.StaveNote>} A set of staffs.
  */
 Vex.Flow.Tuplet = (function() {
   function Tuplet(notes, options) {
@@ -11172,11 +11172,11 @@ Vex.Flow.Tuplet = (function() {
   Tuplet.prototype = {
     init: function(notes, options) {
       if (!notes || notes == []) {
-        throw new Vex.RuntimeError("BadArguments", "No notes provided for tuplet.");
+        throw new Vex.RuntimeError("BadArguments", "No staffs provided for tuplet.");
       }
 
       if (notes.length == 1) {
-        throw new Vex.RuntimeError("BadArguments", "Too few notes for tuplet.");
+        throw new Vex.RuntimeError("BadArguments", "Too few staffs for tuplet.");
       }
 
       this.options = Vex.Merge({}, options);
@@ -12294,7 +12294,7 @@ Vex.Flow.Curve = (function() {
 // ## Description
 //
 // This file implements `StaveLine` which are simply lines that connect
-// two notes. This object is highly configurable, see the `render_options`.
+// two staffs. This object is highly configurable, see the `render_options`.
 // A simple line is often used for notating glissando articulations, but you
 // can format a `StaveLine` with arrows or colors for more pedagogical
 // purposes, such as diagrams.
@@ -12317,9 +12317,9 @@ Vex.Flow.StaveLine = (function() {
 
   // ## Prototype Methods
   StaveLine.prototype = {
-    // Initialize the StaveLine with the given `notes`.
+    // Initialize the StaveLine with the given `staffs`.
     //
-    // `notes` is a struct that has:
+    // `staffs` is a struct that has:
     //
     //  ```
     //  {
@@ -12379,7 +12379,7 @@ Vex.Flow.StaveLine = (function() {
     // The the annotation for the `StaveLine`
     setText: function(text) { this.text = text; return this; },
 
-    // Set the notes for the `StaveLine`
+    // Set the staffs for the `StaveLine`
     setNotes: function(notes) {
       if (!notes.first_note && !notes.last_note)
         throw new Vex.RuntimeError("BadArguments",
@@ -12389,10 +12389,10 @@ Vex.Flow.StaveLine = (function() {
       if (!notes.last_indices) notes.last_indices = [0];
 
       if (notes.first_indices.length != notes.last_indices.length)
-        throw new Vex.RuntimeError("BadArguments", "Connected notes must have similar" +
+        throw new Vex.RuntimeError("BadArguments", "Connected staffs must have similar" +
           " index sizes");
 
-      // Success. Lets grab 'em notes.
+      // Success. Lets grab 'em staffs.
       this.first_note = notes.first_note;
       this.first_indices = notes.first_indices;
       this.last_note = notes.last_note;
@@ -12774,7 +12774,7 @@ Vex.Flow.GraceNoteGroup = (function(){
 
       alignGraceNotesWithNote(this.grace_notes, note);
 
-      // Draw notes
+      // Draw staffs
       this.grace_notes.forEach(function(graceNote) {
         graceNote.setContext(this.context).draw();
       }, this);
