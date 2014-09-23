@@ -1,16 +1,16 @@
 /// *** Security :: Model :: Entity :: AuthenticationToken  *** *** *** *** ///
 
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
- *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
- *
- * @date 2014-08-22 15:29:11 :: 2014-08-22 15:38:09
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-08-22 15:29:11 :: 2014-08-22 15:38:09
+     *
+     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.model.entity;

@@ -21,10 +21,13 @@ import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * @version 1.0
  */
 @Service( "UserService" )
+@Transactional
 public class UserServiceImpl implements UserService {
 
     /// *** Properties  *** ///

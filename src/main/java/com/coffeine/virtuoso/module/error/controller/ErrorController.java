@@ -54,8 +54,8 @@ public class ErrorController {
     /**
      * Handle validation errors
      *
-     * @param exeption
-     * @return ValidationError
+     * @param exeption Object that contain description for this exception
+     * @return ValidationError Object for response about error
      */
     @ExceptionHandler( MethodArgumentNotValidException.class )
     @ResponseStatus( HttpStatus.BAD_REQUEST )
@@ -73,8 +73,8 @@ public class ErrorController {
     /**
      * Helper for filling field's errors
      *
-     * @param fieldErrors
-     * @return ValidationError
+     * @param fieldErrors List of fields with errors
+     * @return ValidationError Object for response about error
      */
     private ValidationError processFieldErrors(
         List < FieldError > fieldErrors
@@ -96,8 +96,8 @@ public class ErrorController {
     /**
      * Helper for localization of error message
      *
-     * @param fieldError
-     * @return String
+     * @param fieldError Field with error(s)
+     * @return String Localized message about error
      */
     private String resolveLocalizedErrorMessage( FieldError fieldError ) {
         return messageSource.getMessage(
