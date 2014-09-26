@@ -17,19 +17,23 @@ package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
+import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * SongController
@@ -43,6 +47,9 @@ public class SongController {
 
     @Resource
     private SongService songService;
+
+    @Autowired
+    private UserService userService;
 
 
     //- SECTION :: ACTIONS -//
@@ -132,16 +139,17 @@ public class SongController {
     /**
      * Delete song by ID
      *
-     * @param Id
+     * @param id
      */
-    @Secured( "ADMIN" )
+//    @Secured( "ADMIN" )
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseStatus( value = HttpStatus.OK )
     public void deleteAction(
         @PathVariable( value = "id" )
-        Long Id
+        Long id
     ) {
-        //TODO: to implement
+        //this.songService.delete( id );
+        this.userService.delete( id );
     }
 
 

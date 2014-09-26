@@ -17,13 +17,25 @@ package com.coffeine.virtuoso.module.user.model.service.implementation;
 
 import com.coffeine.virtuoso.module.user.model.repository.StyleRepository;
 import com.coffeine.virtuoso.module.user.model.service.StyleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @version 1.0
  */
+@Service
 public class StyleServiceImpl implements StyleService {
-    @Override
-    public void setUserRepository(StyleRepository styleRepository) {
 
+    @Autowired
+    protected StyleRepository styleRepository;
+
+
+    /**
+     * Delete style
+     *
+     * @param id Identificator of style
+     */
+    public void delete( Long id ) {
+        this.styleRepository.delete( id );
     }
 }

@@ -15,20 +15,32 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
-import javax.persistence.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.annotations.*;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Class for reflect table from persistence layout
@@ -62,10 +74,13 @@ public class Song implements Serializable {
     @Transient
     protected String title;
 
+//    @JsonIgnore
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @OneToMany( mappedBy = "song" )
+    @OnDelete( action = OnDeleteAction.CASCADE )
     @LazyCollection( LazyCollectionOption.FALSE )
+    //@FilterJoinTable( name = "locale", condition = "locale = :locale" )
     protected List < SongLocale > data;
 
     @NotNull
@@ -76,13 +91,15 @@ public class Song implements Serializable {
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
-    @LazyCollection( LazyCollectionOption.FALSE )
+    @OneToMany( mappedBy = "song" )
+    @OnDelete( action = OnDeleteAction.CASCADE )
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List < SongText > texts;
 
     @JsonIgnore
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
-    @LazyCollection( LazyCollectionOption.FALSE )
+    @OneToMany( mappedBy = "song" )
+    @OnDelete( action = OnDeleteAction.CASCADE )
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List < Video > videos;
 
     @NotNull

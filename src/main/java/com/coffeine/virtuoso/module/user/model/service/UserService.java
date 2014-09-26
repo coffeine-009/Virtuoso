@@ -16,7 +16,6 @@
 package com.coffeine.virtuoso.module.user.model.service;
 
 import com.coffeine.virtuoso.module.user.model.entity.User;
-import com.coffeine.virtuoso.module.user.model.repository.UserRepository;
 
 /**
  * @version 1.0
@@ -42,4 +41,11 @@ public interface UserService {
      * @return User
      */
     public User save( User user );
+
+    /**
+     * Delete user
+     *
+     * @param id
+     */
+    public void delete( Long id );
 }
