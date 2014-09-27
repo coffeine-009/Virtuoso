@@ -23,6 +23,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.http.MediaType;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import org.mockito.Mock;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -132,6 +135,11 @@ public class SongControllerTest extends AbstractRestControllerTest {
     @Ignore
     @Test
     public void testDeleteAction() throws Exception {
-//        this.fail("To implement");
+
+        this.mockMvc.perform(
+            delete( "/user/song/{SONG_ID}", 1 )
+                .contentType( MediaType.APPLICATION_JSON )
+        )
+            .andDo( print() );
     }
 }

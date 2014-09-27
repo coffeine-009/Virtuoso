@@ -11,14 +11,10 @@ package com.coffeine.virtuoso.module.security.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
 import org.apache.commons.codec.binary.Base64;
-import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**

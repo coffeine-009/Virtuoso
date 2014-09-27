@@ -87,4 +87,14 @@ public class SongServiceImpl implements SongService {
     public Song save( Song song ) {
         return this.songRespository.save( song );
     }
+
+    /**
+     * Delete song
+     *
+     * @param id Unique identificator
+     */
+    @Override
+    public void delete( Long id ) {
+        this.songRespository.delete( id );
+    }
 }

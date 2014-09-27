@@ -16,7 +16,7 @@
 package com.coffeine.virtuoso.module.user.model.service;
 
 import com.coffeine.virtuoso.module.user.model.entity.Song;
-import com.coffeine.virtuoso.module.user.model.repository.SongRepository;
+
 import java.util.List;
 
 /**
@@ -58,4 +58,11 @@ public interface SongService {
      * @return Song
      */
     public Song save( Song song );
+
+    /**
+     * Delete song
+     *
+     * @param id Unique identificator
+     */
+    public void delete( Long id );
 }

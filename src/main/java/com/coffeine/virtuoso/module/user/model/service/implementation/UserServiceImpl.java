@@ -63,7 +63,16 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User save( User user ) {
-        //- Save user to persistance -//
+        //- Save user to persistence -//
         return this.userRepository.save( user );
+    }
+
+    /**
+     * Delete user
+     *
+     * @param id
+     */
+    public void delete( Long id ) {
+        this.userRepository.delete( id );
     }
 }

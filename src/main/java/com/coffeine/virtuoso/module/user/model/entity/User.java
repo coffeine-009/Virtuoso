@@ -19,7 +19,16 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -47,7 +56,7 @@ public class User implements Serializable {
 
     @NotNull
     @Valid
-    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
     @JoinTable(
         name = "user_roles",
         joinColumns = {
@@ -78,7 +87,7 @@ public class User implements Serializable {
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToMany( mappedBy = "user", orphanRemoval = true )
     protected List < Email > emails;
 
     @JsonIgnore
