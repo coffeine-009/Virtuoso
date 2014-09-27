@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,6 +60,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         super.init();
 
+//        when(SongService.class).then();
         //TODO: mock SongService
     }
 
@@ -78,9 +80,9 @@ public class SongControllerTest extends AbstractRestControllerTest {
      * @throws Exception
      */
     @Test
-    @Ignore
     public void testListAction() throws Exception {
-        // Do request for get list of songs
+
+        // Success. Get list of songs
         this.mockMvc.perform(
             get( URL_SONG_LIST )
         )

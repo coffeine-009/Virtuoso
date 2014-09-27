@@ -64,24 +64,24 @@ public class Song implements Serializable {
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @OneToMany( mappedBy = "song" )
     @LazyCollection( LazyCollectionOption.FALSE )
     protected List < SongLocale > data;
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @OneToMany( mappedBy = "song" )
     @LazyCollection( LazyCollectionOption.FALSE )
     protected List <SongStaff> staffs;
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @OneToMany( mappedBy = "song" )
     @LazyCollection( LazyCollectionOption.FALSE )
     protected List < SongText > texts;
 
     @JsonIgnore
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
+    @OneToMany( mappedBy = "song" )
     @LazyCollection( LazyCollectionOption.FALSE )
     protected List < Video > videos;
 

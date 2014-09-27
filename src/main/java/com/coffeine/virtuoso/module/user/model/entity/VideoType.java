@@ -52,13 +52,13 @@ public class VideoType implements Serializable {
     @NotNull
     @NotEmpty
     @Size( max = 16 )
-    @Column( name = "code", columnDefinition = "VARCHAR( 32 )" )
+    @Column( name = "code", length = 16 )
     protected String code;
 
     @NotNull
     @NotEmpty
     @Size( max = 32 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
+    @Column( name = "title", length = 32 )
     protected String title;
 
     @Column( name = "description", columnDefinition = "TEXT" )

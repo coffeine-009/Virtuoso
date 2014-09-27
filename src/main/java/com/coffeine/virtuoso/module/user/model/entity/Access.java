@@ -105,7 +105,7 @@ public class Access implements Serializable {
     /**
      * Get user
      *
-     * @return User user @link com.coffeine.virtuoso.module.user.model.entity.User
+     * @return User user @see com.coffeine.virtuoso.module.user.model.entity.User
      */
     public User getUser() {
         return user;

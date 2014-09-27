@@ -17,12 +17,14 @@ package com.coffeine.virtuoso.module.user.model.repository;
 
 import com.coffeine.virtuoso.module.user.model.entity.VideoType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Interface for work with persistence layout
  *
  * @version 1.0
  */
+@Repository
 public interface VideoTypeRepository extends JpaRepository < VideoType, Long > {
 
     /// *** Methods     *** ///

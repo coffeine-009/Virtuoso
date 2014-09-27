@@ -41,7 +41,7 @@ public class SongController {
     @Autowired
     MessageSource messageSource;
 
-    @Resource
+    @Autowired
     private SongService songService;
 
 
