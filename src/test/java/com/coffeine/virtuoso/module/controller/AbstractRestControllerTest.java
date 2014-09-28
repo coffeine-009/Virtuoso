@@ -1,21 +1,69 @@
+/*
+ * @copyright (c) 2014, by Coffeine
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 9/21/14 6:27 PM :: 9/28/14 8:06 PM
+ *
+ * @address /Ukraine/Ivano-Frankivsk
+ */
+
 package com.coffeine.virtuoso.module.controller;
 
-import org.junit.Before;
+import com.coffeine.virtuoso.module.security.model.entity.AuthenticationToken;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 /**
- * @date 2014-09-21 18:27:00
- * Created by vitaliy on 9/21/14.
+ * Abstract test for rest controllers
+ *
+ * @version 1.0
  */
-public class AbstractRestControllerTest extends AbstractControllerTest {
+public abstract class AbstractRestControllerTest extends AbstractControllerTest {
+
+    /**
+     * Mocked session
+     */
+    protected MockHttpSession session;
+
+    /**
+     * Mock for security context
+     */
+    public static class MockSecurityContext implements SecurityContext {
+
+        private Authentication authentication;
+
+        public MockSecurityContext(Authentication authentication) {
+            this.authentication = authentication;
+        }
+
+        @Override
+        public Authentication getAuthentication() {
+            return authentication;
+        }
+
+        @Override
+        public void setAuthentication(Authentication authentication) {
+            this.authentication = authentication;
+        }
+    }
+
 
     /// *** Methods     *** ///
     /**
      * Prepare environment to run tests
      */
-    @Before
-    public void init() {
-        super.init();
+    @Override
+    public void tearUp() {
+        super.tearUp();
 
-//        this.mockMvc.
+        AuthenticationToken authenticationToken = new AuthenticationToken("test@test.loc", "test", null);
+        this.session = new MockHttpSession();
+            session.setAttribute(
+                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                new MockSecurityContext(authenticationToken)
+            );
     }
 }

@@ -11,10 +11,15 @@ package com.coffeine.virtuoso.module.security.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
 import org.apache.commons.codec.binary.Base64;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -25,14 +30,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SecurityControllerTest extends AbstractControllerTest {
 
     /// *** Methods     *** ///
+    /**
+     * Prepare environment for test security
+     */
+    @Before
+    public void tearUp() {
+        super.tearUp();
+    }
+
     //- SECTION :: TEST -//
     @Test
     public void testGetAccessToken() throws Exception {
 
         //- Success -//
         this.mockMvc.perform(
-            post("/oauth/token")
-                .contentType(MediaType.APPLICATION_JSON)
+            post( "/oauth/token" )
+                .contentType( MediaType.APPLICATION_JSON )
                 .header(
                     "Authorization",
                     "Basic " + new String(
@@ -41,12 +54,12 @@ public class SecurityControllerTest extends AbstractControllerTest {
                         )
                     )
                 )
-                .param("grant_type", "password")
-                .param("scope", "read")
-                .param("clientId", "developer")
-                .param("clientSecret", "developer32")
-                .param("username", "user@virtuoso.com")
-                .param("password", "123")
+                .param( "grant_type", "password" )
+                .param( "scope", "read" )
+                .param( "clientId", "developer" )
+                .param( "clientSecret", "developer32" )
+                .param( "username", "user@virtuoso.com" )
+                .param( "password", "123" )
         )
             .andExpect( status().isOk() )
             .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )

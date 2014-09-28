@@ -8,7 +8,7 @@
      *
      * @date 2014-05-01 22:00:29 :: 2014-05-01 22:01:08
      *
-     * @address /Ukraine/Petranka/Grushevskiy/234
+     * @address /Ukraine/Petranka
      *                                                                  *
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 

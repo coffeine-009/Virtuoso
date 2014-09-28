@@ -1,16 +1,16 @@
 /// *** User :: Model :: Service :: VideoType   *** *** *** *** *** *** *** ///
 
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
- *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
- *
- * @date 2014-06-04 15:14:11 :: 2014-09-25 22:39:32
- *
- * @address /Ukraine/Ivano-Frankivsk
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-06-04 15:14:11 :: 2014-09-25 22:39:32
+     *
+     * @address /Ukraine/Ivano-Frankivsk
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service.implementation;

@@ -4,11 +4,12 @@
      *                                                                  *
      * @copyright 2014 (c), by Coffeine
      *
-     * @author Namisnyk Valentyn <Valentun_Prodyser@ukr.net>
+     * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
      * @date 2014-04-28 22:28:50 :: 2014-04-09 22:39:40
      *
-     * @address /Ukraine/Ivano-Frankivsk/Chornovola/104
+     * @address /Ukraine/Ivano-Frankivsk
      *                                                                  *
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
@@ -76,9 +77,9 @@ public class VideoType implements Serializable {
     /**
      * Constructor
      *
-     * @param code
-     * @param title
-     * @param description 
+     * @param code Const name of video type
+     * @param title Title of video type
+     * @param description Description of this video type
      */
     public VideoType(
         String code, 
@@ -89,6 +90,28 @@ public class VideoType implements Serializable {
         this.code = code;
         this.title = title;
         this.description = description;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param code Const name of video type
+     * @param title Title of video type
+     * @param description Description of this video type
+     */
+    public VideoType(
+        Long id,
+        String code,
+        String title,
+        String description
+    ) {
+        //- Initialization -//
+        this(
+            code,
+            title,
+            description
+        );
+        this.id = id;
     }
 
 
@@ -144,7 +167,7 @@ public class VideoType implements Serializable {
      * Set code of VideoType
      * Ex. ADMIN, MANAGER, USER
      *
-     * @param code
+     * @param code Const name of video type
      */
     public void setCode( String code ) {
         this.code = code;
@@ -153,7 +176,7 @@ public class VideoType implements Serializable {
     /**
      * Set title of VideoType
      *
-     * @param title
+     * @param title Title of video type
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -162,7 +185,7 @@ public class VideoType implements Serializable {
     /**
      * Set description of VideoType
      *
-     * @param description 
+     * @param description Description of this video type
      */
     public void setDescription( String description ) {
         this.description = description;

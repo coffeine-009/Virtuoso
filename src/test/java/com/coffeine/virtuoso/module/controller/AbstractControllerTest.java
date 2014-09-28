@@ -64,8 +64,7 @@ public abstract class AbstractControllerTest
     /**
      * Prepare environment to run tests
      */
-    @Before
-    public void init() {
+    public void tearUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(
             this.webApplicationContext
         )

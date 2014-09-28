@@ -15,10 +15,8 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.controller;
 
-import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -27,9 +25,7 @@ import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import org.mockito.Mock;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,9 +55,10 @@ public class SongControllerTest extends AbstractRestControllerTest {
      * @throws Exception
      */
     @Before
-    public void tearUp() throws Exception {
+    @Override
+    public void tearUp() {
 
-        super.init();
+        super.tearUp();
 
 //        when(SongService.class).then();
         //TODO: mock SongService

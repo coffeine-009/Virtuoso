@@ -3,7 +3,7 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 9/25/14 9:00 PM :: 9/25/14. 10:55 PM
+ * @date 9/25/14 9:00 PM :: 9/25/14 10:55 PM
  *
  * @address /Ukraine/Ivano-Frankivsk
  */
