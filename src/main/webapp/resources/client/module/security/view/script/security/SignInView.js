@@ -70,7 +70,7 @@ define(
                     this.signinSuccess,
                     this.signinFailure
                 );
-//                this.model.save(
+//                this.model.create(
 //                    {
 //                        "username"  : $( "#username").val(),
 //                        "password"  : $( "#password").val()

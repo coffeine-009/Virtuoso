@@ -68,11 +68,6 @@ public class Composer implements Serializable {
     protected User user;
 
     @JsonIgnore
-    @Valid
-    @OneToMany( mappedBy = "composer" )
-    protected List < Song > songs;
-
-    @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
@@ -122,7 +117,7 @@ public class Composer implements Serializable {
         Calendar birthday,
         Calendar deathday
     ) {
-        //- Initializaation -//
+        //- Initialisation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
@@ -147,15 +142,6 @@ public class Composer implements Serializable {
      */
     public User getUser() {
         return user;
-    }
-
-    /**
-     * Get songs of this composer
-     *
-     * @return List<Song>
-     */
-    public List < Song > getSongs() {
-        return songs;
     }
 
     /**
@@ -233,15 +219,6 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set songs of this composer
-     *
-     * @param songs
-     */
-    public void setSongs( List < Song > songs ) {
-        this.songs = songs;
-    }
-
-    /**
      * Set composer's data
      *
      * @param data
@@ -284,11 +261,5 @@ public class Composer implements Serializable {
      */
     public void setDeathday( Calendar deathday ) {
         this.deathday = deathday;
-    }
-
-
-    //- SECTION :: MAIN -//
-    public void addSong( Song song ) {
-        this.songs.add( song );
     }
 }

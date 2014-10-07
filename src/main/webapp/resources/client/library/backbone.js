@@ -456,8 +456,8 @@
 
       options = _.extend({validate: true}, options);
 
-      // If we're not waiting and attributes exist, save acts as
-      // `set(attr).save(null, opts)` with validation. Otherwise, check if
+      // If we're not waiting and attributes exist, create acts as
+      // `set(attr).create(null, opts)` with validation. Otherwise, check if
       // the model will be valid when the attributes, if any, are set.
       if (attrs && !options.wait) {
         if (!this.set(attrs, options)) return false;
@@ -470,7 +470,7 @@
         this.attributes = _.extend({}, attributes, attrs);
       }
 
-      // After a successful server-side save, the client is (optionally)
+      // After a successful server-side create, the client is (optionally)
       // updated with the server-side state.
       if (options.parse === void 0) options.parse = true;
       var model = this;
@@ -1055,7 +1055,7 @@
     //
     //     {
     //       'mousedown .title':  'edit',
-    //       'click .button':     'save',
+    //       'click .button':     'create',
     //       'click .open':       function(e) { ... }
     //     }
     //
@@ -1265,7 +1265,7 @@
       if (callback) callback.apply(this, args);
     },
 
-    // Simple proxy to `Backbone.history` to save a fragment into the history.
+    // Simple proxy to `Backbone.history` to create a fragment into the history.
     navigate: function(fragment, options) {
       Backbone.history.navigate(fragment, options);
       return this;

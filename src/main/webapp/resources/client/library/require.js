@@ -2038,7 +2038,7 @@ var requirejs, require, define;
             }
         }
 
-        //Always save off evaluating the def call until the script onload handler.
+        //Always create off evaluating the def call until the script onload handler.
         //This allows multiple modules to be in a file without prematurely
         //tracing dependencies, and allows for anonymous module support,
         //where the module name is not known until the script onload event

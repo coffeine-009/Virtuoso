@@ -55,7 +55,7 @@ public class Song implements Serializable {
     /// *** Properties  *** ///
     @Id
     @GeneratedValue
-    @Column( name = "id", columnDefinition = "AUTO_INCREMENT" )
+    @Column( name = "id" )
     protected Long id;
 
     @NotNull
@@ -76,7 +76,7 @@ public class Song implements Serializable {
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song" )
+    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
     @OnDelete( action = OnDeleteAction.CASCADE )
     @LazyCollection( LazyCollectionOption.FALSE )
     protected List < SongLocale > data;
@@ -85,14 +85,14 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @LazyCollection( LazyCollectionOption.FALSE )
-    protected List <SongStaff> staffs;
+    protected List <Staff > staffs;
 
     @NotNull
     @NotEmpty
     @OneToMany( mappedBy = "song" )
     @OnDelete( action = OnDeleteAction.CASCADE )
     @LazyCollection( LazyCollectionOption.FALSE )
-    protected List < SongText > texts;
+    protected List < Text > texts;
 
     @JsonIgnore
     @OneToMany( mappedBy = "song" )
@@ -174,7 +174,7 @@ public class Song implements Serializable {
      *
      * @return List<SongStaff>
      */
-    public List <SongStaff> getStaffs() {
+    public List <Staff > getStaffs() {
         return staffs;
     }
 
@@ -183,7 +183,7 @@ public class Song implements Serializable {
      *
      * @return List<SongText>
      */
-    public List < SongText > getTexts() {
+    public List < Text > getTexts() {
         return texts;
     }
 
@@ -266,7 +266,7 @@ public class Song implements Serializable {
      *
      * @param staffs
      */
-    public void setStaffs(List<SongStaff> staffs) {
+    public void setStaffs(List<Staff > staffs) {
         this.staffs = staffs;
     }
 
@@ -275,7 +275,7 @@ public class Song implements Serializable {
      *
      * @param texts
      */
-    public void setTexts( List < SongText > texts ) {
+    public void setTexts( List < Text > texts ) {
         this.texts = texts;
     }
 

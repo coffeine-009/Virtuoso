@@ -1,4 +1,4 @@
-/// *** User :: Model :: Entity :: SongNotes    *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Entity :: SongText *** *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -6,7 +6,7 @@
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
-     * @date 2014-04-29 21:38:42 :: 2014-04-29 21:51:30
+     * @date 2014-04-28 21:21:55 :: 2014-04-28 23:07:30
      *
      * @address /Ukraine/Ivano-Frankivsk/Chornovola/104
      *                                                                  *
@@ -17,10 +17,8 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -30,6 +28,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -39,8 +38,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @SuppressWarnings( "serial" )
 @Entity
-@Table( name = "song_notes" )
-public class SongStaff implements Serializable {
+@Table( name = "song_text" )
+public class Text implements Serializable {
 
     /// *** Properties  *** ///
     @Id
@@ -51,26 +50,14 @@ public class SongStaff implements Serializable {
     @JsonIgnore
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_song" )
     protected Song song;
 
     @NotNull
     @NotEmpty
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_notes_type", columnDefinition = "BIGINT( 20 )" )
-    protected NotesType notesType;
-
-    @NotNull
-    @NotEmpty
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_style", columnDefinition = "BIGINT( 20 )" )
-    protected Style style;
-
-    @NotNull
-    @NotEmpty
-    @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column(
@@ -84,7 +71,7 @@ public class SongStaff implements Serializable {
     /**
      * Default constructor
      */
-    public SongStaff() {
+    public Text() {
 
     }
 
@@ -93,8 +80,8 @@ public class SongStaff implements Serializable {
      *
      * @param locale
      */
-    public SongStaff(
-            String locale
+    public Text(
+        String locale
     ) {
         //- Initialization -//
         this.locale = locale;
@@ -103,7 +90,7 @@ public class SongStaff implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song staffs
+     * Get ID of song text
      *
      * @return Long
      */
@@ -112,30 +99,12 @@ public class SongStaff implements Serializable {
     }
 
     /**
-     * Get song of this staffs
+     * Get composer for this song text
      *
      * @return Song
      */
     public Song getSong() {
         return song;
-    }
-
-    /**
-     * Get staffs type
-     *
-     * @return NotesType
-     */
-    public NotesType getNotesType() {
-        return notesType;
-    }
-
-    /**
-     * Get style of song
-     *
-     * @return Style
-     */
-    public Style getStyle() {
-        return style;
     }
 
     /**
@@ -158,7 +127,7 @@ public class SongStaff implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song staffs
+     * Set ID of song text
      *
      * @param id
      */
@@ -167,30 +136,12 @@ public class SongStaff implements Serializable {
     }
 
     /**
-     * Set song of this staffs
+     * Set song of text
      *
      * @param song
      */
     public void setSong( Song song ) {
         this.song = song;
-    }
-
-    /**
-     * Set type of staffs
-     *
-     * @param notesType
-     */
-    public void setNotesType( NotesType notesType ) {
-        this.notesType = notesType;
-    }
-
-    /**
-     * Set style of song
-     *
-     * @param style
-     */
-    public void setStyle( Style style ) {
-        this.style = style;
     }
 
     /**

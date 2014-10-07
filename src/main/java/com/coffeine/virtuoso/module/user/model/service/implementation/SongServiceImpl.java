@@ -6,9 +6,9 @@
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
-     * @date 2014-03-26 17:37:42 :: ....-..-.. ..:..:..
+     * @date 2014-03-26 17:37:42 :: 2014-10-05 12:30:32
      *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     * @address /Ukraine/Ivano-Frankivsk
      *                                                                  *
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
@@ -40,23 +40,13 @@ public class SongServiceImpl implements SongService {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
     /**
-     * Get list of Song
-     *
-     * @return List<Song> List of all songs
-     */
-    @Override
-    public List < Song > getList() {
-        return songRespository.findAll();
-    }
-
-    /**
      * Get list of song for page
      *
      * @param page Number of page for return
      * @param limit Count items per page
      * @return List < Song >
      */
-    public List < Song > getList( int page, int limit ) {
+    public List < Song > findAll( int page, int limit ) {
         return songRespository.findAll(
             new PageRequest(
                 page,
@@ -67,31 +57,42 @@ public class SongServiceImpl implements SongService {
     }
 
     /**
+     * Save song
+     *
+     * @param song New song for create or update
+     * @return Song
+     */
+    @Override
+    public Song create( Song song ) {
+        return this.songRespository.save( song );
+    }
+
+    /**
      * Get song by ID
      *
      * @param Id Unique identificator of song
-     * @return Song Found song
+     * @return Song
      */
     @Override
-    public Song getSong( Long Id ) {
+    public Song find( Long Id ) {
         return songRespository.findOne( Id );
     }
 
     /**
-     * Save song
+     * Update
      *
-     * @param song New song for save or update
-     * @return Song Created or updated song
+     * @param song Data for update
+     * @return Songs
      */
     @Override
-    public Song save( Song song ) {
+    public Song update( Song song ) {
         return this.songRespository.save( song );
     }
 
     /**
      * Delete song
      *
-     * @param id Unique identificator
+     * @param id Identificator for delete
      */
     @Override
     public void delete( Long id ) {

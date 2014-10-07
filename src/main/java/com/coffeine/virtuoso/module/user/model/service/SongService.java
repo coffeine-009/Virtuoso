@@ -6,7 +6,7 @@
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
-     * @date 2014-05-01 22:09:13 :: 2014-05-.. ..:..:..
+     * @date 2014-05-01 22:09:13 :: 2014-10-05 12:30:32
      *
      * @address /Ukraine/Petranka/Grushevskiy/234
      *                                                                  *
@@ -28,40 +28,41 @@ public interface SongService {
 
     //- SECTION :: MAIN -//
     /**
-     * Get list of Song
-     *
-     * @return List < Song >
-     */
-    public List < Song > getList();
-
-    /**
      * Get list of Song for page
      *
      * @param page Number of page for return
      * @param limit Count items per page
      * @return List < Song > List of found songs
      */
-    public List < Song > getList( int page, int limit );
+    public List < Song > findAll( int page, int limit );
+
+    /**
+     * Create a new song
+     *
+     * @param song Data for create
+     * @return Song
+     */
+    public Song create( Song song );
 
     /**
      * Get song by ID
      *
-     * @param Id
+     * @param Id Identificator for search
      * @return Song
      */
-    public Song getSong( Long Id );
+    public Song find( Long Id );
 
     /**
-     * Save song
+     * Update
      *
-     * @param song
+     * @param song Data for update
      * @return Song
      */
-    public Song save( Song song );
+    public Song update( Song song );
 
     /**
      * Delete song
-     *
+s     *
      * @param id Unique identificator
      */
     public void delete( Long id );

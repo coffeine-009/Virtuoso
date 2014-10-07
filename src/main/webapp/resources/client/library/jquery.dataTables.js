@@ -6048,7 +6048,7 @@
 			
 			if ( oSettings.iInitDisplayStart === undefined )
 			{
-				/* Display start point, taking into account the save saving */
+				/* Display start point, taking into account the create saving */
 				oSettings.iInitDisplayStart = oInit.iDisplayStart;
 				oSettings._iDisplayStart = oInit.iDisplayStart;
 			}
@@ -9854,7 +9854,7 @@
 	
 		/**
 		 * Enable or disable state saving. When enabled HTML5 `localStorage` will be
-		 * used to save table display information such as pagination information,
+		 * used to create table display information such as pagination information,
 		 * display length, filtering and sorting. As such when the end user reloads
 		 * the page the display display will match what thy had previously set up.
 		 *
@@ -10330,10 +10330,10 @@
 	
 		/**
 		 * Callback which allows modification of the state to be saved. Called when the table
-		 * has changed state a new state save is required. This method allows modification of
-		 * the state saving object prior to actually doing the save, including addition or
+		 * has changed state a new state create is required. This method allows modification of
+		 * the state saving object prior to actually doing the create, including addition or
 		 * other state properties or modification. Note that for plug-in authors, you should
-		 * use the `stateSaveParams` event to save parameters for a plug-in.
+		 * use the `stateSaveParams` event to create parameters for a plug-in.
 		 *  @type function
 		 *  @param {object} settings DataTables settings object
 		 *  @param {object} data The state object to be saved
@@ -12139,7 +12139,7 @@
 	 *  @namespace
 	 *  @todo Really should attach the settings object to individual instances so we
 	 *    don't need to create new instances on each $().dataTable() call (if the
-	 *    table already exists). It would also save passing oSettings around and
+	 *    table already exists). It would also create passing oSettings around and
 	 *    into every single function. However, this is a very significant
 	 *    architecture change for DataTables and will almost certainly break
 	 *    backwards compatibility with older installations. This is something that
@@ -12657,7 +12657,7 @@
 		 * object with the following parameters:
 		 *   <ul>
 		 *     <li>function:fn - function to call. Takes two parameters, oSettings
-		 *       and the JSON string to save that has been thus far created. Returns
+		 *       and the JSON string to create that has been thus far created. Returns
 		 *       a JSON string to be inserted into a json object
 		 *       (i.e. '"param": [ 0, 1, 2]')</li>
 		 *     <li>string:sName - name of callback</li>
@@ -14261,9 +14261,9 @@
 	 */
 
 	/**
-	 * State save event, fired when the table has changed state a new state save
+	 * State create event, fired when the table has changed state a new state create
 	 * is required. This event allows modification of the state saving object
-	 * prior to actually doing the save, including addition or other state
+	 * prior to actually doing the create, including addition or other state
 	 * properties (for plug-ins) or modification of a DataTables core property.
 	 *  @name DataTable#stateSaveParams.dt
 	 *  @event

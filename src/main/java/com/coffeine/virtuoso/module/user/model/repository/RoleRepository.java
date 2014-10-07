@@ -34,6 +34,6 @@ public interface RoleRepository extends JpaRepository < Role, Long > {
      * @param codes
      * @return List<Role>
      */
-    @Query( "FROM Role r WHERE r.code IN (?1)" )
+    @Query( "SELECT r FROM Role r WHERE r.code IN (?1)" )
     public List < Role > findByCodes( List < String > codes );
 }

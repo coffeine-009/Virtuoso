@@ -1,4 +1,4 @@
-/*
+/**
  * @copyright (c) 2014, by Vitaliy Tsutsman
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
@@ -86,11 +86,11 @@ public class VideoTypeController {
             return this.videoTypeService.create( videoType );
         }
         catch ( ConstraintViolationException e ) {
-            //- Failure. Can not to save video type -//
+            //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
         catch ( Exception e ) {
-            //- Failure. Can not to save video type -//
+            //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
 
@@ -140,11 +140,11 @@ public class VideoTypeController {
             return this.videoTypeService.update( videoTypeOrigin );
         }
         catch ( ConstraintViolationException e ) {
-            //- Failure. Can not to save video type -//
+            //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
         catch ( Exception e ) {
-            //- Failure. Can not to save video type -//
+            //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
 

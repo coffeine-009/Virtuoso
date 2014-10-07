@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +70,7 @@ public class SongController {
         int limit
     ) {
         //- Get list of song from persistence layout -//
-        return this.songService.getList( page, limit );
+        return this.songService.findAll( page, limit );
     }
 
     /**
@@ -97,7 +96,7 @@ public class SongController {
         Locale locale
     ) {
         //- Save song -//
-        return this.songService.save( song );
+        return this.songService.create( song );
     }
 
     /**
@@ -113,7 +112,7 @@ public class SongController {
         @PathVariable( value = "id" )
         Long Id
     ) {
-        Song song = songService.getSong( Id );
+        Song song = songService.find( Id );
         
         return song;
     }

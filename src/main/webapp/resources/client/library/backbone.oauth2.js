@@ -79,7 +79,7 @@ define([
         } else {
             storage = {
                 setItem: function() {
-                    console.warning('backbone.oauth2: Localstorage not available: save failed');
+                    console.warning('backbone.oauth2: Localstorage not available: create failed');
                 },
                 removeItem: function() {
                     console.warning('backbone.oauth2: Localstorage not available: removal failed');
@@ -313,7 +313,7 @@ define([
                     response.expires_in = parseInt(response.expires_in) * 1000;
 
                     // Store to localStorage too(to avoid double authentication calls)
-                    //self.save(response, response.expires_in - timediff);
+                    //self.create(response, response.expires_in - timediff);
                     self.save(response);
                     self.trigger('access', response, this);
                     successCallback(response);
@@ -384,7 +384,7 @@ define([
                     response.expires_in = parseInt(response.expires_in) * 1000;
 
                     // Store to localStorage too(faster access)
-                    //self.save(response, response.expires_in - timediff);
+                    //self.create(response, response.expires_in - timediff);
                     self.save(response);
                     self.trigger('refresh', response, this);
                 },

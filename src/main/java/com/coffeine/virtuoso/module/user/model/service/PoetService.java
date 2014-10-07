@@ -1,33 +1,64 @@
-/// *** User :: Model :: Service :: Poet    *** *** *** *** *** *** *** *** ///
-
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
+/**
+ * @copyright (c) 2014, by Vitaliy Tsutsman
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-04 10:59:16 :: 2014-06-.. ..:..:..
+ * @date 10/1/14 12:11 AM :: 10/1/14 12:16 AM
  *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ * @address /Ukraine/Ivano-Frankivsk
+ */
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service;
 
-import com.coffeine.virtuoso.module.user.model.repository.PoetRepository;
+import com.coffeine.virtuoso.module.user.model.entity.Poet;
+
+import java.util.List;
 
 /**
+ * Service for work with poet
+ *
  * @version 1.0
  */
 public interface PoetService {
 
     //- SECTION :: MAIN -//
-    //- SECTION :: SET -//
     /**
-     * Set repository for user. Use IoC(DI)
+     * Find Poets for page
      *
-     * @param poetRepository
+     * @param page  Number of page for search
+     * @param limit Count of items per page
+     * @return List < Poet > List of poets per page
      */
-    public void setPoetRepository( PoetRepository poetRepository );
+    public List < Poet > findAll( int page, int limit );
+
+    /**
+     * Create a new Poet
+     *
+     * @param poet Data for create new poet
+     * @return Poet Created
+     */
+    public Poet create( Poet poet );
+
+    /**
+     * Find Poet by id
+     *
+     * @param id Unique identificator
+     * @return Poet Found
+     */
+    public Poet find( Long id );
+
+    /**
+     * Update
+     *
+     * @param poet Poet for update
+     * @return Poet Updated poet
+     */
+    public Poet update( Poet poet );
+
+    /**
+     * Delete
+     *
+     * @param id Identificator of poet
+     */
+    public void delete( Long id );
 }
