@@ -45,14 +45,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table(
-    name = "composer",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            columnNames = {
-                "id_user"
-            }
-        )
-    }
+    name = "composer"
 )
 public class Composer implements Serializable {
 

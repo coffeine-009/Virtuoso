@@ -1,4 +1,4 @@
-/// *** User :: Model :: Service :: Style   *** *** *** *** *** *** *** *** ///
+/// *** User :: Controller :: Style *** *** *** *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -15,13 +15,21 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.controller;
 
+import com.coffeine.virtuoso.module.user.model.entity.Style;
 import com.coffeine.virtuoso.module.user.model.service.StyleService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import java.util.List;
 
 /**
  * Controller for style
@@ -36,17 +44,82 @@ public class StyleController {
     protected StyleService styleService;
 
 
-    @RequestMapping( value = "/{ID}", method = RequestMethod.DELETE )
-    public void deleteAction(
-        @PathVariable( "ID" )
-        Long id
+    @GET
+    @RequestMapping( value = "/list/{PAGE}/{LIMIT}" )
+    @ResponseBody
+    public List < Style > findAllAction(
+        @PathVariable( "PAGE" )
+        int page,
+
+        @PathVariable( "LIMIT" )
+        int limit
+    ) {
+        return this.styleService.findAll(
+            Math.max( page - 1, 0 ),
+            limit
+        );
+    }
+
+    /**
+     *
+     * @param style
+     * @param response
+     * @return
+     */
+    @POST
+    @RequestMapping( value = "/" )
+    @ResponseBody
+    public Style createAction(
+        @RequestBody
+        @Valid
+        Style style,
+
+        HttpServletResponse response
     ) {
         try {
-            this.styleService.delete(id);
+            //- Set HTTP status -//
+            response.setStatus( HttpStatus.CREATED.value() );
+
+            //- Success. Return created style -//
+            return this.styleService.create( style );
+        }
+        catch ( ConstraintViolationException e ) {
+            //- Failure. Can not to create video type -//
+            response.setStatus( HttpStatus.FORBIDDEN.value() );
+        }
+        catch ( Exception e ) {
+            //- Failure. Can not to create video type -//
+            response.setStatus( HttpStatus.FORBIDDEN.value() );
+        }
+
+        return null;
+    }
+
+    @DELETE
+    @RequestMapping( value = "/{ID}" )
+    @ResponseBody
+    public void deleteAction(
+        @PathVariable( "ID" )
+        Long id,
+
+        HttpServletResponse response
+    ) {
+        try {
+            //- Set HTTP status -//
+            response.setStatus( HttpStatus.OK.value() );
+
+            //- Try to delete style -//
+            this.styleService.delete( id );
         }
         catch( InvalidDataAccessApiUsageException e ) {
-            // Style doesn't exists
-            //TODO: impl
+            // Failure. Style doesn't exists
+            //- Set HTTP status -//
+            response.setStatus( HttpStatus.NOT_FOUND.value() );
+        }
+        catch( Exception e ) {
+            // Failure. Some exception with persistence
+            //- Set HTTP status -//
+            response.setStatus( HttpStatus.NOT_FOUND.value() );
         }
     }
 }

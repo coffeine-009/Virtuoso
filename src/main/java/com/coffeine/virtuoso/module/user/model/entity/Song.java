@@ -94,10 +94,11 @@ public class Song implements Serializable {
     @LazyCollection( LazyCollectionOption.FALSE )
     protected List < Text > texts;
 
-    @JsonIgnore
-    @OneToMany( mappedBy = "song" )
-    @LazyCollection( LazyCollectionOption.FALSE )
-    @OnDelete( action = OnDeleteAction.CASCADE )
+//    @JsonIgnore
+//    @OneToMany( mappedBy = "song" )
+//    @LazyCollection( LazyCollectionOption.FALSE )
+//    @OnDelete( action = OnDeleteAction.CASCADE )
+    @Transient
     protected List < Video > videos;
 
     @NotNull

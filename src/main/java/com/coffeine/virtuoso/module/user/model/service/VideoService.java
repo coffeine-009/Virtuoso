@@ -15,19 +15,58 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service;
 
+import com.coffeine.virtuoso.module.user.model.entity.Video;
 import com.coffeine.virtuoso.module.user.model.repository.VideoRepository;
 
+import java.util.List;
+
 /**
+ * Service for work with video
+ *
  * @version 1.0
  */
 public interface VideoService {
 
     //- SECTION :: MAIN -//
-    //- SECTION :: SET -//
     /**
-     * Set repository for user. Use IoC(DI)
+     * Find all videos per page
      *
-     * @param videoRepository
+     * @param page  Requested page
+     * @param limit Count items per page
+     * @return List < Video >
      */
-    public void setVideoRepository( VideoRepository videoRepository );
+    public List < Video > findAll(
+        int page,
+        int limit
+    );
+
+    /**
+     * Create a new video
+     *
+     * @param video Data for create
+     * @return Video
+     */
+    public Video create( Video video );
+
+    /**
+     * Find video
+     *
+     * @param id Identificator of video
+     * @return Video
+     */
+    public Video find( Long id );
+
+    /**
+     * Update video
+     *
+     * @param video Data for update
+     * @return Video
+     */
+    public Video update( Video video );
+
+    /**
+     * Delete video
+     * @param id Identificator of video
+     */
+    public void delete( Long id );
 }

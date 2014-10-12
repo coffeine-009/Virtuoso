@@ -127,7 +127,7 @@ public class SecurityController {
                 );
             }
 
-        return this.userService.save( newUser );
+        return this.userService.create( newUser );
     }
 
     /**
