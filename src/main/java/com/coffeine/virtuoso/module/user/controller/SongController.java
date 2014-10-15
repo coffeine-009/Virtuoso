@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.Valid;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,6 +61,7 @@ public class SongController {
      * @param limit Count items per page
      * @return List < Song > List of songs for requested page
      */
+    @GET
     @RequestMapping( value = "/list/{PAGE}/{LIMIT}", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
@@ -70,7 +73,10 @@ public class SongController {
         int limit
     ) {
         //- Get list of song from persistence layout -//
-        return this.songService.findAll( page, limit );
+        return this.songService.findAll(
+            Math.max( page - 1, 0 ),
+            limit
+        );
     }
 
     /**
@@ -79,6 +85,7 @@ public class SongController {
      * @param song
      * @return Song
      */
+    @POST
     @RequestMapping(
         value = "/",
         method = RequestMethod.POST,
@@ -105,6 +112,7 @@ public class SongController {
      * @param Id
      * @return Song
      */
+    @GET
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
@@ -149,16 +157,5 @@ public class SongController {
     ) {
         //this.songService.delete( id );
         this.userService.delete( id );
-    }
-
-
-    //- SECTION :: SET -//
-    /**
-     * Setter for IoC(DI)
-     *
-     * @param messageSource
-     */
-    private void setMessageSource( MessageSource messageSource ) {
-        this.messageSource = messageSource;
     }
 }

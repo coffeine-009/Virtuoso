@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import java.util.List;
 
 /**
@@ -82,6 +83,61 @@ public class StyleController {
 
             //- Success. Return created style -//
             return this.styleService.create( style );
+        }
+        catch ( ConstraintViolationException e ) {
+            //- Failure. Can not to create video type -//
+            response.setStatus( HttpStatus.FORBIDDEN.value() );
+        }
+        catch ( Exception e ) {
+            //- Failure. Can not to create video type -//
+            response.setStatus( HttpStatus.FORBIDDEN.value() );
+        }
+
+        return null;
+    }
+
+    /**
+     * Update
+     *
+     * @param id        ID of style
+     * @param style     Updated data
+     * @param response  Use for set HTTP status
+     * @return Style
+     */
+    @PUT
+    @RequestMapping( value = "/{ID}" )
+    @ResponseBody
+    public Style createAction(
+        @PathVariable( "ID" )
+        Long id,
+
+        @RequestBody
+        @Valid
+        Style style,
+
+        HttpServletResponse response
+    ) {
+        //- Search origin style -//
+        Style styleOrigin = this.styleService.find( id );
+
+        if ( styleOrigin == null ) {
+            //- Failure. Style not found -//
+            response.setStatus( HttpStatus.NOT_FOUND.value() );
+            return null;
+        }
+
+        //- Update style -//
+        try {
+            //- Set HTTP status -//
+            response.setStatus( HttpStatus.OK.value() );
+
+            //- Set new data -//
+            styleOrigin.setCode( style.getCode() );
+            styleOrigin.setTitle( style.getTitle() );
+            styleOrigin.setDescription( style.getDescription() );
+
+            //- Success. Return created style -//
+            return this.styleService.update( styleOrigin );
         }
         catch ( ConstraintViolationException e ) {
             //- Failure. Can not to create video type -//

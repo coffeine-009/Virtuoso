@@ -25,6 +25,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -52,13 +54,13 @@ public class VideoType implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size( max = 16 )
+    @Length( max = 16 )
     @Column( name = "code", length = 16 )
     protected String code;
 
     @NotNull
     @NotEmpty
-    @Size( max = 32 )
+    @Length( max = 32 )
     @Column( name = "title", length = 32 )
     protected String title;
 
@@ -77,9 +79,9 @@ public class VideoType implements Serializable {
     /**
      * Constructor
      *
-     * @param code Const name of video type
-     * @param title Title of video type
-     * @param description Description of this video type
+     * @param code          Const name of video type
+     * @param title         Title of video type
+     * @param description   Description of this video type
      */
     public VideoType(
         String code, 
@@ -95,9 +97,10 @@ public class VideoType implements Serializable {
     /**
      * Constructor
      *
-     * @param code Const name of video type
-     * @param title Title of video type
-     * @param description Description of this video type
+     * @param id            Unique identificator
+     * @param code          Const name of video type
+     * @param title         Title of video type
+     * @param description   Description of this video type
      */
     public VideoType(
         Long id,
