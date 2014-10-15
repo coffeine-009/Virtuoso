@@ -15,16 +15,23 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import javax.persistence.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Class for reflect video table from persistence layout
@@ -44,16 +51,15 @@ public class Video implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.DETACH )
-    @JoinColumn( name = "id_video_type", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_video_type" )
     protected VideoType videoType;
 
     @JsonIgnore
-//    @NotNull
-//    @Valid
-//    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-//    @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
-    @Transient
+    @NotNull
+    @Valid
+    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
     protected Song song;
 
     @NotNull
