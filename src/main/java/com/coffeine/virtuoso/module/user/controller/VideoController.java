@@ -18,7 +18,13 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -42,6 +48,9 @@ public class VideoController {
     /// *** Properties  *** ///
     @Autowired
     protected VideoService videoService;
+
+    @Autowired
+    protected VideoTypeService videoTypeService;
 
 
     /// *** Methods     *** ///
@@ -88,6 +97,14 @@ public class VideoController {
 
             HttpServletResponse response
     ) {
+        //- Search video type -//
+        VideoType videoType = this.videoTypeService.find( 1L );
+
+        // TODO: not null
+
+        //- Set relations -//
+        video.setVideoType( videoType );
+
         //- Try to create new type of video -//
         try {
             //- Set HTTP status -//
