@@ -94,7 +94,7 @@ public class StyleController {
 
         return null;
     }
-
+    
     @DELETE
     @RequestMapping( value = "/{ID}" )
     @ResponseBody
@@ -104,7 +104,7 @@ public class StyleController {
 
         HttpServletResponse response
     ) {
-        try {
+        try {   
             //- Set HTTP status -//
             response.setStatus( HttpStatus.OK.value() );
 

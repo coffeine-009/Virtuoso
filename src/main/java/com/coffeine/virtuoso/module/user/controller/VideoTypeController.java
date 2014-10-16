@@ -38,8 +38,8 @@ public class VideoTypeController {
     protected VideoTypeService videoTypeService;
 
 
-    /// *** Methods     *** ///
-    //- SECTION :: ACTION -//
+        /// *** Methods     *** ///
+        //- SECTION :: ACTION -//
     /**
      * Find all video types per page
      *

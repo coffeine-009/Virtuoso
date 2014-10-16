@@ -1,4 +1,4 @@
-/// *** User :: Model :: Entity :: NotesType    *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Entity :: StaffType    *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -41,7 +41,7 @@ import org.hibernate.validator.constraints.NotEmpty;
         } 
     ) 
 )
-public class NotesType implements Serializable {
+public class StaffType implements Serializable {
 
     /// *** Properties  *** ///
     @Id
@@ -69,7 +69,7 @@ public class NotesType implements Serializable {
     /**
      * Default constructor
      */
-    public NotesType() {
+    public StaffType() {
         
     }
 
@@ -80,7 +80,7 @@ public class NotesType implements Serializable {
      * @param title
      * @param description 
      */
-    public NotesType(
+    public StaffType(
         String code, 
         String title, 
         String description

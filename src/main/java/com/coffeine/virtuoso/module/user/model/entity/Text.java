@@ -87,6 +87,15 @@ public class Text implements Serializable {
         this.locale = locale;
     }
 
+    public Text(
+        Song song,
+        String locale
+    ) {
+        //- Initialization -//
+        this.song = song;
+        this.locale = locale;
+    }
+
 
     //- SECTION :: GET -//
     /**

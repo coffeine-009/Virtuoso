@@ -83,7 +83,7 @@
             value = "jdbc:mysql://localhost:3306/virtuoso?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;sessionVariables=storage_engine=InnoDB&amp;zeroDateTimeBehavior=convertToNull"
         />
         <property name = "username" value = "root" />
-        <property name = "password" value = "developer" />
+        <property name = "password" value = "" />
     </bean>
 
     <bean
