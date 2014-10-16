@@ -52,27 +52,31 @@ public class VideoTypeTest extends AbstractModel {
         //- Create entity -//
         VideoType videoTypeFailure = new VideoType(
             null,
-            "Polka",
+            null,
             "Ukrainian polka"
         );
 
         //- Validate -//
         constraintViolationSet = validator.validate( videoTypeFailure );
 
-        assertEquals( 2, constraintViolationSet.size() );
+        assertEquals( 4, constraintViolationSet.size() );
         for ( ConstraintViolation<VideoType> constraintViolation : constraintViolationSet ) {
             //- Property name -//
-            assertEquals(
-                "code",
-                this.getPropertyName(
-                    constraintViolation.getPropertyPath()
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "code" );
+                    add( "title" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
                 )
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList<Class>() {{
-                    add(NotNull.class);
-                    add(NotEmpty.class);
+                new ArrayList < Class >() {{
+                    add( NotNull.class );
+                    add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
