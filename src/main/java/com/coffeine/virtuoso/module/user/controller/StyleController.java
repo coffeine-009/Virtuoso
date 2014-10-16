@@ -105,7 +105,7 @@ public class StyleController {
      * @return Style
      */
     @PUT
-    @RequestMapping( value = "/{ID}" )
+    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
     @ResponseBody
     public Style createAction(
         @PathVariable( "ID" )

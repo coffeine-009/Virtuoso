@@ -20,12 +20,14 @@ import com.coffeine.virtuoso.module.user.model.repository.TextRepository;
 import com.coffeine.virtuoso.module.user.model.service.TextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @version 1.0
  */
+@Service
 public class TextServiceImpl implements TextService {
 
     /// *** Properties  *** ///

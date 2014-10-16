@@ -32,12 +32,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -138,7 +133,7 @@ public class TextController {
      * @return Text 
      */
     @PUT
-    @RequestMapping( value = "/{ID}")
+    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
     public Text updateAction(
         @PathVariable
         Long id,

@@ -28,21 +28,16 @@ import javax.ws.rs.PUT;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
  * @author Администратор
  */
 
-    @RestController
-    @RequestMapping( value = "user/staff/type")
-    public class StaffTypeController {
+@RestController
+@RequestMapping( value = "/user/staff/type")
+public class StaffTypeController {
 
     //    private final static
 
@@ -122,7 +117,7 @@ import org.springframework.web.bind.annotation.RestController;
      * @return StaffType Updated type of staff
      */
     @PUT
-    @RequestMapping( value = "/{ID}")
+    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
     @ResponseBody
     public StaffType updateAction(
         @PathVariable( "ID" )
