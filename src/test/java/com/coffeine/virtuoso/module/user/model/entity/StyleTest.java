@@ -11,9 +11,9 @@ package com.coffeine.virtuoso.module.user.model.entity;
  */
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
-import sun.security.util.Length;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
