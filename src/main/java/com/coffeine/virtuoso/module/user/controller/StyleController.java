@@ -105,7 +105,7 @@ public class StyleController {
      * @return Style
      */
     @PUT
-    @RequestMapping( value = "/{ID}" )
+    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
     @ResponseBody
     public Style createAction(
         @PathVariable( "ID" )
@@ -160,7 +160,7 @@ public class StyleController {
 
         HttpServletResponse response
     ) {
-        try {
+        try {   
             //- Set HTTP status -//
             response.setStatus( HttpStatus.OK.value() );
 

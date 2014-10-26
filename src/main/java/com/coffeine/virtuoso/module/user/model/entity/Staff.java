@@ -59,7 +59,7 @@ public class Staff implements Serializable {
     @NotEmpty
     @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
     @JoinColumn( name = "id_notes_type", columnDefinition = "BIGINT( 20 )" )
-    protected NotesType notesType;
+    protected StaffType notesType;
 
     @NotNull
     @NotEmpty
@@ -123,9 +123,9 @@ public class Staff implements Serializable {
     /**
      * Get staffs type
      *
-     * @return NotesType
+     * @return StaffType
      */
-    public NotesType getNotesType() {
+    public StaffType getNotesType() {
         return notesType;
     }
 
@@ -180,7 +180,7 @@ public class Staff implements Serializable {
      *
      * @param notesType
      */
-    public void setNotesType( NotesType notesType ) {
+    public void setNotesType( StaffType notesType ) {
         this.notesType = notesType;
     }
 
