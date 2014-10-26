@@ -7,6 +7,7 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
@@ -27,10 +28,10 @@ import static org.junit.Assert.assertTrue;
 public class VideoTypeTest extends AbstractModel {
 
     /**
-     * Test field validation for entity
+     * Test field validation for entity filled correct
      */
     @Test
-    public void testVideoTypeFields() {
+    public void testVideoTypeFieldsSuccess() {
 
         Set < ConstraintViolation < VideoType > > constraintViolationSet;
 
@@ -46,7 +47,15 @@ public class VideoTypeTest extends AbstractModel {
         constraintViolationSet = validator.validate( videoTypeSuccess );
 
         assertEquals(0, constraintViolationSet.size());
+    }
 
+    /**
+     * Test field validation for entity filled incorrect
+     */
+    @Test
+    public void testVideoTypeFieldsFailure() {
+
+        Set < ConstraintViolation < VideoType > > constraintViolationSet;
 
         //- Failure -//
         //- Create entity -//
@@ -86,6 +95,48 @@ public class VideoTypeTest extends AbstractModel {
                 new ArrayList < String >() {{
                     add( "may not be null" );
                     add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+
+        //- Failure: Incorrect length -//
+        //- Create entity -//
+        VideoType videoTypeFailureLength = new VideoType(
+            "12345678901234567",
+            "123456789012345678901234567890123",
+            null
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( videoTypeFailureLength );
+
+        assertEquals( 2, constraintViolationSet.size() );
+
+        for ( ConstraintViolation<VideoType> constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "code" );
+                    add( "title" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( Length.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "length must be between 0 and 16" );
+                    add( "length must be between 0 and 32" );
                 }}.contains( constraintViolation.getMessage() )
             );
         }
