@@ -1,4 +1,4 @@
-/// *** User :: Model :: Entity :: StaffType    *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Entity :: NotesType    *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -24,6 +24,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -34,7 +36,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( 
-    name = "notes_type", 
+    name = "staff_type",
     uniqueConstraints = @UniqueConstraint( 
         columnNames = {
             "code"
@@ -51,14 +53,14 @@ public class StaffType implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size( max = 32 )
-    @Column( name = "code", columnDefinition = "VARCHAR( 32 )" )
+    @Length( max = 32 )
+    @Column( name = "code", length = 32 )
     protected String code;
 
     @NotNull
     @NotEmpty
-    @Size( max = 32 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
+    @Length( max = 32 )
+    @Column( name = "title", length = 32 )
     protected String title;
 
     @Column( name = "description", columnDefinition = "TEXT" )
