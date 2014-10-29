@@ -59,8 +59,8 @@ public class Staff implements Serializable {
     @NotNull
     @NotEmpty
     @ManyToOne
-    @JoinColumn( name = "id_notes_type" )
-    protected StaffType notesType;
+    @JoinColumn( name = "id_staff_type" )
+    protected StaffType staffType;
 
     @NotNull
     @NotEmpty
@@ -126,8 +126,8 @@ public class Staff implements Serializable {
      *
      * @return StaffType
      */
-    public StaffType getNotesType() {
-        return notesType;
+    public StaffType getStaffType() {
+        return staffType;
     }
 
     /**
@@ -179,10 +179,10 @@ public class Staff implements Serializable {
     /**
      * Set type of staffs
      *
-     * @param notesType
+     * @param staffType
      */
-    public void setNotesType( StaffType notesType ) {
-        this.notesType = notesType;
+    public void setStaffType(StaffType staffType) {
+        this.staffType = staffType;
     }
 
     /**
