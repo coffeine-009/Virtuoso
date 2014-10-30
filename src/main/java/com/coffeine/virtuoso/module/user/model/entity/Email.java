@@ -17,17 +17,15 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Class for reflect email table from persistance layout
+ * Class for reflect email table from persistence layout
  *
  * @version 1.0
  */
@@ -62,8 +60,6 @@ public class Email implements Serializable {
     @Column( name = "address", length = 80 )
     protected String address;
 
-    @NotNull
-    @NotEmpty
     @Column(
         name = "creation",
         columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"

@@ -74,8 +74,13 @@ public class Role implements Serializable {
      *
      * @param code
      */
-    public Role( String code ) {
+    public Role(
+        String code,
+        String title
+    ) {
+        //- Initialization -//
         this.code = code;
+        this.title = title;
     }
 
     /**

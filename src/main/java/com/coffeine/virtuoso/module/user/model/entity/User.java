@@ -30,9 +30,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -140,6 +141,7 @@ public class User implements Serializable {
     @Column( name = "locale", length = 5 )
     protected String locale;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(
         name = "creation",
         columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
@@ -156,8 +158,39 @@ public class User implements Serializable {
         //- Initialization -//
         this.access = new ArrayList<>();
         this.emails = new ArrayList<>();
-        this.composers = new ArrayList<>();
-        this.poets = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for create user
+     *
+     * @param roles         List of roles
+     * @param access        List of permissions
+     * @param email         Email
+     * @param firstName     First name
+     * @param lastName      Last name
+     * @param middleName    Father's name
+     * @param locale        Default locale
+     */
+    public User(
+        List < Role > roles,
+        Access access,
+        Email email,
+        String firstName,
+        String lastName,
+        String middleName,
+        String locale
+    ) {
+        //- Call default constructor -//
+        this();
+
+        //- Initialization -//
+        this.roles = roles;
+        this.addAccess(access);
+        this.addEmail(email);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.locale = locale;
     }
 
     //- SECTION :: GET -//
@@ -195,24 +228,6 @@ public class User implements Serializable {
      */
     public List < Email > getEmails() {
         return emails;
-    }
-
-    /**
-     * Get composer's data for this user
-     *
-     * @return List<Composer>
-     */
-    public List < Composer > getComposers() {
-        return composers;
-    }
-
-    /**
-     * Get poet's data for this user
-     *
-     * @return List<Poet>
-     */
-    public List < Poet > getPoets() {
-        return poets;
     }
 
     /**
@@ -308,24 +323,6 @@ public class User implements Serializable {
     }
 
     /**
-     * Set composer's data of this user
-     *
-     * @param composers
-     */
-    public void setComposers( List < Composer > composers ) {
-        this.composers = composers;
-    }
-
-    /**
-     * Set poet's data of this user
-     *
-     * @param poets
-     */
-    public void setPoets( List < Poet > poets ) {
-        this.poets = poets;
-    }
-
-    /**
      * Set first name
      *
      * @param firstName
@@ -397,40 +394,6 @@ public class User implements Serializable {
         if ( !this.emails.contains( email ) ) {
             // Add a new email for user
             this.emails.add( email );
-        }
-    }
-
-    /**
-     * Add a new composer
-     *
-     * @param composer
-     */
-    public void addComposer( Composer composer ) {
-
-        // Set user
-        composer.setUser( this );
-
-        // Check exists composer list
-        if ( !this.composers.contains( composer ) ) {
-            // Add a new composer
-            this.composers.add( composer );
-        }
-    }
-
-    /**
-     * Add a new poet
-     *
-     * @param poet
-     */
-    public void addPoet( Poet poet ) {
-
-        // Set user
-        poet.setUser( this );
-
-        // Check exists poet list
-        if ( !this.poets.contains( poet ) ) {
-            // Add a new poet
-            this.poets.add( poet );
         }
     }
 }

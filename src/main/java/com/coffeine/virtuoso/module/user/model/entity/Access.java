@@ -45,6 +45,7 @@ public class Access implements Serializable {
     /**
      * User, owner of this access
      */
+    @NotNull
     @Valid
     @ManyToOne
     @JoinColumn( name = "id_user" )

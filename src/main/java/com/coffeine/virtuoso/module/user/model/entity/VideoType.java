@@ -16,18 +16,17 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * Class for reflect table VideoType from persistence layout
@@ -74,6 +73,21 @@ public class VideoType implements Serializable {
      */
     public VideoType() {
         
+    }
+
+    /**
+     * Constructor
+     *
+     * @param code  Const name of video type
+     * @param title Title of video type
+     */
+    public VideoType(
+        String code,
+        String title
+    ) {
+        //- Initialization -//
+        this.code = code;
+        this.title = title;
     }
 
     /**
