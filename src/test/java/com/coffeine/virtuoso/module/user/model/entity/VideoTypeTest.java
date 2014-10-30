@@ -103,8 +103,7 @@ public class VideoTypeTest extends AbstractModel {
         //- Create entity -//
         VideoType videoTypeFailureLength = new VideoType(
             "12345678901234567",
-            "123456789012345678901234567890123",
-            null
+            "123456789012345678901234567890123"
         );
 
         //- Validate -//

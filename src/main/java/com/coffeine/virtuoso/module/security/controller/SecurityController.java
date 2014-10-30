@@ -17,16 +17,21 @@ package com.coffeine.virtuoso.module.security.controller;
 
 import com.coffeine.virtuoso.module.security.Form.RegistrationForm;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
-import com.coffeine.virtuoso.module.user.model.entity.*;
+import com.coffeine.virtuoso.module.user.model.entity.Access;
+import com.coffeine.virtuoso.module.user.model.entity.Email;
+import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -104,27 +109,27 @@ public class SecurityController {
             //- Create a new composer -//
             if( roles.contains( Roles.COMPOSER ) ) {
                 //- Linking composer with user -//
-                newUser.addComposer(
-                    new Composer(
-                        newUser.getLocale(),
-                        newUser.getGender(),
-                        newUser.getCreation(),//TODO
-                        newUser.getCreation()
-                    )
-                );
+//                newUser.addComposer(
+//                    new Composer(
+//                        newUser.getLocale(),
+//                        newUser.getGender(),
+//                        newUser.getCreation(),//TODO
+//                        newUser.getCreation()
+//                    )
+//                );
             }
 
             //- Create a new poet -//
             if ( roles.contains( Roles.POET ) ) {
                 //- Linking poet with user -//
-                newUser.addPoet(
-                    new Poet(
-                        newUser.getLocale(),
-                        newUser.getGender(),
-                        newUser.getCreation(),//TODO
-                        newUser.getCreation()
-                    )
-                );
+//                newUser.addPoet(
+//                    new Poet(
+//                        newUser.getLocale(),
+//                        newUser.getGender(),
+//                        newUser.getCreation(),//TODO
+//                        newUser.getCreation()
+//                    )
+//                );
             }
 
         return this.userService.create( newUser );
