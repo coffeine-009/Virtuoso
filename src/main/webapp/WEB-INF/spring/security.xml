@@ -20,6 +20,25 @@
         jsr250-annotations = "enabled"
     />
 
+    <!-- Public resource -->
+    <security:http
+        authentication-manager-ref = "authenticationManager"
+        create-session = "stateless"
+        pattern = "/"
+    >
+        <security:access-denied-handler ref = "securityAccessDeniedHandler" />
+        <security:anonymous enabled = "true" />
+        <security:custom-filter
+            before = "BASIC_AUTH_FILTER"
+            ref = "clientCredentialsTokenEndpointFilter"
+        />
+        <security:http-basic entry-point-ref = "securityEntryPoint" />
+        <security:intercept-url
+            pattern = "/"
+            access = "IS_AUTHENTICATED_ANONYMOUSLY"
+        />
+    </security:http>
+
     <!-- Authorization -->
     <security:http
         authentication-manager-ref = "authenticationManager"
@@ -34,6 +53,10 @@
         />
         <security:http-basic entry-point-ref = "securityEntryPoint" />
         <security:intercept-url
+            pattern = "/"
+            access = "IS_AUTHENTICATED_ANONYMOUSLY"
+        />
+        <security:intercept-url
             pattern = "/oauth/token"
             access = "IS_AUTHENTICATED_FULLY"
         />
@@ -43,7 +66,7 @@
     <security:http
         create-session = "never"
         entry-point-ref = "securityAuthenticationEntryPoint"
-        pattern = "/**"
+        pattern = "/user/**"
     >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
         <security:anonymous enabled = "false" />

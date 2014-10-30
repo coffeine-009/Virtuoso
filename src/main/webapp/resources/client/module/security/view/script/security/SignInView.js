@@ -60,11 +60,7 @@ define(
              */
             submit: function() {
                 //- Send request for Sign In -//
-                var oAuth = new Backbone.OAuth2({
-                    clientId: "developer",
-                    clientSecret: "developer32"
-                });
-                oAuth.access(
+                Security.Model.OAuth2.access(
                     $( "#username").val(),
                     $( "#password").val(),
                     this.signinSuccess,
