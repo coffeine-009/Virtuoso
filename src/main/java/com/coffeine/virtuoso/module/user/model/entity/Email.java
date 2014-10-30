@@ -15,6 +15,14 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
+<<<<<<< HEAD
+=======
+import java.io.Serializable;
+import java.util.Calendar;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+>>>>>>> Server Start implement tests for user
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,7 +41,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 /**
- * Class for reflect email table from persistance layout
+ * Class for reflect email table from persistence layout
  *
  * @version 1.0
  */
