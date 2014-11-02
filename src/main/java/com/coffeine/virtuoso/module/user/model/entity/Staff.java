@@ -30,6 +30,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -51,26 +52,26 @@ public class Staff implements Serializable {
     @JsonIgnore
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_song" )
     protected Song song;
 
     @NotNull
     @NotEmpty
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_notes_type", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_notes_type" )
     protected StaffType notesType;
 
     @NotNull
     @NotEmpty
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_style", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_style" )
     protected Style style;
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column(

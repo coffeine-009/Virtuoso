@@ -46,7 +46,7 @@ public class Access implements Serializable {
      * User, owner of this access
      */
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 

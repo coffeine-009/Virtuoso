@@ -15,29 +15,13 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -60,13 +44,13 @@ public class Song implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn( name = "id_composer" )
     protected Composer composer;
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn( name = "id_poet" )
     protected Poet poet;
 
@@ -76,34 +60,42 @@ public class Song implements Serializable {
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song", fetch = FetchType.EAGER )
-    @OnDelete( action = OnDeleteAction.CASCADE )
-    @LazyCollection( LazyCollectionOption.FALSE )
+    @OneToMany(
+        mappedBy = "song",
+        fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     protected List < SongLocale > data;
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song" )
-    @LazyCollection( LazyCollectionOption.FALSE )
+    @OneToMany(
+        mappedBy = "song",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
     protected List <Staff > staffs;
 
     @NotNull
     @NotEmpty
-    @OneToMany( mappedBy = "song" )
-    @OnDelete( action = OnDeleteAction.CASCADE )
-    @LazyCollection( LazyCollectionOption.FALSE )
+    @OneToMany(
+            mappedBy = "song",
+            cascade = CascadeType.ALL,
+            orphanRemoval = false
+    )
     protected List < Text > texts;
 
-//    @JsonIgnore
-//    @OneToMany( mappedBy = "song" )
-//    @LazyCollection( LazyCollectionOption.FALSE )
-//    @OnDelete( action = OnDeleteAction.CASCADE )
-    @Transient
+    @OneToMany(
+            mappedBy = "song",
+            cascade = CascadeType.ALL,
+            orphanRemoval = false
+    )
     protected List < Video > videos;
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
+    @Length( max = 5 )
     @Column( name = "locale", length = 5 )
     protected String locale;
 
@@ -238,7 +230,7 @@ public class Song implements Serializable {
     /**
      * Set composer of song
      *
-     * @param composer
+     * @param composer Composer of song
      */
     public void setComposer( Composer composer ) {
         this.composer = composer;
@@ -247,7 +239,7 @@ public class Song implements Serializable {
     /**
      * Set poet of this song
      *
-     * @param poet
+     * @param poet Poet of song
      */
     public void setPoet( Poet poet ) {
         this.poet = poet;
@@ -256,7 +248,7 @@ public class Song implements Serializable {
     /**
      * Set data for current locale
      *
-     * @param data
+     * @param data Localized data
      */
     public void setData( List < SongLocale > data ) {
         this.data = data;
@@ -265,7 +257,7 @@ public class Song implements Serializable {
     /**
      * Set musical staffs
      *
-     * @param staffs
+     * @param staffs List of staffs
      */
     public void setStaffs(List<Staff > staffs) {
         this.staffs = staffs;
@@ -274,7 +266,7 @@ public class Song implements Serializable {
     /**
      * Set text
      *
-     * @param texts
+     * @param texts List of texts
      */
     public void setTexts( List < Text > texts ) {
         this.texts = texts;
@@ -283,7 +275,7 @@ public class Song implements Serializable {
     /**
      * Set video
      *
-     * @param videos
+     * @param videos List of videos
      */
     public void setVideos( List < Video > videos ) {
         this.videos = videos;
@@ -292,7 +284,7 @@ public class Song implements Serializable {
     /**
      * Set locale of song
      *
-     * @param locale
+     * @param locale Locale of song
      */
     public void setLocale( String locale ) {
         this.locale = locale;
@@ -301,7 +293,7 @@ public class Song implements Serializable {
     /**
      * Set song's date of write
      *
-     * @param writeDate
+     * @param writeDate Date of write
      */
     public void setWriteDate( Calendar writeDate ) {
         this.writeDate = writeDate;

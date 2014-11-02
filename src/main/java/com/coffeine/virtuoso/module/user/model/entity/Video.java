@@ -16,6 +16,7 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.CascadeType;
@@ -58,20 +59,20 @@ public class Video implements Serializable {
     @JsonIgnore
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_song" )
     protected Song song;
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @NotNull
     @NotEmpty
-    @Size( max = 32 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
+    @Length( max = 32 )
+    @Column( name = "title", length = 32 )
     protected String title;
 
     @Column( name = "description", columnDefinition = "TEXT" )
@@ -79,8 +80,8 @@ public class Video implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size( max = 64 )
-    @Column( name = "file_name", columnDefinition = "VARCHAR( 64 )" )
+    @Length( max = 64 )
+    @Column( name = "file_name", length = 64 )
     protected String fileName;
 
     @Column(

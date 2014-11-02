@@ -30,6 +30,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -52,19 +53,19 @@ public class SongLocale implements Serializable {
     @NotNull
     @Valid
     @ManyToOne
-    @JoinColumn( name = "id_song", columnDefinition = "BIGINT( 20 )" )
+    @JoinColumn( name = "id_song" )
     protected Song song;
 
     @NotNull
     @NotEmpty
-    @Size( max = 64 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 64 )" )
+    @Length( max = 64 )
+    @Column( name = "title", length = 64 )
     protected String title;
 
     @NotNull
     @NotEmpty
     @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column(

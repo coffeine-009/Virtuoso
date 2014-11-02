@@ -34,6 +34,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -56,21 +57,25 @@ public class Composer implements Serializable {
     protected Long id;
 
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_user" )
     protected User user;
 
     @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "composer" )
+    @OneToMany(
+        mappedBy = "composer",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     protected List < ComposerLocale > data;
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column( name = "gender" )

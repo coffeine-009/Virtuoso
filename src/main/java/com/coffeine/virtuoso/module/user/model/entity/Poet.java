@@ -48,7 +48,7 @@ public class Poet implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+    @ManyToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 
@@ -56,13 +56,17 @@ public class Poet implements Serializable {
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "poet" )
+    @OneToMany(
+        mappedBy = "poet",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     protected List < PoetLocale > data;
 
     @NotNull
     @NotEmpty
     @Length( max = 5 )
-    @Column( name = "locale", length = 5)
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column( name = "gender" )

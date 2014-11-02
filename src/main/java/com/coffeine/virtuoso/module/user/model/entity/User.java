@@ -17,6 +17,7 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.CascadeType;
@@ -80,38 +81,54 @@ public class User implements Serializable {
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToMany(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     protected List < Access > access;
 
     @JsonIgnore
     @NotNull
     @NotEmpty
     @Valid
-    @OneToMany( mappedBy = "user", orphanRemoval = true )
+    @OneToMany(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
     protected List < Email > emails;
 
     @JsonIgnore
     @Valid
-    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToMany(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
     protected List < Composer > composers;
 
     @JsonIgnore
     @Valid
-    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToMany(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
     protected List < Poet > poets;
 
     @NotNull
     @NotEmpty
-    @Size( max = 16 )
-    @Column( name = "first_name", columnDefinition = "VARCHAR( 16 )" )
+    @Length( max = 16 )
+    @Column( name = "first_name", length = 16 )
     protected String firstName;
 
-    @Size( max = 16 )
-    @Column( name = "last_name", columnDefinition = "VARCHAR( 16 )" )
+    @Length( max = 16 )
+    @Column( name = "last_name", length = 16 )
     protected String lastName;
 
-    @Size( max = 32 )
-    @Column( name = "middle_name", columnDefinition = "VARCHAR( 32 )" )
+    @Length( max = 32 )
+    @Column( name = "middle_name", length = 32 )
     protected String middleName;
 
     @Column( name = "gender" )
@@ -119,8 +136,8 @@ public class User implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column(

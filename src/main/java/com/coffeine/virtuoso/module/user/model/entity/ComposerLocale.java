@@ -29,6 +29,8 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -49,28 +51,28 @@ public class ComposerLocale implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_composer", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_composer" )
     protected Composer composer;
 
     @NotNull
     @NotEmpty
-    @Size( max = 16 )
-    @Column( name = "first_name", columnDefinition = "VARCHAR( 16 )" )
+    @Length( max = 16 )
+    @Column( name = "first_name", length = 16 )
     protected String firstName;
 
-    @Size( max = 16 )
-    @Column( name = "last_name", columnDefinition = "VARCHAR( 16 )" )
+    @Length( max = 16 )
+    @Column( name = "last_name", length = 16 )
     protected String lastName;
 
-    @Size( max = 32 )
-    @Column( name = "middle_name", columnDefinition = "VARCHAR( 32 )" )
+    @Length( max = 32 )
+    @Column( name = "middle_name", length = 32 )
     protected String middleName;
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
-    @Column( name = "locale", columnDefinition = "VARCHAR( 5 )" )
+    @Length( max = 5 )
+    @Column( name = "locale", length = 5 )
     protected String locale;
 
     @Column( 

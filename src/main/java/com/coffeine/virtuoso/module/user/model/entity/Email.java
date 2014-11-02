@@ -17,19 +17,13 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.annotation.Generated;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -52,19 +46,20 @@ public class Email implements Serializable {
 
     /// *** Properties  *** ///
     @Id
-    @Column( name = "id", columnDefinition = "BIGINT( 20 ) AUTO_INCREMENT" )
+    @GeneratedValue
+    @Column( name = "id" )
     protected Long id;
 
     @NotNull
     @Valid
-    @ManyToOne( fetch = FetchType.EAGER, cascade = CascadeType.ALL )
-    @JoinColumn( name = "id_user", columnDefinition = "BIGINT( 20 )" )
+    @ManyToOne
+    @JoinColumn( name = "id_user" )
     protected User user;
 
     @NotNull
     @NotEmpty
-    @Size( max = 80 )
-    @Column( name = "address", columnDefinition = "VARCHAR( 80 )" )
+    @Length( max = 80 )
+    @Column( name = "address", length = 80 )
     protected String address;
 
     @NotNull
