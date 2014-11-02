@@ -1,7 +1,7 @@
 /**
  * @copyright (c) 2014, by Vitaliy Tsutsman
  *
- * @author Vitaliy Tsutsman <vtsutsman@softjourn.com>
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  */
 
 package com.coffeine.virtuoso.module.user.model.entity;
@@ -46,7 +46,7 @@ public class VideoTypeTest extends AbstractModel {
         //- Validate -//
         constraintViolationSet = validator.validate( videoTypeSuccess );
 
-        assertEquals(0, constraintViolationSet.size());
+        assertEquals( 0, constraintViolationSet.size() );
     }
 
     /**
@@ -69,7 +69,7 @@ public class VideoTypeTest extends AbstractModel {
         constraintViolationSet = validator.validate( videoTypeFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for ( ConstraintViolation<VideoType> constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
