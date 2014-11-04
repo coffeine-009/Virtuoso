@@ -117,6 +117,29 @@ public class Song implements Serializable {
 
     }
 
+    /**
+     * Constructor
+     *
+     * @param poet
+     * @param title
+     * @param texts
+     * @param videos
+     * @param locale
+     */
+    public Song(
+        Poet poet,
+        String title,
+        List < Text > texts,
+        List < Video > videos,
+        String locale
+    ) {
+        //- Initialization -//
+        this.poet = poet;
+        this.title = title;
+        this.texts = texts;
+        this.videos = videos;
+    }
+
     //- SECTION :: GET -//
     /**
      * Get ID of song

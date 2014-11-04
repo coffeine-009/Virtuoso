@@ -99,7 +99,8 @@ public class Composer implements Serializable {
     /**
      * Construct default
      */
-    public Composer() {
+    public Composer(
+    ) {
 
     }
 
@@ -120,6 +121,14 @@ public class Composer implements Serializable {
         this.gender = gender;
         this.birthday = birthday;
         this.deathday = deathday;
+    }
+
+    public Composer(
+        List < ComposerLocale > data,
+        String locale
+    ) {
+        this.data = data;
+        this.locale = locale;
     }
 
 

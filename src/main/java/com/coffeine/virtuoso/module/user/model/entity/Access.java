@@ -92,6 +92,19 @@ public class Access implements Serializable {
         this.password = password;
     }
 
+    /**
+     * Constructor for create access
+     *
+     * @param user
+     * @param password
+     */
+    public Access(
+        User user,
+        String password
+    ) {
+        this.user = user;
+        this.password = password;
+    }
 
     //- SECTION :: GET -//
     /**
