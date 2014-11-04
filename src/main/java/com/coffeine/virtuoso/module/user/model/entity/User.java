@@ -175,6 +175,32 @@ public class User implements Serializable {
         this.locale = locale;
     }
 
+    /**
+     * Constructor for create user
+     *
+     * @param roles        List of roles
+     * @param firstName    First name
+     * @param locale       Default locale
+     */
+    public User(
+        List < Role > roles,
+        String firstName,
+        String locale
+    ) {
+        //- Call default constructor -//
+        this();
+
+        //- Initialization -//
+        this.roles = roles;
+        this.access = null;
+        this.emails = null;
+        this.firstName = firstName;
+        this.locale = locale;
+    }
+
+    public User( List < Role > roles) {
+        this.roles = roles;
+    }
     //- SECTION :: GET -//
     /**
      * Get ID of song

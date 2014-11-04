@@ -91,6 +91,21 @@ public class Email implements Serializable {
 
     }
 
+    /**
+     * Constructor for create email
+     *
+     * @param user
+     * @param address
+     */
+    public Email(
+        User user,
+        String address
+) {
+        //- Initialization -//
+        this.user = user;
+        this.address = address;
+    }
+
     public Email(
         String address
     ) {

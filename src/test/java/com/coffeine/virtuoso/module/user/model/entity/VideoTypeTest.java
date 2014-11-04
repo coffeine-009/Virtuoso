@@ -111,7 +111,7 @@ public class VideoTypeTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation<VideoType> constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{

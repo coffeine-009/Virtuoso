@@ -6,10 +6,6 @@
 
 package com.coffeine.virtuoso.module.user.model.entity;
 
-/**
- * Created by valentyn on 10/29/14.
- */
-
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,68 +16,72 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for Style
- * @see com.coffeine.virtuoso.module.user.model.entity.VideoType
+ * Tests for Role
+ * @see com.coffeine.virtuoso.module.user.model.entity.Role
  *
  * @version 1.0
  */
-public class StyleTest extends AbstractModel {
+public class RoleTest extends AbstractModel {
 
-    /*
-     * Test field validation for entity correct
+    /**
+     * Test field validation for entity filled correct
      */
     @Test
-    public void testStyleFieldsSuccess() {
-        Set< ConstraintViolation < Style > > constraintViolationSet;
+    public void TestRoleFieldsSuccess() {
+
+        Set< ConstraintViolation< Role > > constraintViolationSet;
 
         //- Success -//
-        //- Create entity-//
-
-        Style styleSuccess = new Style(
-            "One",
-            "Two",
-            "three"
+        //- Create entity -//
+        Role roleSuccess = new Role(
+            "COMPOSER",
+            "Composer",
+            "Composer role"
         );
+
         //- Validate -//
-        constraintViolationSet = validator.validate( styleSuccess );
+        constraintViolationSet = validator.validate( roleSuccess );
 
         assertEquals( 0, constraintViolationSet.size() );
     }
 
-
-    /*
-     * Test field validation for entity correct
+    /**
+     * Test field validation for entity filled incorrect
      */
     @Test
-    public void testStyleFieldsFailure() {
-        Set < ConstraintViolation < Style> > constraintViolationSet;
+    public void testVideoTypeFieldsFailure() {
+
+        Set < ConstraintViolation < Role > > constraintViolationSet;
 
         //- Failure -//
-        //- Create entity-//
-        Style styleFailure = new Style(
+        //- Create entity -//
+        Role roleFailure = new Role(
             null,
             null,
-            "three"
+            "Composer role"
         );
+
         //- Validate -//
-        constraintViolationSet = validator.validate( styleFailure );
+        constraintViolationSet = validator.validate( roleFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for( ConstraintViolation< Style > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList< String >() {{
+                new ArrayList < String >() {{
                     add( "code" );
-                    add("title");
+                    add( "title" );
                 }}.contains(
-                    this.getPropertyName( constraintViolation.getPropertyPath())
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
                 )
             );
-            //- Annotation Type -//
+            //- Annotation type -//
             assertTrue(
                 new ArrayList < Class >() {{
                     add( NotNull.class );
@@ -94,25 +94,25 @@ public class StyleTest extends AbstractModel {
             assertTrue(
                 new ArrayList < String >() {{
                     add( "may not be null" );
-                    add( "may not be empty");
-                }}.contains(
-                    constraintViolation.getMessage()
-                )
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
             );
         }
 
         //- Failure: Incorrect length -//
         //- Create entity -//
-        Style styleFailureLength = new Style(
-            "123456789012345678901234567890123",
+        Role roleFailureLength = new Role(
+            "123456789",
             "123456789012345678901234567890123",
             null
         );
+
         //- Validate -//
-        constraintViolationSet = validator.validate( styleFailureLength );
+        constraintViolationSet = validator.validate( roleFailureLength );
 
         assertEquals( 2, constraintViolationSet.size() );
-        for( ConstraintViolation < Style > constraintViolation : constraintViolationSet ) {
+
+        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -120,7 +120,7 @@ public class StyleTest extends AbstractModel {
                     add( "title" );
                 }}.contains(
                     this.getPropertyName(
-                            constraintViolation.getPropertyPath()
+                        constraintViolation.getPropertyPath()
                     )
                 )
             );
@@ -132,14 +132,12 @@ public class StyleTest extends AbstractModel {
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //-Message-//
+            //- Message -//
             assertTrue(
                 new ArrayList < String >() {{
+                    add( "length must be between 0 and 8" );
                     add( "length must be between 0 and 32" );
-                    add( "length must be between 0 and 32" );
-                }}.contains(
-                    constraintViolation.getMessage()
-                )
+                }}.contains( constraintViolation.getMessage() )
             );
         }
     }

@@ -25,8 +25,8 @@ import static org.junit.Assert.assertTrue;
 
 
 /**
- * Tests for VideoType
- * @see com.coffeine.virtuoso.module.user.model.entity.VideoType
+ * Tests for StaffType
+ * @see com.coffeine.virtuoso.module.user.model.entity.StaffType
  *
  * @version 1.0
  */
