@@ -16,6 +16,7 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -101,7 +102,8 @@ public class Composer implements Serializable {
      */
     public Composer(
     ) {
-
+        //- Initialization -//
+        this.data = new ArrayList < ComposerLocale >();
     }
 
     /**
@@ -123,15 +125,31 @@ public class Composer implements Serializable {
         this.deathday = deathday;
     }
 
+    /**
+     * Constructor for create new composer
+     *
+     * @param data
+     * @param locale
+     */
     public Composer(
         List < ComposerLocale > data,
         String locale
     ) {
-        this.data = data;
+        this();
+
+        //- Set locales -//
+        for (ComposerLocale composerLocale : data ) {
+            this.addComposerLocale(composerLocale);
+        }
         this.locale = locale;
     }
 
-
+    public Composer(
+        String locale
+    ) {
+        this.data = null;
+        this.locale = locale;
+    }
     //- SECTION :: GET -//
     /**
      * Get ID of composer
@@ -268,5 +286,19 @@ public class Composer implements Serializable {
      */
     public void setDeathday( Calendar deathday ) {
         this.deathday = deathday;
+    }
+
+    /**
+     *
+     * @param composerLocale
+     */
+    public void addComposerLocale( ComposerLocale composerLocale) {
+        //- Set composer-//
+        composerLocale.setComposer( this );
+
+        //- Add Composer locale-//
+        if( !this.data.contains( composerLocale ) ) {
+            this.data.add( composerLocale );
+        }
     }
 }

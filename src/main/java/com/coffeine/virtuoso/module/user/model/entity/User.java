@@ -167,7 +167,7 @@ public class User implements Serializable {
 
         //- Initialization -//
         this.roles = roles;
-        this.addAccess(access);
+        this.addAccess( access );
         this.addEmail(email);
         this.firstName = firstName;
         this.lastName = lastName;
