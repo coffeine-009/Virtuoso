@@ -21,28 +21,42 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for ComposerLocale
- * @see com.coffeine.virtuoso.module.user.model.entity.ComposerLocale
+ * Tests for PoetLocale
+ * @see com.coffeine.virtuoso.module.user.model.entity.PoetLocale
  *
  * @version 1.0
  */
-public class ComposerLocaleTest extends AbstractModel {
+public class PoetLocaleTest extends AbstractModel {
 
     /*
- * Test field validation for entity correct
- */
+    * Test field validation for entity correct
+    */
     @Test
-    public void testComposerLocaleFieldSuccess() {
+    public void testPoetLocaleFieldSuccess() {
 
-        Set < ConstraintViolation < ComposerLocale > > constraintViolationSet;
+        Set < ConstraintViolation < PoetLocale > > constraintViolationSet;
 
         //- Success -//
         //- Create entity-//
-        ComposerLocale composerLocaleSuccess = new ComposerLocale(
-            new Composer(
-                new ArrayList<ComposerLocale>() {{
+        PoetLocale poetLocaleSuccess = new PoetLocale(
+            new Poet(
+                new User(
+                    //- Roles -//
+                    new ArrayList < Role >() {{
+                        add( new Role( "POET", "Poet" ) );
+                    }},
+                    //- Access -//
+                    new Access( "MyP@$$w0rd" ),
+                    //- Emails -//
+                    new Email( "myemail@virtuoso.com" ),
+                    "Tester",
+                    "Unit",
+                    "JUnit",
+                    "uk-UA"
+                ),
+                new ArrayList < PoetLocale >() {{
                     add(
-                        new ComposerLocale(
+                        new PoetLocale(
                             "Test",
                             "Unit",
                             "Validation",
@@ -59,7 +73,7 @@ public class ComposerLocaleTest extends AbstractModel {
 
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( composerLocaleSuccess );
+        constraintViolationSet = validator.validate( poetLocaleSuccess );
 
         assertEquals(0, constraintViolationSet.size());
     }
@@ -68,17 +82,31 @@ public class ComposerLocaleTest extends AbstractModel {
  * Test field validation for entity failure
  */
     @Test
-    public void testComposerLocaleFieldsFailure() {
+    public void testPoetLocaleFieldsFailure() {
 
-        Set < ConstraintViolation < ComposerLocale > > constraintViolationSet;
+        Set < ConstraintViolation < PoetLocale > > constraintViolationSet;
 
         //- Failure -//
         //- Create entity-//
-        ComposerLocale composerLocaleFailure = new ComposerLocale(
-            new Composer(
-                new ArrayList < ComposerLocale >() {{
+        PoetLocale poetLocaleFailure = new PoetLocale(
+            new Poet(
+                new User(
+                    //- Roles -//
+                    new ArrayList < Role >() {{
+                        add( new Role( "POET", "Poet" ) );
+                    }},
+                    //- Access -//
+                    new Access( "MyP@$$w0rd" ),
+                    //- Emails -//
+                    new Email( "myemail@virtuoso.com" ),
+                    "Tester",
+                    "Unit",
+                    "JUnit",
+                    "uk-UA"
+                ),
+                new ArrayList < PoetLocale >() {{
                     add(
-                        new ComposerLocale(
+                        new PoetLocale(
                             "Test",
                             "Unit",
                             "Validation",
@@ -93,11 +121,12 @@ public class ComposerLocaleTest extends AbstractModel {
             "Validation",
             null
         );
+
         //- Validate -//
-        constraintViolationSet = validator.validate(composerLocaleFailure);
+        constraintViolationSet = validator.validate( poetLocaleFailure );
 
         assertEquals( 4, constraintViolationSet.size()) ;
-        for (ConstraintViolation < ComposerLocale > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < PoetLocale > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList<String>() {{
@@ -128,7 +157,7 @@ public class ComposerLocaleTest extends AbstractModel {
         }
         //- Failure: Incorrect composer -//
         //- Create entity-//
-        ComposerLocale composerLocaleFailureComposer = new ComposerLocale(
+        PoetLocale poetLocaleFailurePoet = new PoetLocale(
             //-composer -//
             null,
             "Tester",
@@ -137,14 +166,14 @@ public class ComposerLocaleTest extends AbstractModel {
             "uk-UA"
         );
 
-        constraintViolationSet = validator.validate(composerLocaleFailureComposer);
+        constraintViolationSet = validator.validate( poetLocaleFailurePoet );
 
-        Assert.assertEquals( 1, constraintViolationSet.size() );
-        for (ConstraintViolation<ComposerLocale> constraintViolation : constraintViolationSet ) {
+        Assert.assertEquals(1, constraintViolationSet.size());
+        for (ConstraintViolation < PoetLocale> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add("composer");
+                    add("poet");
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -169,11 +198,25 @@ public class ComposerLocaleTest extends AbstractModel {
 
         //- Failure: Incorrect length -//
         //- Create entity -//
-        ComposerLocale composerLocaleFailureLength = new ComposerLocale(
-            new Composer(
-                new ArrayList < ComposerLocale >() {{
+        PoetLocale poetLocaleFailureLength = new PoetLocale(
+            new Poet(
+                new User(
+                    //- Roles -//
+                    new ArrayList < Role >() {{
+                        add( new Role( "POET", "Poet" ) );
+                    }},
+                    //- Access -//
+                    new Access( "MyP@$$w0rd" ),
+                    //- Emails -//
+                    new Email( "myemail@virtuoso.com" ),
+                    "Tester",
+                    "Unit",
+                    "JUnit",
+                    "uk-UA"
+                ),
+                new ArrayList < PoetLocale >() {{
                     add(
-                        new ComposerLocale(
+                        new PoetLocale(
                             "Test",
                             "Unit",
                             "Validation",
@@ -190,11 +233,11 @@ public class ComposerLocaleTest extends AbstractModel {
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate(composerLocaleFailureLength);
+        constraintViolationSet = validator.validate( poetLocaleFailureLength );
 
-        assertEquals(4, constraintViolationSet.size());
+        assertEquals( 4, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < ComposerLocale > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < PoetLocale > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -228,19 +271,34 @@ public class ComposerLocaleTest extends AbstractModel {
     }
 
     /*
-* Test field validation for entity failure( empty )
-*/
+    * Test field validation for entity failure( empty )
+    */
     @Test
-    public void testComposerLocaleFieldEmpty() {
-        Set < ConstraintViolation < ComposerLocale > > constraintViolationSet;
+    public void testPoetLocaleFieldEmpty() {
+
+        Set < ConstraintViolation < PoetLocale> > constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
-        ComposerLocale composerLocaleFailureEmpty = new ComposerLocale(
-            new Composer(
-                new ArrayList < ComposerLocale >() {{
+        PoetLocale poetLocaleFailureEmpty = new PoetLocale(
+            new Poet(
+                new User(
+                    //- Roles -//
+                    new ArrayList < Role >() {{
+                        add( new Role( "POET", "Poet" ) );
+                    }},
+                    //- Access -//
+                    new Access( "MyP@$$w0rd" ),
+                    //- Emails -//
+                    new Email( "myemail@virtuoso.com" ),
+                    "Tester",
+                    "Unit",
+                    "JUnit",
+                    "uk-UA"
+                ),
+                new ArrayList < PoetLocale >() {{
                     add(
-                        new ComposerLocale(
+                        new PoetLocale(
                             "Test",
                             "Unit",
                             "Validation",
@@ -257,11 +315,11 @@ public class ComposerLocaleTest extends AbstractModel {
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( composerLocaleFailureEmpty );
+        constraintViolationSet = validator.validate( poetLocaleFailureEmpty );
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < ComposerLocale > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < PoetLocale > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{

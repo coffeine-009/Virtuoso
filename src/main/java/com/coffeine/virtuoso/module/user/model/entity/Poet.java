@@ -16,6 +16,7 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
@@ -91,6 +92,8 @@ public class Poet implements Serializable {
      */
     public Poet() {
 
+        //- Initialization -//
+        this.data = new ArrayList < PoetLocale >();
     }
 
     /**
@@ -112,7 +115,42 @@ public class Poet implements Serializable {
         this.deathday = deathday;
     }
 
+    /**
+     * Constructor for create new poet
+     *
+     * @param user
+     * @param data
+     * @param locale
+     */
+    public Poet(
+        User user,
+        List < PoetLocale > data,
+        String locale
+    ) {
+        this();
 
+        this.user = user;
+
+        for( PoetLocale poetLocale : data ) {
+            this.addPoetLocale( poetLocale );
+        }
+        this.locale = locale;
+    }
+
+    /**
+     * Constructor for create new poet
+     *
+     * @param user
+     * @param locale
+     */
+    public Poet(
+        User user,
+        String locale
+    ) {
+        this.user = user;
+        this.data = null;
+        this.locale = locale;
+    }
     //- SECTION :: GET -//
     /**
      * Get ID of poet
@@ -213,5 +251,20 @@ public class Poet implements Serializable {
      */
     public void setDeathday( Calendar deathday ) {
         this.deathday = deathday;
+    }
+
+    /**
+     * Add unique poet locale
+     *
+     * @param poetLocale
+     */
+    public void addPoetLocale( PoetLocale poetLocale ) {
+        //- Set composer-//
+        poetLocale.setPoet(this);
+
+        //- Add Composer locale-//
+        if( !this.data.contains( poetLocale ) ) {
+            this.data.add( poetLocale );
+        }
     }
 }

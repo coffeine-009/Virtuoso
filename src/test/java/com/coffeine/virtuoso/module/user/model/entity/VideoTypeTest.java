@@ -140,4 +140,53 @@ public class VideoTypeTest extends AbstractModel {
             );
         }
     }
+
+    /*
+    * Test field validation for entity failure( empty )
+    */
+    @Test
+    public void testAccessFieldEmpty() {
+
+        Set<ConstraintViolation<VideoType>> constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        VideoType videoTypeFailureLength = new VideoType(
+            "",
+            ""
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( videoTypeFailureLength );
+
+        assertEquals( 2, constraintViolationSet.size() );
+
+        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "code" );
+                    add( "title" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+    }
 }
