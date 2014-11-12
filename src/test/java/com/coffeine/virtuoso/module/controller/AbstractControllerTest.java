@@ -9,7 +9,6 @@
  */
 package com.coffeine.virtuoso.module.controller;
 
-import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.FilterChainProxy;
@@ -32,7 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration(
     locations = {
         "file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml",
-        "file:src/main/webapp/WEB-INF/spring/spring-context-test.xml"
+        "file:src/main/webapp/WEB-INF/spring/test/spring-context-test.xml"
     }
 )
 @RunWith( SpringJUnit4ClassRunner.class )
