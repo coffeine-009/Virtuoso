@@ -211,4 +211,65 @@ public class UserTest extends AbstractModel {
             );
         }
     }
+
+    /*
+    * Test field validation for entity failure( empty )
+    */
+    @Test
+    public void testUserFieldEmpty() {
+
+        Set < ConstraintViolation < User > > constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        User userFailureEmpty = new User(
+            //- Roles -//
+            new ArrayList < Role >() {{
+                add( new Role( "POET", "Poet" ) );
+            }},
+            //- Access -//
+            new Access( ),
+            //- Emails -//
+            new Email( ),
+            "",
+            "Unit",
+            "Junit",
+            ""
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( userFailureEmpty );
+
+        assertEquals( 4, constraintViolationSet.size() );
+
+        for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "firstName" );
+                    add("locale");
+                    add("access");
+                    add("emails");
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+    }
 }

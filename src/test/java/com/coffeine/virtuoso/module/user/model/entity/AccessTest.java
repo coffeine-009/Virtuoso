@@ -210,4 +210,65 @@ public class AccessTest extends AbstractModel {
             );
         }
     }
+
+    /*
+    * Test field validation for entity failure( empty )
+    */
+    @Test
+    public void testAccessFieldEmpty() {
+
+        Set < ConstraintViolation < Access > > constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        Access accessFailureEmpty = new Access(
+            new User(
+                //- Roles -//
+                new ArrayList< Role >() {{
+                    add( new Role( "POET", "Poet" ) );
+                }},
+                //- Access -//
+                new Access( "MyP@$$w0rd" ),
+                //- Emails -//
+                new Email( "myemail@virtuoso.com" ),
+                "Tester",
+                "Unit",
+                "JUnit",
+                "uk-UA"
+            ),
+            ""
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( accessFailureEmpty );
+
+        assertEquals( 1, constraintViolationSet.size() );
+
+        for ( ConstraintViolation < Access > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "password" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+    }
 }

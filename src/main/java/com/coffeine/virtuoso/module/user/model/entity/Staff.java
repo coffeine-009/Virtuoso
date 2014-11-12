@@ -87,6 +87,24 @@ public class Staff implements Serializable {
     }
 
     /**
+     * Constructor for create new Staff
+     *
+     * @param song
+     * @param staffType
+     * @param style
+     * @param locale
+     */
+    public Staff(
+        StaffType staffType,
+        Style style,
+        String locale
+    ) {
+        this.staffType = staffType;
+        this.style = style;
+        this.locale = locale;
+    }
+
+    /**
      * Create text for song
      *
      * @param locale
@@ -97,7 +115,6 @@ public class Staff implements Serializable {
         //- Initialization -//
         this.locale = locale;
     }
-
 
     //- SECTION :: GET -//
     /**

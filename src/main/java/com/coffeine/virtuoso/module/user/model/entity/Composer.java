@@ -138,8 +138,8 @@ public class Composer implements Serializable {
         this();
 
         //- Set locales -//
-        for (ComposerLocale composerLocale : data ) {
-            this.addComposerLocale(composerLocale);
+        for ( ComposerLocale composerLocale : data ) {
+            this.addComposerLocale( composerLocale );
         }
         this.locale = locale;
     }
@@ -289,6 +289,7 @@ public class Composer implements Serializable {
     }
 
     /**
+     * Add unique composer locale
      *
      * @param composerLocale
      */

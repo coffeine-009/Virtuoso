@@ -64,7 +64,7 @@ public class SongLocale implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size( max = 5 )
+    @Length( max = 5 )
     @Column( name = "locale", length = 5 )
     protected String locale;
 
@@ -94,6 +94,24 @@ public class SongLocale implements Serializable {
         String locale
     ) {
         //- Initialization -//
+        this.title = title;
+        this.locale = locale;
+    }
+
+    /**
+     * Create composer locale
+     *
+     * @param song
+     * @param title
+     * @param locale
+     */
+    public SongLocale(
+        Song song,
+        String title,
+        String locale
+    ) {
+        //- Initialization -//
+        this.song = song;
         this.title = title;
         this.locale = locale;
     }

@@ -108,7 +108,7 @@ public class ComposerTest extends AbstractModel {
         //- Failure: Incorrect length -//
         //- Create entity -//
         Composer composerFailureLength = new Composer(
-            new ArrayList<ComposerLocale>() {{
+            new ArrayList < ComposerLocale >() {{
                 add(
                     new ComposerLocale(
                         "Test",
@@ -148,9 +148,67 @@ public class ComposerTest extends AbstractModel {
             //- Message -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "length must be between 0 and 6" );
+                    add( "length must be between 0 and 5" );
                 }}.contains( constraintViolation.getMessage() )
             );
         }
+    }
+
+    /*
+    * Test field validation for entity failure( empty )
+    */
+    @Test
+    public void testComposerFieldEmpty(){
+
+        Set < ConstraintViolation < Composer > > constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        Composer composerFailureEmpty = new Composer(
+            new ArrayList < ComposerLocale >() {{
+                add(
+                    new ComposerLocale(
+                        "Test",
+                        "Unit",
+                        "Validation",
+                        "en-US"
+                    )
+                );
+            }},
+            ""
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( composerFailureEmpty );
+
+        assertEquals( 1, constraintViolationSet.size() );
+
+        for ( ConstraintViolation < Composer > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "locale" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+
     }
 }
