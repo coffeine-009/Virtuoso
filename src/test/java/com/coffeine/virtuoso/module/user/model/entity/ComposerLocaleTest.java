@@ -1,4 +1,4 @@
-/*
+/**
  * @copyright (c) 2014, by Valentyn Namisnyk
  *
  * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
@@ -29,8 +29,8 @@ import static org.junit.Assert.assertEquals;
 public class ComposerLocaleTest extends AbstractModel {
 
     /*
- * Test field validation for entity correct
- */
+     * Test field validation for entity correct
+     */
     @Test
     public void testComposerLocaleFieldSuccess() {
 

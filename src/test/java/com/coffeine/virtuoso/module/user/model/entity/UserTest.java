@@ -228,9 +228,9 @@ public class UserTest extends AbstractModel {
                 add( new Role( "POET", "Poet" ) );
             }},
             //- Access -//
-            new Access( ),
+            new Access( "MyP@$$word" ),
             //- Emails -//
-            new Email( ),
+            new Email( "user@virtuoso.com" ),
             "",
             "Unit",
             "Junit",
@@ -240,7 +240,7 @@ public class UserTest extends AbstractModel {
         //- Validate -//
         constraintViolationSet = validator.validate( userFailureEmpty );
 
-        assertEquals( 4, constraintViolationSet.size() );
+        assertEquals( 2, constraintViolationSet.size() );
 
         for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
             //- Property name -//
