@@ -102,8 +102,12 @@ public class Access implements Serializable {
         User user,
         String password
     ) {
+        //- Initialition -//
         this.user = user;
         this.password = password;
+
+        //- Set relation -//
+        this.user.addAccess( this );
     }
 
     //- SECTION :: GET -//
