@@ -173,6 +173,37 @@ public class User implements Serializable {
      */
     public User(
         List < Role > roles,
+        Email email,
+        String firstName,
+        String lastName,
+        String middleName,
+        String locale
+    ) {
+        //- Call default constructor -//
+        this();
+
+        //- Initialization -//
+        this.roles = roles;
+        this.addEmail(email);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.locale = locale;
+    }
+
+    /**
+     * Constructor for create user
+     *
+     * @param roles         List of roles
+     * @param access        List of permissions
+     * @param email         Email
+     * @param firstName     First name
+     * @param lastName      Last name
+     * @param middleName    Father's name
+     * @param locale        Default locale
+     */
+    public User(
+        List < Role > roles,
         Access access,
         Email email,
         String firstName,
