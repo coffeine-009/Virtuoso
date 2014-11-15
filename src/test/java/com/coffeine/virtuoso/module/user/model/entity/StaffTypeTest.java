@@ -59,7 +59,7 @@ public class StaffTypeTest extends AbstractModel {
      * Test field validation for entity failure
      */
     @Test
-    public void testStaffTypeFieldsFailure() {
+    public void testStaffTypeFieldFailure() {
 
         Set < ConstraintViolation < StaffType > > constraintViolationSet;
 
@@ -145,6 +145,57 @@ public class StaffTypeTest extends AbstractModel {
             assertTrue(
                 new ArrayList < String >() {{
                     add( "length must be between 0 and 32" );
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
+            );
+        }
+    }
+
+    /*
+* Test field validation for entity failure( empty )
+*/
+    @Test
+    public void testAccessFieldEmpty() {
+        Set < ConstraintViolation < StaffType > > constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        StaffType staffTypeFailureEmpty = new StaffType(
+            "",
+            "",
+            null
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( staffTypeFailureEmpty );
+
+        assertEquals( 2, constraintViolationSet.size() );
+
+        for( ConstraintViolation < StaffType > constraintViolation : constraintViolationSet ){
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "code" );
+                    add( "title" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class > () {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
                 }}.contains(
                     constraintViolation.getMessage()
                 )

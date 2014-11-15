@@ -20,26 +20,27 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for Email
- * @see com.coffeine.virtuoso.module.user.model.entity.Email
+ * Tests for Poet
+ * @see com.coffeine.virtuoso.module.user.model.entity.Poet
  *
  * @version 1.0
  */
-public class EmailTest extends AbstractModel {
-        /*
-     * Test field validation for entity correct
-     */
-    @Test
-    public void testEmailFieldSuccess() {
+public class PoetTest extends AbstractModel {
 
-        Set < ConstraintViolation < Email > > constraintViolationSet;
+    /*
+* Test field validation for entity correct
+*/
+    @Test
+    public void testPoetFieldSuccess() {
+
+        Set < ConstraintViolation< Poet > > constraintViolationSet;
 
         //- Success -//
         //- Create entity-//
-        Email emailSuccess = new Email(
+        Poet poetSuccess = new Poet(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList < Role >() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -51,64 +52,38 @@ public class EmailTest extends AbstractModel {
                 "JUnit",
                 "uk-UA"
             ),
-            "London"
+            new ArrayList < PoetLocale >() {{
+               add(
+                   new PoetLocale(
+                       "Test",
+                       "Unit",
+                       "Validation",
+                       "en-US"
+                   )
+               );
+            }},
+            "uk-UA"
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( emailSuccess );
+        constraintViolationSet = validator.validate( poetSuccess );
 
-        assertEquals( 0, constraintViolationSet.size() );
+        assertEquals(0, constraintViolationSet.size());
     }
 
     /*
-    * Test field validation for entity failure
-    */
+* Test field validation for entity failure
+*/
     @Test
-    public void testEmailFieldFailure() {
+    public void testPoetFieldFailure() {
 
-        Set < ConstraintViolation < Email > > constraintViolationSet;
+        Set < ConstraintViolation < Poet > > constraintViolationSet;
 
-        //- Failure: Incorrect user -//
-        //- Create entity-//
-        Email emailFailureUser = new Email(
-            null,
-            "London"
-        );
-        //- Validate emails user -//
-        constraintViolationSet = validator.validate( emailFailureUser );
-
-        assertEquals( 1, constraintViolationSet.size() );
-        for ( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
-            //- Property name -//
-            assertTrue(
-                new ArrayList<String>() {{
-                    add("user");
-                }}.contains(
-                    this.getPropertyName(
-                        constraintViolation.getPropertyPath()
-                    )
-                )
-            );
-            //- Annotation type -//
-            assertTrue(
-                new ArrayList<Class>() {{
-                    add(NotNull.class);
-                }}.contains(
-                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
-                )
-            );
-            //- Message -//
-            assertTrue(
-                new ArrayList<String>() {{
-                    add("may not be null");
-                }}.contains(constraintViolation.getMessage())
-            );
-        }
-        //- Failure: Incorrect address -//
-        //- Create entity-//
-        Email emailFailureAddress = new Email(
+        //-Failure-//
+        //-Create entity-//
+        Poet poetFailure = new Poet(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList < Role >() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -122,15 +97,17 @@ public class EmailTest extends AbstractModel {
             ),
             null
         );
-        //- Validate emails address -//
-        constraintViolationSet = validator.validate( emailFailureAddress );
 
-        assertEquals( 2, constraintViolationSet.size() );
-        for( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        //- Validate -//
+        constraintViolationSet = validator.validate( poetFailure );
+
+        assertEquals( 4, constraintViolationSet.size() );
+        for ( ConstraintViolation < Poet > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList<String>() {{
-                    add("address");
+                new ArrayList < String >() {{
+                    add("data");
+                    add("locale");
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -139,27 +116,76 @@ public class EmailTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList<Class>() {{
-                    add(NotNull.class);
-                    add(NotEmpty.class);
+                new ArrayList < Class >() {{
+                    add( NotNull.class );
+                    add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
             //- Message -//
             assertTrue(
-                new ArrayList<String>() {{
-                    add("may not be null");
-                    add("may not be empty");
-                }}.contains(constraintViolation.getMessage())
+                new ArrayList < String >() {{
+                    add( "may not be null" );
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
             );
         }
+
+        //- Failure: Incorrect user -//
+        //- Create entity -//
+        Poet poetFailureUser = new Poet(
+            null,
+            new ArrayList < PoetLocale >() {{
+                add(
+                    new PoetLocale(
+                        "Test",
+                        "Unit",
+                        "Validation",
+                        "en-US"
+                    )
+                );
+            }},
+            "uk-UA"
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( poetFailureUser );
+
+        assertEquals( 1, constraintViolationSet.size() );
+        for ( ConstraintViolation < Poet > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add("user");
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotNull.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be null" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+
         //- Failure: Incorrect length -//
         //- Create entity -//
-        Email emailFailureLength = new Email(
+        Poet poetFailureLength = new Poet(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList < Role >() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -171,20 +197,29 @@ public class EmailTest extends AbstractModel {
                 "JUnit",
                 "uk-UA"
             ),
-            "1234567890123456789012345678901234567890" +
-            "12345678901234567890123456789012345678901"
+            new ArrayList < PoetLocale >() {{
+                add(
+                    new PoetLocale(
+                        "Test",
+                        "Unit",
+                        "Validation",
+                        "en-US"
+                    )
+                );
+            }},
+            "123456"
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( emailFailureLength );
+        constraintViolationSet = validator.validate( poetFailureLength );
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < Poet > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "address" );
+                    add( "locale" );
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -202,7 +237,7 @@ public class EmailTest extends AbstractModel {
             //- Message -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "length must be between 0 and 80" );
+                    add( "length must be between 0 and 5" );
                 }}.contains( constraintViolation.getMessage() )
             );
         }
@@ -212,15 +247,16 @@ public class EmailTest extends AbstractModel {
     * Test field validation for entity failure( empty )
     */
     @Test
-    public void testEmailFieldEmpty() {
+    public void testPoetFieldEmpty() {
 
-    Set < ConstraintViolation < Email > > constraintViolationSet;
+        Set< ConstraintViolation < Poet > > constraintViolationSet;
+
         //- Failure: fields is empty-//
         //- Create entity -//
-        Email emailFailureEmpty = new Email(
+        Poet poetFailureEmpty = new Poet(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList < Role >() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -232,19 +268,21 @@ public class EmailTest extends AbstractModel {
                 "JUnit",
                 "uk-UA"
             ),
+            new ArrayList < PoetLocale >(),
             ""
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( emailFailureEmpty );
+        constraintViolationSet = validator.validate( poetFailureEmpty );
 
-        assertEquals( 1, constraintViolationSet.size() );
+        assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < Poet > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "address" );
+                    add( "locale" );
+                    add( "data" );
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -266,6 +304,5 @@ public class EmailTest extends AbstractModel {
                 }}.contains( constraintViolation.getMessage() )
             );
         }
-
     }
 }

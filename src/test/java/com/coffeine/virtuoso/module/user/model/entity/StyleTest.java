@@ -143,4 +143,53 @@ public class StyleTest extends AbstractModel {
             );
         }
     }
+    /**
+     * Test field validation for entity failure
+     */
+    @Test
+    public void testStyleFieldEmpty() {
+
+        Set < ConstraintViolation < Style > > constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        Style styleFailureEmpty = new Style(
+            "",
+            "",
+            null
+        );
+        //- Validate -//
+        constraintViolationSet = validator.validate( styleFailureEmpty );
+
+        assertEquals( 2, constraintViolationSet.size() );
+        for( ConstraintViolation < Style > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "code" );
+                    add( "title" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //-Message-//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
+            );
+        }
+    }
 }

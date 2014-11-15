@@ -141,4 +141,54 @@ public class RoleTest extends AbstractModel {
             );
         }
     }
+
+    /*
+    * Test field validation for entity failure( empty )
+    */
+    @Test
+    public void testRoleFieldEmpty() {
+
+        Set < ConstraintViolation < Role > > constraintViolationSet;
+
+        //- Failure: fields is empty-//
+        //- Create entity -//
+        Role roleFailureEmpty = new Role(
+            "",
+            "",
+            null
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( roleFailureEmpty );
+
+        assertEquals( 2, constraintViolationSet.size() );
+
+        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "code" );
+                    add( "title" );
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type -//
+            assertTrue(
+                new ArrayList < Class >() {{
+                    add( NotEmpty.class );
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message -//
+            assertTrue(
+                new ArrayList < String >() {{
+                    add( "may not be empty" );
+                }}.contains( constraintViolation.getMessage() )
+            );
+        }
+    }
 }
