@@ -12,8 +12,9 @@ define(
     ],
     function(
         Backbone
-        ) {
+    ) {
         User.SongController = Backbone.Router.extend({
+
             /// *** Properties  *** ///
 
             routes: {

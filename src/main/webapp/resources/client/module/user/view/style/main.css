@@ -118,7 +118,6 @@ nav.menu-left
 {
     background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
     font-size: medium;
-    margin-left: 65px;
     margin-bottom: 5px;
     padding: 5px;
 }
@@ -278,22 +277,21 @@ footer
 
 
 /* Form */
-input[ type = "text" ], input[ type = "password" ]
+input[ type = "text" ], input[ type = "password" ], select
 {
     background: linear-gradient( to right, #fff, #999, #fff );
     border: solid 9px #fff;
     border-radius: 20px;
     color: #000;
     font-weight: bold;
-    min-width: 320px;
-    min-height: 40px;
+    min-width: 150px;
+    min-height: 20px;
     text-align: center;
 }
 
-.form-row
+select
 {
-    display: block;
-    margin: 5px 0;
+
 }
 
 

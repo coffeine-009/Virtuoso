@@ -2,3 +2,15 @@
 {
     
 }
+
+.form-row
+{
+    display: inline-block;
+    padding: 10px;
+    vertical-align: top;
+}
+
+    .form-row>.add
+    {
+        text-align: center;
+    }

@@ -8,13 +8,13 @@ var User = User || {};
 define(
     [
         "tpl!/resources/client/module/user/view/template/song/Create",
-        "jquery",
+//        "jquery",
         "underscore",
         "backbone"
     ],
     function(
         SongCreateTpl,
-        $,
+//        $,
         _,
         Backbone
     ) {
@@ -36,6 +36,11 @@ define(
 
             render: function () {
                 $( this.el ).html( SongCreateTpl( {} ) );
+
+//                $('body').on('focus',"#song-writedate", function(){
+//                    $(this).datepicker();
+//                });
+//                $('#song-writedate').datetimepicker();
 
                 return this;
             },

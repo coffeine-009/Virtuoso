@@ -26,7 +26,10 @@
         <%--<link rel = "stylesheet" href = "<c:url value = "/resources/client/library/bootstrap/dist/css/bootstrap-theme.css" />">--%>
 
         <link rel="stylesheet" href="<c:url value = "/resources/client/module/main/view/style/main.css" />">
-        <%--<link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/main.css" />">--%>
+        <link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/main.css" />">
+        <link rel="stylesheet" href="<c:url value = "/resources/client/module/user/view/style/song/create.css" />">
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
         <!-- Scripts -->
         <!-- Scripts :: Libraries -->
@@ -35,6 +38,7 @@
             type = "text/javascript"
             src = "//code.jquery.com/jquery-1.10.2.min.js"
         ></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
         <%--<script type = "text/javascript" src = "/resources/client/library/jquery/dist/jquery.min.js"></script>--%>
 
         <!-- Bootstrap -->
@@ -74,7 +78,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href = "/" class = "navbar-brand">Virtuoso</a>
+                    <a href = "/" class = "navbar-brand">VIRTUOSO</a>
                 </div>
 
                 <nav
