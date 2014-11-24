@@ -111,6 +111,30 @@ public class PoetLocale implements Serializable {
         this.locale = locale;
     }
 
+    /**
+     * Constructor for create poet locale
+     *
+     * @param poet
+     * @param firstName
+     * @param lastName
+     * @param middleName
+     * @param locale
+     */
+    public PoetLocale(
+        Poet poet,
+        String firstName,
+        String lastName,
+        String middleName,
+        String locale
+    ) {
+        //- Initialization -//
+        this.poet = poet;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.locale = locale;
+    }
+
 
     //- SECTION :: GET -//
     /**

@@ -1,10 +1,14 @@
-/**
- * @copyright (c) 2014, by Vitaliy Tsutsman
+/*
+ * @copyright (c) 2014, by Valentyn Namisnyk
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
  */
 
 package com.coffeine.virtuoso.module.user.model.entity;
+
+/**
+ * Created by valentyn on 10/28/14.
+ */
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Length;
@@ -16,60 +20,62 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+
 /**
- * Tests for VideoType
- * @see com.coffeine.virtuoso.module.user.model.entity.VideoType
+ * Tests for StaffType
+ * @see com.coffeine.virtuoso.module.user.model.entity.StaffType
  *
  * @version 1.0
  */
-public class VideoTypeTest extends AbstractModel {
+public class StaffTypeTest extends AbstractModel {
 
     /**
-     * Test field validation for entity filled correct
+     * Test field validation for entity correct
      */
     @Test
-    public void testVideoTypeFieldsSuccess() {
+    public void testStaffTypeFieldsSuccess() {
 
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+        Set<ConstraintViolation < StaffType > > constraintViolationSet;
 
         //- Success -//
         //- Create entity -//
-        VideoType videoTypeSuccess = new VideoType(
-            "POLKA",
-            "Polka",
-            "Ukrainian polka"
+        StaffType staffTypeSuccess = new StaffType(
+                "CHORDS",
+                "Chords",
+                "Standard chords"
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeSuccess );
+        constraintViolationSet = validator.validate( staffTypeSuccess );
 
         assertEquals( 0, constraintViolationSet.size() );
     }
 
+
     /**
-     * Test field validation for entity filled incorrect
+     * Test field validation for entity failure
      */
     @Test
-    public void testVideoTypeFieldsFailure() {
+    public void testStaffTypeFieldFailure() {
 
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+        Set < ConstraintViolation < StaffType > > constraintViolationSet;
 
         //- Failure -//
         //- Create entity -//
-        VideoType videoTypeFailure = new VideoType(
+        StaffType staffTypeFailure = new StaffType(
             null,
             null,
-            "Ukrainian polka"
+            "Standard chords"
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailure );
+        constraintViolationSet = validator.validate( staffTypeFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < StaffType > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -81,37 +87,41 @@ public class VideoTypeTest extends AbstractModel {
                     )
                 )
             );
-            //- Annotation type -//
+            //- Annotation type-//
             assertTrue(
-                new ArrayList < Class >() {{
-                    add( NotNull.class );
-                    add( NotEmpty.class );
-                }}.contains(
-                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
-                )
+                    new ArrayList<Class>() {{
+                        add(NotNull.class);
+                        add(NotEmpty.class);
+                    }}.contains(
+                            constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                    )
             );
-            //- Message -//
+            //- Message-//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList <  String > () {{
                     add( "may not be null" );
                     add( "may not be empty" );
-                }}.contains( constraintViolation.getMessage() )
+
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
 
-        //- Failure: Incorrect length -//
+        //- Failure: Incorrect length-//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
-            "12345678901234567",
-            "123456789012345678901234567890123"
+        StaffType staffTypeFailureLength = new StaffType(
+            "123456789012345678901234567890123",
+            "123456789012345678901234567890123",
+            null
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( staffTypeFailureLength );
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation < StaffType > constraintViolation : constraintViolationSet ){
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -125,7 +135,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList < Class > () {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -134,34 +144,35 @@ public class VideoTypeTest extends AbstractModel {
             //- Message -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "length must be between 0 and 16" );
                     add( "length must be between 0 and 32" );
-                }}.contains( constraintViolation.getMessage() )
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
     }
 
     /*
-    * Test field validation for entity failure( empty )
-    */
+* Test field validation for entity failure( empty )
+*/
     @Test
     public void testAccessFieldEmpty() {
-
-        Set<ConstraintViolation<VideoType>> constraintViolationSet;
+        Set < ConstraintViolation < StaffType > > constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
+        StaffType staffTypeFailureEmpty = new StaffType(
             "",
-            ""
+            "",
+            null
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( staffTypeFailureEmpty );
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation < StaffType > constraintViolation : constraintViolationSet ){
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -175,7 +186,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList < Class > () {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -185,7 +196,9 @@ public class VideoTypeTest extends AbstractModel {
             assertTrue(
                 new ArrayList < String >() {{
                     add( "may not be empty" );
-                }}.contains( constraintViolation.getMessage() )
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
     }

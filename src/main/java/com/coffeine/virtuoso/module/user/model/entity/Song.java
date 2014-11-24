@@ -23,6 +23,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -115,6 +116,100 @@ public class Song implements Serializable {
      */
     public Song() {
 
+        //- Initialization -//
+        this.data = new ArrayList < SongLocale >();
+        this.texts = new ArrayList < Text >();
+        this.staffs = new ArrayList < Staff >();
+        this.videos = new ArrayList < Video >();
+    }
+
+    /**
+     * Constructor
+     *
+     * @param poet
+     * @param title
+     * @param texts
+     * @param videos
+     * @param locale
+     */
+    public Song(
+        Poet poet,
+        String title,
+        List < Text > texts,
+        List < Video > videos,
+        String locale
+    ) {
+        //- Initialization -//
+        this.poet = poet;
+        this.title = title;
+        this.texts = texts;
+        this.videos = videos;
+    }
+
+    /**
+     * Constructor for create new song
+     *
+     * @param composer
+     * @param poet
+     * @param data
+     * @param staffs
+     * @param texts
+     * @param videos
+     * @param locale
+     */
+    public Song(
+        Composer composer,
+        Poet poet,
+        List < SongLocale > data,
+        List < Staff > staffs,
+        List < Text > texts,
+        List < Video > videos,
+        String locale
+
+    ) {
+        //- Initialization -//
+        this();
+
+        this.composer = composer;
+        this.poet = poet;
+
+        for ( SongLocale songLocale : data ) {
+            this.addSongLocale( songLocale );
+        }
+
+        for( Staff staff : staffs) {
+            this.addStaff( staff );
+        }
+
+        for ( Text text : texts) {
+            this.addText( text );
+        }
+
+        for( Video video : videos) {
+            this.addVideo( video );
+        }
+
+        this.locale = locale;
+    }
+
+    /**
+     * Constructor for create new song
+     *
+     * @param composer
+     * @param poet
+     * @param locale
+     */
+    public Song(
+        Composer composer,
+        Poet poet,
+        String locale
+    ) {
+        this.composer = composer;
+        this.poet = poet;
+        this.data = null;
+        this.staffs = null;
+        this.texts = null;
+        this.locale = locale;
     }
 
     //- SECTION :: GET -//
@@ -303,5 +398,50 @@ public class Song implements Serializable {
     @PostLoad
     public void reinit() {
         this.title = this.data.get(0).getTitle();
+    }
+
+    /**
+     *
+     *
+     * @param text
+     */
+    public void addText( Text text) {
+        //- Set Song-//
+        text.setSong( this );
+
+        //- Add Text-//
+        if( !this.texts.contains( text) ) {
+            this.texts.add( text );
+        }
+    }
+
+    public void addSongLocale( SongLocale songLocale ) {
+        //- Set Song-//
+        songLocale.setSong( this );
+
+        //- Add song locale -//
+        if( !this.data.contains( songLocale )) {
+            this.data.add( songLocale );
+        }
+    }
+
+    public void addStaff( Staff staff) {
+        //- Set Song-//
+        staff.setSong( this );
+
+        //- Add staff -//
+        if( !this.staffs.contains( staff )) {
+            this.staffs.add( staff );
+        }
+    }
+
+    public void addVideo( Video video ) {
+        //- Set Song-//
+        video.setSong( this );
+
+        //- Add video-//
+        if( !this.videos.contains( video )) {
+            this.videos.add( video );
+        }
     }
 }

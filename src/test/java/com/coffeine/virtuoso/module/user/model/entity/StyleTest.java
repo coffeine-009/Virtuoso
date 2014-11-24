@@ -1,10 +1,14 @@
-/**
- * @copyright (c) 2014, by Vitaliy Tsutsman
+/*
+ * @copyright (c) 2014, by Valentyn Namisnyk
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
  */
 
 package com.coffeine.virtuoso.module.user.model.entity;
+
+/**
+ * Created by valentyn on 10/29/14.
+ */
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Length;
@@ -16,72 +20,68 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /**
- * Tests for VideoType
+ * Tests for Style
  * @see com.coffeine.virtuoso.module.user.model.entity.VideoType
  *
  * @version 1.0
  */
-public class VideoTypeTest extends AbstractModel {
+public class StyleTest extends AbstractModel {
 
-    /**
-     * Test field validation for entity filled correct
+    /*
+     * Test field validation for entity correct
      */
     @Test
-    public void testVideoTypeFieldsSuccess() {
-
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+    public void testStyleFieldsSuccess() {
+        Set< ConstraintViolation < Style > > constraintViolationSet;
 
         //- Success -//
-        //- Create entity -//
-        VideoType videoTypeSuccess = new VideoType(
-            "POLKA",
-            "Polka",
-            "Ukrainian polka"
-        );
+        //- Create entity-//
 
+        Style styleSuccess = new Style(
+            "One",
+            "Two",
+            "three"
+        );
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeSuccess );
+        constraintViolationSet = validator.validate( styleSuccess );
 
         assertEquals( 0, constraintViolationSet.size() );
     }
 
-    /**
-     * Test field validation for entity filled incorrect
+
+    /*
+     * Test field validation for entity correct
      */
     @Test
-    public void testVideoTypeFieldsFailure() {
-
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+    public void testStyleFieldsFailure() {
+        Set < ConstraintViolation < Style> > constraintViolationSet;
 
         //- Failure -//
-        //- Create entity -//
-        VideoType videoTypeFailure = new VideoType(
+        //- Create entity-//
+        Style styleFailure = new Style(
             null,
             null,
-            "Ukrainian polka"
+            "three"
         );
-
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailure );
+        constraintViolationSet = validator.validate( styleFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation< Style > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "code" );
-                    add( "title" );
+                    add("title");
                 }}.contains(
-                    this.getPropertyName(
-                        constraintViolation.getPropertyPath()
-                    )
+                    this.getPropertyName( constraintViolation.getPropertyPath())
                 )
             );
-            //- Annotation type -//
+            //- Annotation Type -//
             assertTrue(
                 new ArrayList < Class >() {{
                     add( NotNull.class );
@@ -94,24 +94,25 @@ public class VideoTypeTest extends AbstractModel {
             assertTrue(
                 new ArrayList < String >() {{
                     add( "may not be null" );
-                    add( "may not be empty" );
-                }}.contains( constraintViolation.getMessage() )
+                    add( "may not be empty");
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
 
         //- Failure: Incorrect length -//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
-            "12345678901234567",
-            "123456789012345678901234567890123"
+        Style styleFailureLength = new Style(
+            "123456789012345678901234567890123",
+            "123456789012345678901234567890123",
+            null
         );
-
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( styleFailureLength );
 
         assertEquals( 2, constraintViolationSet.size() );
-
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation < Style > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -119,7 +120,7 @@ public class VideoTypeTest extends AbstractModel {
                     add( "title" );
                 }}.contains(
                     this.getPropertyName(
-                        constraintViolation.getPropertyPath()
+                            constraintViolation.getPropertyPath()
                     )
                 )
             );
@@ -131,37 +132,37 @@ public class VideoTypeTest extends AbstractModel {
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //- Message -//
+            //-Message-//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "length must be between 0 and 16" );
                     add( "length must be between 0 and 32" );
-                }}.contains( constraintViolation.getMessage() )
+                    add( "length must be between 0 and 32" );
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
     }
-
-    /*
-    * Test field validation for entity failure( empty )
-    */
+    /**
+     * Test field validation for entity failure
+     */
     @Test
-    public void testAccessFieldEmpty() {
+    public void testStyleFieldEmpty() {
 
-        Set<ConstraintViolation<VideoType>> constraintViolationSet;
+        Set < ConstraintViolation < Style > > constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
+        Style styleFailureEmpty = new Style(
             "",
-            ""
+            "",
+            null
         );
-
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( styleFailureEmpty );
 
         assertEquals( 2, constraintViolationSet.size() );
-
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation < Style > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -181,11 +182,13 @@ public class VideoTypeTest extends AbstractModel {
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //- Message -//
+            //-Message-//
             assertTrue(
                 new ArrayList < String >() {{
                     add( "may not be empty" );
-                }}.contains( constraintViolation.getMessage() )
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
     }

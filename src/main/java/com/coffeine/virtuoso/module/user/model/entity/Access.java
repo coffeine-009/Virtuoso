@@ -45,6 +45,7 @@ public class Access implements Serializable {
     /**
      * User, owner of this access
      */
+    @NotNull
     @Valid
     @ManyToOne
     @JoinColumn( name = "id_user" )
@@ -91,6 +92,23 @@ public class Access implements Serializable {
         this.password = password;
     }
 
+    /**
+     * Constructor for create access
+     *
+     * @param user
+     * @param password
+     */
+    public Access(
+        User user,
+        String password
+    ) {
+        //- Initialition -//
+        this.user = user;
+        this.password = password;
+
+        //- Set relation -//
+        this.user.addAccess( this );
+    }
 
     //- SECTION :: GET -//
     /**

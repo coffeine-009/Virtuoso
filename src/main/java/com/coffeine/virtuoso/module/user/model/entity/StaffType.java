@@ -1,4 +1,4 @@
-/// *** User :: Model :: Entity :: StaffType    *** *** *** *** *** *** *** ///
+/// *** User :: Model :: Entity :: NotesType    *** *** *** *** *** *** *** ///
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
@@ -36,7 +36,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table( 
-    name = "notes_type", 
+    name = "staff_type",
     uniqueConstraints = @UniqueConstraint( 
         columnNames = {
             "code"

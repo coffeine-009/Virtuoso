@@ -15,6 +15,7 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -47,13 +48,13 @@ public class Role implements Serializable {
 
     @NotNull
     @NotEmpty
-    @Size( max = 8 )
+    @Length( max = 8 )
     @Column( name = "code", columnDefinition = "VARCHAR( 8 )" )
     protected String code;
 
     @NotNull
     @NotEmpty
-    @Size( max = 32 )
+    @Length( max = 32 )
     @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
     protected String title;
 
@@ -74,8 +75,13 @@ public class Role implements Serializable {
      *
      * @param code
      */
-    public Role( String code ) {
+    public Role(
+        String code,
+        String title
+    ) {
+        //- Initialization -//
         this.code = code;
+        this.title = title;
     }
 
     /**

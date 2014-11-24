@@ -4,7 +4,7 @@
  * @author Val
  */
 
-package com.coffeine.virtuoso.module.user.form;
+package com.coffeine.virtuoso.module.user.view.form;
 
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;

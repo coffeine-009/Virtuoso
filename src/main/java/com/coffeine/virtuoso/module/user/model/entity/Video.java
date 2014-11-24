@@ -120,6 +120,25 @@ public class Video implements Serializable {
         this.fileName = fileName;
     }
 
+    /**
+     * Constructor for create new video
+     *
+     * @param videoType
+     * @param locale
+     * @param title
+     * @param fileName
+     */
+    public Video(
+        VideoType videoType,
+        String locale,
+        String title,
+        String fileName
+    ) {
+        this.videoType = videoType;
+        this.locale = locale;
+        this.title = title;
+        this.fileName = fileName;
+    }
 
     //- SECTION :: GET -//
     /**

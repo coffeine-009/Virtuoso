@@ -16,7 +16,7 @@
 
 package com.coffeine.virtuoso.module.user.controller;
 
-import com.coffeine.virtuoso.module.user.form.TextForm;
+import com.coffeine.virtuoso.module.user.view.form.TextForm;
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.entity.Text;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
@@ -91,7 +91,7 @@ public class TextController {
         TextForm textForm, 
 
         HttpServletResponse response
-    ){
+    ) {
         //
         Song song = this.songService.find( textForm.getSongId() );
             if ( song == null ) {

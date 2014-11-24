@@ -17,10 +17,8 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -28,7 +26,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -59,8 +56,8 @@ public class Staff implements Serializable {
     @NotNull
     @NotEmpty
     @ManyToOne
-    @JoinColumn( name = "id_notes_type" )
-    protected StaffType notesType;
+    @JoinColumn( name = "id_staff_type" )
+    protected StaffType staffType;
 
     @NotNull
     @NotEmpty
@@ -90,6 +87,24 @@ public class Staff implements Serializable {
     }
 
     /**
+     * Constructor for create new Staff
+     *
+     * @param song
+     * @param staffType
+     * @param style
+     * @param locale
+     */
+    public Staff(
+        StaffType staffType,
+        Style style,
+        String locale
+    ) {
+        this.staffType = staffType;
+        this.style = style;
+        this.locale = locale;
+    }
+
+    /**
      * Create text for song
      *
      * @param locale
@@ -100,7 +115,6 @@ public class Staff implements Serializable {
         //- Initialization -//
         this.locale = locale;
     }
-
 
     //- SECTION :: GET -//
     /**
@@ -126,8 +140,8 @@ public class Staff implements Serializable {
      *
      * @return StaffType
      */
-    public StaffType getNotesType() {
-        return notesType;
+    public StaffType getStaffType() {
+        return staffType;
     }
 
     /**
@@ -179,10 +193,10 @@ public class Staff implements Serializable {
     /**
      * Set type of staffs
      *
-     * @param notesType
+     * @param staffType
      */
-    public void setNotesType( StaffType notesType ) {
-        this.notesType = notesType;
+    public void setStaffType(StaffType staffType) {
+        this.staffType = staffType;
     }
 
     /**

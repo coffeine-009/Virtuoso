@@ -111,6 +111,30 @@ public class ComposerLocale implements Serializable {
         this.locale = locale;
     }
 
+    /**
+     * Constructor for create a composer locale
+     *
+     * @param composer
+     * @param firstName
+     * @param lastName
+     * @param middleName
+     * @param locale
+     */
+    public ComposerLocale (
+        Composer composer,
+        String firstName,
+        String lastName,
+        String middleName,
+        String locale
+    ) {
+        //- Initialization -//
+        this.composer = composer;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.locale = locale;
+    }
+
 
     //- SECTION :: GET -//
     /**

@@ -27,7 +27,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Class for reflect email table from persistance layout
+ * Class for reflect email table from persistence layout
  *
  * @version 1.0
  */
@@ -62,8 +62,6 @@ public class Email implements Serializable {
     @Column( name = "address", length = 80 )
     protected String address;
 
-    @NotNull
-    @NotEmpty
     @Column(
         name = "creation",
         columnDefinition = " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
@@ -77,6 +75,21 @@ public class Email implements Serializable {
      */
     public Email() {
 
+    }
+
+    /**
+     * Constructor for create email
+     *
+     * @param user
+     * @param address
+     */
+    public Email(
+        User user,
+        String address
+) {
+        //- Initialization -//
+        this.user = user;
+        this.address = address;
     }
 
     public Email(

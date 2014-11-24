@@ -1,7 +1,7 @@
-/**
- * @copyright (c) 2014, by Vitaliy Tsutsman
+/*
+ * @copyright (c) 2014, by Valentyn Namisnyk
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
  */
 
 package com.coffeine.virtuoso.module.user.model.entity;
@@ -16,35 +16,35 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
- * Tests for VideoType
- * @see com.coffeine.virtuoso.module.user.model.entity.VideoType
+ * Tests for Role
+ * @see com.coffeine.virtuoso.module.user.model.entity.Role
  *
  * @version 1.0
  */
-public class VideoTypeTest extends AbstractModel {
+public class RoleTest extends AbstractModel {
 
     /**
      * Test field validation for entity filled correct
      */
     @Test
-    public void testVideoTypeFieldsSuccess() {
+    public void TestRoleFieldsSuccess() {
 
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+        Set< ConstraintViolation< Role > > constraintViolationSet;
 
         //- Success -//
         //- Create entity -//
-        VideoType videoTypeSuccess = new VideoType(
-            "POLKA",
-            "Polka",
-            "Ukrainian polka"
+        Role roleSuccess = new Role(
+            "COMPOSER",
+            "Composer",
+            "Composer role"
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeSuccess );
+        constraintViolationSet = validator.validate( roleSuccess );
 
         assertEquals( 0, constraintViolationSet.size() );
     }
@@ -55,21 +55,21 @@ public class VideoTypeTest extends AbstractModel {
     @Test
     public void testVideoTypeFieldsFailure() {
 
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+        Set < ConstraintViolation < Role > > constraintViolationSet;
 
         //- Failure -//
         //- Create entity -//
-        VideoType videoTypeFailure = new VideoType(
+        Role roleFailure = new Role(
             null,
             null,
-            "Ukrainian polka"
+            "Composer role"
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailure );
+        constraintViolationSet = validator.validate( roleFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -101,17 +101,18 @@ public class VideoTypeTest extends AbstractModel {
 
         //- Failure: Incorrect length -//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
-            "12345678901234567",
-            "123456789012345678901234567890123"
+        Role roleFailureLength = new Role(
+            "123456789",
+            "123456789012345678901234567890123",
+            null
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( roleFailureLength );
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -134,7 +135,7 @@ public class VideoTypeTest extends AbstractModel {
             //- Message -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add( "length must be between 0 and 16" );
+                    add( "length must be between 0 and 8" );
                     add( "length must be between 0 and 32" );
                 }}.contains( constraintViolation.getMessage() )
             );
@@ -145,23 +146,24 @@ public class VideoTypeTest extends AbstractModel {
     * Test field validation for entity failure( empty )
     */
     @Test
-    public void testAccessFieldEmpty() {
+    public void testRoleFieldEmpty() {
 
-        Set<ConstraintViolation<VideoType>> constraintViolationSet;
+        Set < ConstraintViolation < Role > > constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
+        Role roleFailureEmpty = new Role(
             "",
-            ""
+            "",
+            null
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( roleFailureEmpty );
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
