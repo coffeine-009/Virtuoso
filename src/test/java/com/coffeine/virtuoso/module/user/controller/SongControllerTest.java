@@ -16,7 +16,7 @@
 package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.module.user.model.entity.Song;
+import com.coffeine.virtuoso.module.user.model.persistence.mock.SongMock;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
 import org.junit.After;
 import org.junit.Before;
@@ -24,14 +24,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -85,13 +83,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
     public void testListAction() throws Exception {
 
         //- Mock service -//
-        Mockito.when( songService.findAll( anyInt(), anyInt() ) ).thenReturn(
-            new ArrayList < Song >() {{
-                add(
-                    new Song()
-                );
-            }}
-        );
+        when( songService.findAll( anyInt(), anyInt() ) ).thenReturn( SongMock.getList() );
 
         // Success. Get list of songs
         this.mockMvc.perform(

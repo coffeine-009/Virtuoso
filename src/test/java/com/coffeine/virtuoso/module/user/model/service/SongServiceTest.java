@@ -8,6 +8,7 @@ package com.coffeine.virtuoso.module.user.model.service;
 
 import com.coffeine.virtuoso.module.model.service.AbstractServiceTest;
 import com.coffeine.virtuoso.module.user.model.entity.Song;
+import com.coffeine.virtuoso.module.user.model.persistence.mock.SongMock;
 import com.coffeine.virtuoso.module.user.model.repository.SongRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -69,13 +69,7 @@ public class SongServiceTest extends AbstractServiceTest {
                     10
                 )
             )
-        ).thenReturn(
-            new PageImpl < Song > (
-                new ArrayList<Song>() {{
-                    add( new Song() );
-                }}
-            )
-        );
+        ).thenReturn( new PageImpl < Song > ( SongMock.getList() ) );
 
         //- Using of service -//
         List < Song > songs = this.songService.findAll( 0, 10 );
