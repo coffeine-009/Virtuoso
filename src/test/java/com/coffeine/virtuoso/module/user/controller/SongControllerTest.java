@@ -1,31 +1,38 @@
 /// *** User :: Controller :: Song  *** *** *** *** *** *** *** *** *** *** ///
 
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
- *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
- *
- * @date 2014-05-03 16:34:32 :: ....-..-.. ..:..:..
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+     *                                                                  *
+     * @copyright 2014 (c), by Coffeine
+     *
+     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+     *
+     * @date 2014-05-03 16:34:32 :: ....-..-.. ..:..:..
+     *
+     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
+     *                                                                  *
+    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
+import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.http.MediaType;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+
+import static org.mockito.Matchers.anyInt;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,24 +42,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public class SongControllerTest extends AbstractRestControllerTest {
 
-    /// *** Constants   *** ///
-    final String PROTOCOL   = "http";
-    final String DOMAIN     = "localhost";
-    final String PORT       = "8080";
-
-    final String URL_SONG_LIST      = "/user/song/list";
-    final String URL_SONG_CREATE    = "/user/song";
-
     /// *** Properties  *** ///
     @Mock
     private SongService songService;
+
+    @InjectMocks
+    private SongController songController;
 
 
     /// *** Methods     *** ///
     /**
      * Init environment for run test
-     *
-     * @throws Exception
      */
     @Before
     @Override
@@ -60,19 +60,21 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         super.tearUp();
 
-//        when(SongService.class).then();
-        //TODO: mock SongService
+        //- Init mocks -//
+        MockitoAnnotations.initMocks(this);
+
+        //- Set up application -//
+        this.mockMvc = MockMvcBuilders.standaloneSetup( songController ).build();
     }
 
     /**
      * Reset environment to previous state
-     *
-     * @throws Exception
      */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
 
     }
+
 
     /**
      * Test getting list of songs
@@ -82,11 +84,20 @@ public class SongControllerTest extends AbstractRestControllerTest {
     @Test
     public void testListAction() throws Exception {
 
+        //- Mock service -//
+        Mockito.when( songService.findAll( anyInt(), anyInt() ) ).thenReturn(
+            new ArrayList < Song >() {{
+                add(
+                    new Song()
+                );
+            }}
+        );
+
         // Success. Get list of songs
         this.mockMvc.perform(
-            get( URL_SONG_LIST )
+            get( "/user/song/list/{page}/{limit}", 1, 10 )
         )
-            .andExpect( status().isUnauthorized() )
+            .andExpect(status().isOk() )
             .andDo( print() );
     }
 

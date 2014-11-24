@@ -49,7 +49,7 @@ public class SongServiceImpl implements SongService {
     public List < Song > findAll( int page, int limit ) {
         return songRespository.findAll(
             new PageRequest(
-                page,
+                Math.max( page - 1, 0 ),
                 limit
             )
         )

@@ -1,4 +1,4 @@
-/*
+/**
  * @copyright (c) 2014, by Coffeine
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
@@ -59,7 +59,11 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
     public void tearUp() {
         super.tearUp();
 
-        AuthenticationToken authenticationToken = new AuthenticationToken("test@test.loc", "test", null);
+        AuthenticationToken authenticationToken = new AuthenticationToken(
+            "user@virtuoso.com",
+            "P@$$w0rd",
+            null
+        );
         this.session = new MockHttpSession();
             session.setAttribute(
                 HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
