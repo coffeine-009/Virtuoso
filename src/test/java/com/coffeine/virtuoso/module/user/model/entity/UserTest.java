@@ -241,6 +241,7 @@ public class UserTest extends AbstractModel {
         constraintViolationSet = validator.validate( userFailureEmpty );
 
         assertEquals( 2, constraintViolationSet.size() );
+        assertEquals( 4, constraintViolationSet.size() );
 
         for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
             //- Property name -//
