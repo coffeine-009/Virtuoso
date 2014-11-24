@@ -72,10 +72,7 @@ public class AccessTest extends AbstractModel {
 
         //- Failure: Incorrect user -//
         //- Create entity-//
-        Access accessFailureUser = new Access(
-            null,
-            "London"
-        );
+        Access accessFailureUser = new Access( "London" );
 
         //- Validate access -//
         constraintViolationSet = validator.validate( accessFailureUser );
@@ -178,11 +175,7 @@ public class AccessTest extends AbstractModel {
         Access accessFailureLength = new Access(
             new User(
                 //- Roles -//
-<<<<<<< HEAD
                 new ArrayList < Role >() {{
-=======
-                new ArrayList< Role >() {{
->>>>>>> origin/Tests
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -207,10 +200,7 @@ public class AccessTest extends AbstractModel {
         assertEquals( 1, constraintViolationSet.size() );
 
         for ( ConstraintViolation < Access > constraintViolation : constraintViolationSet ) {
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Tests
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -221,10 +211,7 @@ public class AccessTest extends AbstractModel {
                     )
                 )
             );
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Tests
             //- Annotation type -//
             assertTrue(
                 new ArrayList < Class >() {{
@@ -237,13 +224,9 @@ public class AccessTest extends AbstractModel {
             assertTrue(
                 new ArrayList < String >() {{
                     add( "length must be between 0 and 256" );
-<<<<<<< HEAD
                 }}.contains(
                     constraintViolation.getMessage()
                 )
-=======
-                }}.contains( constraintViolation.getMessage() )
->>>>>>> origin/Tests
             );
         }
     }
@@ -252,11 +235,7 @@ public class AccessTest extends AbstractModel {
     * Test field validation for entity failure( empty )
     */
     @Test
-<<<<<<< HEAD
     public void testFieldsEmptyFailure() {
-=======
-    public void testAccessFieldEmpty() {
->>>>>>> origin/Tests
 
         Set < ConstraintViolation < Access > > constraintViolationSet;
 
