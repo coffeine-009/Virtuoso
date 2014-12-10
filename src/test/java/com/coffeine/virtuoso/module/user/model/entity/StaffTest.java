@@ -6,42 +6,41 @@
 
 package com.coffeine.virtuoso.module.user.model.entity;
 
+
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
+import org.hibernate.validator.constraints.Length;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Tests for song locale
- * @see com.coffeine.virtuoso.module.user.model.entity.SongLocale
+ * Tests for Staff
+ * @see com.coffeine.virtuoso.module.user.model.entity.Staff
  *
  * @version 1.0
  */
-public class SongLocaleTest extends AbstractModel {
-
-    /*
-    * Test field validation for entity correct
-    */
+public class StaffTest extends AbstractModel {
+    /**
+     * Test field validation for entity filled correct
+     */
     @Test
-    public void testSongLocaleFieldsSuccess() {
+    public void testStaffFieldsSuccess() {
 
-        Set < ConstraintViolation < SongLocale > > constraintViolationSet;
-
+        Set<ConstraintViolation<Staff>> constraintViolationSet;
         //- Success -//
-        //- Create entity-//
-        SongLocale songLocaleSuccess = new SongLocale(
+        //- Create entity -//
+        Staff staffSuccess = new Staff(
             new Song(
                 //-Create composer-//
                 new Composer(
-                    new ArrayList< ComposerLocale >() {{
+                    new ArrayList<ComposerLocale>() {{
                         add(
                             new ComposerLocale(
                                 "Test",
@@ -57,19 +56,19 @@ public class SongLocaleTest extends AbstractModel {
                 new Poet(
                     new User(
                         //- Roles -//
-                        new ArrayList < Role >() {{
-                            add( new Role( "POET", "Poet" ) );
+                        new ArrayList<Role>() {{
+                            add(new Role("POET", "Poet"));
                         }},
                         //- Access -//
-                        new Access( "MyP@$$w0rd" ),
+                        new Access("MyP@$$w0rd"),
                         //- Emails -//
-                        new Email( "myemail@virtuoso.com" ),
+                        new Email("myemail@virtuoso.com"),
                         "Tester",
                         "Unit",
                         "JUnit",
                         "uk-UA"
                     ),
-                    new ArrayList < PoetLocale >() {{
+                    new ArrayList<PoetLocale>() {{
                         add(
                             new PoetLocale(
                                 "Test",
@@ -82,7 +81,7 @@ public class SongLocaleTest extends AbstractModel {
                     "uk-UA"
                 ),
                 //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
+                new ArrayList<SongLocale>() {{
                     add(
                         new SongLocale(
                             "user",
@@ -91,7 +90,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of text -//
-                new ArrayList < Text >() {{
+                new ArrayList<Text>() {{
                     add(
                         new Text(
                             "uk-UA"
@@ -99,7 +98,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of video -//
-                new ArrayList < Video >() {{
+                new ArrayList<Video>() {{
                     add(
                         new Video(
                             new VideoType(
@@ -115,30 +114,79 @@ public class SongLocaleTest extends AbstractModel {
                 }},
                 "uk-UA"
             ),
-            "title",
-            "uk-Ua"
+            new StaffType(
+                "CHORDS",
+                "Chords",
+                "Standard chords"
+            ),
+            new Style(
+                "POLKA",
+                "Polka"
+            ),
+            "en-US"
         );
-        //- Validate -//
-        constraintViolationSet = validator.validate( songLocaleSuccess );
+        //- Validate-//
+        constraintViolationSet = validator.validate(staffSuccess);
 
-        assertEquals( 0, constraintViolationSet.size() );
+        assertEquals(0, constraintViolationSet.size());
     }
 
-    /*
-* Test field validation for entity failure
-*/
+    /**
+     * Test field validation for entity failure
+     */
     @Test
-    public void testSongLocaleFieldsFailure() {
+    public void testStaffFieldFailure() {
 
-        Set < ConstraintViolation < SongLocale > > constraintViolationSet;
+        Set<ConstraintViolation<Staff>> constraintViolationSet;
 
         //- Failure -//
-        //- Create entity-//
-        SongLocale songLocaleFailure = new SongLocale(
+        //- Create entity -//
+        Staff staffFailure = new Staff(
+            null,
+            "uk-UA"
+        );
+        //- Validate -//
+        constraintViolationSet = validator.validate(staffFailure);
+
+        assertEquals(3, constraintViolationSet.size());
+        for (ConstraintViolation<Staff> constraintViolation : constraintViolationSet) {
+            //- Property name -//
+            assertTrue(
+                new ArrayList<String>() {{
+                    add("song");
+                    add("staffType");
+                    add("style");
+                }}.contains(
+                    this.getPropertyName(
+                        constraintViolation.getPropertyPath()
+                    )
+                )
+            );
+            //- Annotation type-//
+            assertTrue(
+                new ArrayList<Class>() {{
+                    add(NotNull.class);
+                }}.contains(
+                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
+                )
+            );
+            //- Message-//
+            assertTrue(
+                new ArrayList<String>() {{
+                    add("may not be null");
+
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
+            );
+        }
+        //- Failure: locale -//
+        //- Create entity -//
+        Staff staffFailureLocale = new Staff(
             new Song(
                 //-Create composer-//
                 new Composer(
-                    new ArrayList< ComposerLocale >() {{
+                    new ArrayList<ComposerLocale>() {{
                         add(
                             new ComposerLocale(
                                 "Test",
@@ -154,19 +202,19 @@ public class SongLocaleTest extends AbstractModel {
                 new Poet(
                     new User(
                         //- Roles -//
-                        new ArrayList < Role >() {{
-                            add( new Role( "POET", "Poet" ) );
+                        new ArrayList<Role>() {{
+                            add(new Role("POET", "Poet"));
                         }},
                         //- Access -//
-                        new Access( "MyP@$$w0rd" ),
+                        new Access("MyP@$$w0rd"),
                         //- Emails -//
-                        new Email( "myemail@virtuoso.com" ),
+                        new Email("myemail@virtuoso.com"),
                         "Tester",
                         "Unit",
                         "JUnit",
                         "uk-UA"
                     ),
-                    new ArrayList < PoetLocale >() {{
+                    new ArrayList<PoetLocale>() {{
                         add(
                             new PoetLocale(
                                 "Test",
@@ -179,7 +227,7 @@ public class SongLocaleTest extends AbstractModel {
                     "uk-UA"
                 ),
                 //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
+                new ArrayList<SongLocale>() {{
                     add(
                         new SongLocale(
                             "user",
@@ -188,7 +236,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of text -//
-                new ArrayList < Text >() {{
+                new ArrayList<Text>() {{
                     add(
                         new Text(
                             "uk-UA"
@@ -196,7 +244,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of video -//
-                new ArrayList < Video >() {{
+                new ArrayList<Video>() {{
                     add(
                         new Video(
                             new VideoType(
@@ -212,18 +260,25 @@ public class SongLocaleTest extends AbstractModel {
                 }},
                 "uk-UA"
             ),
-            null,
+            new StaffType(
+                "CHORDS",
+                "Chords",
+                "Standard chords"
+            ),
+            new Style(
+                "POLKA",
+                "Polka"
+            ),
             null
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( songLocaleFailure );
+        constraintViolationSet = validator.validate(staffFailureLocale);
 
-        assertEquals( 4, constraintViolationSet.size()) ;
-        for ( ConstraintViolation < SongLocale > constraintViolation : constraintViolationSet ) {
+        assertEquals(2, constraintViolationSet.size());
+        for (ConstraintViolation<Staff> constraintViolation : constraintViolationSet) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
-                    add("title");
+                new ArrayList<String>() {{
                     add("locale");
                 }}.contains(
                     this.getPropertyName(
@@ -231,67 +286,42 @@ public class SongLocaleTest extends AbstractModel {
                     )
                 )
             );
-            //- Annotation type -//
+            //- Annotation type-//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add(NotNull.class);
                     add(NotEmpty.class);
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //- Message -//
+            //- Message-//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add("may not be null");
                     add("may not be empty");
-                }}.contains(constraintViolation.getMessage())
-            );
-        }
-        //- Failure : Incorrect song -//
-        //- Create entity-//
-        SongLocale songLocaleFailureSong = new SongLocale(
-            null,
-            "title",
-            "uk-UA"
-        );
-        //- Validate -//
-        constraintViolationSet = validator.validate( songLocaleFailureSong );
 
-        assertEquals( 1, constraintViolationSet.size()) ;
-        for ( ConstraintViolation < SongLocale > constraintViolation : constraintViolationSet ) {
-            //- Property name -//
-            assertTrue(
-                new ArrayList < String >() {{
-                    add("song");
                 }}.contains(
-                    this.getPropertyName(
-                        constraintViolation.getPropertyPath()
-                    )
+                    constraintViolation.getMessage()
                 )
-            );
-            //- Annotation type -//
-            assertTrue(
-                new ArrayList < Class >() {{
-                    add(NotNull.class);
-                }}.contains(
-                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
-                )
-            );
-            //- Message -//
-            assertTrue(
-                new ArrayList < String >() {{
-                    add("may not be null");
-                }}.contains(constraintViolation.getMessage())
             );
         }
-        //- Failure : Incorrect length  -//
+    }
+
+    /**
+     * Test field validation for entity field incorrect
+     */
+    @Test
+    public void testStaffFieldsFailureLength() {
+
+        Set < ConstraintViolation < Staff > > constraintViolationSet;
+        //- Failure: Incorrect Length -//
         //- Create entity -//
-        SongLocale songLocaleFailureLength = new SongLocale(
+        Staff staffFailureLength = new Staff(
             new Song(
                 //-Create composer-//
                 new Composer(
-                    new ArrayList< ComposerLocale >() {{
+                    new ArrayList<ComposerLocale>() {{
                         add(
                             new ComposerLocale(
                                 "Test",
@@ -307,19 +337,19 @@ public class SongLocaleTest extends AbstractModel {
                 new Poet(
                     new User(
                         //- Roles -//
-                        new ArrayList < Role >() {{
-                            add( new Role( "POET", "Poet" ) );
+                        new ArrayList<Role>() {{
+                            add(new Role("POET", "Poet"));
                         }},
                         //- Access -//
-                        new Access( "MyP@$$w0rd" ),
+                        new Access("MyP@$$w0rd"),
                         //- Emails -//
-                        new Email( "myemail@virtuoso.com" ),
+                        new Email("myemail@virtuoso.com"),
                         "Tester",
                         "Unit",
                         "JUnit",
                         "uk-UA"
                     ),
-                    new ArrayList < PoetLocale >() {{
+                    new ArrayList<PoetLocale>() {{
                         add(
                             new PoetLocale(
                                 "Test",
@@ -332,7 +362,7 @@ public class SongLocaleTest extends AbstractModel {
                     "uk-UA"
                 ),
                 //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
+                new ArrayList<SongLocale>() {{
                     add(
                         new SongLocale(
                             "user",
@@ -341,7 +371,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of text -//
-                new ArrayList < Text >() {{
+                new ArrayList<Text>() {{
                     add(
                         new Text(
                             "uk-UA"
@@ -349,7 +379,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of video -//
-                new ArrayList < Video >() {{
+                new ArrayList<Video>() {{
                     add(
                         new Video(
                             new VideoType(
@@ -365,19 +395,25 @@ public class SongLocaleTest extends AbstractModel {
                 }},
                 "uk-UA"
             ),
-            "12345678901234567890123456789012345678901234567890123456789012345",
+            new StaffType(
+                "CHORDS",
+                "Chords",
+                "Standard chords"
+            ),
+            new Style(
+                "POLKA",
+                "Polka"
+            ),
             "123456"
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( songLocaleFailureLength );
+        constraintViolationSet = validator.validate( staffFailureLength );
 
-        assertEquals( 2, constraintViolationSet.size() );
-
-        for ( ConstraintViolation < SongLocale > constraintViolation : constraintViolationSet ) {
+        assertEquals(1, constraintViolationSet.size());
+        for (ConstraintViolation<Staff> constraintViolation : constraintViolationSet) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add("title");
                     add("locale");
                 }}.contains(
                     this.getPropertyName(
@@ -385,20 +421,22 @@ public class SongLocaleTest extends AbstractModel {
                     )
                 )
             );
-            //- Annotation type -//
+            //- Annotation type-//
             assertTrue(
-                new ArrayList< Class >() {{
-                    add( Length.class );
+                new ArrayList < Class >() {{
+                    add(Length.class);
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //- Message -//
+            //- Message-//
             assertTrue(
-                new ArrayList<String>() {{
+                new ArrayList < String >() {{
                     add("length must be between 0 and 5");
-                    add("length must be between 0 and 64");
-                }}.contains(constraintViolation.getMessage())
+
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
     }
@@ -407,17 +445,15 @@ public class SongLocaleTest extends AbstractModel {
     * Test field validation for entity failure( empty )
     */
     @Test
-    public void testSongLocaleFieldsEmpty() {
-
-        Set < ConstraintViolation < SongLocale > > constraintViolationSet;
-
-        //- Failure: fields is empty-//
+    public void testVideoFieldsEmpty() {
+        Set < ConstraintViolation < Staff > > constraintViolationSet;
+        //- Failure: Empty -//
         //- Create entity -//
-        SongLocale songLocaleFailureEmpty = new SongLocale(
+        Staff staffFailureEmpty = new Staff(
             new Song(
                 //-Create composer-//
                 new Composer(
-                    new ArrayList< ComposerLocale >() {{
+                    new ArrayList<ComposerLocale>() {{
                         add(
                             new ComposerLocale(
                                 "Test",
@@ -433,19 +469,19 @@ public class SongLocaleTest extends AbstractModel {
                 new Poet(
                     new User(
                         //- Roles -//
-                        new ArrayList < Role >() {{
-                            add( new Role( "POET", "Poet" ) );
+                        new ArrayList<Role>() {{
+                            add(new Role("POET", "Poet"));
                         }},
                         //- Access -//
-                        new Access( "MyP@$$w0rd" ),
+                        new Access("MyP@$$w0rd"),
                         //- Emails -//
-                        new Email( "myemail@virtuoso.com" ),
+                        new Email("myemail@virtuoso.com"),
                         "Tester",
                         "Unit",
                         "JUnit",
                         "uk-UA"
                     ),
-                    new ArrayList < PoetLocale >() {{
+                    new ArrayList<PoetLocale>() {{
                         add(
                             new PoetLocale(
                                 "Test",
@@ -458,7 +494,7 @@ public class SongLocaleTest extends AbstractModel {
                     "uk-UA"
                 ),
                 //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
+                new ArrayList<SongLocale>() {{
                     add(
                         new SongLocale(
                             "user",
@@ -467,7 +503,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of text -//
-                new ArrayList < Text >() {{
+                new ArrayList<Text>() {{
                     add(
                         new Text(
                             "uk-UA"
@@ -475,7 +511,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of video -//
-                new ArrayList < Video >() {{
+                new ArrayList<Video>() {{
                     add(
                         new Video(
                             new VideoType(
@@ -491,19 +527,24 @@ public class SongLocaleTest extends AbstractModel {
                 }},
                 "uk-UA"
             ),
-            "",
+            new StaffType(
+                "CHORDS",
+                "Chords",
+                "Standard chords"
+            ),
+            new Style(
+                "POLKA",
+                "Polka"
+            ),
             ""
         );
-        //- Validate -//
-        constraintViolationSet = validator.validate( songLocaleFailureEmpty );
+        constraintViolationSet = validator.validate( staffFailureEmpty );
 
-        assertEquals( 2, constraintViolationSet.size() );
-
-        for ( ConstraintViolation < SongLocale > constraintViolation : constraintViolationSet ) {
+        assertEquals( 1, constraintViolationSet.size() );
+        for (ConstraintViolation < Staff > constraintViolation : constraintViolationSet) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add("title");
                     add("locale");
                 }}.contains(
                     this.getPropertyName(
@@ -511,19 +552,21 @@ public class SongLocaleTest extends AbstractModel {
                     )
                 )
             );
-            //- Annotation type -//
+            //- Annotation type-//
             assertTrue(
-                new ArrayList< Class >() {{
+                new ArrayList < Class >() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //- Message -//
+            //- Message-//
             assertTrue(
-                new ArrayList<String>() {{
+                new ArrayList < String >() {{
                     add("may not be empty");
-                }}.contains(constraintViolation.getMessage())
+                }}.contains(
+                    constraintViolation.getMessage()
+                )
             );
         }
     }

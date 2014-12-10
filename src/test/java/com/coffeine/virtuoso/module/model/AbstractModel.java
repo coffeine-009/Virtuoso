@@ -24,7 +24,6 @@ public abstract class AbstractModel {
 
 
     //- SECTION :: HELPERS -//
-
     /**
      * Helper for get property name
      *

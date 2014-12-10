@@ -152,6 +152,46 @@ public class Song implements Serializable {
      * @param composer
      * @param poet
      * @param data
+     * @param texts
+     * @param videos
+     * @param locale
+     */
+    public Song(
+        Composer composer,
+        Poet poet,
+        List < SongLocale > data,
+        List < Text > texts,
+        List < Video > videos,
+        String locale
+
+    ) {
+        //- Initialization -//
+        this();
+
+        this.composer = composer;
+        this.poet = poet;
+
+        for ( SongLocale songLocale : data ) {
+            this.addSongLocale( songLocale );
+        }
+
+        for ( Text text : texts) {
+            this.addText( text );
+        }
+
+        for( Video video : videos) {
+            this.addVideo( video );
+        }
+
+        this.locale = locale;
+    }
+
+    /**
+     * Constructor for create new song
+     *
+     * @param composer
+     * @param poet
+     * @param data
      * @param staffs
      * @param texts
      * @param videos

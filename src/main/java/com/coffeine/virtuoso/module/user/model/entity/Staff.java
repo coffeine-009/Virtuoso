@@ -54,13 +54,13 @@ public class Staff implements Serializable {
     protected Song song;
 
     @NotNull
-    @NotEmpty
+    @Valid
     @ManyToOne
     @JoinColumn( name = "id_staff_type" )
     protected StaffType staffType;
 
     @NotNull
-    @NotEmpty
+    @Valid
     @ManyToOne
     @JoinColumn( name = "id_style" )
     protected Style style;
@@ -89,7 +89,6 @@ public class Staff implements Serializable {
     /**
      * Constructor for create new Staff
      *
-     * @param song
      * @param staffType
      * @param style
      * @param locale
@@ -104,6 +103,44 @@ public class Staff implements Serializable {
         this.locale = locale;
     }
 
+    /**
+     * Constructor for create new staff
+     * @param song
+     * @param staffType
+     * @param style
+     * @param locale
+     */
+    public Staff(
+        Song song,
+        StaffType staffType,
+        Style style,
+        String locale
+    ) {
+        this.song = song;
+        this.staffType = staffType;
+        this.style = style;
+        this.locale = locale;
+
+        // Init links
+        this.song.addStaff(this);
+    }
+
+    /**
+     * Constructor for create new staff
+     *
+     * @param style
+     * @param locale
+     */
+
+    public Staff(
+        Style style,
+        String locale
+    ) {
+        this.song = null;
+        this.staffType = null;
+        this.style = style;
+        this.locale = locale;
+    }
     /**
      * Create text for song
      *

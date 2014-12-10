@@ -151,13 +151,13 @@ public class VideoTypeTest extends AbstractModel {
 
         //- Failure: fields is empty-//
         //- Create entity -//
-        VideoType videoTypeFailureLength = new VideoType(
+        VideoType videoTypeFailureEmpty = new VideoType(
             "",
             ""
         );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( videoTypeFailureLength );
+        constraintViolationSet = validator.validate( videoTypeFailureEmpty );
 
         assertEquals( 2, constraintViolationSet.size() );
 

@@ -139,6 +139,19 @@ public class Video implements Serializable {
         this.title = title;
         this.fileName = fileName;
     }
+    public Video(
+        Song song,
+        VideoType videoType,
+        String locale,
+        String title,
+        String filename
+    ) {
+        this.song = song;
+        this.videoType = videoType;
+        this.locale = locale;
+        this.title = title;
+        this.fileName = filename;
+    }
 
     //- SECTION :: GET -//
     /**

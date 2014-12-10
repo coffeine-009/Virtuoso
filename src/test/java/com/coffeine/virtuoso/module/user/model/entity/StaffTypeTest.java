@@ -6,10 +6,6 @@
 
 package com.coffeine.virtuoso.module.user.model.entity;
 
-/**
- * Created by valentyn on 10/28/14.
- */
-
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;

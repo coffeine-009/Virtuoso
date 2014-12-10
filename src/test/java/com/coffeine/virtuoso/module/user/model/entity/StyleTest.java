@@ -6,10 +6,6 @@
 
 package com.coffeine.virtuoso.module.user.model.entity;
 
-/**
- * Created by valentyn on 10/29/14.
- */
-
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,7 +21,7 @@ import static junit.framework.Assert.assertTrue;
 
 /**
  * Tests for Style
- * @see com.coffeine.virtuoso.module.user.model.entity.VideoType
+ * @see com.coffeine.virtuoso.module.user.model.entity.Style
  *
  * @version 1.0
  */
@@ -43,8 +39,7 @@ public class StyleTest extends AbstractModel {
 
         Style styleSuccess = new Style(
             "One",
-            "Two",
-            "three"
+            "Two"
         );
         //- Validate -//
         constraintViolationSet = validator.validate( styleSuccess );
@@ -64,8 +59,7 @@ public class StyleTest extends AbstractModel {
         //- Create entity-//
         Style styleFailure = new Style(
             null,
-            null,
-            "three"
+            null
         );
         //- Validate -//
         constraintViolationSet = validator.validate( styleFailure );
@@ -105,8 +99,7 @@ public class StyleTest extends AbstractModel {
         //- Create entity -//
         Style styleFailureLength = new Style(
             "123456789012345678901234567890123",
-            "123456789012345678901234567890123",
-            null
+            "123456789012345678901234567890123"
         );
         //- Validate -//
         constraintViolationSet = validator.validate( styleFailureLength );
@@ -155,8 +148,7 @@ public class StyleTest extends AbstractModel {
         //- Create entity -//
         Style styleFailureEmpty = new Style(
             "",
-            "",
-            null
+            ""
         );
         //- Validate -//
         constraintViolationSet = validator.validate( styleFailureEmpty );
@@ -182,7 +174,7 @@ public class StyleTest extends AbstractModel {
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
             );
-            //-Message-//
+            //-Message-//h-io]p
             assertTrue(
                 new ArrayList < String >() {{
                     add( "may not be empty" );

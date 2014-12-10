@@ -23,7 +23,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,15 +32,14 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
 @Entity
 @Table( 
     name = "staff_type",
-    uniqueConstraints = @UniqueConstraint( 
+    uniqueConstraints = @UniqueConstraint(
         columnNames = {
             "code"
-        } 
-    ) 
+        }
+    )
 )
 public class StaffType implements Serializable {
 
@@ -88,6 +86,27 @@ public class StaffType implements Serializable {
         String description
     ) {
         //- Initialization -//
+        this.code = code;
+        this.title = title;
+        this.description = description;
+    }
+
+    /**
+     * Constructor for create new Staff type
+     *
+     * @param id
+     * @param code
+     * @param title
+     * @param description
+     */
+    public StaffType(
+        Long id,
+        String code,
+        String title,
+        String description
+    ) {
+        //- Initialization -//
+        this.id = id;
         this.code = code;
         this.title = title;
         this.description = description;

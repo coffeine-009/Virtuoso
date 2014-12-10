@@ -33,7 +33,6 @@ import javax.validation.constraints.NotNull;
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
 @Entity
 @Table( 
     name = "style", 
@@ -93,6 +92,39 @@ public class Style implements Serializable {
         this.description = description;
     }
 
+    /**
+     * Constructor
+     * @param code
+     * @param title
+     */
+    public Style(
+        String code,
+        String title
+    ) {
+        this.code = code;
+        this.title = title;
+    }
+
+    /**
+     * Constructor for create new song
+     *
+     * @param id
+     * @param code
+     * @param title
+     * @param description
+     */
+    public Style(
+        Long id,
+        String code,
+        String title,
+        String description
+    ) {
+        //- Initialization -//
+        this.id = id;
+        this.code = code;
+        this.title = title;
+        this.description = description;
+    }
 
     //- SECTION :: GET -//
     /**

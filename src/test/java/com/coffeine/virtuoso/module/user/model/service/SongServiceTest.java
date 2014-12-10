@@ -72,7 +72,7 @@ public class SongServiceTest extends AbstractServiceTest {
         ).thenReturn( new PageImpl < Song > ( SongMock.getList() ) );
 
         //- Using of service -//
-        List < Song > songs = this.songService.findAll( 0, 10 );
+        List < Song > songs = this.songService.findAll( 1, 10 );
 
         //- Assertions -//
         assertEquals( 1, songs.size() );
