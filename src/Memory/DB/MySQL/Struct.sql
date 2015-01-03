@@ -14,6 +14,17 @@ CREATE DATABASE virtuoso
         CHARACTER SET utf8
         COLLATE utf8_general_ci;
 
+/**
+ * Create a user
+ */
+CREATE USER virtuoso@localhost IDENTIFIED BY 'virtuoso';
+
+/**
+ * Grant privileges
+ */
+GRANT ALL ON virtuoso.* TO virtuoso@localhost;
+
+
 /*//- SECTION :: TABLES -//*/
 /** *** *** *** *** *** *** *** *** *** *
  * Role
