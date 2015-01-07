@@ -27,7 +27,9 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration(
     locations = {
         "file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml",
-        "file:src/main/webapp/WEB-INF/spring/test/spring-context-test.xml"
+        "file:src/main/webapp/WEB-INF/spring/test/spring-context.xml",
+        "file:src/main/webapp/WEB-INF/spring/development/security.xml",//FIXME
+        "file:src/main/webapp/WEB-INF/spring/development/configuration.xml"//FIXME
     }
 )
 @RunWith( SpringJUnit4ClassRunner.class )

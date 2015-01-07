@@ -65,7 +65,7 @@ public class Song implements Serializable {
         mappedBy = "song",
         fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = false
     )
     protected List < SongLocale > data;
 
@@ -140,6 +140,8 @@ public class Song implements Serializable {
         String locale
     ) {
         //- Initialization -//
+        this();
+
         this.poet = poet;
         this.title = title;
         this.texts = texts;

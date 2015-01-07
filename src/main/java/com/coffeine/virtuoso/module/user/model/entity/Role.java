@@ -20,7 +20,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -49,16 +48,16 @@ public class Role implements Serializable {
     @NotNull
     @NotEmpty
     @Length( max = 8 )
-    @Column( name = "code", columnDefinition = "VARCHAR( 8 )" )
+    @Column( name = "code", length = 8 )
     protected String code;
 
     @NotNull
     @NotEmpty
     @Length( max = 32 )
-    @Column( name = "title", columnDefinition = "VARCHAR( 32 )" )
+    @Column( name = "title", length = 32 )
     protected String title;
 
-    @Column( name = "description", columnDefinition = "TEXT" )
+    @Column( name = "description", length = 128 )
     protected String description;
 
 
