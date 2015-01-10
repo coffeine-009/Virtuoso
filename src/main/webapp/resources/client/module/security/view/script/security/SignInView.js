@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    /*
+/*
  * @copyright 2014 (c), by Coffeine
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
@@ -6,23 +6,39 @@
 
 define(
     [
+        "tpl!/resources/client/module/main/view/template/helper/window/Modal",
         "tpl!/resources/client/module/security/view/template/security/SignIn",
-        "jquery",
+        "tpl!/resources/client/module/security/view/template/security/AuthenticateSuccess",
+        "tpl!/resources/client/module/security/view/template/security/AuthenticateFailure",
         "underscore",
         "backbone",
         "backboneoauth"
     ],
     function(
+        Modal,
         SignInTpl,
-        $,
+        AuthenticateSuccessTpl,
+        AuthenticateFailureTpl,
         _,
         Backbone,
         OAuth
-        ) {
+    ) {
         Security.View.SignInView = Backbone.View.extend({
             /// *** Properties  *** ///
-            //- Parrent DOM element -//
-            el: "#main-content",
+            //- Parent DOM element -//
+            el: "#message-container",
+
+            /**
+             * Container for account manager UI
+             *
+             * @type string
+             */
+            authenticateElement: "#security",
+
+            /**
+             * Container for display errors
+             */
+            errorsContainer: '#security-authorization-errors',
 
             model: null,
 
@@ -30,7 +46,10 @@ define(
              * Binding events
              */
             events: {
-                "click #security-signin": "submit"
+                "click #security-signin": "render",
+                "click #security-signin-submit": "submit",
+                "click #security-signin-cancel": "cancel",
+                "click #security-signin-close": "cancel"
             },
 
 
@@ -51,6 +70,10 @@ define(
             render: function () {
                 $( this.el ).html( SignInTpl( {} ) );
 
+                $( this.errorsContainer ).hide();
+
+                $('#myModal').modal();
+
                 return this;
             },
 
@@ -60,26 +83,12 @@ define(
              */
             submit: function() {
                 //- Send request for Sign In -//
-                Security.Model.OAuth2.access(
+                Security.Model.OAuth2.authenticate(
                     $( "#username").val(),
                     $( "#password").val(),
-                    this.signinSuccess,
-                    this.signinFailure
+                    $.proxy( this.signinSuccess, this ),
+                    $.proxy( this.signinFailure, this )
                 );
-//                this.model.create(
-//                    {
-//                        "username"  : $( "#username").val(),
-//                        "password"  : $( "#password").val()
-//                    },
-//                    {
-//                        success : this.signinSuccess,
-//                        error   : this.signinFailure,
-//                        beforeSend: function(xhr) {
-//                            xhr.setRequestHeader("Authorization", "Basic ZGV2ZWxvcGVyOmRldmVsb3BlcjMy")
-//                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-//                        }
-//                    }
-//                );
             },
 
             /**
@@ -88,9 +97,15 @@ define(
              * @param Model
              * @param Response
              */
-            signinSuccess: function( Response ) {
-                //TODO: do redirect
-                console.log( Response );
+            signinSuccess: function() {
+                //- Success -//
+                //- Hide Sign In view -//
+                $('#myModal').modal('hide')
+
+                // ReRender account manager UI container
+                $(this.authenticateElement).html(
+                    AuthenticateSuccessTpl({})
+                );
             },
 
             /**
@@ -100,8 +115,27 @@ define(
              * @param Response
              */
             signinFailure: function( Response ) {
+                //- Failure -//
+                //- Show errors -//
+                $( this.errorsContainer ).html('Invalid username or password');
+                $( this.errorsContainer ).show();
+
+                // ReRender account manager UI container
+                $(this.authenticateElement).html(
+                    AuthenticateFailureTpl({})
+                );
+
                 //TODO: display errors
-                console.log( Error.status );
+                console.log( Response );
+            },
+
+            /**
+             * Cancel sign in.
+             * Redirect back to main page
+             */
+            cancel: function() {
+                // Redirect to main page
+                window.location.hash = '#';
             }
         });
     }

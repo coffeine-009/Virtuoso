@@ -1,9 +1,9 @@
 {
   "name": "Virtuoso",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/coffeine-009/Virtuoso",
   "description": "Social network for musicians-virtuoso",
-  "main": "src/main/webapp/resources/client/module/user/bootstrap.js",
+  "main": "src/main/webapp/resources/client/module/bootstrap.js",
   "moduleType": [
     "amd",
     "globals"

@@ -25,7 +25,6 @@ define(
 
             initialize: function() {
                 //- Init -//
-
             },
 
             /**

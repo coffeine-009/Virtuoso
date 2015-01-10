@@ -13,7 +13,6 @@
 >
     <!-- Enable anotation for set permits -->
     <security:global-method-security
-        access-decision-manager-ref = "accessDecisionManager"
         pre-post-annotations = "enabled"
         proxy-target-class = "false"
         secured-annotations = "enabled"
@@ -22,22 +21,9 @@
 
     <!-- Public resource -->
     <security:http
-        authentication-manager-ref = "authenticationManager"
-        create-session = "stateless"
+        security = "none"
         pattern = "/"
-    >
-        <security:access-denied-handler ref = "securityAccessDeniedHandler" />
-        <security:anonymous enabled = "true" />
-        <security:custom-filter
-            before = "BASIC_AUTH_FILTER"
-            ref = "clientCredentialsTokenEndpointFilter"
-        />
-        <security:http-basic entry-point-ref = "securityEntryPoint" />
-        <security:intercept-url
-            pattern = "/"
-            access = "IS_AUTHENTICATED_ANONYMOUSLY"
-        />
-    </security:http>
+    />
 
     <!-- Authorization -->
     <security:http
@@ -53,10 +39,6 @@
         />
         <security:http-basic entry-point-ref = "securityEntryPoint" />
         <security:intercept-url
-            pattern = "/"
-            access = "IS_AUTHENTICATED_ANONYMOUSLY"
-        />
-        <security:intercept-url
             pattern = "/oauth/token"
             access = "IS_AUTHENTICATED_FULLY"
         />
@@ -67,6 +49,7 @@
         create-session = "never"
         entry-point-ref = "securityAuthenticationEntryPoint"
         pattern = "/user/**"
+        access-decision-manager-ref = "accessDecisionManager"
     >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
         <security:anonymous enabled = "false" />
@@ -75,7 +58,7 @@
             ref = "resourceServerFilter"
         />
         <security:intercept-url
-            pattern = "/**"
+            pattern = "/user/**"
             access = "IS_AUTHENTICATED_FULLY"
         />
     </security:http>
@@ -124,13 +107,17 @@
         <beans:constructor-arg ref = "clientDetails" />
     </beans:bean>
 
-    <beans:bean
-        id = "clientDetails"
-        class = "com.coffeine.virtuoso.module.security.model.service.implementation.GuestServiceImpl"
-    ><!--TODO: use DB-->
-        <beans:property name = "clientId" value = "developer" />
-        <beans:property name = "clientSecretKey" value = "developer32" />
-    </beans:bean>
+    <oauth:client-details-service id = "clientDetails">
+        <oauth:client
+            client-id="developer"
+            secret = "developer32"
+            authorized-grant-types = "password,refresh-token"
+            authorities = "ADMIN"
+            scope = "read,write"
+            access-token-validity = "3600"
+            refresh-token-validity = "3600"
+        />
+    </oauth:client-details-service>
 
     <security:authentication-manager id = "userAuthenticationManager">
         <security:authentication-provider ref="customUserAuthenticationProvider" />
@@ -178,9 +165,9 @@
         class = "org.springframework.security.oauth2.provider.token.DefaultTokenServices"
     >
         <beans:property name = "tokenStore" ref = "tokenStore" />
+        <beans:property name = "clientDetailsService" ref = "clientDetails" />
         <beans:property name = "supportRefreshToken" value = "true" />
         <beans:property name = "accessTokenValiditySeconds" value = "1800" />
-        <beans:property name = "clientDetailsService" ref = "clientDetails" />
     </beans:bean>
 
     <!-- Password encoder -->

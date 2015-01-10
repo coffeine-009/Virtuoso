@@ -30,7 +30,7 @@ GRANT ALL ON virtuoso.* TO virtuoso@localhost;
  * Role
  *  --- --- --- --- --- --- --- --- --- *
  * Content data about roles.
- * Ex.: ADMIN, VIRUOSO, USER
+ * Ex.: ADMIN, VIRTUOSO, USER
 * *** *** *** *** *** *** *** *** *** ***/
 CREATE TABLE `role`(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,

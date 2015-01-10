@@ -13,12 +13,25 @@
     margin-bottom: 5px;
 }
 
+.main
+{
+    display: flex;
+}
+
+.panel-left
+{
+    background: #eee;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
 .content
 {
     background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
     /*font-size: medium;*/
     margin-bottom: 5px;
     padding: 5px;
+    width: 100%;
 }
 
 footer
@@ -39,7 +52,3 @@ footer
     padding-right: 5px;
 }
 
-.well
-{
-    margin-bottom: 5px;
-}

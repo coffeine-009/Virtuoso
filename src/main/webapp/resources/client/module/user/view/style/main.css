@@ -277,17 +277,17 @@ footer
 
 
 /* Form */
-input[ type = "text" ], input[ type = "password" ], select
-{
-    background: linear-gradient( to right, #fff, #999, #fff );
-    border: solid 9px #fff;
-    border-radius: 20px;
-    color: #000;
-    font-weight: bold;
-    min-width: 150px;
-    min-height: 20px;
-    text-align: center;
-}
+/*input[ type = "text" ], input[ type = "password" ], select*/
+/*{*/
+    /*background: linear-gradient( to right, #fff, #999, #fff );*/
+    /*border: solid 9px #fff;*/
+    /*border-radius: 20px;*/
+    /*color: #000;*/
+    /*font-weight: bold;*/
+    /*min-width: 150px;*/
+    /*min-height: 20px;*/
+    /*text-align: center;*/
+/*}*/
 
 select
 {

@@ -90,6 +90,12 @@ public class SongLocaleTest extends AbstractModel {
                         )
                     );
                 }},
+                //- Create list of song staff -//
+                new ArrayList < Staff >() {{
+                    add(
+                        new Staff()
+                    );
+                }},
                 //- Create list of text -//
                 new ArrayList < Text >() {{
                     add(
@@ -185,6 +191,12 @@ public class SongLocaleTest extends AbstractModel {
                             "user",
                             "uk-UA"
                         )
+                    );
+                }},
+                //- Create list of song staff -//
+                new ArrayList < Staff >() {{
+                    add(
+                        new Staff()
                     );
                 }},
                 //- Create list of text -//
@@ -340,6 +352,12 @@ public class SongLocaleTest extends AbstractModel {
                         )
                     );
                 }},
+                //- Create list of song staff -//
+                new ArrayList < Staff >() {{
+                    add(
+                        new Staff()
+                    );
+                }},
                 //- Create list of text -//
                 new ArrayList < Text >() {{
                     add(
@@ -464,6 +482,12 @@ public class SongLocaleTest extends AbstractModel {
                             "user",
                             "uk-UA"
                         )
+                    );
+                }},
+                //- Create list of song staff -//
+                new ArrayList < Staff >() {{
+                    add(
+                        new Staff()
                     );
                 }},
                 //- Create list of text -//
