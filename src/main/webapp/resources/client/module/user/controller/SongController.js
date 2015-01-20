@@ -32,12 +32,16 @@ define(
              */
             songlistAction: function () {
                 var songList = new User.Songs();
+
                 var view = new User.SongsView();
 
                 songList.fetch(
                     {
-                        beforeSend: function(xhr) {
-                            xhr.setRequestHeader("Authorization", Security.Model.OAuth2.getAuthorizationHeader().authorization)
+                        beforeSend: function( Xhr ) {
+                            $.proxy(
+                                Security.Model.OAuth2.checkAccessModel(Xhr),
+                                Security.Model.OAuth2
+                            )
                         },
                         success: function() {
                             view.setSongs( songList.toJSON() );

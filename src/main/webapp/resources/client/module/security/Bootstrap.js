@@ -66,6 +66,20 @@ define(
 
                 new Security.Controller.SecurityController();
 
+                $(document).ready(function() {
+                    // Set security interceptors
+                    Security.Model.OAuth2.setControllers(
+                        [
+                            User.Controller.user
+                        ],
+                        function() {
+                            var view = new Security.View.SignInView();
+
+                            view.signinSuccess();
+                        }
+                    );
+                });
+
                 // Init application
                 Backbone.history.start();
             }

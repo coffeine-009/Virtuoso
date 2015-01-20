@@ -8,6 +8,11 @@
  * @address /Ukraine/Ivano-Frankivsk
  */
 
+var User = User || {
+    Controller: {}
+};
+
+
 define(
     [
         "jquery",
@@ -40,7 +45,8 @@ define(
                   SongsView,
                   SongController
             ) {
-                new User.SongController();
+                // Create a instance of song controller
+                User.Controller.user = new User.SongController();
             }
         );
     }

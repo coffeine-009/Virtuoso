@@ -16,7 +16,6 @@ var Security = Security || {
     Controller  : {}
 
 };
-var User = User || {};
 
 requirejs.config(
     {
@@ -73,10 +72,10 @@ requirejs.config(
 
 requirejs(
     [
-        //- Security -//
-        "/resources/client/module/security/Bootstrap.js",
         //- Song -//
-        "/resources/client/module/user/Bootstrap.js"
+        "/resources/client/module/user/Bootstrap.js",
+        //- Security -//
+        "/resources/client/module/security/Bootstrap.js"
     ],
     function(
         //- Security -//

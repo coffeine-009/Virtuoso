@@ -13,7 +13,7 @@ define(
     function(
         Backbone
     ) {
-        User.Songs = Backbone.Collection.extend({
+        return User.Songs = Backbone.Collection.extend({
             model: User.Song,
             url: "/user/song/list/1/10",
 

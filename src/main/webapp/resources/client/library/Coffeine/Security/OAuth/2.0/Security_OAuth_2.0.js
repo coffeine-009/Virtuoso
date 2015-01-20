@@ -12,7 +12,8 @@ var Coffeine = Coffeine || {
     Security: {
         OAuth: {
             _2: {
-                Provider : null
+                Provider : null,
+                Token: null
             }
         }
     }
@@ -210,5 +211,6 @@ define(
 
         // Export
         Coffeine.Security.OAuth._2.Provider = OAuth2;
+        Coffeine.Security.OAuth._2.Token = Token;
     }
 );
