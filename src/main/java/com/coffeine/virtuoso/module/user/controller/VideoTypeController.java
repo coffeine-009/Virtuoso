@@ -31,15 +31,13 @@ import java.util.List;
 @RequestMapping( value = "/user/video/type" )
 public class VideoTypeController {
 
-//    private final static
-
     /// *** Properties  *** ///
     @Autowired
     protected VideoTypeService videoTypeService;
 
 
-        /// *** Methods     *** ///
-        //- SECTION :: ACTION -//
+    /// *** Methods     *** ///
+    //- SECTION :: ACTION -//
     /**
      * Find all video types per page
      *

@@ -205,11 +205,16 @@ define(
              *
              * @param Xhr
              */
-            checkAccessModel: function(Xhr)// : void
+            checkAccessModel: function( Xhr )// : void
             {
                 //- Return control -//
                 if ( !this.token || this.token.isExpired() ) {
-                    Backbone.history.navigate('#security/signin', {trigger: true});
+                    Backbone.history.navigate(
+                        'security/signin',
+                        {
+                            trigger: true
+                        }
+                    );
                     Xhr.abort();
                     return;
                 }
