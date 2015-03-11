@@ -1,14 +1,16 @@
 /**
- * @copyright 2014 (c), by Val
+ * @copyright (c) 2015 by Coffeine
  *
- * @author Val
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  */
 
 package com.coffeine.virtuoso.module.user.view.form;
 
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Form for text of song
@@ -21,6 +23,7 @@ public class TextForm {
     protected Long id;
 
     @NotNull
+    @Min( 0 )
     protected Long songId;
 
     @NotNull

@@ -16,23 +16,24 @@
 
 package com.coffeine.virtuoso.module.user.controller;
 
-import com.coffeine.virtuoso.module.user.view.form.TextForm;
 import com.coffeine.virtuoso.module.user.model.entity.Song;
 import com.coffeine.virtuoso.module.user.model.entity.Text;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
 import com.coffeine.virtuoso.module.user.model.service.TextService;
-import java.util.List;
+import com.coffeine.virtuoso.module.user.view.form.TextForm;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 /**
  *
@@ -83,7 +84,7 @@ public class TextController {
      * @return Text
      */
     @POST
-    @RequestMapping( value = "/")
+    @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
     public Text createAction(
         @RequestBody
@@ -92,14 +93,7 @@ public class TextController {
 
         HttpServletResponse response
     ) {
-        //
-        Song song = this.songService.find( textForm.getSongId() );
-            if ( song == null ) {
-            //- Set HTTP status
-                response.setStatus( HttpStatus.NOT_FOUND.value() );
-
-                return null;
-        }
+        //- Try add a new text of song -//
         try{
             //- Set HTTP status -//
             response.setStatus( HttpStatus.CREATED.value() );
@@ -107,8 +101,7 @@ public class TextController {
             //- Try to create text -//
             return this.textService.create(
                 new Text( 
-                    song, 
-                    textForm.getLocale() 
+
                 )
             );
         }
