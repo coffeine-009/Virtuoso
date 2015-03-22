@@ -30,6 +30,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -49,6 +50,7 @@ public class ComposerLocale implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonIgnore
     @NotNull
     @Valid
     @ManyToOne

@@ -5,7 +5,8 @@
  */
 
 /**
- * Composer :: Create :: View
+ * User :: View :: Composer :: Create
+ * View for create a new composer
  *
  * @version 1.0
  */

@@ -13,10 +13,13 @@
                             placeholder = "Composer"
                             multiple = "multiple"
                         >
-                            <option></option>
-                            <option>Skryabin</option>
-                            <option>en-US</option>
-                            <option>uk-UA</option>
+                            <% _.each( composers, function( composer ) { %>
+                                <option
+                                    value = "<%- composer.id %>"
+                                >
+                                    <%- composer.firstName + ' ' + composer.lastName %>
+                                </option>
+                            <% }); %>
                         </select>
                         <div class = "add">
                             <a href = "#user/composer/create">Add</a>

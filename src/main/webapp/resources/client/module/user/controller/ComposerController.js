@@ -5,7 +5,10 @@
  */
 
 /**
+ * User :: Controller :: Composer
+ * Controller(Router) for composer
  *
+ * @version 1.0
  */
 var User = User || {};
 
@@ -34,7 +37,10 @@ define(
              * Action: create a new composer
              */
             composerCreateAction: function () {
+                //- Create view -//
                 var view = new CreateView();
+
+                //- Render view -//
                 view.render();
             }
         });

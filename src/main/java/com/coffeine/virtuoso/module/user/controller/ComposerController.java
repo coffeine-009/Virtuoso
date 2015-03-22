@@ -26,12 +26,13 @@ import java.util.List;
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/composer" )
+@RequestMapping( value = "/composers" )
 public class ComposerController {
 
     /// *** Properties  *** ///
     @Autowired
     private ComposerService composerService;
+
 
     /// *** Methods     *** ///
     /**
@@ -43,7 +44,7 @@ public class ComposerController {
      * @return List<Composer>
      */
     @GET
-    @RequestMapping( value = "s", method = RequestMethod.GET )
+    @RequestMapping( method = RequestMethod.GET )
     public List<Composer> listAction(
         @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
@@ -104,11 +105,7 @@ public class ComposerController {
         HttpServletResponse response
     ) {
         try {
-            return this.composerService.find(
-                id,
-                request.getLocale().getLanguage() + "-" +
-                    request.getLocale().getCountry()
-            );
+            return this.composerService.find( id );
         }
         catch ( Exception e ) {
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );

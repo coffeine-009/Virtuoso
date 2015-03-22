@@ -28,23 +28,4 @@ import org.springframework.data.repository.query.Param;
 public interface ComposerRepository extends JpaRepository < Composer, Long > {
 
     /// *** Methods     *** ///
-    @Query(
-        "SELECT " +
-            "c " +
-        "FROM " +
-            "Composer c " +
-            "LEFT JOIN " +
-            "c.data cl " +
-        "WHERE " +
-            "c.id = :id " +
-            "AND " +
-            "cl.locale = :locale"
-    )
-    Composer find(
-        @Param( "id" )
-        Long id,
-
-        @Param( "locale" )
-        String locale
-    );
 }

@@ -8,10 +8,16 @@ var User = User || {};
 
 define(
     [
-        "backbone"
+        "backbone",
+        "/resources/client/module/user/view/script/song/CreateView.js",
+        //- Model -//
+        "/resources/client/module/user/model/Composers.js"
     ],
     function(
-        Backbone
+        Backbone,
+        CreateView,
+        //- Model -//
+        Composers
     ) {
         return User.SongController = Backbone.Router.extend({
 
@@ -88,9 +94,43 @@ define(
              * Create new song
              */
             songCreateAction: function() {
-                var view = new User.Song.CreateView();
+                //- Create model -//
+                var composers = new Composers();
 
-                view.render();
+                //- Create view  -//
+                var view = new CreateView();
+
+                //- Synchronization -//
+                var composersLoaded = false;
+                var poetsLoaded = true;
+                var synchronize = function() {
+                    if (composersLoaded && poetsLoaded) {
+                        //- Render view -//
+                        view.render();
+                    }
+                };
+
+                //- Fetch composer's data -//
+                composers.fetch({
+                    beforeSend: function( Xhr ) {
+                        //$.proxy(
+                        //    Security.Model.OAuth2.checkAccessModel(Xhr),
+                        //    Security.Model.OAuth2
+                        //)
+                    },
+                    success: function() {
+                        //- Mark that composers are loaded -//
+                        composersLoaded = true;
+
+                        //- Set data about composers -//
+                        view.setComposers( composers.toJSON() );
+
+                        synchronize();
+                    },
+                    error: function() {
+                        alert("Error");//TODO: call message system
+                    }
+                });
             }
         });
     }

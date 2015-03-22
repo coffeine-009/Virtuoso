@@ -68,11 +68,10 @@ public class ComposerServiceImpl implements ComposerService {
      * Find Composer by id
      *
      * @param id        Identificator of composer
-     * @param locale    Locale code
      * @return Composer
      */
-    public Composer find( Long id, String locale ) {
-        return this.composerRepository.find( id, locale );
+    public Composer find( Long id ) {
+        return this.composerRepository.findOne( id );
     }
 
     /**

@@ -3,8 +3,11 @@
  *
  * @author Vitaliy Tsutsman <vtsutsman@softjourn.com>
  */
-var User = User || {};
 
+/**
+ * User :: View :: Song :: Create
+ * @version 1.0
+ */
 define(
     [
         "tpl!/resources/client/module/user/view/template/song/Create",
@@ -18,16 +21,17 @@ define(
         _,
         Backbone
     ) {
-        return User.Song.CreateView = Backbone.View.extend({
+        return Backbone.View.extend({
             /// *** Properties  *** ///
             //- Parrent DOM element -//
             el: "#main-content",
             song: null,
+            composers: null,
 
 
             /// *** Methods     *** ///
             events: {
-                "click #test": "checkr"
+                "click #song-composer": "composerSelected"
             },
 
             initialize: function () {
@@ -35,7 +39,15 @@ define(
             },
 
             render: function () {
-                $( this.el ).html( SongCreateTpl( {} ) );
+
+                //- Append view to document -//
+                $( this.el ).html(
+                    SongCreateTpl(
+                        {
+                            composers: this.composers
+                        }
+                    )
+                );
 
 //                $('body').on('focus',"#song-writedate", function(){
 //                    $(this).datepicker();
@@ -45,8 +57,18 @@ define(
                 return this;
             },
 
-            checkr: function () {
-                alert('ok');
+            composerSelected: function () {
+                console.log($("#song-composer").val());
+            },
+
+            //- SECTION :: SET -//
+            /**
+             * Set composers
+             *
+             * @param Composers
+             */
+            setComposers: function( Composers ) {
+                this.composers = Composers;
             }
         });
     }

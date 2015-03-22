@@ -23,6 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,14 +49,15 @@ public class Composer implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonIgnore
     @Valid
     @ManyToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 
-    @JsonIgnore
     @NotNull
     @NotEmpty
+    @Size( min = 1 )
     @Valid
     @OneToMany(
         mappedBy = "composer",
@@ -371,11 +373,15 @@ public class Composer implements Serializable {
      */
     @PostLoad
     private void postRead() {
-        ComposerLocale composerLocale = this.data.get( 0 );
-
-        //- Populate data -//
-        this.firstName = composerLocale.getFirstName();
-        this.lastName = composerLocale.getLastName();
-        this.fatherName = composerLocale.getMiddleName();
+        //- Search origin data about composer -//
+        for (ComposerLocale composerLocale : this.data ) {
+            //- Check origin locale -//
+            if (this.locale.equals( composerLocale.getLocale() )) {
+                //- Populate data -//
+                this.firstName = composerLocale.getFirstName();
+                this.lastName = composerLocale.getLastName();
+                this.fatherName = composerLocale.getMiddleName();
+            }
+        }
     }
 }
