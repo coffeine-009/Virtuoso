@@ -132,7 +132,7 @@ CREATE TABLE composer(
     locale      VARCHAR( 5 ) NOT NULL, 
 
     birthday    TIMESTAMP NULL,
-    deathday    TIMESTAMP NULL,
+    deathDate    TIMESTAMP NULL,
 
     creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
@@ -187,7 +187,7 @@ CREATE TABLE poet(
     locale      VARCHAR( 5 ) NOT NULL, 
 
     birthday    TIMESTAMP NOT NULL,
-    deathday    TIMESTAMP,
+    deathDate    TIMESTAMP,
 
     creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 

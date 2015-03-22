@@ -66,18 +66,19 @@ define(
 
                 new Security.Controller.SecurityController();
 
-                $(document).ready(function() {
+                $(document).ready(function() {setTimeout(function(){
                     // Set security interceptors
                     Security.Model.OAuth2.setControllers(
                         [
-                            User.Controller.user
+                            User.Controller.Song,
+                            User.Controller.Composer
                         ],
                         function() {
                             var view = new Security.View.SignInView();
 
                             view.signinSuccess();
                         }
-                    );
+                    );}, 500);
                 });
 
                 // Init application

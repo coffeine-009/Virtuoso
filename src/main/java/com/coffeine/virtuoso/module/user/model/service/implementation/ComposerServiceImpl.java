@@ -20,6 +20,7 @@ import com.coffeine.virtuoso.module.user.model.repository.ComposerRepository;
 import com.coffeine.virtuoso.module.user.model.service.ComposerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ import java.util.List;
  *
  * @version 1.0
  */
+@Service
 public class ComposerServiceImpl implements ComposerService {
 
     @Autowired
@@ -65,11 +67,12 @@ public class ComposerServiceImpl implements ComposerService {
     /**
      * Find Composer by id
      *
-     * @param id Identificator of composer
-     * @return Composer found composer
+     * @param id        Identificator of composer
+     * @param locale    Locale code
+     * @return Composer
      */
-    public Composer find( Long id ) {
-        return this.composerRepository.findOne( id );
+    public Composer find( Long id, String locale ) {
+        return this.composerRepository.find( id, locale );
     }
 
     /**

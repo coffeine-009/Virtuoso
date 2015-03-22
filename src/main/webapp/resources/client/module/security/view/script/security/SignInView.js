@@ -46,7 +46,7 @@ define(
              * Binding events
              */
             events: {
-                "click #security-signin": "render",
+                //"click #security-signin": "render",
                 "click #security-signin-submit": "submit",
                 "click #security-signin-cancel": "cancel",
                 "click #security-signin-close": "cancel"

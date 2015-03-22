@@ -101,12 +101,11 @@
                                 href = "#"
                                 data-toggle = "dropdown"
                             >
-                                Songs <b class="caret"></b>
+                                Song <b class="caret"></b>
                             </a>
                             <ul class = "dropdown-menu" role = "menu">
-                                <li><a href = "#user/songs">Songs</a></li>
-                                <li><a href = "index2.html">Home 2 </a></li>
-                                <li><a href = "index3.html">Home 3 </a></li>
+                                <li><a href = "#user/songs">Song</a></li>
+                                <li><a href = "#user/song/create">Create</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -135,18 +134,7 @@
         </div>
 
         <!-- Main block -->
-        <div id = "main" class = "main">
-
-            <div id = "menu-left" class = "panel-left">
-                <ul class="nav">
-                    <li class="active">
-                        <a href="#">Comp</a>
-                    </li>
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
-                </ul>
-            </div>
+        <div id = "main" class = "main1 row1">
 
             <div id = "main-content" class = "content" >
                 OK<br/>OK<br/>OK<br/>OK<br/>OK<br/>

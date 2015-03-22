@@ -221,7 +221,7 @@ define(
 
                 Xhr.setRequestHeader(
                     "Authorization",
-                    this.getToken().getAccessToken()
+                    "Bearer " + this.getToken().getAccessToken()
                 );
             }
         });

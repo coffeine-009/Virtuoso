@@ -49,10 +49,11 @@ public interface ComposerService {
     /**
      * Find Composer by id
      *
-     * @param id Identificator of composer
+     * @param id        Identificator of composer
+     * @param locale    Locale code
      * @return Composer found composer
      */
-    public Composer find( Long id );
+    public Composer find( Long id, String locale );
 
     /**
      * Update composer data

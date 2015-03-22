@@ -13,8 +13,8 @@ html, body
 
 body
 {
-    font-family	: "Times New Roman", serief;
-    font-size	: small;
+    font-family : "Times New Roman", serief;
+    font-size   : small;
 }
 
 /* Table */
@@ -90,7 +90,7 @@ header>.security
 /* Main */
 .main
 {
-    
+
 }
 
 nav.menu-left
@@ -113,14 +113,6 @@ nav.menu-left
         {
 
         }
-
-.content
-{
-    background: #eee;/*linear-gradient( to top, #ccc, #eee, #ccc );*/
-    font-size: medium;
-    margin-bottom: 5px;
-    padding: 5px;
-}
 
 footer
 {
