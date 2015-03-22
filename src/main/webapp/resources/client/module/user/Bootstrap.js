@@ -27,7 +27,7 @@ define(
         OAuth
     ) {
         // Include dependencies of module
-        requirejs(
+        require(
             [
                 //- Song -//
                 "/resources/client/module/user/model/Song.js",
@@ -35,18 +35,22 @@ define(
                 "/resources/client/module/user/view/script/song/CreateView.js",
                 "/resources/client/module/user/view/script/song/SongView.js",
                 "/resources/client/module/user/view/script/song/SongsView.js",
-                "/resources/client/module/user/controller/SongController.js"
+                "/resources/client/module/user/controller/SongController.js",
+                "/resources/client/module/user/controller/ComposerController.js"
             ],
             function (
-                  //- Song -//
-                  SongModel,
-                  SongsModel,
-                  SongView,
-                  SongsView,
-                  SongController
+                //- Song -//
+                SongModel,
+                SongsModel,
+                CreateView,
+                SongView,
+                SongsView,
+                SongController,
+                ComposerController
             ) {
                 // Create a instance of song controller
-                User.Controller.user = new User.SongController();
+                User.Controller.Song = new User.SongController();
+                User.Controller.Composer = new ComposerController();
             }
         );
     }

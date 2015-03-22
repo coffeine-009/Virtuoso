@@ -15,28 +15,19 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Class for reflect table Composer from persistence layout
@@ -73,6 +64,18 @@ public class Composer implements Serializable {
     )
     protected List < ComposerLocale > data;
 
+    @Transient
+    protected String firstName;
+
+    @Transient
+    protected String lastName;
+
+    @Transient
+    protected String fatherName;
+
+    /**
+     * Original locale of composer
+     */
     @NotNull
     @NotEmpty
     @Length( max = 5 )
@@ -82,12 +85,12 @@ public class Composer implements Serializable {
     @Column( name = "gender" )
     protected Boolean gender;
 
-    @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
-    protected Calendar birthday;
+    @Column( name = "birthday", columnDefinition = "DATE" )
+    protected Date birthday;
 
     //TODO: add validation
-    @Column( name = "deathday", columnDefinition = "TIMESTAMP NULL" )
-    protected Calendar deathday;
+    @Column( name = "deathDate", columnDefinition = "DATE" )
+    protected Date deathDate;
 
     @Column(
         name = "creation",
@@ -110,19 +113,50 @@ public class Composer implements Serializable {
      * Construct for create new composer
      *
      * @param birthday
-     * @param deathday
+     * @param deathDate
      */
     public Composer(
         String locale,
         Boolean gender,
-        Calendar birthday,
-        Calendar deathday
+        Date birthday,
+        Date deathDate
     ) {
         //- Initialisation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
-        this.deathday = deathday;
+        this.deathDate = deathDate;
+    }
+
+    /**
+     * Construct for create new composer
+     *
+     */
+    public Composer(
+        final String firstName,
+        final String lastName,
+        final String fatherName,
+        final String locale,
+        Boolean gender,
+        Date birthday,
+        Date deathDate
+    ) {
+        //- Initialisation -//
+        this.locale = locale;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.deathDate = deathDate;
+
+        this.data = new ArrayList <> ();
+            this.data.add(
+                new ComposerLocale(
+                    this,
+                    firstName,
+                    lastName,
+                    fatherName,
+                    locale
+                )
+            );
     }
 
     /**
@@ -179,6 +213,33 @@ public class Composer implements Serializable {
     }
 
     /**
+     * Get first name in original locale
+     *
+     * @return String
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * Get last name in origin locale
+     *
+     * @return String
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Get father name in origin locale
+     *
+     * @return String
+     */
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    /**
      * Get locale of this composer
      *
      * @return String
@@ -201,7 +262,7 @@ public class Composer implements Serializable {
      *
      * @return Calendar
      */
-    public Calendar getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
@@ -210,8 +271,8 @@ public class Composer implements Serializable {
      *
      * @return Calendar
      */
-    public Calendar getDeathday() {
-        return deathday;
+    public Date getDeathDate() {
+        return deathDate;
     }
 
     /**
@@ -275,17 +336,17 @@ public class Composer implements Serializable {
      *
      * @param birthday
      */
-    public void setBirthday( Calendar birthday ) {
+    public void setBirthday( Date birthday ) {
         this.birthday = birthday;
     }
 
     /**
      * Set date of death
      *
-     * @param deathday
+     * @param deathDate
      */
-    public void setDeathday( Calendar deathday ) {
-        this.deathday = deathday;
+    public void setDeathDate(Date deathDate) {
+        this.deathDate = deathDate;
     }
 
     /**
@@ -301,5 +362,20 @@ public class Composer implements Serializable {
         if( !this.data.contains( composerLocale ) ) {
             this.data.add( composerLocale );
         }
+    }
+
+
+    //- SECTION :: HELPER -//
+    /**
+     * Populate not stored data
+     */
+    @PostLoad
+    private void postRead() {
+        ComposerLocale composerLocale = this.data.get( 0 );
+
+        //- Populate data -//
+        this.firstName = composerLocale.getFirstName();
+        this.lastName = composerLocale.getLastName();
+        this.fatherName = composerLocale.getMiddleName();
     }
 }

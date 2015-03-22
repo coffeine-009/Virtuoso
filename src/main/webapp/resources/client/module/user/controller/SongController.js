@@ -1,4 +1,4 @@
-    /*
+/**
  * @copyright (c) 2014, by Vitaliy Tsutsman
  *
  * @author Vitaliy Tsutsman <vtsutsman@softjourn.com>
@@ -13,7 +13,7 @@ define(
     function(
         Backbone
     ) {
-        User.SongController = Backbone.Router.extend({
+        return User.SongController = Backbone.Router.extend({
 
             /// *** Properties  *** ///
 

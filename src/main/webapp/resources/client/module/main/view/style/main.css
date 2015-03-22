@@ -15,7 +15,13 @@ h3
 
 img
 {
-    margin-right: 5px;
+    margin: 0 5px 5px 0;
+}
+
+.separate-horizontal
+{
+    clear: both;
+    margin: 0;
 }
 
 .navbar
@@ -86,3 +92,19 @@ footer
 {
     border-left     : solid 1px white;
 }
+
+    .info>.info-item
+    {
+        clear: both;
+        margin-bottom: 5px;
+    }
+
+        .info>.info-item>.info-item-photo
+        {
+            float: left;
+        }
+
+        .info>.info-item>.info-item-description
+        {
+            margin-left: 165px;
+        }

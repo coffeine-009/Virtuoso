@@ -19,8 +19,8 @@ define(
         $,
         _,
         Backbone
-        ) {
-        User.SongView = Backbone.View.extend({
+    ) {
+        return User.SongView = Backbone.View.extend({
             /// *** Properties  *** ///
             //- Parrent DOM element -//
             el: "#main-content",

@@ -76,7 +76,7 @@ public class Poet implements Serializable {
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
     protected Calendar birthday;
 
-    @Column( name = "deathday", columnDefinition = "TIMESTAMP NULL" )
+    @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
     protected Calendar deathday;
 
     @Column(
