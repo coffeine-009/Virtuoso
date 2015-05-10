@@ -1,0 +1,42 @@
+{
+  "name": "Virtuoso",
+  "description": "Social network for virtuoso.",
+  "version": "1.0.0",
+  "homepage": "https://virtuoso.com",
+  "author": {
+    "name": "Vitaliy Tsutsman <vitaliyacm@gmail.com>",
+    "email": "vitaliyacm@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coffeine-009/Virtuoso.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coffeine-009/Virtuoso/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://virtuoso.com/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "src/main/webapp/resources/client/module/Bootstrap.js",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt nodeunit"
+  },
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "grant": "^3.0.2",
+    "grunt": "~0.4.5",
+    "grunt-bower-requirejs": "^2.0.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.4.0"
+  },
+  "keywords": []
+}

@@ -108,7 +108,7 @@ public class Composer implements Serializable {
     public Composer(
     ) {
         //- Initialization -//
-        this.data = new ArrayList < ComposerLocale >();
+        this.data = new ArrayList<>();
     }
 
     /**
@@ -135,30 +135,18 @@ public class Composer implements Serializable {
      *
      */
     public Composer(
-        final String firstName,
-        final String lastName,
-        final String fatherName,
         final String locale,
         Boolean gender,
         Date birthday,
-        Date deathDate
+        Date deathDate,
+        List < ComposerLocale > data
     ) {
         //- Initialisation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
         this.deathDate = deathDate;
-
-        this.data = new ArrayList <> ();
-            this.data.add(
-                new ComposerLocale(
-                    this,
-                    firstName,
-                    lastName,
-                    fatherName,
-                    locale
-                )
-            );
+        this.data = data;
     }
 
     /**

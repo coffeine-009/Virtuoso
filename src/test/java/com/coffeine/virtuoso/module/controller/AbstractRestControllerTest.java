@@ -11,6 +11,7 @@
 package com.coffeine.virtuoso.module.controller;
 
 import com.coffeine.virtuoso.module.security.model.entity.AuthenticationToken;
+import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -69,5 +70,8 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
                 HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 new MockSecurityContext(authenticationToken)
             );
+
+        //- Init mocks -//
+        MockitoAnnotations.initMocks( this );
     }
 }

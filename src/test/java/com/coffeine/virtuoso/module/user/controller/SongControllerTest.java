@@ -24,7 +24,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -57,9 +56,6 @@ public class SongControllerTest extends AbstractRestControllerTest {
     public void tearUp() {
 
         super.tearUp();
-
-        //- Init mocks -//
-        MockitoAnnotations.initMocks(this);
 
         //- Set up application -//
         this.mockMvc = MockMvcBuilders.standaloneSetup( songController ).build();

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - virtuoso@localhost" uuid="131c484f-a7c3-4030-963c-2dd1ce49eed4">
+    <database-info product="MySQL" version="5.1.73-0ubuntu0.10.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="virtuoso"/>
+    <table name="access" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modification" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="password" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_5b3f4e8e2c4c45daabd6c94fc16" columns="id_user" ref-table="user" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_5b3f4e8e2c4c45daabd6c94fc16" unique="false" columns="id_user"/>
+    </table>
+    <table name="composer" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="gender" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5"/>
+      <column name="birthday" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="deathDate" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_19ba0557dd9c4dc2b6387272c5e" columns="id_user" ref-table="user" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_6a4514c287e1467aa0fceb48eb1" table="composer_locale" schema="" catalog="virtuoso" columns="id_composer"/>
+      <exported-key name="FK_e898b48a4df5484a9802ff3b59c" table="song" schema="" catalog="virtuoso" columns="id_composer"/>
+      <index name="FK_19ba0557dd9c4dc2b6387272c5e" unique="false" columns="id_user"/>
+    </table>
+    <table name="composer_locale" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="first_name" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="middle_name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id_composer" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_6a4514c287e1467aa0fceb48eb1" columns="id_composer" ref-table="composer" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_6a4514c287e1467aa0fceb48eb1" unique="false" columns="id_composer"/>
+    </table>
+    <table name="email" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="address" sqlType="VARCHAR" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_99c9fd5557304c48a1d079fc0c2" columns="id_user" ref-table="user" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_0e3663f28e7240769abbd33d953" unique="true" columns="address"/>
+      <index name="UK_1836f4eba0384d16bfe7d78bbbd" unique="true" columns="address"/>
+      <index name="UK_1d423674f0194e1cbb70bcc3ad9" unique="true" columns="address"/>
+      <index name="UK_2b6bdeb25bdc46fba137a3e8b51" unique="true" columns="address"/>
+      <index name="UK_3bc3df2e3bfe4581b37370ae672" unique="true" columns="address"/>
+      <index name="UK_4b87f809e2f14665aed02866f20" unique="true" columns="address"/>
+      <index name="UK_79090a884eaa43b0b76e18886d8" unique="true" columns="address"/>
+      <index name="UK_a62358d516a642aea2a8cdc746c" unique="true" columns="address"/>
+      <index name="UK_a72719ee726d4e0cace20c2153c" unique="true" columns="address"/>
+      <index name="UK_aa6af972467545be87434aec41e" unique="true" columns="address"/>
+      <index name="UK_b8ee505f93c5458ebcad1269dc8" unique="true" columns="address"/>
+      <index name="UK_c6e8420971664d579671dd0aba8" unique="true" columns="address"/>
+      <index name="UK_d2bdadf8d4c842d9a1c20c3fab5" unique="true" columns="address"/>
+      <index name="UK_e17657bb55374442aeecc6be6a4" unique="true" columns="address"/>
+      <index name="UK_f52cfec087f74b5188b30a28dc0" unique="true" columns="address"/>
+      <index name="UK_f722fccb302247a7b410f04196a" unique="true" columns="address"/>
+      <index name="UK_fefa0da0a17843ceb8b9ed1f188" unique="true" columns="address"/>
+      <index name="FK_99c9fd5557304c48a1d079fc0c2" unique="false" columns="id_user"/>
+    </table>
+    <table name="poet" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="birthday" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="deathday" sqlType="TIMESTAMP" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="gender" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_94413227e226417ab7b1af91110" columns="id_user" ref-table="user" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_f66dbf8351304bc3bb608c0acd3" table="poet_locale" schema="" catalog="virtuoso" columns="id_poet"/>
+      <exported-key name="FK_1976b326a67d404fb777f6c45bd" table="song" schema="" catalog="virtuoso" columns="id_poet"/>
+      <index name="FK_94413227e226417ab7b1af91110" unique="false" columns="id_user"/>
+    </table>
+    <table name="poet_locale" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="first_name" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="middle_name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <column name="id_poet" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_f66dbf8351304bc3bb608c0acd3" columns="id_poet" ref-table="poet" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_f66dbf8351304bc3bb608c0acd3" unique="false" columns="id_poet"/>
+    </table>
+    <table name="role" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_fd27ee1ab7434c159586a1e58a4" table="user_roles" schema="" catalog="virtuoso" columns="id_role"/>
+      <index name="UK_19875c4b0296405291bd65d9885" unique="true" columns="code"/>
+      <index name="UK_1ee6c6c4cbfa448491acb1c4e6f" unique="true" columns="code"/>
+      <index name="UK_3e3cacc3e1b049ed811ee42936d" unique="true" columns="code"/>
+      <index name="UK_43d04ba621e0448092d9757f4ae" unique="true" columns="code"/>
+      <index name="UK_620973ad45a44e55942e002920e" unique="true" columns="code"/>
+      <index name="UK_623474310fc94f8481e7e20f9e9" unique="true" columns="code"/>
+      <index name="UK_718c65678f004be6b3fc13d4183" unique="true" columns="code"/>
+      <index name="UK_78df21f10e7f451f863109de4c0" unique="true" columns="code"/>
+      <index name="UK_7f9d43205ec34a31bc9d6902ec1" unique="true" columns="code"/>
+      <index name="UK_8914c1f33f334f35bb2dd62363c" unique="true" columns="code"/>
+      <index name="UK_a0bdc0f05d1845eaa494cca7fa9" unique="true" columns="code"/>
+      <index name="UK_a2850eeebf404e5b916dc5fea98" unique="true" columns="code"/>
+      <index name="UK_c4803384e94343bd9dfc4e37256" unique="true" columns="code"/>
+      <index name="UK_d2445c8c71d744fa837e815e04d" unique="true" columns="code"/>
+      <index name="UK_d70e5282d6bc4c87927503e3a32" unique="true" columns="code"/>
+      <index name="UK_dd74015885534fcbbde84384fa3" unique="true" columns="code"/>
+      <index name="UK_eb5e5b38c49e46169c8b40badcc" unique="true" columns="code"/>
+    </table>
+    <table name="song" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="write_date" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="id_composer" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_poet" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_1976b326a67d404fb777f6c45bd" columns="id_poet" ref-table="poet" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_e898b48a4df5484a9802ff3b59c" columns="id_composer" ref-table="composer" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_2b18a10fec1c4606b6159af34bf" table="song_locale" schema="" catalog="virtuoso" columns="id_song"/>
+      <exported-key name="FK_8094e25921f449d49e4869b88e6" table="song_notes" schema="" catalog="virtuoso" columns="id_song"/>
+      <exported-key name="FK_6756f09500224eb9828aadfc668" table="song_text" schema="" catalog="virtuoso" columns="id_song"/>
+      <exported-key name="FK_0d1613c3f02046a6a07c8141292" table="video" schema="" catalog="virtuoso" columns="id_song"/>
+      <index name="FK_1976b326a67d404fb777f6c45bd" unique="false" columns="id_poet"/>
+      <index name="FK_e898b48a4df5484a9802ff3b59c" unique="false" columns="id_composer"/>
+    </table>
+    <table name="song_locale" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="title" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_song" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_2b18a10fec1c4606b6159af34bf" columns="id_song" ref-table="song" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_2b18a10fec1c4606b6159af34bf" unique="false" columns="id_song"/>
+    </table>
+    <table name="song_notes" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_song" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_staff_type" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_style" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_8094e25921f449d49e4869b88e6" columns="id_song" ref-table="song" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_a9c2a12251c442bfb512b7836d2" columns="id_staff_type" ref-table="staff_type" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_d735d057c77b49e690397302674" columns="id_style" ref-table="style" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_8094e25921f449d49e4869b88e6" unique="false" columns="id_song"/>
+      <index name="FK_a9c2a12251c442bfb512b7836d2" unique="false" columns="id_staff_type"/>
+      <index name="FK_d735d057c77b49e690397302674" unique="false" columns="id_style"/>
+    </table>
+    <table name="song_text" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_song" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_6756f09500224eb9828aadfc668" columns="id_song" ref-table="song" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_6756f09500224eb9828aadfc668" unique="false" columns="id_song"/>
+    </table>
+    <table name="staff_type" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_a9c2a12251c442bfb512b7836d2" table="song_notes" schema="" catalog="virtuoso" columns="id_staff_type"/>
+      <index name="UK_0b39e8d0bc2d4c10a2cc9ec1feb" unique="true" columns="code"/>
+      <index name="UK_131dff259f384178b264b2030b9" unique="true" columns="code"/>
+      <index name="UK_1c5c9c5c829445619a4cacec74a" unique="true" columns="code"/>
+      <index name="UK_2045adba9c5e48a78f96d2289f8" unique="true" columns="code"/>
+      <index name="UK_2e4e3df62be8425b915b4b8773e" unique="true" columns="code"/>
+      <index name="UK_42b52f37be9c4010a07565ee2ec" unique="true" columns="code"/>
+      <index name="UK_4ab330f2ed0c47ffa2c1aa9aa0f" unique="true" columns="code"/>
+      <index name="UK_71ce24c4598946e1b4a966f00c0" unique="true" columns="code"/>
+      <index name="UK_8d9610b7c0314408b53671d7113" unique="true" columns="code"/>
+      <index name="UK_a1f40dca15ef4997870aa1f0803" unique="true" columns="code"/>
+      <index name="UK_a26168aff284458ab704779eae9" unique="true" columns="code"/>
+      <index name="UK_a9fdec48d2484801a9a82387d8f" unique="true" columns="code"/>
+      <index name="UK_b214a92e2bf843b59436e4db630" unique="true" columns="code"/>
+      <index name="UK_ba9f717ad4f34947b241772e196" unique="true" columns="code"/>
+      <index name="UK_bcda43a769194412a620d6cd854" unique="true" columns="code"/>
+      <index name="UK_e25da3f6035d48e48107f86e035" unique="true" columns="code"/>
+      <index name="UK_e7dd815b1d1c466bb68802d180e" unique="true" columns="code"/>
+    </table>
+    <table name="style" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_d735d057c77b49e690397302674" table="song_notes" schema="" catalog="virtuoso" columns="id_style"/>
+      <index name="UK_08549b9008fa4fd3a5e437fdbb7" unique="true" columns="code"/>
+      <index name="UK_41fa7fbc6f724bdd95c3d4aa8f6" unique="true" columns="code"/>
+      <index name="UK_4852a4586a8246ef917a0e5a863" unique="true" columns="code"/>
+      <index name="UK_58332fa22d21456ea811cbcc9d8" unique="true" columns="code"/>
+      <index name="UK_7cbf399ea9bf48b49763b27fa18" unique="true" columns="code"/>
+      <index name="UK_8fe1ccf8f4d646019f4ce6f1eb2" unique="true" columns="code"/>
+      <index name="UK_9147569c06df40a4b92fc8a48c5" unique="true" columns="code"/>
+      <index name="UK_9404cfd55cdc4e8cba7405313b2" unique="true" columns="code"/>
+      <index name="UK_9930d92b21764f4ebf8ede76f24" unique="true" columns="code"/>
+      <index name="UK_9981c9d2138e4a10bca7159decb" unique="true" columns="code"/>
+      <index name="UK_9c7edb7ba08c4c0591c41a79e15" unique="true" columns="code"/>
+      <index name="UK_9f9c2dda186c4d85bc0f374a652" unique="true" columns="code"/>
+      <index name="UK_aa3f4465806e49b5b61b7775422" unique="true" columns="code"/>
+      <index name="UK_abf8d6d46eb54489b839edcde73" unique="true" columns="code"/>
+      <index name="UK_af768c3eff4148f6be18dc325ba" unique="true" columns="code"/>
+      <index name="UK_ca52ff0de4874a339ec905c5bb5" unique="true" columns="code"/>
+      <index name="UK_e52b565bb6b54b01bf535d498cf" unique="true" columns="code"/>
+    </table>
+    <table name="user" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="first_name" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="gender" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="last_name" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12"/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="middle_name" sqlType="VARCHAR" precision="32" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_5b3f4e8e2c4c45daabd6c94fc16" table="access" schema="" catalog="virtuoso" columns="id_user"/>
+      <exported-key name="FK_19ba0557dd9c4dc2b6387272c5e" table="composer" schema="" catalog="virtuoso" columns="id_user"/>
+      <exported-key name="FK_99c9fd5557304c48a1d079fc0c2" table="email" schema="" catalog="virtuoso" columns="id_user"/>
+      <exported-key name="FK_94413227e226417ab7b1af91110" table="poet" schema="" catalog="virtuoso" columns="id_user"/>
+      <exported-key name="FK_c58e75c135904658819d9bdf804" table="user_roles" schema="" catalog="virtuoso" columns="id_user"/>
+    </table>
+    <table name="user_roles" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id_user" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_role" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <foreign-key name="FK_c58e75c135904658819d9bdf804" columns="id_user" ref-table="user" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_fd27ee1ab7434c159586a1e58a4" columns="id_role" ref-table="role" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="UK_05cde68911e04c9d8d49dd65fdc" unique="true" columns="id_role"/>
+      <index name="UK_1ddecf1c16cf433690acabffb93" unique="true" columns="id_role"/>
+      <index name="UK_31b0cb41132843789ec2bb6aedb" unique="true" columns="id_role"/>
+      <index name="UK_4302df9bb83847d4bd184f0f8fb" unique="true" columns="id_role"/>
+      <index name="UK_5e36c7b65537484b8dc904f0857" unique="true" columns="id_role"/>
+      <index name="UK_618ec9ddad474bb6a84f35ecbc0" unique="true" columns="id_role"/>
+      <index name="UK_623d17e75e154194924cbf75912" unique="true" columns="id_role"/>
+      <index name="UK_870a2eaeb7f94a2287316f39fbb" unique="true" columns="id_role"/>
+      <index name="UK_873c76a7fee045ec9ccec618bbe" unique="true" columns="id_role"/>
+      <index name="UK_89f83ea2d0954f5c97b4b4af579" unique="true" columns="id_role"/>
+      <index name="UK_91998577818f40b3b982d4016cf" unique="true" columns="id_role"/>
+      <index name="UK_98d481f6326c483daf9b5adb548" unique="true" columns="id_role"/>
+      <index name="UK_ad5140a01618421b8708fcf0d8c" unique="true" columns="id_role"/>
+      <index name="UK_c0c3f60c2ad2404aa7e99e9e14d" unique="true" columns="id_role"/>
+      <index name="UK_c589836acd44432a81bb8db0663" unique="true" columns="id_role"/>
+      <index name="UK_ed3d8bcd50364442a4c8c8d72d5" unique="true" columns="id_role"/>
+      <index name="UK_fe5753346f614cc5a59e0d3f3fc" unique="true" columns="id_role"/>
+      <index name="FK_c58e75c135904658819d9bdf804" unique="false" columns="id_user"/>
+      <index name="FK_fd27ee1ab7434c159586a1e58a4" unique="false" columns="id_role"/>
+    </table>
+    <table name="video" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="creation" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="file_name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="locale" sqlType="VARCHAR" precision="5" scale="0" nullable="false" jdbcType="12"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_song" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="id_video_type" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_0d1613c3f02046a6a07c8141292" columns="id_song" ref-table="song" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_afc478abaa8544e5a304e477602" columns="id_video_type" ref-table="video_type" ref-schema="" ref-catalog="virtuoso" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_0d1613c3f02046a6a07c8141292" unique="false" columns="id_song"/>
+      <index name="FK_afc478abaa8544e5a304e477602" unique="false" columns="id_video_type"/>
+    </table>
+    <table name="video_type" schema="" catalog="virtuoso" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="description" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="title" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_afc478abaa8544e5a304e477602" table="video" schema="" catalog="virtuoso" columns="id_video_type"/>
+      <index name="UK_1c466f8d73594838bffc667cdf4" unique="true" columns="code"/>
+      <index name="UK_4790ca5cef954bfd9613704890c" unique="true" columns="code"/>
+      <index name="UK_511c18d38c4a4f06a8695af59b9" unique="true" columns="code"/>
+      <index name="UK_6b07a2af29ec47f9af0171e5f55" unique="true" columns="code"/>
+      <index name="UK_6f2a134e1e63459c97d4b0736c0" unique="true" columns="code"/>
+      <index name="UK_7d3a7df2bd014ff4a8b05560a76" unique="true" columns="code"/>
+      <index name="UK_96468f47482348ae8406e6dd66c" unique="true" columns="code"/>
+      <index name="UK_97b44754f7f947609762f045bc4" unique="true" columns="code"/>
+      <index name="UK_a65df66385614c8eb19a8f29382" unique="true" columns="code"/>
+      <index name="UK_c4b2316f15f1497c827b6cfd455" unique="true" columns="code"/>
+      <index name="UK_cc4bd78389b64a97b3a47e0294f" unique="true" columns="code"/>
+      <index name="UK_cf42c620d0714e51a134b4b7f67" unique="true" columns="code"/>
+      <index name="UK_cf737577476c4eb5b08d209c3f9" unique="true" columns="code"/>
+      <index name="UK_dc6e0b60c8fb470a9dd6cdf0250" unique="true" columns="code"/>
+      <index name="UK_df45c790b9e74a90ba300e5bbf3" unique="true" columns="code"/>
+      <index name="UK_e85313297191487f9d1b69c8182" unique="true" columns="code"/>
+      <index name="UK_f126fb22bdad4fd7b5d727aa6c2" unique="true" columns="code"/>
+    </table>
+  </data-source>
+</component>

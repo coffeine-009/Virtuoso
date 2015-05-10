@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.ws.rs.DELETE;
 import java.util.List;
 
 /**
@@ -155,6 +156,7 @@ public class VideoTypeController {
      * @param id        ID of video type for delete
      * @param response  Used for set HTTP status
      */
+    @DELETE
     @RequestMapping( value = "/{ID}", method = RequestMethod.DELETE )
     @ResponseBody
     public void deleteAction(

@@ -7,9 +7,12 @@
 package com.coffeine.virtuoso.module.user.view.form;
 
 import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Form for create/update Composer
@@ -18,28 +21,75 @@ import java.util.Date;
  */
 public class ComposerForm {
 
+    /// *** Inner classes   *** ///
+    public class Data {
+
+        /// *** Properties  *** ///
+        /**
+         * Locale
+         */
+        private String locale;
+
+        /**
+         * First name of composer
+         */
+        @NotBlank
+        private String firstName;
+
+        /**
+         * Last name of composer
+         */
+        @NotBlank
+        private String lastName;
+
+        /**
+         * Father's name if exists
+         */
+        private String fatherName;
+
+
+        /// *** Methods     *** ///
+        //- SECTION :: GET -//
+        public String getLocale() {
+            return locale;
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public String getFatherName() {
+            return fatherName;
+        }
+
+
+        //- SECTION :: SET -//
+        public void setLocale( String locale ) {
+            this.locale = locale;
+        }
+
+        public void setFirstName( String firstName ) {
+            this.firstName = firstName;
+        }
+
+        public void setLastName( String lastName ) {
+            this.lastName = lastName;
+        }
+
+        public void setFatherName( String fatherName ) {
+            this.fatherName = fatherName;
+        }
+    }
+
     /// *** Properties  *** ///
     /**
-     * ID of user if composer wont to manage own songs
+     * ID of user if composer want to manage own songs
      */
     protected Long userId;
-
-    /**
-     * First name of composer
-     */
-    @NotBlank
-    protected String firstName;
-
-    /**
-     * Last name of composer
-     */
-    @NotBlank
-    protected String lastName;
-
-    /**
-     * Father's name if exists
-     */
-    protected String fatherName;
 
     /**
      * Gender: true - man, false - woman
@@ -51,13 +101,8 @@ public class ComposerForm {
      * Code of country(Ex. UA, US, ... .)
      */
     @NotBlank
-    protected String country;
-
-    /**
-     * Code of language(Ex. uk, en, ... .)
-     */
-    @NotBlank
-    protected String language;
+    @Length( min = 5, max = 5 )
+    protected String locale;
 
     /**
      * Birthday date
@@ -70,6 +115,11 @@ public class ComposerForm {
      */
     protected Date deathDate;
 
+    /**
+     * Localized data
+     */
+    protected List<Data> data = new ArrayList<>();
+
 
     /// *** Methods     *** ///
     //- SECTION :: GET -//
@@ -77,32 +127,12 @@ public class ComposerForm {
         return userId;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
-
     public Boolean getGender() {
         return gender;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
     public String getLocale() {
-        return language + "-" + country;
+        return this.locale;
     }
 
     public Date getBirthday() {
@@ -113,34 +143,21 @@ public class ComposerForm {
         return deathDate;
     }
 
+    public List < Data > getData() {
+        return data;
+    }
 
     //- SECTION :: SET -//
     public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFatherName(String fatherName) {
-        this.fatherName = fatherName;
-    }
-
     public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLocale( String locale ) {
+        this.locale = locale;
     }
 
     public void setBirthday(Date birthday) {
@@ -149,5 +166,9 @@ public class ComposerForm {
 
     public void setDeathDate(Date deathDate) {
         this.deathDate = deathDate;
+    }
+
+    public void setData( List < Data > data ) {
+        this.data = data;
     }
 }
