@@ -1,6 +1,7 @@
 # Virtuoso
 
 Social network for virtuoso.
+Beginers can easily learn favorite songs.
 
 ## Getting Started
 ### On the server
