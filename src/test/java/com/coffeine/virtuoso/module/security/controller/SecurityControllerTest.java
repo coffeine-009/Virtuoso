@@ -12,6 +12,7 @@ package com.coffeine.virtuoso.module.security.controller;
 import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
@@ -39,6 +40,7 @@ public class SecurityControllerTest extends AbstractControllerTest {
     }
 
     //- SECTION :: TEST -//
+    @Ignore
     @Test
     public void testGetAccessToken() throws Exception {
 
