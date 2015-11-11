@@ -20,18 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -100,6 +89,16 @@ public class User implements Serializable {
     )
     protected List < Email > emails;
 
+    @JsonIgnore
+    @Valid
+    @OneToOne
+    protected Composer composer;
+
+    @JsonIgnore
+    @Valid
+    @OneToOne
+    protected Poet poet;
+
     @NotNull
     @NotEmpty
     @Length( max = 16 )
@@ -146,7 +145,6 @@ public class User implements Serializable {
      * Constructor for create user
      *
      * @param roles         List of roles
-     * @param access        List of permissions
      * @param email         Email
      * @param firstName     First name
      * @param lastName      Last name
@@ -270,6 +268,24 @@ public class User implements Serializable {
     }
 
     /**
+     * Get composer's data if this user is composer
+     *
+     * @return Composer
+     */
+    public Composer getComposer() {
+        return composer;
+    }
+
+    /**
+     * Get poet's data if this user is poet
+     *
+     * @return Poet
+     */
+    public Poet getPoet() {
+        return poet;
+    }
+
+    /**
      * Get first name
      *
      * @return String
@@ -359,6 +375,24 @@ public class User implements Serializable {
      */
     public void setEmails( List < Email > emails ) {
         this.emails = emails;
+    }
+
+    /**
+     * Set composer's data.
+     *
+     * @param composer
+     */
+    public void setComposer( Composer composer ) {
+        this.composer = composer;
+    }
+
+    /**
+     * Set poet's data
+     *
+     * @param poet
+     */
+    public void setPoet( Poet poet ) {
+        this.poet = poet;
     }
 
     /**

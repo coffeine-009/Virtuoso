@@ -39,7 +39,14 @@ import java.util.List;
 @SuppressWarnings( "serial" )
 @Entity
 @Table(
-    name = "composer"
+    name = "composer",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {
+                "id_user"
+            }
+        )
+    }
 )
 public class Composer implements Serializable {
 
@@ -51,7 +58,7 @@ public class Composer implements Serializable {
 
     @JsonIgnore
     @Valid
-    @ManyToOne
+    @OneToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 

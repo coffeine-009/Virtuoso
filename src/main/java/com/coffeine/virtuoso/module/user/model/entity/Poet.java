@@ -18,6 +18,7 @@ package com.coffeine.virtuoso.module.user.model.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -37,7 +38,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table(
-    name = "poet"
+    name = "poet",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {
+                "id_user"
+            }
+        )
+    }
 )
 public class Poet implements Serializable {
 
@@ -49,7 +57,7 @@ public class Poet implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne
+    @OneToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 
@@ -74,10 +82,10 @@ public class Poet implements Serializable {
     protected Boolean gender;
 
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
-    protected Calendar birthday;
+    protected Date birthday;
 
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
-    protected Calendar deathday;
+    protected Date deathday;
 
     @Column(
         name = "creation",
@@ -105,8 +113,8 @@ public class Poet implements Serializable {
     public Poet(
         String locale,
         Boolean gender,
-        Calendar birthday,
-        Calendar deathday
+        Date birthday,
+        Date deathday
     ) {
         //- Initializaation -//
         this.locale = locale;
@@ -184,7 +192,7 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public Calendar getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
@@ -193,7 +201,7 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public Calendar getDeathday() {
+    public Date getDeathday() {
         return deathday;
     }
 
@@ -240,7 +248,7 @@ public class Poet implements Serializable {
      *
      * @param birthday
      */
-    public void setBirthday( Calendar birthday ) {
+    public void setBirthday( Date birthday ) {
         this.birthday = birthday;
     }
 
@@ -249,7 +257,7 @@ public class Poet implements Serializable {
      *
      * @param deathday
      */
-    public void setDeathday( Calendar deathday ) {
+    public void setDeathday( Date deathday ) {
         this.deathday = deathday;
     }
 

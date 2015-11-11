@@ -23,6 +23,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,9 +65,9 @@ public class RegistrationForm {
     @Size( max = 5 )
     protected String locale;
 
-    protected Calendar birthday;
+    protected Date birthday;
 
-    protected Calendar deathday;
+    protected Date deathday;
 
 
     /// *** Methods     *** ///
@@ -133,6 +134,24 @@ public class RegistrationForm {
         return locale;
     }
 
+    /**
+     * Get birthday.
+     *
+     * @return Date
+     */
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * Get deadday
+     *
+     * @return Date
+     */
+    public Date getDeathday() {
+        return deathday;
+    }
+
 
     //- SECTION :: SET -//
     /**
@@ -196,5 +215,23 @@ public class RegistrationForm {
      */
     public void setLocale( String locale ) {
         this.locale = locale;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param birthday
+     */
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    /**
+     * Set deadday
+     *
+     * @param deathday
+     */
+    public void setDeathday(Date deathday) {
+        this.deathday = deathday;
     }
 }
