@@ -48,7 +48,7 @@ public class SecurityController {
     private ShaPasswordEncoder passwordEncoder;
 
 
-    //- SETION :: SERVICES -//
+    //- SECTION :: SERVICES -//
     @Autowired
     private RoleService roleService;
 
@@ -59,11 +59,11 @@ public class SecurityController {
     /// *** Methods     *** ///
     //- SECTION :: ACTIONS -//
     /**
-     * Registration new user
+     * Registration a new user.
      *
-     * @param registrationForm
+     * @param registrationForm  Data from registration form for register a new user.
      *
-     * @return User
+     * @return User Created user.
      */
     @RequestMapping( value = "/signup", method = RequestMethod.POST )
     @ResponseBody

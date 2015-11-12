@@ -22,7 +22,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class RegistrationForm {
 
     @NotNull
     @NotEmpty
-    @InEnum( enumClass = Roles.class )
+    @InEnum( enumClass = Roles.class )//TODO: add exists validator
     protected List< String > roles;
 
     @NotNull
