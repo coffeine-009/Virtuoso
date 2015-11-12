@@ -22,7 +22,7 @@ import java.util.List;
 public class ComposerForm {
 
     /// *** Inner classes   *** ///
-    public class Data {
+    public static class Data {
 
         /// *** Properties  *** ///
         /**

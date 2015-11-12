@@ -31,8 +31,8 @@ import java.util.Map;
 public class SecurityFilter extends UsernamePasswordAuthenticationFilter {
 
     /// *** Constants   *** ///
-    protected final String USERNAME = "username";
-    protected final String PASSWORD = "password";
+    protected static final String USERNAME = "username";
+    protected static final String PASSWORD = "password";
 
     /// *** Properties  *** ///
     /**
