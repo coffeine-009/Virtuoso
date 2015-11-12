@@ -23,7 +23,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,10 +61,10 @@ public class Composer implements Serializable {
     @JoinColumn( name = "id_user" )
     protected User user;
 
-    @NotNull
-    @NotEmpty
-    @Size( min = 1 )
-    @Valid
+//    @NotNull
+//    @NotEmpty
+//    @Size( min = 1 )
+//    @Valid
     @OneToMany(
         mappedBy = "composer",
         cascade = CascadeType.ALL,

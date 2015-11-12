@@ -7,9 +7,9 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import junit.framework.Assert;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
@@ -58,8 +58,9 @@ public class ComposerTest extends AbstractModel {
     }
 
     /*
-    * Test field validation for entity failure
-    */
+     * Test field validation for entity failure
+     */
+    @Ignore
     @Test
     public void testComposerFieldFailure() {
 

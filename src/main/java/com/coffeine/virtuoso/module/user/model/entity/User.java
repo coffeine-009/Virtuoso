@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static org.springframework.util.Assert.notNull;
+
 /**
  * Class for reflect table from persistence layout
  *
@@ -47,19 +49,29 @@ public class User implements Serializable {
 
     @NotNull
     @Valid
-    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
+    @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
-        name = "user_roles",
+        name = "user_roles", 
+        uniqueConstraints = {
+            @UniqueConstraint(
+                columnNames = {
+                    "id_user", 
+                    "id_role"
+                }
+            )
+        }, 
         joinColumns = {
             @JoinColumn(
                 name = "id_user",
+                unique = false, 
                 nullable = false,
                 updatable = false
             )
         },
         inverseJoinColumns = {
             @JoinColumn(
-                name = "id_role",
+                name = "id_role", 
+                unique = false, 
                 nullable = false,
                 updatable = false
             )
@@ -91,12 +103,22 @@ public class User implements Serializable {
 
     @JsonIgnore
     @Valid
-    @OneToOne
+    @OneToOne(
+        fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
+    @PrimaryKeyJoinColumn
     protected Composer composer;
 
     @JsonIgnore
     @Valid
-    @OneToOne
+    @OneToOne( 
+        fetch = FetchType.EAGER, 
+        cascade = CascadeType.ALL, 
+        orphanRemoval = false
+    )
+    @PrimaryKeyJoinColumn
     protected Poet poet;
 
     @NotNull
@@ -201,6 +223,39 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
+        this.locale = locale;
+    }
+
+    /**
+     * Constructor for create user
+     *
+     * @param roles         List of roles
+     * @param access        List of permissions
+     * @param email         Email
+     * @param firstName     First name
+     * @param lastName      Last name
+     * @param gender        Gender
+     * @param locale        Default locale
+     */
+    public User(
+        List < Role > roles,
+        Access access,
+        Email email,
+        String firstName,
+        String lastName,
+        Boolean gender,
+        String locale
+    ) {
+        //- Call default constructor -//
+        this();
+
+        //- Initialization -//
+        this.roles = roles;
+        this.addAccess( access );
+        this.addEmail(email);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
         this.locale = locale;
     }
 
@@ -383,7 +438,14 @@ public class User implements Serializable {
      * @param composer
      */
     public void setComposer( Composer composer ) {
+        //- Check params -//
+        notNull( composer );
+
+        //- Set composer -//
         this.composer = composer;
+
+        //- Set link -//
+        this.composer.setUser( this );
     }
 
     /**
@@ -392,7 +454,14 @@ public class User implements Serializable {
      * @param poet
      */
     public void setPoet( Poet poet ) {
+        //- Check params -//
+        notNull( poet );
+
+        //- Set poet -//
         this.poet = poet;
+
+        //- Set link -//
+        this.poet.setUser( this );
     }
 
     /**

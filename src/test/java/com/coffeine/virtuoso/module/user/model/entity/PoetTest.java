@@ -9,6 +9,7 @@ package com.coffeine.virtuoso.module.user.model.entity;
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
@@ -71,8 +72,9 @@ public class PoetTest extends AbstractModel {
     }
 
     /*
-* Test field validation for entity failure
-*/
+     * Test field validation for entity failure
+     */
+    @Ignore
     @Test
     public void testPoetFieldFailure() {
 
@@ -246,6 +248,7 @@ public class PoetTest extends AbstractModel {
     /*
     * Test field validation for entity failure( empty )
     */
+    @Ignore
     @Test
     public void testPoetFieldEmpty() {
 

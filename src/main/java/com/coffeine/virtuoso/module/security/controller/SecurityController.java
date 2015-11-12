@@ -2,7 +2,7 @@
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
-     * @copyright 2014 (c), by Coffeine
+     * @copyright 2014 (c), by TheCoffeine Inc
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
@@ -20,8 +20,8 @@ import com.coffeine.virtuoso.module.security.model.entity.Roles;
 import com.coffeine.virtuoso.module.user.model.entity.*;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +33,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
+ * Security controller.
+ * Registration, forgot password.
  *
  * @version 1.0
  */
@@ -41,7 +43,7 @@ import java.util.List;
 public class SecurityController {
 
     /// *** Properties  *** ///
-    //- SECTION :: CRYPTOGRAPHIA -//
+    //- SECTION :: CRYPTOGRAPHY -//
     @Autowired
     private ShaPasswordEncoder passwordEncoder;
 
@@ -60,6 +62,7 @@ public class SecurityController {
      * Registration new user
      *
      * @param registrationForm
+     *
      * @return User
      */
     @RequestMapping( value = "/signup", method = RequestMethod.POST )
@@ -76,29 +79,28 @@ public class SecurityController {
             List < String > roles = registrationForm.getRoles();
 
             //- Create new user -//
-            User newUser = new User();
+            User newUser = new User(
                 //- Set roles -//
-                newUser.setRoles( this.roleService.findByCodes( roles ) );
-                //- Add e-mail -//
-                newUser.addEmail( new Email( registrationForm.getUsername() ) );
+                this.roleService.findByCodes( roles ), 
                 //- Add access params -//
-                newUser.addAccess(
-                    new Access(
-                        this.passwordEncoder.encodePassword(
-                            registrationForm.getPassword(),
-                            null
-                        )
+                new Access(
+                    this.passwordEncoder.encodePassword(
+                        registrationForm.getPassword(),
+                        null
                     )
-                );
+                ), 
+                //- Add e-mail -//
+                new Email( registrationForm.getUsername() ), 
                 //- User info -//
-                newUser.setFirstName( registrationForm.getFirstName() );
-                newUser.setLastName( registrationForm.getLastName() );
-                newUser.setGender( registrationForm.getGender() );
+                registrationForm.getFirstName(), 
+                registrationForm.getLastName(), 
+                registrationForm.getGender(), 
                 //- User's locale -//
-                newUser.setLocale( registrationForm.getLocale() );
+                registrationForm.getLocale()
+            );
 
                 //- Create a new composer -//
-                if( roles.contains( Roles.COMPOSER ) ) {//FIXME
+                if( roles.contains( Roles.COMPOSER.name() ) ) {
                     //- Linking composer with user -//
                     newUser.setComposer(
                         new Composer(
@@ -111,7 +113,7 @@ public class SecurityController {
                 }
 
                 //- Create a new poet -//
-                if ( roles.contains( Roles.POET ) ) {
+                if ( roles.contains( Roles.POET.name() ) ) {
                     //- Linking poet with user -//
                     newUser.setPoet(
                         new Poet(
@@ -128,7 +130,7 @@ public class SecurityController {
 
             //- Persist -//
             return this.userService.create( newUser );
-        } catch ( ConstraintViolationException e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Cannot save this data -//
             response.setStatus( HttpServletResponse.SC_CONFLICT );
 
