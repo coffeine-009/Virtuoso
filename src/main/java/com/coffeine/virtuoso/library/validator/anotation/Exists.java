@@ -1,18 +1,11 @@
-/// *** Validator :: Anotation :: InEnum    *** *** *** *** *** *** *** *** ///
-
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-08-12 15:26:32 :: 2014-08-12 20:00:00
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ * @date 11/13/15 11:04 PM
+ */
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.library.validator.anotation;
 
 import com.coffeine.virtuoso.library.validator.anotation.Implementation.InEnumImpl;
@@ -34,7 +27,7 @@ import java.lang.annotation.*;
 @Target( ElementType.FIELD )
 @NotNull( message = "Value can not be null" )
 @ReportAsSingleViolation
-public @interface InEnum {
+public @interface Exists {
 
     Class < ? extends Enum < ? > > enumClass();
 
@@ -42,5 +35,5 @@ public @interface InEnum {
 
     Class < ? >[] groups() default {};
 
-    Class < ? extends Payload >[] payload() default {};
+    Class < ? extends Payload>[] payload() default {};
 }

@@ -95,6 +95,24 @@ public class PoetLocale implements Serializable {
      *
      * @param firstName     First name of poet
      * @param lastName      Last name of poet
+     * @param locale        Default locale for poet
+     */
+    public PoetLocale(
+        String firstName,
+        String lastName,
+        String locale
+    ) {
+        //- Initialization -//
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.locale = locale;
+    }
+
+    /**
+     * Create composer locale
+     *
+     * @param firstName     First name of poet
+     * @param lastName      Last name of poet
      * @param middleName    Father's name of poet
      * @param locale        Default locale for poet
      */

@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.util.Assert.notNull;
+
 /**
  * Class for reflect table Poet from persistence layout
  *
@@ -114,13 +116,22 @@ public class Poet implements Serializable {
         String locale,
         Boolean gender,
         Date birthday,
-        Date deathday
+        Date deathday,
+        List < PoetLocale > data
     ) {
+        //- Check params -//
+        notNull( data );
+
         //- Initializaation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
         this.deathday = deathday;
+        this.data = data;
+
+        for ( PoetLocale poetLocale : this.data ) {
+            poetLocale.setPoet( this );
+        }
     }
 
     /**

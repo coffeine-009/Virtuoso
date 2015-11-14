@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,14 +45,23 @@ public class SecurityController {
 
     /// *** Properties  *** ///
     //- SECTION :: CRYPTOGRAPHY -//
+    /**
+     * Encoder for create hash of password.
+     */
     @Autowired
     private ShaPasswordEncoder passwordEncoder;
 
 
     //- SECTION :: SERVICES -//
+    /**
+     * Service for work with roles.
+     */
     @Autowired
     private RoleService roleService;
 
+    /**
+     * Servce for work with users.
+     */
     @Autowired
     private UserService userService;
 
@@ -69,7 +79,7 @@ public class SecurityController {
     @ResponseBody
     public User registrationAction(
         @RequestBody
-        @Valid
+        @Valid final
         RegistrationForm registrationForm,
 
         HttpServletResponse response
@@ -107,7 +117,16 @@ public class SecurityController {
                             newUser.getLocale(),
                             newUser.getGender(),
                             registrationForm.getBirthday(),
-                            registrationForm.getDeathday()
+                            registrationForm.getDeathday(),
+                            new ArrayList < ComposerLocale >() {{
+                                add(
+                                    new ComposerLocale(
+                                        registrationForm.getFirstName(),
+                                        registrationForm.getLastName(),
+                                        registrationForm.getLocale()
+                                    )
+                                );
+                            }}
                         )
                     );
                 }
@@ -120,7 +139,16 @@ public class SecurityController {
                             newUser.getLocale(),
                             newUser.getGender(),
                             registrationForm.getBirthday(),
-                            registrationForm.getDeathday()
+                            registrationForm.getDeathday(),
+                            new ArrayList < PoetLocale >() {{
+                                add(
+                                    new PoetLocale(
+                                        registrationForm.getFirstName(),
+                                        registrationForm.getLastName(),
+                                        registrationForm.getLocale()
+                                    )
+                                );
+                            }}
                         )
                     );
                 }
@@ -141,9 +169,10 @@ public class SecurityController {
     }
 
     /**
-     * Forgot password
+     * Forgot password.
      *
      * @param model
+     *
      * @return Boolean
      */
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
@@ -152,6 +181,6 @@ public class SecurityController {
     public Boolean forgotPasswordAction(
         Model model
     ) {
-        return false;
+        return false;//TODO: implement
     }
 }

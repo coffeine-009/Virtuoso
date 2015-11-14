@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.util.Assert.notNull;
+
 /**
  * Class for reflect table Composer from persistence layout
  *
@@ -147,12 +149,19 @@ public class Composer implements Serializable {
         Date deathDate,
         List < ComposerLocale > data
     ) {
+        //- Check params -//
+        notNull( data );
+
         //- Initialisation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
         this.deathDate = deathDate;
         this.data = data;
+
+        for ( ComposerLocale composerLocale : this.data ) {
+            composerLocale.setComposer( this );
+        }
     }
 
     /**
