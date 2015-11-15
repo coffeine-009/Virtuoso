@@ -22,6 +22,7 @@ import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,13 @@ import java.util.List;
 public class UserAuthenticationProvider implements AuthenticationProvider {
 
     /// *** Properties  *** ///
+    //- SECTION :: CRYPTOGRAPHY -//
+    /**
+     * Encoder for create hash of password.
+     */
+    @Autowired
+    private ShaPasswordEncoder passwordEncoder;
+
     @Autowired
     UserService userService;
 
@@ -57,7 +65,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         //- Search user -//
         User user = this.userService.findByUsernameAndPassword(
             authentication.getPrincipal().toString(),
-            authentication.getCredentials().toString()
+            this.passwordEncoder.encodePassword(
+                authentication.getCredentials().toString(),
+                null
+            )
         );
         if ( user != null ) {
             //- Set authorities -//

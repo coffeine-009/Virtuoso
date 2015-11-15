@@ -33,6 +33,8 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.util.Assert.isTrue;
+
 /**
  * Security controller.
  * Registration, forgot password.
@@ -60,7 +62,7 @@ public class SecurityController {
     private RoleService roleService;
 
     /**
-     * Servce for work with users.
+     * Service for work with users.
      */
     @Autowired
     private UserService userService;
@@ -86,12 +88,16 @@ public class SecurityController {
     ) {
         try {
             //- Recognise roles -//
-            List < String > roles = registrationForm.getRoles();
+            List < String > requestRoles = registrationForm.getRoles();
+            List < Role > roles = this.roleService.findByCodes( requestRoles );
+
+            //- Check if roles exists in persistence layout -//
+            isTrue( requestRoles.size() == roles.size() );
 
             //- Create new user -//
             User newUser = new User(
                 //- Set roles -//
-                this.roleService.findByCodes( roles ), 
+                roles,
                 //- Add access params -//
                 new Access(
                     this.passwordEncoder.encodePassword(
@@ -110,7 +116,7 @@ public class SecurityController {
             );
 
                 //- Create a new composer -//
-                if( roles.contains( Roles.COMPOSER.name() ) ) {
+                if( requestRoles.contains( Roles.COMPOSER.name() ) ) {
                     //- Linking composer with user -//
                     newUser.setComposer(
                         new Composer(
@@ -132,7 +138,7 @@ public class SecurityController {
                 }
 
                 //- Create a new poet -//
-                if ( roles.contains( Roles.POET.name() ) ) {
+                if ( requestRoles.contains( Roles.POET.name() ) ) {
                     //- Linking poet with user -//
                     newUser.setPoet(
                         new Poet(
@@ -158,7 +164,7 @@ public class SecurityController {
 
             //- Persist -//
             return this.userService.create( newUser );
-        } catch ( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException | IllegalArgumentException e ) {
             //- Cannot save this data -//
             response.setStatus( HttpServletResponse.SC_CONFLICT );
 
