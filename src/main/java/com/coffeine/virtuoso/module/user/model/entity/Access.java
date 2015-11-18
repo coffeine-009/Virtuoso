@@ -23,8 +23,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
+ * Entity for store access information.
+ *
  * @version 1.0
  */
 @Entity
@@ -35,7 +38,7 @@ public class Access implements Serializable {
 
     /// *** Properties  *** ///
     /**
-     * Unique identificator of access for user
+     * Unique id of access for user
      */
     @Id
     @GeneratedValue
@@ -52,7 +55,7 @@ public class Access implements Serializable {
     protected User user;
 
     /**
-     * Secret key for get access
+     * Hash of secret password for get access
      */
     @NotNull
     @NotEmpty
@@ -63,29 +66,34 @@ public class Access implements Serializable {
     /**
      * Date and time of last modification
      */
-    @Column( name = "modification" )
+    @Column(
+        name = "modification",
+        columnDefinition = "TIMESTAMP NULL"
+    )
     protected Timestamp modification;
 
     /**
      * Date and time of create this access
      */
-    @Column( name = "creation" )
+    @Column(
+        name = "creation",
+        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+    )
     protected Timestamp creation;
 
 
     /// *** Methods     *** ///
-
     /**
      * Default constructor
      */
     public Access() {
-
+        // Initialization
     }
 
     /**
      * Constructor for create access
      *
-     * @param password
+     * @param password    Hash of password
      */
     public Access( String password ) {
         //- Initialization -//
@@ -95,8 +103,8 @@ public class Access implements Serializable {
     /**
      * Constructor for create access
      *
-     * @param user
-     * @param password
+     * @param user        User, owner of access
+     * @param password    Hash of password
      */
     public Access(
         User user,
@@ -183,5 +191,14 @@ public class Access implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    //- SECTION :: HELPER -//
+    /**
+     * Update modification time before save.
+     */
+    @PreUpdate
+    protected void onUpdate() {
+        this.modification = new Timestamp( new Date().getTime() );
     }
 }
