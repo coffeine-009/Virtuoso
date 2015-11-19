@@ -15,8 +15,8 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.controller;
 
-import com.coffeine.virtuoso.module.security.Form.RegistrationForm;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
+import com.coffeine.virtuoso.module.security.view.form.RegistrationForm;
 import com.coffeine.virtuoso.module.user.model.entity.*;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;

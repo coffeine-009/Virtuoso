@@ -1,19 +1,12 @@
-/// *** Security :: Form :: RegistrationForm    *** *** *** *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 11/18/15 10:36 PM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-07-25 15:26:32 :: 2014-07-28 16:20:03
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.security.Form;
+package com.coffeine.virtuoso.module.security.view.form;
 
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
@@ -64,6 +57,7 @@ public class RegistrationForm {
     @Size( max = 5 )
     protected String locale;
 
+    @NotNull
     protected Date birthday;
 
     protected Date deathday;
