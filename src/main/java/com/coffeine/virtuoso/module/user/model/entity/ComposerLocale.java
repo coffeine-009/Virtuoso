@@ -97,6 +97,24 @@ public class ComposerLocale implements Serializable {
      *
      * @param firstName
      * @param lastName
+     * @param locale
+     */
+    public ComposerLocale(
+            String firstName,
+            String lastName,
+            String locale
+    ) {
+        //- Initialization -//
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.locale = locale;
+    }
+
+    /**
+     * Create composer locale
+     *
+     * @param firstName
+     * @param lastName
      * @param middleName
      * @param locale 
      */

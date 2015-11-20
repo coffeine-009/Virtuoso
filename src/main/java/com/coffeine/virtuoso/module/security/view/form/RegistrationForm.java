@@ -1,19 +1,12 @@
-/// *** Security :: Form :: RegistrationForm    *** *** *** *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 11/18/15 10:36 PM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-07-25 15:26:32 :: 2014-07-28 16:20:03
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.security.Form;
+package com.coffeine.virtuoso.module.security.view.form;
 
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
@@ -22,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,7 +49,7 @@ public class RegistrationForm {
 
     @NotNull
     @NotEmpty
-    @InEnum( enumClass = Roles.class )
+    @InEnum( enumClass = Roles.class )//TODO: add exists validator
     protected List< String > roles;
 
     @NotNull
@@ -64,9 +57,10 @@ public class RegistrationForm {
     @Size( max = 5 )
     protected String locale;
 
-    protected Calendar birthday;
+    @NotNull
+    protected Date birthday;
 
-    protected Calendar deathday;
+    protected Date deathday;
 
 
     /// *** Methods     *** ///
@@ -133,6 +127,24 @@ public class RegistrationForm {
         return locale;
     }
 
+    /**
+     * Get birthday.
+     *
+     * @return Date
+     */
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * Get deadday
+     *
+     * @return Date
+     */
+    public Date getDeathday() {
+        return deathday;
+    }
+
 
     //- SECTION :: SET -//
     /**
@@ -196,5 +208,23 @@ public class RegistrationForm {
      */
     public void setLocale( String locale ) {
         this.locale = locale;
+    }
+
+    /**
+     * Set birthday
+     *
+     * @param birthday
+     */
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    /**
+     * Set deadday
+     *
+     * @param deathday
+     */
+    public void setDeathday(Date deathday) {
+        this.deathday = deathday;
     }
 }

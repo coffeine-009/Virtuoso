@@ -23,12 +23,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Class for reflect table Composer from persistence layout
@@ -39,7 +40,14 @@ import java.util.List;
 @SuppressWarnings( "serial" )
 @Entity
 @Table(
-    name = "composer"
+    name = "composer",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {
+                "id_user"
+            }
+        )
+    }
 )
 public class Composer implements Serializable {
 
@@ -51,14 +59,14 @@ public class Composer implements Serializable {
 
     @JsonIgnore
     @Valid
-    @ManyToOne
+    @OneToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 
-    @NotNull
-    @NotEmpty
-    @Size( min = 1 )
-    @Valid
+//    @NotNull
+//    @NotEmpty
+//    @Size( min = 1 )
+//    @Valid
     @OneToMany(
         mappedBy = "composer",
         cascade = CascadeType.ALL,
@@ -141,12 +149,19 @@ public class Composer implements Serializable {
         Date deathDate,
         List < ComposerLocale > data
     ) {
+        //- Check params -//
+        notNull( data );
+
         //- Initialisation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
         this.deathDate = deathDate;
         this.data = data;
+
+        for ( ComposerLocale composerLocale : this.data ) {
+            composerLocale.setComposer( this );
+        }
     }
 
     /**

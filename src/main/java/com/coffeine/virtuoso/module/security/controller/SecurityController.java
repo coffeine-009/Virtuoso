@@ -2,7 +2,7 @@
 
     /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
      *                                                                  *
-     * @copyright 2014 (c), by Coffeine
+     * @copyright 2014 (c), by TheCoffeine Inc
      *
      * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
      *
@@ -15,28 +15,29 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.controller;
 
-import com.coffeine.virtuoso.module.security.Form.RegistrationForm;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
-import com.coffeine.virtuoso.module.user.model.entity.Access;
-import com.coffeine.virtuoso.module.user.model.entity.Email;
-import com.coffeine.virtuoso.module.user.model.entity.User;
+import com.coffeine.virtuoso.module.security.view.form.RegistrationForm;
+import com.coffeine.virtuoso.module.user.model.entity.*;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.util.Assert.isTrue;
+
 /**
+ * Security controller.
+ * Registration, forgot password.
  *
  * @version 1.0
  */
@@ -45,100 +46,139 @@ import java.util.List;
 public class SecurityController {
 
     /// *** Properties  *** ///
-    //- SECTION :: CRYPTOGRAPHIA -//
+    //- SECTION :: CRYPTOGRAPHY -//
+    /**
+     * Encoder for create hash of password.
+     */
     @Autowired
     private ShaPasswordEncoder passwordEncoder;
 
 
-    //- SETION :: SERVICES -//
+    //- SECTION :: SERVICES -//
+    /**
+     * Service for work with roles.
+     */
     @Autowired
     private RoleService roleService;
 
+    /**
+     * Service for work with users.
+     */
     @Autowired
     private UserService userService;
-
 
 
     /// *** Methods     *** ///
     //- SECTION :: ACTIONS -//
     /**
-     * Registration new user
+     * Registration a new user.
      *
-     * @param registrationForm
-     * @return User
+     * @param registrationForm  Data from registration form for register a new user.
+     *
+     * @return User Created user.
      */
     @RequestMapping( value = "/signup", method = RequestMethod.POST )
-    @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
     public User registrationAction(
         @RequestBody
-        @Valid
-        RegistrationForm registrationForm
-    ) {
-        //- Recognise roles -//
-        List < String > roles = registrationForm.getRoles();
+        @Valid final
+        RegistrationForm registrationForm,
 
-        //- Create new user -//
-        User newUser = new User();
-            //- Set roles -//
-            newUser.setRoles(
-                this.roleService.findByCodes( roles )
-            );
-            //- Add e-mail -//
-            newUser.addEmail(
-                new Email(
-                    registrationForm.getUsername()
-                )
-            );
-            //- Add access params -//
-            newUser.addAccess(
+        HttpServletResponse response
+    ) {
+        try {
+            //- Recognise roles -//
+            List < String > requestRoles = registrationForm.getRoles();
+            List < Role > roles = this.roleService.findByCodes( requestRoles );
+
+            //- Check if roles exists in persistence layout -//
+            isTrue( requestRoles.size() == roles.size() );
+
+            //- Create new user -//
+            User newUser = new User(
+                //- Set roles -//
+                roles,
+                //- Add access params -//
                 new Access(
                     this.passwordEncoder.encodePassword(
                         registrationForm.getPassword(),
                         null
                     )
-                )
+                ), 
+                //- Add e-mail -//
+                new Email( registrationForm.getUsername() ), 
+                //- User info -//
+                registrationForm.getFirstName(), 
+                registrationForm.getLastName(), 
+                registrationForm.getGender(), 
+                //- User's locale -//
+                registrationForm.getLocale()
             );
-            //- User info -//
-            newUser.setFirstName(registrationForm.getFirstName());
-            newUser.setLastName(registrationForm.getLastName());
-            newUser.setGender( registrationForm.getGender() );
-            //- User's locale -//
-            newUser.setLocale( registrationForm.getLocale() );
 
-            //- Create a new composer -//
-            if( roles.contains( Roles.COMPOSER ) ) {
-                //- Linking composer with user -//
-//                newUser.addComposer(
-//                    new Composer(
-//                        newUser.getLocale(),
-//                        newUser.getGender(),
-//                        newUser.getCreation(),//TODO
-//                        newUser.getCreation()
-//                    )
-//                );
-            }
+                //- Create a new composer -//
+                if( requestRoles.contains( Roles.COMPOSER.name() ) ) {
+                    //- Linking composer with user -//
+                    newUser.setComposer(
+                        new Composer(
+                            newUser.getLocale(),
+                            newUser.getGender(),
+                            registrationForm.getBirthday(),
+                            registrationForm.getDeathday(),
+                            new ArrayList < ComposerLocale >() {{
+                                add(
+                                    new ComposerLocale(
+                                        registrationForm.getFirstName(),
+                                        registrationForm.getLastName(),
+                                        registrationForm.getLocale()
+                                    )
+                                );
+                            }}
+                        )
+                    );
+                }
 
-            //- Create a new poet -//
-            if ( roles.contains( Roles.POET ) ) {
-                //- Linking poet with user -//
-//                newUser.addPoet(
-//                    new Poet(
-//                        newUser.getLocale(),
-//                        newUser.getGender(),
-//                        newUser.getCreation(),//TODO
-//                        newUser.getCreation()
-//                    )
-//                );
-            }
+                //- Create a new poet -//
+                if ( requestRoles.contains( Roles.POET.name() ) ) {
+                    //- Linking poet with user -//
+                    newUser.setPoet(
+                        new Poet(
+                            newUser.getLocale(),
+                            newUser.getGender(),
+                            registrationForm.getBirthday(),
+                            registrationForm.getDeathday(),
+                            new ArrayList < PoetLocale >() {{
+                                add(
+                                    new PoetLocale(
+                                        registrationForm.getFirstName(),
+                                        registrationForm.getLastName(),
+                                        registrationForm.getLocale()
+                                    )
+                                );
+                            }}
+                        )
+                    );
+                }
 
-        return this.userService.create( newUser );
+            //- Success -//
+            response.setStatus( HttpServletResponse.SC_CREATED );
+
+            //- Persist -//
+            return this.userService.create( newUser );
+        } catch ( DataIntegrityViolationException | IllegalArgumentException e ) {
+            //- Cannot save this data -//
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
+
+            //FIXME: log
+        }
+
+        return null;
     }
 
     /**
-     * Forgot password
+     * Forgot password.
      *
      * @param model
+     *
      * @return Boolean
      */
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
@@ -147,6 +187,6 @@ public class SecurityController {
     public Boolean forgotPasswordAction(
         Model model
     ) {
-        return false;
+        return false;//TODO: implement
     }
 }

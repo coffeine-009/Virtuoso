@@ -21,8 +21,8 @@ import com.coffeine.virtuoso.module.user.model.entity.Text;
 import com.coffeine.virtuoso.module.user.model.service.SongService;
 import com.coffeine.virtuoso.module.user.model.service.TextService;
 import com.coffeine.virtuoso.module.user.view.form.TextForm;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -105,7 +105,7 @@ public class TextController {
                 )
             );
         }
-        catch( ConstraintViolationException e ) {
+        catch( DataIntegrityViolationException e ) {
             //- Failure. Can not to create text -//
             response.setStatus( HttpStatus.FORBIDDEN.value());
         }

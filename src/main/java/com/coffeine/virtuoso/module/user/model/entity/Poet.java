@@ -15,18 +15,21 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Class for reflect table Poet from persistence layout
@@ -37,7 +40,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @SuppressWarnings( "serial" )
 @Entity
 @Table(
-    name = "poet"
+    name = "poet",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {
+                "id_user"
+            }
+        )
+    }
 )
 public class Poet implements Serializable {
 
@@ -49,14 +59,14 @@ public class Poet implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne
+    @OneToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 
     @JsonIgnore
-    @NotNull
-    @NotEmpty
-    @Valid
+//    @NotNull
+//    @NotEmpty
+//    @Valid
     @OneToMany(
         mappedBy = "poet",
         cascade = CascadeType.ALL,
@@ -74,10 +84,10 @@ public class Poet implements Serializable {
     protected Boolean gender;
 
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
-    protected Calendar birthday;
+    protected Date birthday;
 
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
-    protected Calendar deathday;
+    protected Date deathday;
 
     @Column(
         name = "creation",
@@ -105,14 +115,23 @@ public class Poet implements Serializable {
     public Poet(
         String locale,
         Boolean gender,
-        Calendar birthday,
-        Calendar deathday
+        Date birthday,
+        Date deathday,
+        List < PoetLocale > data
     ) {
+        //- Check params -//
+        notNull( data );
+
         //- Initializaation -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
         this.deathday = deathday;
+        this.data = data;
+
+        for ( PoetLocale poetLocale : this.data ) {
+            poetLocale.setPoet( this );
+        }
     }
 
     /**
@@ -184,7 +203,7 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public Calendar getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
@@ -193,7 +212,7 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public Calendar getDeathday() {
+    public Date getDeathday() {
         return deathday;
     }
 
@@ -240,7 +259,7 @@ public class Poet implements Serializable {
      *
      * @param birthday
      */
-    public void setBirthday( Calendar birthday ) {
+    public void setBirthday( Date birthday ) {
         this.birthday = birthday;
     }
 
@@ -249,7 +268,7 @@ public class Poet implements Serializable {
      *
      * @param deathday
      */
-    public void setDeathday( Calendar deathday ) {
+    public void setDeathday( Date deathday ) {
         this.deathday = deathday;
     }
 

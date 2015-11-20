@@ -20,24 +20,15 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Class for reflect table from persistence layout
@@ -58,19 +49,29 @@ public class User implements Serializable {
 
     @NotNull
     @Valid
-    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true )
+    @ManyToMany( fetch = FetchType.EAGER )
     @JoinTable(
-        name = "user_roles",
+        name = "user_roles", 
+        uniqueConstraints = {
+            @UniqueConstraint(
+                columnNames = {
+                    "id_user", 
+                    "id_role"
+                }
+            )
+        }, 
         joinColumns = {
             @JoinColumn(
                 name = "id_user",
+                unique = false, 
                 nullable = false,
                 updatable = false
             )
         },
         inverseJoinColumns = {
             @JoinColumn(
-                name = "id_role",
+                name = "id_role", 
+                unique = false, 
                 nullable = false,
                 updatable = false
             )
@@ -99,6 +100,26 @@ public class User implements Serializable {
         orphanRemoval = false
     )
     protected List < Email > emails;
+
+    @JsonIgnore
+    @Valid
+    @OneToOne(
+        fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
+    @PrimaryKeyJoinColumn
+    protected Composer composer;
+
+    @JsonIgnore
+    @Valid
+    @OneToOne( 
+        fetch = FetchType.EAGER, 
+        cascade = CascadeType.ALL, 
+        orphanRemoval = false
+    )
+    @PrimaryKeyJoinColumn
+    protected Poet poet;
 
     @NotNull
     @NotEmpty
@@ -146,7 +167,6 @@ public class User implements Serializable {
      * Constructor for create user
      *
      * @param roles         List of roles
-     * @param access        List of permissions
      * @param email         Email
      * @param firstName     First name
      * @param lastName      Last name
@@ -203,6 +223,39 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
+        this.locale = locale;
+    }
+
+    /**
+     * Constructor for create user
+     *
+     * @param roles         List of roles
+     * @param access        List of permissions
+     * @param email         Email
+     * @param firstName     First name
+     * @param lastName      Last name
+     * @param gender        Gender
+     * @param locale        Default locale
+     */
+    public User(
+        List < Role > roles,
+        Access access,
+        Email email,
+        String firstName,
+        String lastName,
+        Boolean gender,
+        String locale
+    ) {
+        //- Call default constructor -//
+        this();
+
+        //- Initialization -//
+        this.roles = roles;
+        this.addAccess( access );
+        this.addEmail(email);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
         this.locale = locale;
     }
 
@@ -267,6 +320,24 @@ public class User implements Serializable {
      */
     public List < Email > getEmails() {
         return emails;
+    }
+
+    /**
+     * Get composer's data if this user is composer
+     *
+     * @return Composer
+     */
+    public Composer getComposer() {
+        return composer;
+    }
+
+    /**
+     * Get poet's data if this user is poet
+     *
+     * @return Poet
+     */
+    public Poet getPoet() {
+        return poet;
     }
 
     /**
@@ -359,6 +430,38 @@ public class User implements Serializable {
      */
     public void setEmails( List < Email > emails ) {
         this.emails = emails;
+    }
+
+    /**
+     * Set composer's data.
+     *
+     * @param composer
+     */
+    public void setComposer( Composer composer ) {
+        //- Check params -//
+        notNull( composer );
+
+        //- Set composer -//
+        this.composer = composer;
+
+        //- Set link -//
+        this.composer.setUser( this );
+    }
+
+    /**
+     * Set poet's data
+     *
+     * @param poet
+     */
+    public void setPoet( Poet poet ) {
+        //- Check params -//
+        notNull( poet );
+
+        //- Set poet -//
+        this.poet = poet;
+
+        //- Set link -//
+        this.poet.setUser( this );
     }
 
     /**

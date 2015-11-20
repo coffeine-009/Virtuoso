@@ -14,17 +14,11 @@ import com.coffeine.virtuoso.module.user.model.entity.Video;
 import com.coffeine.virtuoso.module.user.model.entity.VideoType;
 import com.coffeine.virtuoso.module.user.model.service.VideoService;
 import com.coffeine.virtuoso.module.user.model.service.VideoTypeService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -113,7 +107,7 @@ public class VideoController {
             //- Success. Return created video type -//
             return this.videoService.create( video );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
@@ -159,7 +153,7 @@ public class VideoController {
             //- Success. Return created video type -//
             return this.videoService.update( video );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }

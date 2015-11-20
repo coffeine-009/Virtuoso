@@ -15,6 +15,9 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.service.implementation;
 
+import com.coffeine.virtuoso.module.security.model.entity.Roles;
+import com.coffeine.virtuoso.module.user.model.entity.Composer;
+import com.coffeine.virtuoso.module.user.model.entity.Role;
 import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.repository.UserRepository;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
@@ -82,6 +85,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return User
      */
+    @Transactional
     @Override
     public User create( User user ) {
         //- Save user to persistence -//
