@@ -17,8 +17,8 @@ package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.Style;
 import com.coffeine.virtuoso.module.user.model.service.StyleService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -84,7 +84,7 @@ public class StyleController {
             //- Success. Return created style -//
             return this.styleService.create( style );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
@@ -139,7 +139,7 @@ public class StyleController {
             //- Success. Return created style -//
             return this.styleService.update( styleOrigin );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }

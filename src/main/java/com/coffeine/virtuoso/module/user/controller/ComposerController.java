@@ -10,8 +10,8 @@ import com.coffeine.virtuoso.module.user.model.entity.Composer;
 import com.coffeine.virtuoso.module.user.model.entity.ComposerLocale;
 import com.coffeine.virtuoso.module.user.model.service.ComposerService;
 import com.coffeine.virtuoso.module.user.view.form.ComposerForm;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
@@ -110,7 +110,7 @@ public class ComposerController {
                 )
             );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Warning, can not create duplicate -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
@@ -200,7 +200,7 @@ public class ComposerController {
             //- Warning. Composer has not found -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Warning, can not create duplicate -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }

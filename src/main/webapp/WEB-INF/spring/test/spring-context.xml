@@ -81,8 +81,8 @@
         <property name = "driverClassName" value = "org.hsqldb.jdbcDriver" />
         <property
             name = "url"
-            value = "jdbc:hsqldb:mem:virtuoso"
-        />
+            value = "jdbc:hsqldb:mem:virtuoso;sql.syntax_mys=true"
+        /><!--FIXME: make general not only MySQL-->
         <property name = "username" value = "sa" />
         <property name = "password" value = "" />
         <property name="initialSize" value="1" />

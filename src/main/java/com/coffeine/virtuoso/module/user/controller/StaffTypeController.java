@@ -18,17 +18,18 @@ package com.coffeine.virtuoso.module.user.controller;
 
 import com.coffeine.virtuoso.module.user.model.entity.StaffType;
 import com.coffeine.virtuoso.module.user.model.service.StaffTypeService;
-import java.util.List;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 /**
  *
@@ -96,7 +97,7 @@ public class StaffTypeController {
             //- Success. Return created staff type -//
             return this.staffTypeService.create( staffType );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create staff type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
@@ -151,7 +152,7 @@ public class StaffTypeController {
             //- Success. Return created staff type -//
             return this.staffTypeService.update( staffTypeOrigin );
         }
-        catch ( ConstraintViolationException e ) {
+        catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create staff type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
