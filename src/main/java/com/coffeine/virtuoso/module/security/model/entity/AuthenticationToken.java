@@ -1,18 +1,11 @@
-/// *** Security :: Model :: Entity :: AuthenticationToken  *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 08/22/14 3:29 PM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-08-22 15:29:11 :: 2014-08-22 15:38:09
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.security.model.entity;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -21,6 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
+ * Token for authenticated users.
+ *
  * @version 1.0
  */
 public class AuthenticationToken extends AbstractAuthenticationToken {

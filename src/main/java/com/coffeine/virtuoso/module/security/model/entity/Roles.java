@@ -16,11 +16,17 @@
 package com.coffeine.virtuoso.module.security.model.entity;
 
 /**
- * List of roles in system
+ * List of roles in system.
+ * //FIXME: use persistence layout
  *
  * @version 1.0
  */
 public enum Roles {
+    ADMINISTRATOR,
+    MODERATOR,
+    MUSICIAN,
     COMPOSER,
-    POET
+    POET,
+    TEACHER,
+    STUDENT
 }

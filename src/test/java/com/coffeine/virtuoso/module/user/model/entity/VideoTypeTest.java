@@ -1,7 +1,9 @@
 /**
- * @copyright (c) 2014, by Vitaliy Tsutsman
+ * Copyright (c) 2014-2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 11/21/15 5:22 PM
  */
 
 package com.coffeine.virtuoso.module.user.model.entity;
@@ -33,7 +35,7 @@ public class VideoTypeTest extends AbstractModel {
     @Test
     public void testVideoTypeFieldsSuccess() {
 
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+        Set< ConstraintViolation< VideoType > > constraintViolationSet;
 
         //- Success -//
         //- Create entity -//
@@ -55,7 +57,7 @@ public class VideoTypeTest extends AbstractModel {
     @Test
     public void testVideoTypeFieldsFailure() {
 
-        Set < ConstraintViolation < VideoType > > constraintViolationSet;
+        Set< ConstraintViolation< VideoType > > constraintViolationSet;
 
         //- Failure -//
         //- Create entity -//
@@ -69,10 +71,10 @@ public class VideoTypeTest extends AbstractModel {
         constraintViolationSet = validator.validate( videoTypeFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation< VideoType > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "code" );
                     add( "title" );
                 }}.contains(
@@ -83,7 +85,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList< Class >() {{
                     add( NotNull.class );
                     add( NotEmpty.class );
                 }}.contains(
@@ -92,12 +94,21 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "may not be null" );
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
             );
         }
+    }
+
+    /**
+     * Test of length constraints
+     */
+    @Test
+    public void testLengthConstraint() {
+
+        Set< ConstraintViolation< VideoType > > constraintViolationSet;
 
         //- Failure: Incorrect length -//
         //- Create entity -//
@@ -111,10 +122,10 @@ public class VideoTypeTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation< VideoType > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "code" );
                     add( "title" );
                 }}.contains(
@@ -125,7 +136,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList< Class >() {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -133,7 +144,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "length must be between 0 and 16" );
                     add( "length must be between 0 and 32" );
                 }}.contains( constraintViolation.getMessage() )
@@ -147,7 +158,7 @@ public class VideoTypeTest extends AbstractModel {
     @Test
     public void testAccessFieldEmpty() {
 
-        Set<ConstraintViolation<VideoType>> constraintViolationSet;
+        Set< ConstraintViolation< VideoType > > constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
@@ -161,10 +172,10 @@ public class VideoTypeTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < VideoType > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation< VideoType > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "code" );
                     add( "title" );
                 }}.contains(
@@ -175,7 +186,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList< Class >() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -183,7 +194,7 @@ public class VideoTypeTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList< String >() {{
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
             );

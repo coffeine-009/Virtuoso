@@ -64,6 +64,48 @@ public class RegistrationForm {
 
 
     /// *** Methods     *** ///
+    /**
+     * Create an empty form.
+     */
+    public RegistrationForm() {
+        //- Initialization -//
+    }
+
+    /**
+     * Create form with required fields.
+     *
+     * @param username     Unique unsername of user
+     * @param password     Password of user
+     * @param firstName    First name of user
+     * @param lastName     Last name of user
+     * @param gender       True - man, false - woman
+     * @param locale       User's locale
+     * @param birthday     Birthday of user
+     */
+    public RegistrationForm(
+        String username,
+        String password,
+        String firstName,
+        String lastName,
+        Boolean gender,
+        List< String > roles,
+        String locale,
+        Date birthday
+    ) {
+        //- Initialization -//
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.roles = roles;
+        this.locale = locale;
+        this.birthday = birthday;
+
+
+    }
+
+
     //- SECTION :: GET -//
     /**
      * Get username
