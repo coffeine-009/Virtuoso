@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -58,9 +58,9 @@ public class RegistrationForm {
     protected String locale;
 
     @NotNull
-    protected Date birthday;
+    protected LocalDate birthday;
 
-    protected Date deathday;
+    protected LocalDate deathDay;
 
 
     /// *** Methods     *** ///
@@ -90,7 +90,7 @@ public class RegistrationForm {
         Boolean gender,
         List< String > roles,
         String locale,
-        Date birthday
+        LocalDate birthday
     ) {
         //- Initialization -//
         this.username = username;
@@ -101,8 +101,6 @@ public class RegistrationForm {
         this.roles = roles;
         this.locale = locale;
         this.birthday = birthday;
-
-
     }
 
 
@@ -174,17 +172,17 @@ public class RegistrationForm {
      *
      * @return Date
      */
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
     /**
-     * Get deadday
+     * Get day of death
      *
      * @return Date
      */
-    public Date getDeathday() {
-        return deathday;
+    public LocalDate getDeathDay() {
+        return deathDay;
     }
 
 
@@ -257,16 +255,16 @@ public class RegistrationForm {
      *
      * @param birthday
      */
-    public void setBirthday(Date birthday) {
+    public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
     }
 
     /**
-     * Set deadday
+     * Set day of death
      *
-     * @param deathday
+     * @param deathDay
      */
-    public void setDeathday(Date deathday) {
-        this.deathday = deathday;
+    public void setDeathDay( LocalDate deathDay ) {
+        this.deathDay = deathDay;
     }
 }

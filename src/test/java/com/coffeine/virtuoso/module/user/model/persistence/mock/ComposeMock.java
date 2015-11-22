@@ -9,8 +9,8 @@ package com.coffeine.virtuoso.module.user.model.persistence.mock;
 import com.coffeine.virtuoso.module.user.model.entity.Composer;
 import com.coffeine.virtuoso.module.user.model.entity.ComposerLocale;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,7 +32,7 @@ public class ComposeMock {
                 new Composer(
                     "en-US",
                     true,
-                    new Date( 1427547500149L ),
+                    LocalDate.now(),
                     null,
                     new ArrayList < ComposerLocale >() {{
                         add(

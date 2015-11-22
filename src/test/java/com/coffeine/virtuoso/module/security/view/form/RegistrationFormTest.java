@@ -13,8 +13,8 @@ import com.coffeine.virtuoso.module.security.model.entity.Roles;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +43,7 @@ public class RegistrationFormTest extends AbstractModel {
             add( Roles.STUDENT.name() );
         }};
         final String LOCALE = "en-US";
-        final Date BIRTHDAY = new Date();
+        final LocalDate BIRTHDAY = LocalDate.now();
 
         //- Set of constraints after validation -//
         Set< ConstraintViolation< RegistrationForm > > constraintViolationSet;

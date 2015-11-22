@@ -24,9 +24,9 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static org.springframework.util.Assert.notNull;
@@ -96,11 +96,11 @@ public class Composer implements Serializable {
     protected Boolean gender;
 
     @Column( name = "birthday", columnDefinition = "DATE" )
-    protected Date birthday;
+    protected LocalDate birthday;
 
     //TODO: add validation
     @Column( name = "deathDate", columnDefinition = "DATE" )
-    protected Date deathDate;
+    protected LocalDate deathDate;
 
     @Column(
         name = "creation",
@@ -128,8 +128,8 @@ public class Composer implements Serializable {
     public Composer(
         String locale,
         Boolean gender,
-        Date birthday,
-        Date deathDate
+        LocalDate birthday,
+        LocalDate deathDate
     ) {
         //- Initialisation -//
         this.locale = locale;
@@ -145,8 +145,8 @@ public class Composer implements Serializable {
     public Composer(
         final String locale,
         Boolean gender,
-        Date birthday,
-        Date deathDate,
+        LocalDate birthday,
+        LocalDate deathDate,
         List < ComposerLocale > data
     ) {
         //- Check params -//
@@ -267,7 +267,7 @@ public class Composer implements Serializable {
      *
      * @return Calendar
      */
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -276,7 +276,7 @@ public class Composer implements Serializable {
      *
      * @return Calendar
      */
-    public Date getDeathDate() {
+    public LocalDate getDeathDate() {
         return deathDate;
     }
 
@@ -341,7 +341,7 @@ public class Composer implements Serializable {
      *
      * @param birthday
      */
-    public void setBirthday( Date birthday ) {
+    public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
     }
 
@@ -350,7 +350,7 @@ public class Composer implements Serializable {
      *
      * @param deathDate
      */
-    public void setDeathDate(Date deathDate) {
+    public void setDeathDate( LocalDate deathDate ) {
         this.deathDate = deathDate;
     }
 

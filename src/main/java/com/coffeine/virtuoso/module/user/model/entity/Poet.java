@@ -24,9 +24,9 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static org.springframework.util.Assert.notNull;
@@ -84,10 +84,10 @@ public class Poet implements Serializable {
     protected Boolean gender;
 
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
-    protected Date birthday;
+    protected LocalDate birthday;
 
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
-    protected Date deathday;
+    protected LocalDate deathDay;
 
     @Column(
         name = "creation",
@@ -110,13 +110,13 @@ public class Poet implements Serializable {
      * Construct for create new poet
      *
      * @param birthday
-     * @param deathday
+     * @param deathDay
      */
     public Poet(
         String locale,
         Boolean gender,
-        Date birthday,
-        Date deathday,
+        LocalDate birthday,
+        LocalDate deathDay,
         List < PoetLocale > data
     ) {
         //- Check params -//
@@ -126,7 +126,7 @@ public class Poet implements Serializable {
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
-        this.deathday = deathday;
+        this.deathDay = deathDay;
         this.data = data;
 
         for ( PoetLocale poetLocale : this.data ) {
@@ -203,7 +203,7 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -212,8 +212,8 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public Date getDeathday() {
-        return deathday;
+    public LocalDate getDeathDay() {
+        return deathDay;
     }
 
     /**
@@ -259,17 +259,17 @@ public class Poet implements Serializable {
      *
      * @param birthday
      */
-    public void setBirthday( Date birthday ) {
+    public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
     }
 
     /**
      * Set date of death
      *
-     * @param deathday
+     * @param deathDay
      */
-    public void setDeathday( Date deathday ) {
-        this.deathday = deathday;
+    public void setDeathDay( LocalDate deathDay ) {
+        this.deathDay = deathDay;
     }
 
     /**

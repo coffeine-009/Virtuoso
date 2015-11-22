@@ -10,8 +10,8 @@ import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,12 +108,12 @@ public class ComposerForm {
      * Birthday date
      */
     @NotNull
-    protected Date birthday;
+    protected LocalDate birthday;
 
     /**
      * Death date if composer is dead
      */
-    protected Date deathDate;
+    protected LocalDate deathDate;
 
     /**
      * Localized data
@@ -135,11 +135,11 @@ public class ComposerForm {
         return this.locale;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public Date getDeathDate() {
+    public LocalDate getDeathDate() {
         return deathDate;
     }
 
@@ -160,11 +160,11 @@ public class ComposerForm {
         this.locale = locale;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
     }
 
-    public void setDeathDate(Date deathDate) {
+    public void setDeathDate( LocalDate deathDate ) {
         this.deathDate = deathDate;
     }
 
