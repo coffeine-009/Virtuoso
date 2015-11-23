@@ -103,6 +103,42 @@ public class RegistrationForm {
         this.birthday = birthday;
     }
 
+    /**
+     * Create form with all fields.
+     *
+     * @param username     Unique unsername of user
+     * @param password     Password of user
+     * @param firstName    First name of user
+     * @param lastName     Last name of user
+     * @param gender       True - man, false - woman
+     * @param locale       User's locale
+     * @param birthday     Birthday of user
+     * @param deathDay     Birthday of death if it is known
+     */
+    public RegistrationForm(
+        String username,
+        String password,
+        String firstName,
+        String lastName,
+        Boolean gender,
+        List< String > roles,
+        String locale,
+        LocalDate birthday,
+        LocalDate deathDay
+    ) {
+        //- Initialization -//
+        this(
+            username,
+            password,
+            firstName,
+            lastName,
+            gender,
+            roles,
+            locale,
+            birthday
+        );
+        this.deathDay = deathDay;
+    }
 
     //- SECTION :: GET -//
     /**
