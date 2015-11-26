@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.module.security.view.form;
 
+import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
 import org.hibernate.validator.constraints.Email;
@@ -23,6 +24,7 @@ import java.util.List;
  *
  * @version 1.0
  */
+@Event( start = "birthday", end = "deathDay" )
 public class RegistrationForm {
 
     /// *** Properties  *** ///
