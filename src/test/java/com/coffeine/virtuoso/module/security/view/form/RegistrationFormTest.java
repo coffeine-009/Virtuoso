@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.module.security.view.form;
 
+import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Email;
@@ -305,9 +306,35 @@ public class RegistrationFormTest extends AbstractModel {
                         add( "POET" );
                     }},
                     1,
-                    fieldNames,
+                    new ArrayList< String >() {{
+                        add( "deathDay" );
+                    }},
                     new ArrayList< Class >() {{
-                        add( Valid.class );
+                        add( Event.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "{javax.validation.constraints.Event.message}" );
+                    }}
+                },
+                //- Failure. incorrect input, bad roles -//
+                {
+                    "unit@test.com",
+                    "Te$t",
+                    "Unit",
+                    "Test",
+                    false,
+                    "en-US",
+                    LocalDate.now(),
+                    LocalDate.now().plusYears( 90 ),
+                    new ArrayList< String >() {{
+                        add( "TEST_UNIT" );
+                    }},
+                    1,
+                    new ArrayList< String >() {{
+                        add( "roles" );
+                    }},
+                    new ArrayList< Class >() {{
+                        add( InEnum.class );
                     }},
                     new ArrayList< String >() {{
                         add( "Value is not valid" );

@@ -17,9 +17,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 
 /**
- * Created by coffeine on 11/25/15.
+ * Implementation of Event validator.
+ * @see Event
+ *
+ * @version 1.0
  */
-public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
+public class EventValidatorImpl implements ConstraintValidator< Event, Object > {
 
     /**
      * Name of field which contains start date of event
@@ -28,7 +31,7 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
 
     /**
      * Name of field which contains end date or null of event,
-     * null means that event is not finished yet.
+     * null means that event has not finished yet.
      */
     private String endDateFieldName;
 
@@ -60,29 +63,33 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
      *
      * @param value   object to validate
      * @param context context in which the constraint is evaluated
+     *
      * @return {@code false} if {@code value} does not pass the constraint
      */
     @Override
     public boolean isValid( Object value, ConstraintValidatorContext context ) {
 
-        boolean result = false;
+        boolean valid = false;
 
         try {
+            //- Get values for validation -//
             String startDate = BeanUtils.getProperty( value, this.startDateFieldName );
             String endDate = BeanUtils.getProperty( value, this.endDateFieldName );
 
-             result = endDate == null || LocalDate.parse( startDate ).isBefore( LocalDate.parse( endDate ) );
+            //- Validate -//
+            valid = endDate == null || LocalDate.parse( startDate ).isBefore( LocalDate.parse( endDate ) );
 
-            context.buildConstraintViolationWithTemplate( "" )
-                .addPropertyNode( this.endDateFieldName );
-            //TODO: put msg to last field
-        } catch ( IllegalAccessException e ) {
-            e.printStackTrace();
-        } catch ( InvocationTargetException e ) {
-            e.printStackTrace();
-        } catch ( NoSuchMethodException e ) {
-            e.printStackTrace();
+            //- Add error message to second field -//
+            if ( !valid ) {
+                context.disableDefaultConstraintViolation();
+                context.buildConstraintViolationWithTemplate( context.getDefaultConstraintMessageTemplate() )
+                    .addPropertyNode( this.endDateFieldName )
+                    .addConstraintViolation();
+            }
+        } catch ( IllegalAccessException | InvocationTargetException | NoSuchMethodException e ) {
+            e.printStackTrace();//FIXME: use log
         }
-        return result;
+
+        return valid;
     }
 }
