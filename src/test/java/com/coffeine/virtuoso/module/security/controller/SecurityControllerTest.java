@@ -12,16 +12,15 @@ package com.coffeine.virtuoso.module.security.controller;
 import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+
+import java.time.LocalDate;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test security controller
@@ -40,7 +39,33 @@ public class SecurityControllerTest extends AbstractControllerTest {
     }
 
     //- SECTION :: TEST -//
-    @Ignore
+    @Test
+    public void testRegistrationActionSuccess() throws Exception {
+
+        //- Do Sign Up request -//
+        this.mockMvc.perform(
+            post( "/security/signup" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"username\": \"unit@test.com\", " +
+                        "\"password\": \"Te$t\", " +
+                        "\"firstName\": \"Unit\", " +
+                        "\"lastName\": \"test\", " +
+                        "\"gender\": false, " +
+                        "\"locale\": \"en-US\", " +
+                        "\"roles\": [" +
+                            "\"POET\"" +
+                        "], " +
+                        "\"birthday\": \"" + LocalDate.now() + "\"" +
+                    "}"
+                )
+        )
+//            .andExpect( status().isCreated() )
+            .andDo( print() );
+        //TODO: finish
+    }
+
     @Test
     public void testGetAccessToken() throws Exception {
 
