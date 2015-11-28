@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Base class for other tests
+ * Base class for functional tests
  *
  * @version 1.0
  */

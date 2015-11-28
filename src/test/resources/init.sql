@@ -14,6 +14,11 @@ VALUES
   'ADMIN',
   'Administrator',
   'Admin'
+), (
+  2,
+  'POET',
+  'Poet',
+  'Poet.'
 );
 
 INSERT INTO user(

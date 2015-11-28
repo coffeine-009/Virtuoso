@@ -15,8 +15,9 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -102,6 +103,7 @@ public class User implements Serializable {
     protected List < Email > emails;
 
     @JsonIgnore
+    @JsonManagedReference
     @Valid
     @OneToOne(
         fetch = FetchType.EAGER,
@@ -112,6 +114,7 @@ public class User implements Serializable {
     protected Composer composer;
 
     @JsonIgnore
+    @JsonManagedReference
     @Valid
     @OneToOne( 
         fetch = FetchType.EAGER, 

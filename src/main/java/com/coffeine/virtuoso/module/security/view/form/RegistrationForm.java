@@ -11,6 +11,8 @@ package com.coffeine.virtuoso.module.security.view.form;
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.security.model.entity.Roles;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -60,8 +62,10 @@ public class RegistrationForm {
     protected String locale;
 
     @NotNull
+    @JsonDeserialize( using = LocalDateDeserializer.class )
     protected LocalDate birthday;
 
+    @JsonDeserialize( using = LocalDateDeserializer.class )
     protected LocalDate deathDay;
 
 
