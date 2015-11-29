@@ -63,7 +63,7 @@ public class RegistrationForm {
 
     @NotNull
     @JsonDeserialize( using = LocalDateDeserializer.class )
-    protected LocalDate birthday;
+    protected LocalDate birthday;//FIXME: Add validation for date format
 
     @JsonDeserialize( using = LocalDateDeserializer.class )
     protected LocalDate deathDay;

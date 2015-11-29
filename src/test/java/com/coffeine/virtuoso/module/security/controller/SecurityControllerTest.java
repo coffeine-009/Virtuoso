@@ -108,11 +108,10 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                         "\"birthday\": \"1990-08-10\"" +
                     "}"
                 )
-        )
+        ).andDo(print())
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect( jsonPath( "$.roles[0].code", notNullValue() ) )
-            .andDo( print() );
+            .andExpect(jsonPath("$.roles[0].code", notNullValue()));
             //TODO: finish
     }
 

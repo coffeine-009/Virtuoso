@@ -49,7 +49,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"username\": \"unit@test.com\", " +
                         "\"password\": \"Te$t\", " +
                         "\"firstName\": \"Unit\", " +
-                        "\"lastName\": \"test\", " +
+                        "\"lastName\": \"Test\", " +
                         "\"gender\": false, " +
                         "\"locale\": \"en-US\", " +
                         "\"roles\": [" +
@@ -60,6 +60,21 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                 )
         )
             .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.id", notNullValue()))
+            .andExpect( jsonPath("$.id", not(empty())) )
+            .andExpect( jsonPath( "$.roles", notNullValue() ) )
+            .andExpect(jsonPath("$.roles", not(empty())))
+            .andExpect( jsonPath("$.roles[0].code", notNullValue()) )
+            .andExpect( jsonPath( "$.roles[0].code", not(empty()) ) )
+            .andExpect(jsonPath("$.roles[0].code").value("POET"))
+            .andExpect( jsonPath("$.firstName", notNullValue()) )
+            .andExpect(jsonPath("$.firstName", not(empty())))
+            .andExpect( jsonPath( "$.firstName" ).value("Unit") )
+            .andExpect(jsonPath("$.lastName", notNullValue()))
+            .andExpect( jsonPath("$.lastName", not(empty())) )
+            .andExpect(jsonPath("$.lastName").value("Test"))
+            .andExpect(jsonPath("$.gender").value(false))
+            .andExpect(jsonPath("$.locale").value("en-US"))
             .andDo(print());
         //TODO: finish
     }
@@ -69,8 +84,8 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
 
         //- Do Sign Up request -//
         this.mockMvc.perform(
-            post( "/security/signup" )
-                .contentType( MediaType.APPLICATION_JSON )
+            post("/security/signup")
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(
                     "{" +
                         "\"username\": \"unit#test.com\", " +
@@ -83,10 +98,40 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "], " +
                         "\"birthday\": \"1990-08-10\"" +
                     "}"
-                )
-        )
+            )
+        ).andDo(print())
             .andExpect( status().isBadRequest() )
-            .andDo(print());
+            .andExpect( jsonPath( "$.fieldErrors", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors", not( empty() ) ) )
+            ;
+        //TODO: finish
+    }
+
+    @Test
+    public void testRegistrationActionFailureMapping() throws Exception {
+
+        //- Do Sign Up request -//
+        this.mockMvc.perform(
+            post( "/security/signup" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"username\": \"unit@test.com\", " +
+                        "\"password\": \"Te$t\", " +
+                        "\"firstName\": \"Unit\", " +
+                        "\"lastName\": \"test\", " +
+                        "\"gender\": false, " +
+                        "\"locale\": \"en-US\", " +
+                        "\"roles\": [" +
+                        "], " +
+                        "\"birthday\": \"1990-08/10\"" +
+                    "}"
+            )
+        ).andDo(print())
+            .andExpect( status().isBadRequest() )
+            .andExpect( jsonPath( "$.fieldErrors", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors", not( empty() ) ) )
+            ;
         //TODO: finish
     }
 
@@ -119,7 +164,6 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect( jsonPath( "$.expires_in", notNullValue() ) )
             .andExpect( jsonPath( "$.expires_in", not( empty() ) ) )
             .andExpect( jsonPath( "$.token_type" ).value( "bearer" ) )
-            .andExpect( jsonPath( "$.scope" ).value( "read" ) )
-            .andDo( print() );
+            .andExpect( jsonPath( "$.scope" ).value( "read" ) );
     }
 }
