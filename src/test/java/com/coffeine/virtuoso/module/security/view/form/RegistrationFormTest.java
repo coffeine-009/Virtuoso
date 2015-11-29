@@ -8,13 +8,17 @@
 
 package com.coffeine.virtuoso.module.security.view.form;
 
+import com.coffeine.virtuoso.library.validator.anotation.Event;
+import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
@@ -159,6 +163,19 @@ public class RegistrationFormTest extends AbstractModel {
      */
     @Parameterized.Parameters
     public static Collection inputCases() {
+
+        //- Assumptions -//
+        List< String > fieldNames = new ArrayList< String >() {{
+            add( "username" );
+            add( "password" );
+            add( "firstName" );
+            add( "lastName" );
+            add( "gender" );
+            add( "locale" );
+            add( "roles" );
+            add( "birthday" );
+        }};
+
         return Arrays.asList(
             new Object[][] {
                 //- Success. Correct input -//
@@ -175,15 +192,9 @@ public class RegistrationFormTest extends AbstractModel {
                         add( "STUDENT" );
                     }},
                     0,
-                    new ArrayList< String >() {{
-                        add( "username" );
-                    }},
-                    new ArrayList< Class >() {{
-                        add( NotNull.class );
-                    }},
-                    new ArrayList< String >() {{
-                        add( "may not be null" );
-                    }}
+                    new ArrayList< String >(),
+                    new ArrayList< Class >(),
+                    new ArrayList< String >()
                 },
                 //- Failure. incorrect input, bad email -//
                 {
@@ -207,6 +218,126 @@ public class RegistrationFormTest extends AbstractModel {
                     }},
                     new ArrayList< String >() {{
                         add( "not a well-formed email address" );
+                    }}
+                },
+                //- Failure. incorrect input, empty form -//
+                {
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    14,
+                    fieldNames,
+                    new ArrayList< Class >() {{
+                        add( NotNull.class );
+                        add( NotEmpty.class );
+                        add( Valid.class );
+                        add( InEnum.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "may not be null" );
+                        add( "may not be empty" );
+                        add( "Value is not valid" );
+                    }}
+                },
+                //- Failure. incorrect input, bad filled form -//
+                {
+                    "",
+                    "",
+                    "",
+                    "",
+                    false,
+                    "",
+                    LocalDate.now(),
+                    null,
+                    new ArrayList< String >(),
+                    6,
+                    fieldNames,
+                    new ArrayList< Class >() {{
+                        add( NotEmpty.class );
+                        add( Valid.class );
+                        add( InEnum.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "may not be null" );
+                        add( "may not be empty" );
+                        add( "Value is not valid" );
+                    }}
+                },
+                //- Failure. incorrect input, bad roles -//
+                {
+                    "unit@test.com",
+                    "Te$t",
+                    "Unit",
+                    "Test",
+                    false,
+                    "en-US",
+                    LocalDate.now(),
+                    null,
+                    new ArrayList< String >() {{
+                        add( "UNIT_TEST" );
+                    }},
+                    1,
+                    fieldNames,
+                    new ArrayList< Class >() {{
+                        add( Valid.class );
+                        add( InEnum.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "Value is not valid" );
+                    }}
+                },
+                //- Failure. incorrect input, bad day of death -//
+                {
+                    "unit@test.com",
+                    "Te$t",
+                    "Unit",
+                    "Test",
+                    false,
+                    "en-US",
+                    LocalDate.now(),
+                    LocalDate.now().minusYears( 90 ),
+                    new ArrayList< String >() {{
+                        add( "POET" );
+                    }},
+                    1,
+                    new ArrayList< String >() {{
+                        add( "deathDay" );
+                    }},
+                    new ArrayList< Class >() {{
+                        add( Event.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "{javax.validation.constraints.Event.message}" );
+                    }}
+                },
+                //- Failure. incorrect input, bad roles -//
+                {
+                    "unit@test.com",
+                    "Te$t",
+                    "Unit",
+                    "Test",
+                    false,
+                    "en-US",
+                    LocalDate.now(),
+                    LocalDate.now().plusYears( 90 ),
+                    new ArrayList< String >() {{
+                        add( "TEST_UNIT" );
+                    }},
+                    1,
+                    new ArrayList< String >() {{
+                        add( "roles" );
+                    }},
+                    new ArrayList< Class >() {{
+                        add( InEnum.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "Value is not valid" );
                     }}
                 }
             }

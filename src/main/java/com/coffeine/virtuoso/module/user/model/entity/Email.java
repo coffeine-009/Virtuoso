@@ -15,16 +15,15 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import java.io.Serializable;
-import java.util.Calendar;
-import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Class for reflect email table from persistence layout

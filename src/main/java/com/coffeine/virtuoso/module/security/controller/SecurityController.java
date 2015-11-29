@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +40,7 @@ import static org.springframework.util.Assert.isTrue;
  *
  * @version 1.0
  */
-@Controller
+@RestController
 @RequestMapping( value = "/security" )
 public class SecurityController {
 
@@ -81,8 +80,8 @@ public class SecurityController {
     @ResponseBody
     public User registrationAction(
         @RequestBody
-        @Valid final
-        RegistrationForm registrationForm,
+        @Valid
+        final RegistrationForm registrationForm,
 
         HttpServletResponse response
     ) {

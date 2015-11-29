@@ -15,8 +15,10 @@
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.module.user.model.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -58,6 +60,7 @@ public class Composer implements Serializable {
     protected Long id;
 
     @JsonIgnore
+    @JsonBackReference
     @Valid
     @OneToOne
     @JoinColumn( name = "id_user" )
@@ -67,6 +70,7 @@ public class Composer implements Serializable {
 //    @NotEmpty
 //    @Size( min = 1 )
 //    @Valid
+    @JsonManagedReference
     @OneToMany(
         mappedBy = "composer",
         cascade = CascadeType.ALL,

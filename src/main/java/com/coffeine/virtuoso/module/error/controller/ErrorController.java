@@ -16,10 +16,12 @@
 package com.coffeine.virtuoso.module.error.controller;
 
 import com.coffeine.virtuoso.module.error.model.entity.ValidationError;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,6 +52,36 @@ public class ErrorController {
 
     }
 
+
+    /**
+     * Handle mapping errors.
+     * E.g. JSON deserialization.
+     *
+     * @param e    HttpMessageNotReadableException
+     *
+     * @return ValidationError
+     */
+    @ExceptionHandler( HttpMessageNotReadableException.class )
+    @ResponseStatus( HttpStatus.BAD_REQUEST )
+    @ResponseBody
+    public ValidationError processDeserializationError( HttpMessageNotReadableException e ) {
+
+        ValidationError error = new ValidationError();
+
+        //- Add error message for each field -//
+        ( ((JsonMappingException) e.getCause()).getPath() ).forEach(
+            reference -> error.addFieldError(
+                reference.getFieldName(),
+                this.messageSource.getMessage(
+                    "mapping.error",
+                    null,
+                    LocaleContextHolder.getLocale()
+                )
+            )
+        );
+
+        return error;
+    }
 
     /**
      * Handle validation errors
