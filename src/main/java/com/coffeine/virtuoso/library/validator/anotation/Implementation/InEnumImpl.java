@@ -1,18 +1,11 @@
-/// *** Validator :: Anotation :: InEnum    *** *** *** *** *** *** *** *** ///
-
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
+/**
+ * Copyright (c) 2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-08-12 15:26:32 :: 2014-08-12 20:00:00
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ * @date 08/12/14 3:26 PM
+ */
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.library.validator.anotation.Implementation;
 
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
