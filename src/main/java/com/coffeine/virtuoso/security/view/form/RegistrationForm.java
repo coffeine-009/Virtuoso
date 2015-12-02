@@ -3,14 +3,14 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 11/18/15 10:36 PM
+ * @date 11/30/15 11:14 PM
  */
 
-package com.coffeine.virtuoso.module.security.view.form;
+package com.coffeine.virtuoso.security.view.form;
 
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
-import com.coffeine.virtuoso.module.security.model.entity.Roles;
+import com.coffeine.virtuoso.security.model.entity.Roles;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.hibernate.validator.constraints.Email;

@@ -103,7 +103,7 @@
 
     <beans:bean
         id = "clientDetails"
-        class = "com.coffeine.virtuoso.module.security.model.service.implementation.GuestServiceImpl"
+        class = "com.coffeine.virtuoso.security.model.service.implementation.GuestServiceImpl"
     ><!--TODO: use DB-->
         <beans:property name = "clientId" value = "developer" />
         <beans:property name = "clientSecretKey" value = "developer32" />
@@ -115,7 +115,7 @@
 
     <beans:bean
         id = "customUserAuthenticationProvider"
-        class = "com.coffeine.virtuoso.module.security.model.provider.implementation.UserAuthenticationProvider"
+        class = "com.coffeine.virtuoso.security.model.provider.implementation.UserAuthenticationProvider"
     />
 
 

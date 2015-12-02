@@ -1,24 +1,22 @@
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 11/30/15 11:14 PM
+ */
+
 /// *** Security :: Model :: Provider :: UserAuthenticationProvider *** *** ///
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-08-22 12:57:52 :: 2014-08-22 12:48:08
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.security.model.provider.implementation;
+package com.coffeine.virtuoso.security.model.provider.implementation;
 
-import com.coffeine.virtuoso.module.security.model.entity.AuthenticationToken;
 import com.coffeine.virtuoso.module.user.model.entity.Role;
 import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
+import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

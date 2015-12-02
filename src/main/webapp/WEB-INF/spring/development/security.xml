@@ -125,7 +125,7 @@
 
     <beans:bean
         id = "customUserAuthenticationProvider"
-        class = "com.coffeine.virtuoso.module.security.model.provider.implementation.UserAuthenticationProvider"
+        class = "com.coffeine.virtuoso.security.model.provider.implementation.UserAuthenticationProvider"
     />
 
 

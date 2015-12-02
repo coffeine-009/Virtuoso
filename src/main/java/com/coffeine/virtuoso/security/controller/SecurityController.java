@@ -1,25 +1,23 @@
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 11/30/15 11:14 PM
+ */
+
 /// *** User :: Controller :: Song  *** *** *** *** *** *** *** *** *** *** ///
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by TheCoffeine Inc
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-03-25 15:26:32 :: ....-..-.. ..:..:..
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.security.controller;
+package com.coffeine.virtuoso.security.controller;
 
-import com.coffeine.virtuoso.module.security.model.entity.Roles;
-import com.coffeine.virtuoso.module.security.view.form.RegistrationForm;
 import com.coffeine.virtuoso.module.user.model.entity.*;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
+import com.coffeine.virtuoso.security.model.entity.Roles;
+import com.coffeine.virtuoso.security.view.form.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -183,9 +181,9 @@ public class SecurityController {
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public Boolean forgotPasswordAction(
+    public void forgotPasswordAction(
         Model model
     ) {
-        return false;//TODO: implement
+        //TODO: implement
     }
 }

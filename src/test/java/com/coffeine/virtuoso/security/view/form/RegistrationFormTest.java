@@ -3,10 +3,10 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 11/21/15 7:20 PM
+ * @date 11/30/15 11:14 PM
  */
 
-package com.coffeine.virtuoso.module.security.view.form;
+package com.coffeine.virtuoso.security.view.form;
 
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;

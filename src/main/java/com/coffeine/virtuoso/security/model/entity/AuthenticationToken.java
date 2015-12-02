@@ -3,10 +3,10 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 08/22/14 3:29 PM
+ * @date 11/30/15 11:14 PM
  */
 
-package com.coffeine.virtuoso.module.security.model.entity;
+package com.coffeine.virtuoso.security.model.entity;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

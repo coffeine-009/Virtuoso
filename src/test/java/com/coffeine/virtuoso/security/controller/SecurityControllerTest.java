@@ -3,11 +3,10 @@
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 11/29/15 12:10 AM
- *
+ * @date 11/30/15 11:14 PM
  */
 
-package com.coffeine.virtuoso.module.security.controller;
+package com.coffeine.virtuoso.security.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.coffeine.virtuoso.module.user.model.entity.User;
@@ -111,7 +110,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
         ).andDo(print())
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect(jsonPath("$.roles[0].code", notNullValue()));
+            .andExpect( jsonPath( "$.roles[0].code", notNullValue() ) );
             //TODO: finish
     }
 
@@ -142,5 +141,67 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
             .andExpect( status().isBadRequest() )
             .andDo( print() );
             //TODO: finish
+    }
+
+    /**
+     * Test for success of forgotPassword action.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testForgotPasswordActionSuccess() throws Exception {
+
+        this.mockMvc.perform(
+            post( "/security/forgotPassword" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"email\": \"unit@test.com\"" +
+                    "}"
+                )
+        ).andDo( print() )
+            .andExpect( status().isOk() );
+    }
+
+    /**
+     * Test for failure of forgotPassword action.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testForgotPasswordActionFailure() throws Exception {
+
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/forgotPassword" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"email\": \"unit#test.com\"" +
+                    "}"
+                )
+        ).andDo( print() )
+            .andExpect( status().isBadRequest() );
+    }
+
+    /**
+     * Test for failure of forgotPassword action.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testForgotPasswordActionFailureEmail() throws Exception {
+
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/forgotPassword" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"email\": \"unit-exists@test.com\"" +
+                    "}"
+                )
+        ).andDo( print() )
+            .andExpect( status().isBadRequest() );
     }
 }
