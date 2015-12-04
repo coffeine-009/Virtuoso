@@ -56,7 +56,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"birthday\": \"1990-08-10\"" +
                     "}"
                 )
-        )
+        ).andDo(print())
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id", notNullValue()))
             .andExpect( jsonPath("$.id", not(empty())) )
@@ -72,8 +72,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect( jsonPath("$.lastName", not(empty())) )
             .andExpect(jsonPath("$.lastName").value("Test"))
             .andExpect(jsonPath("$.gender").value(false))
-            .andExpect(jsonPath("$.locale").value("en-US"))
-            .andDo(print());
+            .andExpect(jsonPath("$.locale").value("en-US"));
         //TODO: finish
     }
 
@@ -236,7 +235,16 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                     "}"
                 )
         ).andDo( print() )
-            .andExpect( status().isBadRequest() );
+            .andExpect( status().isBadRequest() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.fieldErrors", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field" ).value( "email" ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message" ).value( "not a well-formed email address" ) );
     }
 
     /**
@@ -257,6 +265,6 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                     "}"
                 )
         ).andDo( print() )
-            .andExpect( status().isBadRequest() );
+            .andExpect( status().isNotFound() );
     }
 }

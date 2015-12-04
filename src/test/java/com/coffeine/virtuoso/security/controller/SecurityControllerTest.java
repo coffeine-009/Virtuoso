@@ -198,10 +198,10 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                 .contentType( MediaType.APPLICATION_JSON )
                 .content(
                     "{" +
-                        "\"email\": \"unit-exists@test.com\"" +
+                        "\"email\": \"unit-non-exists@test.com\"" +
                     "}"
                 )
         ).andDo( print() )
-            .andExpect( status().isBadRequest() );
+            .andExpect( status().isNotFound() );
     }
 }

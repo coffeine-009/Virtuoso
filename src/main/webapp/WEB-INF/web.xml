@@ -10,6 +10,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+            /WEB-INF/spring/mail.xml
             /WEB-INF/spring/development/spring-context.xml
             /WEB-INF/spring/development/security.xml
             /WEB-INF/spring/development/configuration.xml
@@ -84,7 +85,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                /WEB-INF/mvc-dispatcher-servlet.xml
+                /WEB-INF/spring/mvc-dispatcher-servlet.xml
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

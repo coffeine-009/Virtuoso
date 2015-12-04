@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd"
 >
     <!-- Scans the classpath for @Components to deploy as beans -->
-    <context:component-scan base-package = "com.coffeine.virtuoso.module" />
+    <context:component-scan base-package = "com.coffeine.virtuoso" />
 
     <!-- Resolves view names -->
     <bean

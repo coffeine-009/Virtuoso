@@ -16,15 +16,17 @@ package com.coffeine.virtuoso.security.controller;
 import com.coffeine.virtuoso.module.user.model.entity.*;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
+import com.coffeine.virtuoso.notification.model.entity.EmailAddress;
 import com.coffeine.virtuoso.security.model.entity.Roles;
+import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
+import com.coffeine.virtuoso.security.view.form.ForgotPasswordForm;
 import com.coffeine.virtuoso.security.view.form.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -63,6 +65,12 @@ public class SecurityController {
      */
     @Autowired
     private UserService userService;
+
+    /**
+     * Service for recovery access to account.
+     */
+    @Autowired
+    private AccessRecoveryService accessRecoveryService;
 
 
     /// *** Methods     *** ///
@@ -174,16 +182,25 @@ public class SecurityController {
     /**
      * Forgot password.
      *
-     * @param model
-     *
-     * @return Boolean
+     * @param form    Filled form if you forgot password
      */
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
-    @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public void forgotPasswordAction(
-        Model model
+        @Valid
+        @RequestBody
+        final ForgotPasswordForm form,
+
+        HttpServletRequest request
     ) {
-        //TODO: implement
+        //- Try to make request for recovery access to account -//
+        try {
+            //- Inform about loosing access -//
+            this.accessRecoveryService.lostAccess(
+                new EmailAddress( form.getEmail() )
+            );
+        } catch ( Exception e ) {
+            //TODO:
+        }
     }
 }

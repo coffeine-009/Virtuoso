@@ -82,8 +82,8 @@
             name = "url"
             value = "jdbc:mysql://localhost:3306/virtuoso?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;sessionVariables=storage_engine=InnoDB&amp;zeroDateTimeBehavior=convertToNull"
         />
-        <property name = "username" value = "${username}" />
-        <property name = "password" value = "${password}" />
+        <property name = "username" value = "${persistence.username}" />
+        <property name = "password" value = "${persistence.password}" />
     </bean>
 
     <bean
