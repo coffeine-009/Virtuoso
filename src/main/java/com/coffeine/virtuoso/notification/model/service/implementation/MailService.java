@@ -11,17 +11,18 @@ package com.coffeine.virtuoso.notification.model.service.implementation;
 import com.coffeine.virtuoso.notification.model.entity.Contact;
 import com.coffeine.virtuoso.notification.model.entity.Message;
 import com.coffeine.virtuoso.notification.model.service.NotificationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 /**
  * E-mail implementation of notification service.
- * @see NotificationService
- *
  * Send e-mails.
  *
  * @version 1.0
+ *
+ * @see NotificationService
  */
 public class MailService implements NotificationService {
 

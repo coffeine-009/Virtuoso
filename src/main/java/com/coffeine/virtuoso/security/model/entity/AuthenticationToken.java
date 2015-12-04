@@ -22,28 +22,28 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
 
     /// *** Properties  *** ///
     /**
-     * Principal
+     * Principal.
      */
     protected final Object principal;
 
     /**
-     * Credentials
+     * Credentials.
      */
     protected Object credential;
 
 
     /// *** Methods     *** ///
     /**
-     * Constructor for create new Auth token
+     * Constructor for create new Auth token.
      *
-     * @param principal
-     * @param credential
-     * @param authorities
+     * @param principal      Principal for access.
+     * @param credential     Credentials for access.
+     * @param authorities    List of authorities.
      */
     public AuthenticationToken(
         Object principal,
         Object credential,
-        Collection < ? extends GrantedAuthority > authorities
+        Collection<? extends GrantedAuthority> authorities
     ) {
         //- Delegate authorities -//
         super( authorities );
@@ -58,7 +58,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
 
     //- SECTION :: GET -//
     /**
-     * Get Credentials
+     * Get Credentials.
      *
      * @return Object
      */
@@ -68,7 +68,7 @@ public class AuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * Get principal
+     * Get principal.
      *
      * @return Object
      */

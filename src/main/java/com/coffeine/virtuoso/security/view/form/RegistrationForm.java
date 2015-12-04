@@ -11,18 +11,19 @@ package com.coffeine.virtuoso.security.view.form;
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.security.model.entity.Roles;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * Form for registration of a new users
+ * Form for registration of a new users.
  *
  * @version 1.0
  */
@@ -54,7 +55,7 @@ public class RegistrationForm {
     @NotNull
     @NotEmpty
     @InEnum( enumClass = Roles.class )//TODO: add exists validator
-    protected List< String > roles;
+    protected List<String> roles;
 
     @NotNull
     @NotEmpty
@@ -80,7 +81,7 @@ public class RegistrationForm {
     /**
      * Create form with required fields.
      *
-     * @param username     Unique unsername of user
+     * @param username     Unique username of user
      * @param password     Password of user
      * @param firstName    First name of user
      * @param lastName     Last name of user
@@ -94,7 +95,7 @@ public class RegistrationForm {
         String firstName,
         String lastName,
         Boolean gender,
-        List< String > roles,
+        List<String> roles,
         String locale,
         LocalDate birthday
     ) {
@@ -127,7 +128,7 @@ public class RegistrationForm {
         String firstName,
         String lastName,
         Boolean gender,
-        List< String > roles,
+        List<String> roles,
         String locale,
         LocalDate birthday,
         LocalDate deathDay
@@ -148,62 +149,63 @@ public class RegistrationForm {
 
     //- SECTION :: GET -//
     /**
-     * Get username
+     * Get username.
      *
-     * @return String
+     * @return String   Username.
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * Get password
+     * Get password.
      *
-     * @return String
+     * @return String Password.
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * Get first name
+     * Get first name.
      *
-     * @return String
+     * @return String First name.
      */
     public String getFirstName() {
         return this.firstName;
     }
 
     /**
-     * Get last name
+     * Get last name.
      *
-     * @return String
+     * @return String Last name.
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * Get gender
+     * Get gender.
      *
-     * @return boolean
+     * @return boolean true - man, false - woman.
      */
     public Boolean getGender() {
         return gender;
     }
 
     /**
-     * Get roles
+     * Get roles.
      *
-     * @return List<String>
+     * @return List of roles.
      */
-    public List < String > getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
     /**
-     * Get locale
-     * @return String
+     * Get locale.
+     *
+     * @return String Locale code.
      */
     public String getLocale() {
         return locale;
@@ -212,16 +214,16 @@ public class RegistrationForm {
     /**
      * Get birthday.
      *
-     * @return Date
+     * @return Date Birthday.
      */
     public LocalDate getBirthday() {
         return birthday;
     }
 
     /**
-     * Get day of death
+     * Get day of death.
      *
-     * @return Date
+     * @return Date Day of death.
      */
     public LocalDate getDeathDay() {
         return deathDay;
@@ -230,81 +232,81 @@ public class RegistrationForm {
 
     //- SECTION :: SET -//
     /**
-     * Set username
+     * Set username.
      *
-     * @param username
+     * @param username    Username.
      */
     public void setUsername( String username ) {
         this.username = username;
     }
 
     /**
-     * Set password
+     * Set password.
      *
-     * @param password
+     * @param password    Password.
      */
     public void setPassword( String password ) {
         this.password = password;
     }
 
     /**
-     * Set first name
+     * Set first name.
      *
-     * @param firstName
+     * @param firstName    First name.
      */
     public void setFirstName( String firstName ) {
         this.firstName = firstName;
     }
 
     /**
-     * Set last name
+     * Set last name.
      *
-     * @param lastName
+     * @param lastName  Last name.
      */
     public void setLastName( String lastName ) {
         this.lastName = lastName;
     }
 
     /**
-     * Set getnder
+     * Set gender.
      *
-     * @param gender
+     * @param gender true - man, false - woman.
      */
     public void setGender( Boolean gender ) {
         this.gender = gender;
     }
 
     /**
-     * Set roles
+     * Set roles.
      *
-     * @param roles
+     * @param roles    List of roles.
      */
-    public void setRole( List < String > roles ) {
+    public void setRole( List<String> roles ) {
         this.roles = roles;
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
-     * @param locale
+     * @param locale    Locale code.
      */
     public void setLocale( String locale ) {
         this.locale = locale;
     }
 
     /**
-     * Set birthday
+     * Set birthday.
      *
-     * @param birthday
+     * @param birthday    Date of birthday.
      */
     public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
     }
 
     /**
-     * Set day of death
+     * Set day of death.
      *
-     * @param deathDay
+     * @param deathDay    Day of death.
      */
     public void setDeathDay( LocalDate deathDay ) {
         this.deathDay = deathDay;

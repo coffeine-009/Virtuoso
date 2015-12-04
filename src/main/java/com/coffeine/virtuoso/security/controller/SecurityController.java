@@ -6,14 +6,16 @@
  * @date 11/30/15 11:14 PM
  */
 
-/// *** User :: Controller :: Song  *** *** *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.security.controller;
 
-import com.coffeine.virtuoso.module.user.model.entity.*;
+import com.coffeine.virtuoso.module.user.model.entity.Access;
+import com.coffeine.virtuoso.module.user.model.entity.Composer;
+import com.coffeine.virtuoso.module.user.model.entity.ComposerLocale;
+import com.coffeine.virtuoso.module.user.model.entity.Email;
+import com.coffeine.virtuoso.module.user.model.entity.Poet;
+import com.coffeine.virtuoso.module.user.model.entity.PoetLocale;
+import com.coffeine.virtuoso.module.user.model.entity.Role;
+import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.service.RoleService;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
 import com.coffeine.virtuoso.notification.model.entity.EmailAddress;
@@ -21,16 +23,21 @@ import com.coffeine.virtuoso.security.model.entity.Roles;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
 import com.coffeine.virtuoso.security.view.form.ForgotPasswordForm;
 import com.coffeine.virtuoso.security.view.form.RegistrationForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.springframework.util.Assert.isTrue;
 
@@ -93,8 +100,8 @@ public class SecurityController {
     ) {
         try {
             //- Recognise roles -//
-            List < String > requestRoles = registrationForm.getRoles();
-            List < Role > roles = this.roleService.findByCodes( requestRoles );
+            List<String> requestRoles = registrationForm.getRoles();
+            List<Role> roles = this.roleService.findByCodes( requestRoles );
 
             //- Check if roles exists in persistence layout -//
             isTrue( requestRoles.size() == roles.size() );
@@ -120,49 +127,49 @@ public class SecurityController {
                 registrationForm.getLocale()
             );
 
-                //- Create a new composer -//
-                if( requestRoles.contains( Roles.COMPOSER.name() ) ) {
-                    //- Linking composer with user -//
-                    newUser.setComposer(
-                        new Composer(
-                            newUser.getLocale(),
-                            newUser.getGender(),
-                            registrationForm.getBirthday(),
-                            registrationForm.getDeathDay(),
-                            new ArrayList < ComposerLocale >() {{
-                                add(
-                                    new ComposerLocale(
-                                        registrationForm.getFirstName(),
-                                        registrationForm.getLastName(),
-                                        registrationForm.getLocale()
-                                    )
-                                );
-                            }}
-                        )
-                    );
-                }
+            //- Create a new composer -//
+            if ( requestRoles.contains( Roles.COMPOSER.name() ) ) {
+                //- Linking composer with user -//
+                newUser.setComposer(
+                    new Composer(
+                        newUser.getLocale(),
+                        newUser.getGender(),
+                        registrationForm.getBirthday(),
+                        registrationForm.getDeathDay(),
+                        new ArrayList<ComposerLocale>() {{
+                            add(
+                                new ComposerLocale(
+                                    registrationForm.getFirstName(),
+                                    registrationForm.getLastName(),
+                                    registrationForm.getLocale()
+                                )
+                            );
+                        }}
+                    )
+                );
+            }
 
-                //- Create a new poet -//
-                if ( requestRoles.contains( Roles.POET.name() ) ) {
-                    //- Linking poet with user -//
-                    newUser.setPoet(
-                        new Poet(
-                            newUser.getLocale(),
-                            newUser.getGender(),
-                            registrationForm.getBirthday(),
-                            registrationForm.getDeathDay(),
-                            new ArrayList < PoetLocale >() {{
-                                add(
-                                    new PoetLocale(
-                                        registrationForm.getFirstName(),
-                                        registrationForm.getLastName(),
-                                        registrationForm.getLocale()
-                                    )
-                                );
-                            }}
-                        )
-                    );
-                }
+            //- Create a new poet -//
+            if ( requestRoles.contains( Roles.POET.name() ) ) {
+                //- Linking poet with user -//
+                newUser.setPoet(
+                    new Poet(
+                        newUser.getLocale(),
+                        newUser.getGender(),
+                        registrationForm.getBirthday(),
+                        registrationForm.getDeathDay(),
+                        new ArrayList<PoetLocale>() {{
+                            add(
+                                new PoetLocale(
+                                    registrationForm.getFirstName(),
+                                    registrationForm.getLastName(),
+                                    registrationForm.getLocale()
+                                )
+                            );
+                        }}
+                    )
+                );
+            }
 
             //- Success -//
             response.setStatus( HttpServletResponse.SC_CREATED );

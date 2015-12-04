@@ -6,17 +6,12 @@
  * @date 11/30/15 11:14 PM
  */
 
-/// *** Security :: Model :: Provider :: UserAuthenticationProvider *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.security.model.provider.implementation;
 
-import com.coffeine.virtuoso.module.user.model.entity.Role;
 import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.service.UserService;
 import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -30,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Authentication provider of users.
+ *
  * @version 1.0
  */
 public class UserAuthenticationProvider implements AuthenticationProvider {
@@ -49,11 +46,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
     /**
-     * Authentication
+     * Authentication.
      *
-     * @param authentication
-     * @return Authentication
-     * @throws AuthenticationException
+     * @param authentication    Authentication object.
+     *
+     * @return Authentication AuthenticationToken
+     *
+     * @throws AuthenticationException if credentials are bad.
      */
     @Override
     public Authentication authenticate(
@@ -70,14 +69,16 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         );
         if ( user != null ) {
             //- Set authorities -//
-            List < GrantedAuthority > authorities = new ArrayList<>();
-                for ( Role role : user.getRoles() ) {
-                    authorities.add(
-                        new SimpleGrantedAuthority(
-                            role.getCode()
-                        )
-                    );
-                }
+            List<GrantedAuthority> authorities = new ArrayList<>();
+
+            //- Populate roles into authentication object -//
+            user.getRoles().forEach( 
+                role -> authorities.add(
+                    new SimpleGrantedAuthority(
+                        role.getCode()
+                    )
+                )
+            );
 
             //- Create new auth token -//
             AuthenticationToken authToken = new AuthenticationToken(
@@ -93,13 +94,14 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     }
 
     /**
-     * Supports
+     * Supports.
      *
-     * @param authentication
-     * @return boolean
+     * @param authentication    Class of authentication object.
+     *
+     * @return boolean true - supported, false - unsupported.
      */
     @Override
-    public boolean supports( Class < ? > authentication ) {
+    public boolean supports( Class<?> authentication ) {
         return true;
     }
 }

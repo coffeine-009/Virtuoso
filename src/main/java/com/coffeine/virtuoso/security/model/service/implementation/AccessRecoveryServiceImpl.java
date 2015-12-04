@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.security.model.service.implementation;
 
 import com.coffeine.virtuoso.notification.model.entity.Contact;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
+
 import org.springframework.stereotype.Service;
 
 /**
