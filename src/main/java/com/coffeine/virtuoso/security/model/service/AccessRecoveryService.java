@@ -20,7 +20,7 @@ public interface AccessRecoveryService {
     /**
      * Make request loosing access to account.
      *
-     * @param contact    Contact associated to account
+     * @param contact    Contact associated to account.
      */
     void lostAccess( Contact contact );
 }

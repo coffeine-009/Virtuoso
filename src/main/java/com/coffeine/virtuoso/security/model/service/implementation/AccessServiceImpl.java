@@ -1,23 +1,21 @@
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 12/5/15 2:08 PM
+ */
+
 /// *** User :: Model :: Service :: AccessOAuthService  *** *** *** *** *** ///
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-08-22 16:25:00 :: 2014-08-22 16:28:55
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service.implementation;
+package com.coffeine.virtuoso.security.model.service.implementation;
 
-import com.coffeine.virtuoso.module.user.model.entity.Access;
-import com.coffeine.virtuoso.module.user.model.repository.AccessRepository;
-import com.coffeine.virtuoso.module.user.model.service.AccessService;
+import com.coffeine.virtuoso.security.model.repository.AccessRepository;
+import com.coffeine.virtuoso.security.model.service.AccessService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -8,9 +8,9 @@
 
 package com.coffeine.virtuoso.security.model.provider.implementation;
 
-import com.coffeine.virtuoso.module.user.model.entity.User;
-import com.coffeine.virtuoso.module.user.model.service.UserService;
 import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
+import com.coffeine.virtuoso.security.model.entity.User;
+import com.coffeine.virtuoso.security.model.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

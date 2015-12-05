@@ -13,9 +13,10 @@
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.error.controller;
+package com.coffeine.virtuoso.error.controller;
 
-import com.coffeine.virtuoso.module.error.model.entity.ValidationError;
+import com.coffeine.virtuoso.error.model.entity.ValidationError;
+
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

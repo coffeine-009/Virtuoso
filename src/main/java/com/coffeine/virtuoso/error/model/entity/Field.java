@@ -13,7 +13,7 @@
     *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.error.model.entity;
+package com.coffeine.virtuoso.error.model.entity;
 
 /**
  * @version 1.0.

@@ -1,23 +1,22 @@
-/// *** User :: Model :: Service :: User    *** *** *** *** *** *** *** *** ///
-
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-06-04 15:12:56 :: 2014-06-.. ..:..:..
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ * @date 12/5/15 2:07 PM
+ */
+
+/// *** User :: Model :: Service :: User    *** *** *** *** *** *** *** *** ///
+
+//*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
 
 /// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.service.implementation;
+package com.coffeine.virtuoso.security.model.service.implementation;
 
-import com.coffeine.virtuoso.module.user.model.entity.User;
-import com.coffeine.virtuoso.module.user.model.repository.UserRepository;
-import com.coffeine.virtuoso.module.user.model.service.UserService;
+import com.coffeine.virtuoso.security.model.entity.User;
+import com.coffeine.virtuoso.security.model.repository.UserRepository;
+import com.coffeine.virtuoso.security.model.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -58,6 +57,18 @@ public class UserServiceImpl implements UserService {
             username,
             password
         );
+    }
+
+    /**
+     * Find user by email.
+     *
+     * @param username Username of user(e-mail).
+     *
+     * @return User
+     */
+    @Override
+    public User findByUsername( String username ) {
+        return this.userRepository.findByUsername( username );
     }
 
     /**

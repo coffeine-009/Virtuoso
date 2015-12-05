@@ -9,11 +9,14 @@
 package com.coffeine.virtuoso.security.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.module.user.model.entity.User;
 import com.coffeine.virtuoso.module.user.model.persistence.mock.RoleMock;
 import com.coffeine.virtuoso.module.user.model.persistence.mock.UserMock;
-import com.coffeine.virtuoso.module.user.model.service.RoleService;
-import com.coffeine.virtuoso.module.user.model.service.UserService;
+import com.coffeine.virtuoso.notification.model.entity.Contact;
+import com.coffeine.virtuoso.security.model.entity.User;
+import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
+import com.coffeine.virtuoso.security.model.service.RoleService;
+import com.coffeine.virtuoso.security.model.service.UserService;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +27,10 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -48,6 +53,9 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private AccessRecoveryService accessRecoveryService;
 
     @InjectMocks
     private SecurityController securityController = new SecurityController();
@@ -151,6 +159,8 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     @Test
     public void testForgotPasswordActionSuccess() throws Exception {
 
+        doNothing().when( this.accessRecoveryService ).lostAccess( any( Contact.class ) );
+
         this.mockMvc.perform(
             post( "/security/forgotPassword" )
                 .contentType( MediaType.APPLICATION_JSON )
@@ -191,6 +201,9 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
      */
     @Test
     public void testForgotPasswordActionFailureEmail() throws Exception {
+
+        doThrow( IllegalArgumentException.class ).when( this.accessRecoveryService )
+            .lostAccess( any( Contact.class ) );
 
         //- Perform request -//
         this.mockMvc.perform(

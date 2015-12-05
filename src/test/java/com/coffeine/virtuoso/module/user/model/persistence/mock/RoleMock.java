@@ -1,13 +1,13 @@
 package com.coffeine.virtuoso.module.user.model.persistence.mock;
 
-import com.coffeine.virtuoso.module.user.model.entity.Role;
+import com.coffeine.virtuoso.security.model.entity.Role;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Mock for Role in persistence layout.
- * @see com.coffeine.virtuoso.module.user.model.entity.Role
+ * @see Role
  *
  * @version 1.0
  */

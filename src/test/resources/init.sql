@@ -43,7 +43,8 @@ VALUES
 
 INSERT INTO email( id, address, id_user )
 VALUES
-  ( 1,  'user@virtuoso.com', 1 );
+  ( 1,  'user@virtuoso.com', 1 ),
+  ( 2,  'unit@test.com', 1 );
 
 INSERT INTO access( id, id_user, password )
 VALUES

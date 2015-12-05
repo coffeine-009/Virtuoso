@@ -27,6 +27,9 @@ import org.springframework.mail.SimpleMailMessage;
 public class MailService implements NotificationService {
 
     /// *** Properties  *** ///
+    /**
+     * Provider for sending e-mails.
+     */
     @Autowired
     private MailSender sender;
 

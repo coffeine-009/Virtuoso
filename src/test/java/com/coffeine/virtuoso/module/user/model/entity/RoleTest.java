@@ -7,6 +7,8 @@
 package com.coffeine.virtuoso.module.user.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
+import com.coffeine.virtuoso.security.model.entity.Role;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
@@ -21,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for Role
- * @see com.coffeine.virtuoso.module.user.model.entity.Role
+ * @see Role
  *
  * @version 1.0
  */

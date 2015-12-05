@@ -1,15 +1,15 @@
 package com.coffeine.virtuoso.module.user.model.persistence.mock;
 
-import com.coffeine.virtuoso.module.user.model.entity.Access;
-import com.coffeine.virtuoso.module.user.model.entity.Email;
-import com.coffeine.virtuoso.module.user.model.entity.Role;
-import com.coffeine.virtuoso.module.user.model.entity.User;
+import com.coffeine.virtuoso.security.model.entity.Access;
+import com.coffeine.virtuoso.security.model.entity.Email;
+import com.coffeine.virtuoso.security.model.entity.Role;
+import com.coffeine.virtuoso.security.model.entity.User;
 
 import java.util.ArrayList;
 
 /**
  * Mock for persistence layout of users.
- * @see com.coffeine.virtuoso.module.user.model.entity.User
+ * @see User
  *
  * @version 1.0
  */

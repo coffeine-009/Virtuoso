@@ -1,19 +1,15 @@
-/// *** User :: Model :: Entity :: User *** *** *** *** *** *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 12/5/15 11:47 AM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-04-09 22:45:38 :: 2014-04-15 22:48:41
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Chornovola/104
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+package com.coffeine.virtuoso.security.model.entity;
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-package com.coffeine.virtuoso.module.user.model.entity;
+import com.coffeine.virtuoso.module.user.model.entity.Composer;
+import com.coffeine.virtuoso.module.user.model.entity.Poet;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,11 +24,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Class for reflect table from persistence layout
+ * Class for reflect table from persistence layout.
  *
  * @version 1.0
  */
@@ -43,11 +40,18 @@ import static org.springframework.util.Assert.notNull;
 public class User implements Serializable {
 
     /// *** Properties  *** ///
+    /**
+     * Unique id of user.
+     * Primary key.
+     */
     @Id
     @GeneratedValue
-    @Column( name = "id" )
+    @Column
     protected Long id;
 
+    /**
+     * List of roles assigned to user.
+     */
     @NotNull
     @Valid
     @ManyToMany( fetch = FetchType.EAGER )
@@ -78,8 +82,11 @@ public class User implements Serializable {
             )
         }
     )
-    protected List < Role > roles;
+    protected List<Role> roles = new ArrayList<>();
 
+    /**
+     * List of accesses.
+     */
     @JsonIgnore
     @NotNull
     @NotEmpty
@@ -89,8 +96,11 @@ public class User implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List < Access > access;
+    protected List<Access> access = new ArrayList<>();
 
+    /**
+     * List of e-mails.
+     */
     @JsonIgnore
     @NotNull
     @NotEmpty
@@ -100,8 +110,11 @@ public class User implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List < Email > emails;
+    protected List<Email> emails = new ArrayList<>();
 
+    /**
+     * Composer If user has role COMPOSER.
+     */
     @JsonIgnore
     @JsonManagedReference
     @Valid
@@ -113,6 +126,9 @@ public class User implements Serializable {
     @PrimaryKeyJoinColumn
     protected Composer composer;
 
+    /**
+     * Poet if User has role POET.
+     */
     @JsonIgnore
     @JsonManagedReference
     @Valid
@@ -124,50 +140,61 @@ public class User implements Serializable {
     @PrimaryKeyJoinColumn
     protected Poet poet;
 
+    /**
+     * First name.
+     */
     @NotNull
     @NotEmpty
     @Length( max = 16 )
     @Column( name = "first_name", length = 16 )
     protected String firstName;
 
+    /**
+     * Last name.
+     */
     @Length( max = 16 )
     @Column( name = "last_name", length = 16 )
     protected String lastName;
 
+    /**
+     * Middle name.
+     */
     @Length( max = 32 )
     @Column( name = "middle_name", length = 32 )
     protected String middleName;
 
-    @Column( name = "gender" )
+    /**
+     * Gender. True - man, false - woman, null - unknown.
+     */
+    @Column
     protected Boolean gender;
 
+    /**
+     * Code of user's locale.
+     */
     @NotNull
     @NotEmpty
     @Length( max = 5 )
-    @Column( name = "locale", length = 5 )
+    @Column( length = 5 )
     protected String locale;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(
-        name = "creation",
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-    )
+    /**
+     * Time of registration.
+     */
+    @Column( columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" )
     protected Calendar creation;
 
 
     /// *** Methods     *** ///
-
     /**
-     * Default constructor
+     * Default constructor.
      */
     public User() {
         //- Initialization -//
-        this.access = new ArrayList<>();
-        this.emails = new ArrayList<>();
     }
 
     /**
-     * Constructor for create user
+     * Constructor for create user.
      *
      * @param roles         List of roles
      * @param email         Email
@@ -197,7 +224,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Constructor for create user
+     * Constructor for create user.
      *
      * @param roles         List of roles
      * @param access        List of permissions
@@ -208,7 +235,7 @@ public class User implements Serializable {
      * @param locale        Default locale
      */
     public User(
-        List < Role > roles,
+        List<Role> roles,
         Access access,
         Email email,
         String firstName,
@@ -230,7 +257,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Constructor for create user
+     * Constructor for create user.
      *
      * @param roles         List of roles
      * @param access        List of permissions
@@ -241,7 +268,7 @@ public class User implements Serializable {
      * @param locale        Default locale
      */
     public User(
-        List < Role > roles,
+        List<Role> roles,
         Access access,
         Email email,
         String firstName,
@@ -263,14 +290,14 @@ public class User implements Serializable {
     }
 
     /**
-     * Constructor for create user
+     * Constructor for create user.
      *
      * @param roles        List of roles
      * @param firstName    First name
      * @param locale       Default locale
      */
     public User(
-        List < Role > roles,
+        List<Role> roles,
         String firstName,
         String locale
     ) {
@@ -285,12 +312,19 @@ public class User implements Serializable {
         this.locale = locale;
     }
 
-    public User( List < Role > roles) {
+    /**
+     * Create user only with role list.
+     *
+     * @param roles    List of roles
+     */
+    public User( List<Role> roles ) {
         this.roles = roles;
     }
+
+
     //- SECTION :: GET -//
     /**
-     * Get ID of song
+     * Get ID of song.
      *
      * @return Long ID of song
      */
@@ -299,34 +333,34 @@ public class User implements Serializable {
     }
 
     /**
-     * Get role
+     * Get role.
      *
      * @return Role
      */
-    public List < Role > getRoles() {
+    public List<Role> getRoles() {
         return this.roles;
     }
 
     /**
-     * Get access
+     * Get access.
      *
-     * @return List<Access>
+     * @return List of access
      */
-    public List < Access > getAccess() {
+    public List<Access> getAccess() {
         return access;
     }
 
     /**
-     * Get emails for this user
+     * Get emails for this user.
      *
-     * @return List<Emails>
+     * @return List of emails
      */
-    public List < Email > getEmails() {
+    public List<Email> getEmails() {
         return emails;
     }
 
     /**
-     * Get composer's data if this user is composer
+     * Get composer's data if this user is composer.
      *
      * @return Composer
      */
@@ -335,7 +369,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Get poet's data if this user is poet
+     * Get poet's data if this user is poet.
      *
      * @return Poet
      */
@@ -344,7 +378,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Get first name
+     * Get first name.
      *
      * @return String
      */
@@ -353,7 +387,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Get last name
+     * Get last name.
      *
      * @return String
      */
@@ -362,7 +396,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Get middle name
+     * Get middle name.
      *
      * @return String
      */
@@ -371,16 +405,16 @@ public class User implements Serializable {
     }
 
     /**
-     * Get gender
+     * Get gender.
      *
-     * @return Boolean true - man, false - woman, null - undefined
+     * @return Boolean true - man, false - woman, null - unknown.
      */
     public Boolean getGender() {
         return gender;
     }
 
     /**
-     * Get locale code
+     * Get locale code.
      *
      * @return String
      */
@@ -389,7 +423,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Get time of create this record
+     * Get time of create this record.
      *
      * @return Calendar
      */
@@ -400,7 +434,7 @@ public class User implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song
+     * Set ID of song.
      *
      * @param id ID of song
      */
@@ -409,29 +443,29 @@ public class User implements Serializable {
     }
 
     /**
-     * Set role
+     * Set role.
      *
      * @param roles
      */
-    public void setRoles( List < Role > roles ) {
+    public void setRoles( List<Role> roles ) {
         this.roles = roles;
     }
 
     /**
-     * Set access
+     * Set access.
      *
      * @param access
      */
-    public void setAccess( List < Access > access ) {
+    public void setAccess( List<Access> access ) {
         this.access = access;
     }
 
     /**
-     * Set email of this user
+     * Set email of this user.
      *
      * @param emails
      */
-    public void setEmails( List < Email > emails ) {
+    public void setEmails( List<Email> emails ) {
         this.emails = emails;
     }
 
@@ -452,7 +486,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Set poet's data
+     * Set poet's data.
      *
      * @param poet
      */
@@ -468,7 +502,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Set first name
+     * Set first name.
      *
      * @param firstName
      */
@@ -477,7 +511,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Set last name
+     * Set last name.
      *
      * @param lastName
      */
@@ -486,7 +520,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Set middle name
+     * Set middle name.
      *
      * @param middleName
      */
@@ -495,7 +529,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Set gender
+     * Set gender.
      *
      * @param gender true - man, false - woman, null - undefined
      */
@@ -504,7 +538,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Set locale code
+     * Set locale code.
      *
      * @param locale Locale code
      */
@@ -514,6 +548,11 @@ public class User implements Serializable {
 
 
     //- SECTION :: MAIN -//
+    /**
+     * Add access for user.
+     *
+     * @param access    Access for user.
+     */
     public void addAccess( Access access ) {
 
         // Set user
@@ -525,10 +564,11 @@ public class User implements Serializable {
             this.access.add( access );
         }
     }
+
     /**
-     * Add a new email
+     * Add a new email.
      *
-     * @param email
+     * @param email    E-mail address.
      */
     public void addEmail( Email email ) {
 
@@ -540,5 +580,44 @@ public class User implements Serializable {
             // Add a new email for user
             this.emails.add( email );
         }
+    }
+
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
+        User user = ( User ) o;
+        return Objects.equals( id, user.id ) &&
+            Objects.equals( roles, user.roles ) &&
+            Objects.equals( emails, user.emails ) &&
+            Objects.equals( firstName, user.firstName ) &&
+            Objects.equals( lastName, user.lastName ) &&
+            Objects.equals( middleName, user.middleName ) &&
+            Objects.equals( gender, user.gender ) &&
+            Objects.equals( locale, user.locale );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( id, roles, emails, firstName, lastName, middleName, gender, locale );
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", roles=" + roles +
+            ", access=" + access +
+            ", emails=" + emails +
+            ", composer=" + composer +
+            ", poet=" + poet +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", middleName='" + middleName + '\'' +
+            ", gender=" + gender +
+            ", locale='" + locale + '\'' +
+            ", creation=" + creation +
+            '}';
     }
 }

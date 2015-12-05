@@ -8,36 +8,27 @@
 
 package com.coffeine.virtuoso.security.controller;
 
-import com.coffeine.virtuoso.module.user.model.entity.Access;
 import com.coffeine.virtuoso.module.user.model.entity.Composer;
 import com.coffeine.virtuoso.module.user.model.entity.ComposerLocale;
-import com.coffeine.virtuoso.module.user.model.entity.Email;
 import com.coffeine.virtuoso.module.user.model.entity.Poet;
 import com.coffeine.virtuoso.module.user.model.entity.PoetLocale;
-import com.coffeine.virtuoso.module.user.model.entity.Role;
-import com.coffeine.virtuoso.module.user.model.entity.User;
-import com.coffeine.virtuoso.module.user.model.service.RoleService;
-import com.coffeine.virtuoso.module.user.model.service.UserService;
 import com.coffeine.virtuoso.notification.model.entity.EmailAddress;
-import com.coffeine.virtuoso.security.model.entity.Roles;
+import com.coffeine.virtuoso.security.model.entity.*;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
+import com.coffeine.virtuoso.security.model.service.RoleService;
+import com.coffeine.virtuoso.security.model.service.UserService;
 import com.coffeine.virtuoso.security.view.form.ForgotPasswordForm;
 import com.coffeine.virtuoso.security.view.form.RegistrationForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.util.Assert.isTrue;
 
@@ -198,7 +189,7 @@ public class SecurityController {
         @RequestBody
         final ForgotPasswordForm form,
 
-        HttpServletRequest request
+        HttpServletResponse response
     ) {
         //- Try to make request for recovery access to account -//
         try {
@@ -206,8 +197,9 @@ public class SecurityController {
             this.accessRecoveryService.lostAccess(
                 new EmailAddress( form.getEmail() )
             );
-        } catch ( Exception e ) {
-            //TODO:
+        } catch ( IllegalArgumentException e ) {
+            //- Error. Cannot find user -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
     }
 }
