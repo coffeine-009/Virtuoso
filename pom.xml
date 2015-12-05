@@ -291,11 +291,19 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- View :: Templater -->
+        <!-- View :: Template -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- Notification :: Template -->
+        <!-- Handlebars -->
+        <dependency>
+            <groupId>com.github.jknack</groupId>
+            <artifactId>handlebars</artifactId>
+            <version>4.0.1</version>
         </dependency>
 
 

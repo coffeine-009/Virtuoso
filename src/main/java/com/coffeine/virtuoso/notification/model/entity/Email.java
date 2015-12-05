@@ -15,7 +15,13 @@ package com.coffeine.virtuoso.notification.model.entity;
  */
 public class Email implements Message {
 
-    //TODO
+    private String text;
+
+
+    public Email( String subject, String text ) {
+        //- Initialization -//
+        this.text = text;
+    }
 
     /**
      * Get subject of message.
@@ -34,6 +40,6 @@ public class Email implements Message {
      */
     @Override
     public String getText() {
-        return null;
+        return this.text;
     }
 }

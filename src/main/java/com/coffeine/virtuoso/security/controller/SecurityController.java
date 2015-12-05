@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -200,6 +201,9 @@ public class SecurityController {
         } catch ( IllegalArgumentException e ) {
             //- Error. Cannot find user -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        } catch ( IOException e ) {
+            //- Error. Cannot apply template -//
+            response.setStatus( HttpServletResponse.SC_INTERNAL_SERVER_ERROR );
         }
     }
 }

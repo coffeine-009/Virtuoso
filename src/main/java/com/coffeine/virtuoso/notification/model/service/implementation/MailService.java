@@ -15,6 +15,7 @@ import com.coffeine.virtuoso.notification.model.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Service;
 
 /**
  * E-mail implementation of notification service.
@@ -24,6 +25,7 @@ import org.springframework.mail.SimpleMailMessage;
  *
  * @see NotificationService
  */
+@Service
 public class MailService implements NotificationService {
 
     /// *** Properties  *** ///
@@ -50,7 +52,7 @@ public class MailService implements NotificationService {
             email.setFrom( from.getAddress() );
             email.setTo( to.getAddress() );
             email.setSubject( message.getSubject() );
-            email.setTo( message.getText() );
+            email.setText( message.getText() );
             //TODO: add additional params
 
         this.sender.send( email );

@@ -11,6 +11,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/spring/mail.xml
+            /WEB-INF/spring/notification.xml
             /WEB-INF/spring/development/spring-context.xml
             /WEB-INF/spring/development/security.xml
             /WEB-INF/spring/development/configuration.xml
