@@ -8,12 +8,16 @@
 package com.coffeine.virtuoso.security.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractControllerTest;
+
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -205,6 +209,13 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     @Test
     public void testForgotPasswordActionSuccess() throws Exception {
 
+        //- Mock SMTP server -//
+        GreenMail smtpServer = new GreenMail( new ServerSetup( 3025, null, "smtp" ) );
+
+        //- Turn on SMTP Server -//
+        smtpServer.start();
+
+        //- Perform -//
         this.mockMvc.perform(
             post( "/security/forgotPassword" )
                 .contentType( MediaType.APPLICATION_JSON )
@@ -215,6 +226,12 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                 )
         ).andDo( print() )
             .andExpect( status().isOk() );
+
+
+        assertTrue( smtpServer.getReceivedMessages().length == 1 );
+
+        //- Turn down SMTP Server -//
+        smtpServer.stop();
     }
 
     /**
