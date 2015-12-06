@@ -1,0 +1,32 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!--~
+  ~ Copyright (c) 2014-2015 by Coffeine Inc
+  ~
+  ~ @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+  ~
+  ~ @date 12/3/15 10:10 PM
+  -->
+
+<beans
+    xmlns       = "http://www.springframework.org/schema/beans"
+    xmlns:xsi   = "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation = "http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+    <!-- Sender -->
+    <bean id = "mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name = "host" value = "${mail.host}" />
+        <property name = "port" value = "${mail.port}" />
+        <property name = "username" value = "${mail.username}" />
+        <property name = "password" value = "${mail.password}" />
+        <property name = "javaMailProperties">
+            <props>
+                <prop key = "mail.transport.protocol">${mail.protocol}</prop>
+                <prop key = "mail.smtp.auth">${mail.auth.required}</prop>
+                <prop key = "mail.smtp.starttls.enable">${mail.tls.enable}</prop>
+                <prop key = "mail.debug">${mail.debug}</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

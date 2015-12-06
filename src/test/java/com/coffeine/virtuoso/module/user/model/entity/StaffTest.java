@@ -8,10 +8,15 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
+import com.coffeine.virtuoso.security.model.entity.Access;
+import com.coffeine.virtuoso.security.model.entity.Email;
+import com.coffeine.virtuoso.security.model.entity.Role;
+import com.coffeine.virtuoso.security.model.entity.User;
+
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import org.hibernate.validator.constraints.Length;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -56,7 +61,7 @@ public class StaffTest extends AbstractModel {
                 new Poet(
                     new User(
                         //- Roles -//
-                        new ArrayList<Role>() {{
+                        new ArrayList<Role >() {{
                             add(new Role("POET", "Poet"));
                         }},
                         //- Access -//

@@ -6,16 +6,10 @@
   -->
 
 <beans
-    xmlns =             "http://www.springframework.org/schema/beans"
-    xmlns:xsi =         "http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:encryption =  "http://www.jasypt.org/schema/encryption"
-    xmlns:security =    "http://www.springframework.org/schema/security"
-    xsi:schemaLocation = "http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.jasypt.org/schema/encryption
-        http://www.jasypt.org/schema/encryption/jasypt-spring31-encryption-1.xsd
-        http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security.xsd"
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
 >
 
     <!--                                                                      -->
@@ -54,6 +48,7 @@
         <property name="locations">
             <list>
                 <value>classpath:/configuration/persistence.properties</value>
+                <value>classpath:/configuration/mail.properties</value>
             </list>
         </property>
 

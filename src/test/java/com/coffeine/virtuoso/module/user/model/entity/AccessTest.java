@@ -8,6 +8,11 @@ package com.coffeine.virtuoso.module.user.model.entity;
 
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
+import com.coffeine.virtuoso.security.model.entity.Access;
+import com.coffeine.virtuoso.security.model.entity.Email;
+import com.coffeine.virtuoso.security.model.entity.Role;
+import com.coffeine.virtuoso.security.model.entity.User;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
@@ -22,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for Access
- * @see com.coffeine.virtuoso.module.user.model.entity.Access
+ * @see Access
  *
  * @version 1.0
  */
