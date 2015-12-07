@@ -8,10 +8,10 @@
 
 package com.coffeine.virtuoso.security.controller;
 
-import com.coffeine.virtuoso.module.user.model.entity.Composer;
-import com.coffeine.virtuoso.module.user.model.entity.ComposerLocale;
-import com.coffeine.virtuoso.module.user.model.entity.Poet;
-import com.coffeine.virtuoso.module.user.model.entity.PoetLocale;
+import com.coffeine.virtuoso.music.model.entity.Composer;
+import com.coffeine.virtuoso.music.model.entity.ComposerLocale;
+import com.coffeine.virtuoso.music.model.entity.Poet;
+import com.coffeine.virtuoso.music.model.entity.PoetLocale;
 import com.coffeine.virtuoso.notification.model.entity.EmailAddress;
 import com.coffeine.virtuoso.security.model.entity.*;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
@@ -25,11 +25,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import static org.springframework.util.Assert.isTrue;
 
