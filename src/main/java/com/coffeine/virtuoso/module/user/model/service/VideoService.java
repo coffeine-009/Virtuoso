@@ -16,7 +16,6 @@
 package com.coffeine.virtuoso.module.user.model.service;
 
 import com.coffeine.virtuoso.module.user.model.entity.Video;
-import com.coffeine.virtuoso.module.user.model.repository.VideoRepository;
 
 import java.util.List;
 

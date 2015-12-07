@@ -11,7 +11,6 @@
 package com.coffeine.virtuoso.module.controller;
 
 import com.coffeine.virtuoso.module.AbstractTest;
-import org.junit.runner.RunWith;
 
 
 /**

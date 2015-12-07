@@ -14,12 +14,17 @@ import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.coffeine.virtuoso.module.user.model.entity.VideoType;
 import com.coffeine.virtuoso.module.user.model.repository.VideoTypeRepository;
 import com.coffeine.virtuoso.module.user.model.service.VideoTypeService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
@@ -28,7 +33,6 @@ import java.util.List;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests for VideoType Controller

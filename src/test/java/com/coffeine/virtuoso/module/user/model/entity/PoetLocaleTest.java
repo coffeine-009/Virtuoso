@@ -12,15 +12,14 @@ import com.coffeine.virtuoso.security.model.entity.Email;
 import com.coffeine.virtuoso.security.model.entity.Role;
 import com.coffeine.virtuoso.security.model.entity.User;
 
-import junit.framework.Assert;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -173,7 +172,7 @@ public class PoetLocaleTest extends AbstractModel {
 
         constraintViolationSet = validator.validate( poetLocaleFailurePoet );
 
-        Assert.assertEquals(1, constraintViolationSet.size());
+        assertEquals(1, constraintViolationSet.size());
         for (ConstraintViolation < PoetLocale> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(

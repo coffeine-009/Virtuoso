@@ -16,7 +16,6 @@
 package com.coffeine.virtuoso.module.user.model.service;
 
 import com.coffeine.virtuoso.module.user.model.entity.Style;
-import com.coffeine.virtuoso.module.user.model.entity.Text;
 
 import java.util.List;
 

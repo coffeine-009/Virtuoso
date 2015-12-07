@@ -10,7 +10,6 @@ package com.coffeine.virtuoso.security.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
 
-import junit.framework.Assert;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
@@ -132,7 +131,7 @@ public class UserTest extends AbstractModel {
 
         constraintViolationSet = validator.validate( userFailureRoles );
 
-        Assert.assertEquals( 1, constraintViolationSet.size() );
+        assertEquals( 1, constraintViolationSet.size() );
         for ( ConstraintViolation<User> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
