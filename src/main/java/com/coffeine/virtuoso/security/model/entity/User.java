@@ -8,8 +8,8 @@
 
 package com.coffeine.virtuoso.security.model.entity;
 
-import com.coffeine.virtuoso.module.user.model.entity.Composer;
-import com.coffeine.virtuoso.module.user.model.entity.Poet;
+import com.coffeine.virtuoso.music.model.entity.Composer;
+import com.coffeine.virtuoso.music.model.entity.Poet;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,14 +17,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import static org.springframework.util.Assert.notNull;
 
