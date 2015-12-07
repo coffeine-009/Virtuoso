@@ -1,52 +1,50 @@
-/*
- * @copyright (c) 2014, by Vitaliy Tsutsman
+/**
+ * Copyright (c) 2015 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman, Valentyn Namisnyk <vitaliyacm@gmail.com>
+ * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ *
+ * @date 12/7/15 1:25 PM
  */
 
-package com.coffeine.virtuoso.module.user.model.entity;
+package com.coffeine.virtuoso.security.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.security.model.entity.Access;
-import com.coffeine.virtuoso.security.model.entity.Email;
-import com.coffeine.virtuoso.security.model.entity.Role;
-import com.coffeine.virtuoso.security.model.entity.User;
 
 import junit.framework.Assert;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 
 /**
- * Tests for User
- * @see User
+ * Tests for User.
  *
  * @version 1.0
+ * @see User
  */
 public class UserTest extends AbstractModel {
 
     /*
-     * Test field validation for entity correct
+     * Test field validation for entity correct.
      */
     @Test
     public void testUserFieldsSuccess() {
 
-        Set < ConstraintViolation < User > > constraintViolationSet;
+        Set<ConstraintViolation<User>> constraintViolationSet;
 
         //- Success -//
         //- Create entity-//
         User userSuccess = new User(
             //- Roles -//
-            new ArrayList < Role >() {{
+            new ArrayList<Role>() {{
                 add( new Role( "POET", "Poet" ) );
             }},
             //- Access -//
@@ -65,18 +63,18 @@ public class UserTest extends AbstractModel {
     }
 
     /*
-     * Test field validation for entity failure
+     * Test field validation for entity failure.
      */
     @Test
     public void testUserFieldsFailure() {
 
-        Set < ConstraintViolation < User > > constraintViolationSet;
+        Set<ConstraintViolation<User>> constraintViolationSet;
 
         //- Failure -//
         //- Create entity-//
         User userFailure = new User(
             //- Roles-//
-            new ArrayList < Role >() {{
+            new ArrayList<Role>() {{
                add( new Role( "POET", "Poet" ) );
             }},
             null,
@@ -87,10 +85,10 @@ public class UserTest extends AbstractModel {
         constraintViolationSet = validator.validate( userFailure );
 
         assertEquals( 8, constraintViolationSet.size() );
-        for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<User> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add("firstName");
                     add("locale");
                     add("access");
@@ -103,7 +101,7 @@ public class UserTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotNull.class );
                     add( NotEmpty.class );
                 }}.contains(
@@ -112,7 +110,7 @@ public class UserTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be null" );
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
@@ -132,14 +130,14 @@ public class UserTest extends AbstractModel {
             "uk-UA"
         );
 
-        constraintViolationSet = validator.validate( userFailureRoles);
+        constraintViolationSet = validator.validate( userFailureRoles );
 
         Assert.assertEquals( 1, constraintViolationSet.size() );
-        for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<User> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList<String>() {{
-                    add("roles");
+                    add( "roles" );
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -149,7 +147,7 @@ public class UserTest extends AbstractModel {
             //- Annotation type -//
             assertTrue(
                 new ArrayList<Class>() {{
-                    add(NotNull.class);
+                    add( NotNull.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
                 )
@@ -157,8 +155,8 @@ public class UserTest extends AbstractModel {
             //- Message -//
             assertTrue(
                 new ArrayList<String>() {{
-                    add("may not be null");
-                }}.contains(constraintViolation.getMessage())
+                    add( "may not be null" );
+                }}.contains( constraintViolation.getMessage() )
             );
         }
 
@@ -166,7 +164,7 @@ public class UserTest extends AbstractModel {
         //- Create entity -//
         User userFailureLength = new User(
             //- Roles -//
-            new ArrayList < Role >() {{
+            new ArrayList<Role>() {{
                 add( new Role( "POET", "Poet" ) );
             }},
             //- Access -//
@@ -184,10 +182,10 @@ public class UserTest extends AbstractModel {
 
         assertEquals( 4, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<User> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "firstName" );
                     add( "lastName" );
                     add( "middleName" );
@@ -200,7 +198,7 @@ public class UserTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -208,7 +206,7 @@ public class UserTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "length must be between 0 and 5" );
                     add( "length must be between 0 and 16" );
                     add( "length must be between 0 and 32" );
@@ -218,18 +216,18 @@ public class UserTest extends AbstractModel {
     }
 
     /*
-    * Test field validation for entity failure( empty )
+    * Test field validation for entity failure(empty).
     */
     @Test
     public void testUserFieldEmpty() {
 
-        Set < ConstraintViolation < User > > constraintViolationSet;
+        Set<ConstraintViolation<User>> constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
         User userFailureEmpty = new User(
             //- Roles -//
-            new ArrayList < Role >() {{
+            new ArrayList<Role>() {{
                 add( new Role( "POET", "Poet" ) );
             }},
             //- Access -//
@@ -247,10 +245,10 @@ public class UserTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < User > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<User> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "firstName" );
                     add("locale");
                     add("access");
@@ -263,7 +261,7 @@ public class UserTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -271,7 +269,7 @@ public class UserTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
             );

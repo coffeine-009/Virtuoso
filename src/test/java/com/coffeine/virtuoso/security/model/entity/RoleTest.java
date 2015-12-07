@@ -1,41 +1,42 @@
-/*
- * @copyright (c) 2014, by Valentyn Namisnyk
+/**
+ * Copyright (c) 2015 by Coffeine Inc
  *
- * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
+ * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ *
+ * @date 12/7/15 1:25 PM
  */
 
-package com.coffeine.virtuoso.module.user.model.entity;
+package com.coffeine.virtuoso.security.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.security.model.entity.Role;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for Role
- * @see Role
+ * Tests for Role.
  *
  * @version 1.0
+ * @see Role
  */
 public class RoleTest extends AbstractModel {
 
     /**
-     * Test field validation for entity filled correct
+     * Test field validation for entity filled correct.
      */
     @Test
     public void TestRoleFieldsSuccess() {
 
-        Set< ConstraintViolation< Role > > constraintViolationSet;
+        Set<ConstraintViolation<Role>> constraintViolationSet;
 
         //- Success -//
         //- Create entity -//
@@ -52,12 +53,12 @@ public class RoleTest extends AbstractModel {
     }
 
     /**
-     * Test field validation for entity filled incorrect
+     * Test field validation for entity filled incorrect.
      */
     @Test
     public void testVideoTypeFieldsFailure() {
 
-        Set < ConstraintViolation < Role > > constraintViolationSet;
+        Set<ConstraintViolation<Role>> constraintViolationSet;
 
         //- Failure -//
         //- Create entity -//
@@ -71,10 +72,10 @@ public class RoleTest extends AbstractModel {
         constraintViolationSet = validator.validate( roleFailure );
 
         assertEquals( 4, constraintViolationSet.size() );
-        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Role> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "code" );
                     add( "title" );
                 }}.contains(
@@ -85,7 +86,7 @@ public class RoleTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotNull.class );
                     add( NotEmpty.class );
                 }}.contains(
@@ -94,7 +95,7 @@ public class RoleTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be null" );
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
@@ -114,10 +115,10 @@ public class RoleTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Role> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "code" );
                     add( "title" );
                 }}.contains(
@@ -128,7 +129,7 @@ public class RoleTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -136,7 +137,7 @@ public class RoleTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "length must be between 0 and 8" );
                     add( "length must be between 0 and 32" );
                 }}.contains( constraintViolation.getMessage() )
@@ -145,12 +146,12 @@ public class RoleTest extends AbstractModel {
     }
 
     /*
-    * Test field validation for entity failure( empty )
+    * Test field validation for entity failure(empty).
     */
     @Test
     public void testRoleFieldEmpty() {
 
-        Set < ConstraintViolation < Role > > constraintViolationSet;
+        Set<ConstraintViolation<Role>> constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
@@ -165,10 +166,10 @@ public class RoleTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Role > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Role> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "code" );
                     add( "title" );
                 }}.contains(
@@ -179,7 +180,7 @@ public class RoleTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -187,7 +188,7 @@ public class RoleTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
             );

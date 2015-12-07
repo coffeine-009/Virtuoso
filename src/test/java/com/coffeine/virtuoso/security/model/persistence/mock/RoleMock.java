@@ -1,4 +1,12 @@
-package com.coffeine.virtuoso.module.user.model.persistence.mock;
+/**
+ * Copyright (c) 2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 12/7/15 1:26 PM
+ */
+
+package com.coffeine.virtuoso.security.model.persistence.mock;
 
 import com.coffeine.virtuoso.security.model.entity.Role;
 
@@ -7,18 +15,18 @@ import java.util.List;
 
 /**
  * Mock for Role in persistence layout.
- * @see Role
  *
  * @version 1.0
+ * @see Role
  */
 public class RoleMock {
 
     /**
-     * Mosk for findByCodes.
+     * Mock for findByCodes.
      *
      * @return List<Role>
      */
-    public static List< Role > findByCodes() {
+    public static List<Role> findByCodes() {
 
         final Role role = new Role(
             "POET",
@@ -27,7 +35,7 @@ public class RoleMock {
         );
             role.setId( 1L );
 
-        return new ArrayList< Role >() {{
+        return new ArrayList<Role>() {{
             add( role );
         }};
     }

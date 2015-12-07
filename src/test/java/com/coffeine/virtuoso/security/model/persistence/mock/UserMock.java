@@ -1,4 +1,12 @@
-package com.coffeine.virtuoso.module.user.model.persistence.mock;
+/**
+ * Copyright (c) 2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ *
+ * @date 12/7/15 1:26 PM
+ */
+
+package com.coffeine.virtuoso.security.model.persistence.mock;
 
 import com.coffeine.virtuoso.security.model.entity.Access;
 import com.coffeine.virtuoso.security.model.entity.Email;
@@ -9,15 +17,15 @@ import java.util.ArrayList;
 
 /**
  * Mock for persistence layout of users.
- * @see User
  *
  * @version 1.0
+ * @see User
  */
 public class UserMock {
 
     public static User create() {
         return new User(
-            new ArrayList< Role >() {{
+            new ArrayList<Role>() {{
                 add(
                     new Role("POET", "Poet", "Poet.")
                 );

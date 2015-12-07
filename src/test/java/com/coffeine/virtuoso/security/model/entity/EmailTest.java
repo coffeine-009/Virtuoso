@@ -1,50 +1,49 @@
-/*
- * @copyright (c) 2014, by Valentyn Namisnyk
+/**
+ * Copyright (c) 2015 by Coffeine Inc
  *
- * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
+ * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ *
+ * @date 12/7/15 1:25 PM
  */
 
-package com.coffeine.virtuoso.module.user.model.entity;
+package com.coffeine.virtuoso.security.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.security.model.entity.Access;
-import com.coffeine.virtuoso.security.model.entity.Email;
-import com.coffeine.virtuoso.security.model.entity.Role;
-import com.coffeine.virtuoso.security.model.entity.User;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for Email
- * @see Email
+ * Tests for Email.
  *
  * @version 1.0
+ * @see Email
  */
 public class EmailTest extends AbstractModel {
-        /*
+
+    /*
      * Test field validation for entity correct
      */
     @Test
     public void testEmailFieldSuccess() {
 
-        Set < ConstraintViolation < Email > > constraintViolationSet;
+        Set<ConstraintViolation<Email>> constraintViolationSet;
 
         //- Success -//
         //- Create entity-//
         Email emailSuccess = new Email(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -70,7 +69,7 @@ public class EmailTest extends AbstractModel {
     @Test
     public void testEmailFieldFailure() {
 
-        Set < ConstraintViolation < Email > > constraintViolationSet;
+        Set<ConstraintViolation<Email>> constraintViolationSet;
 
         //- Failure: Incorrect user -//
         //- Create entity-//
@@ -82,7 +81,7 @@ public class EmailTest extends AbstractModel {
         constraintViolationSet = validator.validate( emailFailureUser );
 
         assertEquals( 1, constraintViolationSet.size() );
-        for ( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Email> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList<String>() {{
@@ -113,7 +112,7 @@ public class EmailTest extends AbstractModel {
         Email emailFailureAddress = new Email(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -131,7 +130,7 @@ public class EmailTest extends AbstractModel {
         constraintViolationSet = validator.validate( emailFailureAddress );
 
         assertEquals( 2, constraintViolationSet.size() );
-        for( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation<Email> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList<String>() {{
@@ -164,7 +163,7 @@ public class EmailTest extends AbstractModel {
         Email emailFailureLength = new Email(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -185,10 +184,10 @@ public class EmailTest extends AbstractModel {
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Email> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "address" );
                 }}.contains(
                     this.getPropertyName(
@@ -198,7 +197,7 @@ public class EmailTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -206,7 +205,7 @@ public class EmailTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "length must be between 0 and 80" );
                 }}.contains( constraintViolation.getMessage() )
             );
@@ -219,13 +218,13 @@ public class EmailTest extends AbstractModel {
     @Test
     public void testEmailFieldEmpty() {
 
-    Set < ConstraintViolation < Email > > constraintViolationSet;
+        Set<ConstraintViolation<Email>> constraintViolationSet;
         //- Failure: fields is empty-//
         //- Create entity -//
         Email emailFailureEmpty = new Email(
             new User(
                 //- Roles -//
-                new ArrayList< Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -245,10 +244,10 @@ public class EmailTest extends AbstractModel {
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Email > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Email> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "address" );
                 }}.contains(
                     this.getPropertyName(
@@ -258,7 +257,7 @@ public class EmailTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -266,7 +265,7 @@ public class EmailTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
             );

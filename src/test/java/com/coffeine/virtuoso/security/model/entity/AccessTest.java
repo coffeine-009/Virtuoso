@@ -1,52 +1,50 @@
 /**
- * @copyright (c) 2014, by Valentyn Namisnyk
+ * Copyright (c) 2015 by Coffeine Inc
  *
- * @author Valentyn Namisnyk <Valentun_Prodyser@ukr.net>
+ * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ *
+ * @date 12/7/15 1:25 PM
  */
 
-package com.coffeine.virtuoso.module.user.model.entity;
+package com.coffeine.virtuoso.security.model.entity;
 
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.security.model.entity.Access;
-import com.coffeine.virtuoso.security.model.entity.Email;
-import com.coffeine.virtuoso.security.model.entity.Role;
-import com.coffeine.virtuoso.security.model.entity.User;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for Access
- * @see Access
+ * Tests for Access.
  *
  * @version 1.0
+ * @see Access
  */
 public class AccessTest extends AbstractModel {
 
-    /*
-    * Test field validation for entity correct
-    */
+    /**
+     * Test field validation for entity correct.
+     */
     @Test
     public void testFieldsSuccess() {
 
-        Set < ConstraintViolation < Access > > constraintViolationSet;
+        Set<ConstraintViolation<Access>> constraintViolationSet;
 
         //- Success -//
         //- Create entity-//
         Access accessSuccess = new Access(
             new User(
                 //- Roles -//
-                new ArrayList < Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -73,7 +71,7 @@ public class AccessTest extends AbstractModel {
     @Test
     public void testFieldsNotNullFailure() {
 
-        Set < ConstraintViolation < Access > > constraintViolationSet;
+        Set<ConstraintViolation<Access>> constraintViolationSet;
 
         //- Failure: Incorrect user -//
         //- Create entity-//
@@ -84,11 +82,11 @@ public class AccessTest extends AbstractModel {
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Access > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Access> constraintViolation : constraintViolationSet ) {
 
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "user" );
                 }}.contains(
                     this.getPropertyName(
@@ -99,7 +97,7 @@ public class AccessTest extends AbstractModel {
 
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotNull.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -108,7 +106,7 @@ public class AccessTest extends AbstractModel {
 
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be null" );
                 }}.contains(
                     constraintViolation.getMessage()
@@ -121,7 +119,7 @@ public class AccessTest extends AbstractModel {
         Access emailFailurePassword = new Access(
             new User(
                 //- Roles -//
-                new ArrayList < Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -141,12 +139,12 @@ public class AccessTest extends AbstractModel {
 
         assertEquals( 2, constraintViolationSet.size() );
 
-        for( ConstraintViolation < Access > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation<Access> constraintViolation : constraintViolationSet ) {
 
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
-                    add( "password" );
+                new ArrayList<String>() {{
+                    add("password");
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -156,7 +154,7 @@ public class AccessTest extends AbstractModel {
 
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotNull.class );
                     add( NotEmpty.class );
                 }}.contains(
@@ -166,7 +164,7 @@ public class AccessTest extends AbstractModel {
 
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be null" );
                     add( "may not be empty" );
                 }}.contains(
@@ -180,7 +178,7 @@ public class AccessTest extends AbstractModel {
         Access accessFailureLength = new Access(
             new User(
                 //- Roles -//
-                new ArrayList < Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -204,11 +202,11 @@ public class AccessTest extends AbstractModel {
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Access > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Access> constraintViolation : constraintViolationSet ) {
 
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "password" );
                 }}.contains(
                     this.getPropertyName(
@@ -219,7 +217,7 @@ public class AccessTest extends AbstractModel {
 
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -227,7 +225,7 @@ public class AccessTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "length must be between 0 and 256" );
                 }}.contains(
                     constraintViolation.getMessage()
@@ -242,14 +240,14 @@ public class AccessTest extends AbstractModel {
     @Test
     public void testFieldsEmptyFailure() {
 
-        Set < ConstraintViolation < Access > > constraintViolationSet;
+        Set<ConstraintViolation<Access>> constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
         Access accessFailureEmpty = new Access(
             new User(
                 //- Roles -//
-                new ArrayList < Role >() {{
+                new ArrayList<Role>() {{
                     add( new Role( "POET", "Poet" ) );
                 }},
                 //- Access -//
@@ -269,11 +267,11 @@ public class AccessTest extends AbstractModel {
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Access > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Access> constraintViolation : constraintViolationSet ) {
 
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "password" );
                 }}.contains(
                     this.getPropertyName(
@@ -284,7 +282,7 @@ public class AccessTest extends AbstractModel {
 
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -293,7 +291,7 @@ public class AccessTest extends AbstractModel {
 
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be empty" );
                 }}.contains(
                     constraintViolation.getMessage()

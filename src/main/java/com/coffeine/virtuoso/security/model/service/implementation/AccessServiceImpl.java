@@ -6,11 +6,6 @@
  * @date 12/5/15 2:08 PM
  */
 
-/// *** User :: Model :: Service :: AccessOAuthService  *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.security.model.service.implementation;
 
 import com.coffeine.virtuoso.security.model.repository.AccessRepository;
@@ -30,7 +25,7 @@ public class AccessServiceImpl implements AccessService {
      * Repository for access to persistence layout
      */
     @Autowired
-    AccessRepository accessRepository;
+    private AccessRepository accessRepository;
 
 
     /// *** Methods     *** ///

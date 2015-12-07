@@ -9,10 +9,10 @@
 package com.coffeine.virtuoso.security.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.module.user.model.persistence.mock.RoleMock;
-import com.coffeine.virtuoso.module.user.model.persistence.mock.UserMock;
 import com.coffeine.virtuoso.notification.model.entity.Contact;
 import com.coffeine.virtuoso.security.model.entity.User;
+import com.coffeine.virtuoso.security.model.persistence.mock.RoleMock;
+import com.coffeine.virtuoso.security.model.persistence.mock.UserMock;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
 import com.coffeine.virtuoso.security.model.service.RoleService;
 import com.coffeine.virtuoso.security.model.service.UserService;
@@ -30,7 +30,9 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

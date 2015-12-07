@@ -40,7 +40,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     private ShaPasswordEncoder passwordEncoder;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
 
     /// *** Methods     *** ///
