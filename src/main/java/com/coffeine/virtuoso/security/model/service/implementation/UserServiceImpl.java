@@ -21,15 +21,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import javax.transaction.Transactional;
 
 /**
  * Implementation of user service
  *
  * @version 1.0
  */
-@Service( "UserService" )
+@Service
 @Transactional
 public class UserServiceImpl implements UserService {
 

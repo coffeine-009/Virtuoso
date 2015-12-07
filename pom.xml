@@ -298,6 +298,13 @@
             <version>1.2</version>
         </dependency>
 
+        <!-- Notification -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.3</version>
+        </dependency>
+
         <!-- Notification :: Template -->
         <!-- Handlebars -->
         <dependency>
