@@ -34,7 +34,7 @@ public class RoleTest extends AbstractModel {
      * Test field validation for entity filled correct.
      */
     @Test
-    public void TestRoleFieldsSuccess() {
+    public void testRoleFieldsSuccess() {
 
         Set<ConstraintViolation<Role>> constraintViolationSet;
 

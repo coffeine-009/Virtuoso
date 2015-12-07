@@ -20,7 +20,6 @@ import com.coffeine.virtuoso.module.user.model.service.SongService;
 import com.coffeine.virtuoso.security.model.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -38,14 +37,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 
 /**
- * SongController
+ * SongController.
  */
 @Controller
 @RequestMapping( value = "/user/song" )
 public class SongController {
-
-    @Autowired
-    private MessageSource messageSource;
 
     @Autowired
     private SongService songService;
