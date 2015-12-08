@@ -8,13 +8,13 @@
 
 package com.coffeine.virtuoso.music.view.form;
 
-import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 /**
  * Form for create/update Composer

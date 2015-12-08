@@ -12,6 +12,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Repositories -->
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+
     <!-- SECTION :: PROPERTIES -->
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -84,13 +92,6 @@
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.5.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -259,7 +260,7 @@
             <version>1.9.2</version>
         </dependency>
 
-        <!-- BonoCP -->
+        <!-- BonoCP//TODO: check if need -->
 		<dependency>
 			<groupId>com.jolbox</groupId>
 			<artifactId>bonecp</artifactId>
@@ -302,7 +303,7 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.7</version>
         </dependency>
 
         <!-- Notification :: Template -->
@@ -319,7 +320,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.0.6.RELEASE</version>
+            <version>${spring-framework.version}</version>
             <scope>test</scope>
         </dependency>
 
