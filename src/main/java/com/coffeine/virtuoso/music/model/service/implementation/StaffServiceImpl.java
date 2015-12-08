@@ -19,6 +19,7 @@ import com.coffeine.virtuoso.music.model.service.StaffService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ import java.util.List;
  *
  * @version 1.0
  */
+@Service
 public class StaffServiceImpl implements StaffService {
 
     /// *** Properties  *** ///
