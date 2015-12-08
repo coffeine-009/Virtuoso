@@ -11,6 +11,7 @@
 package com.coffeine.virtuoso.module.controller;
 
 import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
+
 import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.core.Authentication;
@@ -54,7 +55,7 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
 
     /// *** Methods     *** ///
     /**
-     * Prepare environment to run tests
+     * Prepare environment to run tests.
      */
     @Override
     public void tearUp() {

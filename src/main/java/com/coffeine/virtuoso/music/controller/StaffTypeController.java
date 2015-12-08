@@ -6,12 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Controller :: StaffType         *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
-
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.music.model.entity.StaffType;
@@ -25,45 +19,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
+ * Controller for work with staffs' types.
  *
- * @author Администратор
+ * @version 1.0
  */
-
 @RestController
-@RequestMapping( value = "/user/staff/type")
+@RequestMapping( value = "/music/staffs/types" )
 public class StaffTypeController {
 
-    //    private final static
-
     /// *** Properties  *** ///
+    /**
+     * Service for wirk with staffs' types.
+     */
     protected StaffTypeService staffTypeService;
 
 
     /// *** Methods     *** ///
     //- SECTION :: ACTION -//
     /**
-     * Find all staff types per page
+     * Find all staff types per page.
      *
      * @param page  Number of page
      * @param limit Count of items per page
-     * @return List < StaffType > List of staff types
+     *
+     * @return List of staff types.
      */
-    @GET
-    @RequestMapping( value = "list/{PAGE}/{LIMIT}")
+    @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK)
     @ResponseBody
     public List <StaffType> findAllAction(
-        @PathVariable("PAGE")
+        @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
 
-        @PathVariable("LIMIT")
-        int limit) {
+        @RequestParam( value = "limit", required = false, defaultValue = "10" )
+        int limit
+    ) {
         //- Search page -//
         return this.staffTypeService.findAll(
             Math.max( page - 1, 0),
@@ -72,21 +66,21 @@ public class StaffTypeController {
     }
 
     /**
-     * Create a new staff type
+     * Create a new staff type.
      *
      * @param staffType Type of staff for create
      * @param response  Used for set HTTP status
-     * @return StaffType Created type of staff
+     *
+     * @return Created type of staff
      */
-    @POST
-    @RequestMapping( value = "/")
+    @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
     public StaffType createAction(
         @RequestBody
         @Valid
         StaffType staffType,
 
-        HttpServletResponse response 
+        HttpServletResponse response
     ) {
         //- Try to create new type of staff -//
         try {
@@ -95,32 +89,59 @@ public class StaffTypeController {
 
             //- Success. Return created staff type -//
             return this.staffTypeService.create( staffType );
-        }
-        catch ( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create staff type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
-            //- Failure. Can not to create staff type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
         }
 
         return null;
     }
 
     /**
-     * Update staff type
+     * Find by id.
+     *
+     * @param id          Id of staff type.
+     * @param response    Used for work with HTTP.
+     *
+     * @return Found staff type.
+     */
+    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    @ResponseBody
+    public StaffType find(
+        @PathVariable( value = "id")
+        Long id,
+
+        HttpServletResponse response
+    ) {
+        try {
+            //- Search staff type -//
+            StaffType staffType = this.staffTypeService.find( id );
+
+            //- Check -//
+            notNull( staffType );
+
+            return staffType;
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. Cannot find staff type -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        }
+
+        return null;
+    }
+
+    /**
+     * Update staff type.
      *
      * @param id        ID of video type for update
      * @param staffType Data for update
      * @param response  Used for set HTTP status
-     * @return StaffType Updated type of staff
+     *
+     * @return Updated type of staff
      */
-    @PUT
-    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
+    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public StaffType updateAction(
-        @PathVariable( "ID" )
+        @PathVariable( "id" )
         Long id,
 
         @RequestBody
@@ -134,15 +155,12 @@ public class StaffTypeController {
 
         if ( staffTypeOrigin == null ) {
             //- Not exists ID of staff type -//
-            response.setStatus( HttpStatus.NOT_FOUND.value() );
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
             return null;
         }
 
         //- Try to create new type of video -//
         try {
-            //- Set HTTP status -//
-            response.setStatus( HttpStatus.OK.value() );
-
             //- Update value  -//
             staffTypeOrigin.setTitle( staffType.getTitle() );
             staffTypeOrigin.setCode( staffType.getCode() );
@@ -150,49 +168,35 @@ public class StaffTypeController {
 
             //- Success. Return created staff type -//
             return this.staffTypeService.update( staffTypeOrigin );
-        }
-        catch ( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create staff type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
-            //- Failure. Can not to create staff type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
         }
 
         return null;
     }
 
     /**
-     * Delete staff type
+     * Delete staff type.
      *
      * @param id        ID of staff type for delete
      * @param response  Used for set HTTP status
      */
-    @DELETE
-    @RequestMapping( value = "/{ID}")
+    @RequestMapping( value = "/{id}")
     @ResponseBody
     public void deleteAction(
-        @PathVariable("ID")
+        @PathVariable("id")
         Long id,
 
         HttpServletResponse response 
     ) {
         //- Try to delete staff type -//
         try {
-            //- Set HTTP status -//
-            response.setStatus(HttpStatus.OK.value());
-
             //- Success. Delete staff type -//
             this.staffTypeService.delete( id );
-        }
-        catch ( EmptyResultDataAccessException e ) {
+        } catch ( EmptyResultDataAccessException e ) {
             //- Not exists ID -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
-       catch ( Exception e ) {
-           //- Not exists ID -//
-           response.setStatus( HttpStatus.FORBIDDEN.value() );
-       }
     }
 }
