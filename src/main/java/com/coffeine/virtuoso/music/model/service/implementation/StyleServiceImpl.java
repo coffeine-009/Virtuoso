@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Style   *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.Style;
@@ -24,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of style service
+ * Implementation of style service.
  *
  * @version 1.0
  */
@@ -39,7 +34,7 @@ public class StyleServiceImpl implements StyleService {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
     /**
-     * Find styles for page
+     * Find styles for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -55,7 +50,7 @@ public class StyleServiceImpl implements StyleService {
     /**
      * Create
      *
-     * @param style Data for create new style
+     * @param style Data for create new style.
      * @return Style Created
      */
     public Style create( Style style ) {
@@ -63,7 +58,7 @@ public class StyleServiceImpl implements StyleService {
     }
 
     /**
-     * Find styles by id
+     * Find styles by id.
      *
      * @param id Unique identificator
      * @return Style Found
@@ -73,7 +68,7 @@ public class StyleServiceImpl implements StyleService {
     }
 
     /**
-     * Update
+     * Update.
      *
      * @param style Style for update
      * @return Style Updated
@@ -83,7 +78,7 @@ public class StyleServiceImpl implements StyleService {
     }
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of style
      */

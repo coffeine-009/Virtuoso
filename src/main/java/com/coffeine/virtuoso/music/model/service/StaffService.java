@@ -24,7 +24,7 @@ public interface StaffService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find staffs for page
+     * Find staffs for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -33,7 +33,7 @@ public interface StaffService {
     public List<Staff> findAll( int page, int limit );
 
     /**
-     * Create
+     * Create.
      *
      * @param staff Data for create new staff
      * @return Staff Created
@@ -41,7 +41,7 @@ public interface StaffService {
     public Staff create( Staff staff );
 
     /**
-     * Find staffs by id
+     * Find staffs by id.
      *
      * @param id Unique identificator
      * @return Staff Found
@@ -49,7 +49,7 @@ public interface StaffService {
     public Staff find( Long id );
 
     /**
-     * Update
+     * Update.
      *
      * @param staff Staff for update
      * @return Staff Updated
@@ -57,7 +57,7 @@ public interface StaffService {
     public Staff update( Staff staff );
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of staff
      */

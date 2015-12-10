@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: Poet *** *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.security.model.entity.User;
@@ -25,14 +20,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Class for reflect table Poet from persistence layout
+ * Class for reflect table Poet from persistence layout.
  *
  * @version 1.0
  */
@@ -98,7 +102,7 @@ public class Poet implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Construct default
+     * Construct default.
      */
     public Poet() {
 
@@ -107,7 +111,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Construct for create new poet
+     * Construct for create new poet.
      *
      * @param birthday
      * @param deathDay
@@ -122,7 +126,7 @@ public class Poet implements Serializable {
         //- Check params -//
         notNull( data );
 
-        //- Initializaation -//
+        //- Initialization -//
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
@@ -135,7 +139,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Constructor for create new poet
+     * Constructor for create new poet.
      *
      * @param user
      * @param data
@@ -157,7 +161,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Constructor for create new poet
+     * Constructor for create new poet.
      *
      * @param user
      * @param locale
@@ -172,7 +176,7 @@ public class Poet implements Serializable {
     }
     //- SECTION :: GET -//
     /**
-     * Get ID of poet
+     * Get ID of poet.
      *
      * @return Long
      */
@@ -181,7 +185,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Get user-poet
+     * Get user-poet.
      *
      * @return User
      */
@@ -190,7 +194,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Get data for current locale
+     * Get data for current locale.
      *
      * @return
      */
@@ -199,7 +203,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Get date of birthday
+     * Get date of birthday.
      *
      * @return Calendar
      */
@@ -208,7 +212,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Get date of death
+     * Get date of death.
      *
      * @return Calendar
      */
@@ -217,7 +221,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Get time of create record
+     * Get time of create record.
      *
      * @return Calendar
      */
@@ -228,7 +232,7 @@ public class Poet implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of poet
+     * Set ID of poet.
      *
      * @param id
      */
@@ -237,7 +241,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Set user-poet
+     * Set user-poet.
      *
      * @param user
      */
@@ -246,7 +250,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Set data of current locale
+     * Set data of current locale.
      *
      * @param data
      */
@@ -255,7 +259,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Set date of birthday
+     * Set date of birthday.
      *
      * @param birthday
      */
@@ -264,7 +268,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Set date of death
+     * Set date of death.
      *
      * @param deathDay
      */
@@ -273,7 +277,7 @@ public class Poet implements Serializable {
     }
 
     /**
-     * Add unique poet locale
+     * Add unique poet locale.
      *
      * @param poetLocale
      */

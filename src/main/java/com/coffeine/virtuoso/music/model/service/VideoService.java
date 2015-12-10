@@ -18,7 +18,7 @@ import com.coffeine.virtuoso.music.model.entity.Video;
 import java.util.List;
 
 /**
- * Service for work with video
+ * Service for work with video.
  *
  * @version 1.0
  */
@@ -26,7 +26,7 @@ public interface VideoService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find all videos per page
+     * Find all videos per page.
      *
      * @param page  Requested page
      * @param limit Count items per page
@@ -38,7 +38,7 @@ public interface VideoService {
     );
 
     /**
-     * Create a new video
+     * Create a new video.
      *
      * @param video Data for create
      * @return Video
@@ -46,7 +46,7 @@ public interface VideoService {
     public Video create( Video video );
 
     /**
-     * Find video
+     * Find video.
      *
      * @param id Identificator of video
      * @return Video
@@ -54,7 +54,7 @@ public interface VideoService {
     public Video find( Long id );
 
     /**
-     * Update video
+     * Update video.
      *
      * @param video Data for update
      * @return Video
@@ -62,7 +62,7 @@ public interface VideoService {
     public Video update( Video video );
 
     /**
-     * Delete video
+     * Delete video.
      * @param id Identificator of video
      */
     public void delete( Long id );

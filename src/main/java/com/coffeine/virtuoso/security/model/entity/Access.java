@@ -11,13 +11,19 @@ package com.coffeine.virtuoso.security.model.entity;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * Entity for store access information.
@@ -62,14 +68,14 @@ public class Access implements Serializable {
      * //FIXME: use java.time
      */
     @Column( columnDefinition = "TIMESTAMP NULL" )
-    protected Timestamp modification;
+    protected OffsetDateTime modification;
 
     /**
      * Date and time of create this access.
      * FIXME: use java.time
      */
     @Column( columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP" )
-    protected Timestamp creation;
+    protected OffsetDateTime creation;
 
 
     /// *** Methods     *** ///
@@ -141,7 +147,7 @@ public class Access implements Serializable {
      *
      * @return Timestamp.
      */
-    public Timestamp getModification() {
+    public OffsetDateTime getModification() {
         return modification;
     }
 
@@ -150,7 +156,7 @@ public class Access implements Serializable {
      *
      * @return Timestamp.
      */
-    public Timestamp getCreation() {
+    public OffsetDateTime getCreation() {
         return creation;
     }
 
@@ -189,7 +195,7 @@ public class Access implements Serializable {
      */
     @PreUpdate
     protected void onUpdate() {
-        this.modification = new Timestamp( new Date().getTime() );
+        this.modification = OffsetDateTime.now();
     }
 
 

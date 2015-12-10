@@ -36,11 +36,11 @@ public class VideoTypeServiceImpl implements VideoTypeService {
 
 
     /**
-     * Find all video types for page
+     * Find all video types for page.
      *
      * @param page  Page for search
      * @param limit Count of items per page
-     * @return List < VideoType > List of video types
+     * @return List of video types
      */
     public List<VideoType> findAll(
         int page,
@@ -53,7 +53,7 @@ public class VideoTypeServiceImpl implements VideoTypeService {
     }
 
     /**
-     * Find video type by ID
+     * Find video type by ID.
      *
      * @param id Identificator of video type
      * @return VideoType Found by ID
@@ -63,7 +63,7 @@ public class VideoTypeServiceImpl implements VideoTypeService {
     }
 
     /**
-     * Create a new type of Video
+     * Create a new type of Video.
      *
      * @param videoType Video type
      * @return VideoType Created type of video
@@ -73,7 +73,7 @@ public class VideoTypeServiceImpl implements VideoTypeService {
     }
 
     /**
-     * Update exists type of Video
+     * Update exists type of Video.
      *
      * @param videoType Video type
      * @return VideoType Created type of video
@@ -83,7 +83,7 @@ public class VideoTypeServiceImpl implements VideoTypeService {
     }
 
     /**
-     * Delete VideoType
+     * Delete VideoType.
      *
      * @param id ID of Existed type of video
      */

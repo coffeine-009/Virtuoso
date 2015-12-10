@@ -24,7 +24,7 @@ public interface TextService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find song's texts for page
+     * Find song's texts for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -33,7 +33,7 @@ public interface TextService {
     public List< Text > findAll( int page, int limit );
 
     /**
-     * Create
+     * Create.
      *
      * @param text Data for create new song's text
      * @return Text Created
@@ -41,7 +41,7 @@ public interface TextService {
     public Text create( Text text );
 
     /**
-     * Find song's text by id
+     * Find song's text by id.
      *
      * @param id Unique identificator
      * @return Text Found
@@ -49,7 +49,7 @@ public interface TextService {
     public Text find( Long id );
 
     /**
-     * Update
+     * Update.
      *
      * @param text Text for update
      * @return Text Updated text
@@ -57,7 +57,7 @@ public interface TextService {
     public Text update( Text text );
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of text
      */

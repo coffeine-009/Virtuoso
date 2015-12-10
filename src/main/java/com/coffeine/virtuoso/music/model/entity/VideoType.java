@@ -6,22 +6,22 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: VideoType    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table VideoType from persistence layout
+ * Class for reflect table VideoType from persistence layout.
  *
  * @version 1.0
  */
@@ -61,14 +61,14 @@ public class VideoType implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public VideoType() {
         
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param code  Const name of video type
      * @param title Title of video type
@@ -83,7 +83,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param code          Const name of video type
      * @param title         Title of video type
@@ -101,7 +101,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param id            Unique identificator
      * @param code          Const name of video type
@@ -126,7 +126,7 @@ public class VideoType implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of VideoType
+     * Get ID of VideoType.
      *
      * @return Long ID of song
      */
@@ -135,7 +135,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Get code of VideoType
+     * Get code of VideoType.
      *
      * @return String
      */
@@ -144,7 +144,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Get title of VideoType
+     * Get title of VideoType.
      *
      * @return String
      */
@@ -153,7 +153,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Get description about VideoType
+     * Get description about VideoType.
      *
      * @return String
      */
@@ -164,7 +164,7 @@ public class VideoType implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of VideoType
+     * Set ID of VideoType.
      *
      * @param id ID of VideoType
      */
@@ -173,7 +173,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Set code of VideoType
+     * Set code of VideoType.
      * Ex. ADMIN, MANAGER, USER
      *
      * @param code Const name of video type
@@ -183,7 +183,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Set title of VideoType
+     * Set title of VideoType.
      *
      * @param title Title of video type
      */
@@ -192,7 +192,7 @@ public class VideoType implements Serializable {
     }
 
     /**
-     * Set description of VideoType
+     * Set description of VideoType.
      *
      * @param description Description of this video type
      */

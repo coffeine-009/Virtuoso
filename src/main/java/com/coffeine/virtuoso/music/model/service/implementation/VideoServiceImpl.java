@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of video service
+ * Implementation of video service.
  *
  * @version 1.0
  */
@@ -37,7 +37,7 @@ public class VideoServiceImpl implements VideoService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find all videos per page
+     * Find all videos per page.
      *
      * @param page  Requested page
      * @param limit Count items per page
@@ -57,7 +57,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * Create a new video
+     * Create a new video.
      *
      * @param video Data for create
      * @return Video
@@ -67,7 +67,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * Find video
+     * Find video.
      *
      * @param id Identificator of video
      * @return Video
@@ -77,7 +77,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * Update video
+     * Update video.
      *
      * @param video Data for update
      * @return Video
@@ -87,7 +87,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     /**
-     * Delete video
+     * Delete video.
      * @param id Identificator of video
      */
     public void delete( Long id ) {

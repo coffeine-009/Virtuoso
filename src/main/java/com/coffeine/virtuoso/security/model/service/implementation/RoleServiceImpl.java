@@ -6,11 +6,6 @@
  * @date 12/5/15 2:07 PM
  */
 
-/// *** User :: Model :: Service :: Implementation :: Role  *** *** *** *** ///
-
-//*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.security.model.service.implementation;
 
 import com.coffeine.virtuoso.security.model.entity.Role;
@@ -23,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Interface for work with persistence layout
+ * Interface for work with persistence layout.
  *
  * @version 1.0
  */
@@ -37,12 +32,12 @@ public class RoleServiceImpl implements RoleService {
 
     /// *** Methods     *** ///
     /**
-     * Find roles by codes
+     * Find roles by codes.
      *
      * @param codes
      * @return List<Role>
      */
-    public List < Role > findByCodes( List < String > codes ) {
+    public List<Role> findByCodes( List<String> codes ) {
         return this.roleRepository.findByCodes( codes );
     }
 }

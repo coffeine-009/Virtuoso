@@ -18,7 +18,7 @@ import com.coffeine.virtuoso.music.model.entity.VideoType;
 import java.util.List;
 
 /**
- * Interface for video type service
+ * Interface for video type service.
  *
  * @version 1.0
  */
@@ -26,7 +26,7 @@ public interface VideoTypeService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find all video types for page
+     * Find all video types for page.
      *
      * @param page  Page for search
      * @param limit Count of items per page
@@ -38,7 +38,7 @@ public interface VideoTypeService {
     );
 
     /**
-     * Find video type by ID
+     * Find video type by ID.
      *
      * @param id Identificator of video type
      * @return VideoType Found by ID
@@ -46,7 +46,7 @@ public interface VideoTypeService {
     public VideoType find( Long id );
 
     /**
-     * Create a new type of Video
+     * Create a new type of Video.
      *
      * @param videoType Video type
      * @return VideoType Created type of video
@@ -54,7 +54,7 @@ public interface VideoTypeService {
     public VideoType create( VideoType videoType );
 
     /**
-     * Update exists type of Video
+     * Update exists type of Video.
      *
      * @param videoType Video type
      * @return VideoType Created type of video
@@ -62,7 +62,7 @@ public interface VideoTypeService {
     public VideoType update( VideoType videoType );
 
     /**
-     * Delete VideoType
+     * Delete VideoType.
      *
      * @param id ID of Existed type of video
      */

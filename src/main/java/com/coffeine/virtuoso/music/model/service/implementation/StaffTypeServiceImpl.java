@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: StaffType    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.StaffType;
@@ -24,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of staff type service
+ * Implementation of staff type service.
  *
  * @version 1.0
  */
@@ -36,7 +31,7 @@ public class StaffTypeServiceImpl implements StaffTypeService{
 
 
     /**
-     * Find all types of staff
+     * Find all types of staff.
      * 
      * @param page Page for search
      * @param limit Count of items per page
@@ -53,9 +48,9 @@ public class StaffTypeServiceImpl implements StaffTypeService{
     }
 
     /**
-     * Find staff type by id
+     * Find staff type by id.
      * 
-     * @param id Identificator of staff type
+     * @param id Id of staff type
      * @return StaffType Found by id
      */
     public StaffType find( Long id) {
@@ -63,7 +58,7 @@ public class StaffTypeServiceImpl implements StaffTypeService{
     }
 
     /**
-     * Create a new type of Staff
+     * Create a new type of Staff.
      * 
      * @param staffType Staff type
      * @return StaffType Created type of Staff
@@ -73,7 +68,7 @@ public class StaffTypeServiceImpl implements StaffTypeService{
     }
 
     /**
-     * Update exists type of Staff
+     * Update exists type of Staff.
      * 
      * @param staffType Staff type
      * @return StaffType Updated type of video
@@ -83,7 +78,7 @@ public class StaffTypeServiceImpl implements StaffTypeService{
     }
 
     /**
-     * Delete StaffType
+     * Delete StaffType.
      * 
      * @param id ID of existed type of staff
      */

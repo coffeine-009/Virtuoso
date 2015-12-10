@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Song    *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.Song;
@@ -24,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service for work with songs
+ * Service for work with songs.
  *
  * @version 1.0
  */
@@ -39,7 +34,7 @@ public class SongServiceImpl implements SongService {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
     /**
-     * Get list of song for page
+     * Get list of song for page.
      *
      * @param page Number of page for return
      * @param limit Count items per page
@@ -58,7 +53,7 @@ public class SongServiceImpl implements SongService {
     /**
      * Save song
      *
-     * @param song New song for create or update
+     * @param song New song for create or update.
      * @return Song
      */
     @Override
@@ -67,7 +62,7 @@ public class SongServiceImpl implements SongService {
     }
 
     /**
-     * Get song by ID
+     * Get song by ID.
      *
      * @param Id Unique identificator of song
      * @return Song
@@ -78,7 +73,7 @@ public class SongServiceImpl implements SongService {
     }
 
     /**
-     * Update
+     * Update.
      *
      * @param song Data for update
      * @return Songs
@@ -89,7 +84,7 @@ public class SongServiceImpl implements SongService {
     }
 
     /**
-     * Delete song
+     * Delete song.
      *
      * @param id Identificator for delete
      */

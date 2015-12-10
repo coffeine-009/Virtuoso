@@ -6,23 +6,23 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: Style    *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 
 /**
- * Class for reflect table style from persistence layout
+ * Class for reflect table style from persistence layout.
  *
  * @version 1.0
  */
@@ -61,14 +61,14 @@ public class Style implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Style() {
         
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param code
      * @param title
@@ -86,7 +86,8 @@ public class Style implements Serializable {
     }
 
     /**
-     * Constructor
+     * Constructor.
+     *
      * @param code
      * @param title
      */
@@ -99,7 +100,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Constructor for create new song
+     * Constructor for create new song.
      *
      * @param id
      * @param code
@@ -121,7 +122,7 @@ public class Style implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of style
+     * Get ID of style.
      *
      * @return Long ID of style
      */
@@ -130,7 +131,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Get code of style
+     * Get code of style.
      *
      * @return String
      */
@@ -139,7 +140,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Get title of style
+     * Get title of style.
      *
      * @return String
      */
@@ -148,7 +149,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Get description about style
+     * Get description about style.
      *
      * @return String
      */
@@ -159,7 +160,7 @@ public class Style implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of style
+     * Set ID of style.
      *
      * @param id ID of style
      */
@@ -168,7 +169,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Set code of style
+     * Set code of style.
      * Ex. POLKA, WALTZ, DISCO
      *
      * @param code
@@ -178,7 +179,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Set title of style
+     * Set title of style.
      *
      * @param title
      */
@@ -187,7 +188,7 @@ public class Style implements Serializable {
     }
 
     /**
-     * Set description of style
+     * Set description of style.
      *
      * @param description 
      */

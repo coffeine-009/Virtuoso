@@ -6,11 +6,7 @@
  * @date 12/5/15 2:07 PM
  */
 
-/// *** User :: Model :: Service :: User    *** *** *** *** *** *** *** *** ///
 
-//*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.security.model.service.implementation;
 
 import com.coffeine.virtuoso.security.model.entity.User;
@@ -25,7 +21,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 /**
- * Implementation of user service
+ * Implementation of user service.
  *
  * @version 1.0
  */
@@ -42,11 +38,11 @@ public class UserServiceImpl implements UserService {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
      /**
-     * Find user by email and hash of password
+     * Find user by email and hash of password.
      *
-     * @param username
-     * @param password
-     * @return boolean true - user is exist, false - not exist
+     * @param username    Username(e-mail).
+     * @param password    Hash of password.
+     * @return boolean true - user is exist, false - not exist.
      */
     @Override
     public User findByUsernameAndPassword(
@@ -72,12 +68,13 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Find all
-     * @param page  Requested page
-     * @param limit Count items per page
-     * @return List<User>
+     * Find all.
+     *
+     * @param page  Requested page.
+     * @param limit Count items per page.
+     * @return List of users.
      */
-    public List < User > findAll( int page, int limit ) {
+    public List<User> findAll( int page, int limit ) {
         return this.userRepository.findAll(
             new PageRequest(
                 page,
@@ -88,7 +85,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Create a new user
+     * Create a new user.
      *
      * @param user
      * @return User
@@ -101,16 +98,18 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Find
-     * @param id Identificator of user
-     * @return User
+     * Find.
+     *
+     * @param id Id of user.
+     *
+     * @return User.
      */
     public User find( Long id ) {
         return this.userRepository.findOne( id );
     }
 
     /**
-     * Update user
+     * Update user.
      *
      * @param user
      * @return User

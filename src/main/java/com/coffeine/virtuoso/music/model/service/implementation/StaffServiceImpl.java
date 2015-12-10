@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Staff   *** *** *** *** *** *** *** *** ///
-
-//*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.Staff;
@@ -24,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Implementation of staff service
+ * Implementation of staff service.
  *
  * @version 1.0
  */
@@ -38,7 +33,7 @@ public class StaffServiceImpl implements StaffService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find staffs for page
+     * Find staffs for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -52,7 +47,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     /**
-     * Create
+     * Create.
      *
      * @param staff Data for create new staff
      * @return Staff Created
@@ -62,7 +57,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     /**
-     * Find staffs by id
+     * Find staffs by id.
      *
      * @param id Unique identificator
      * @return Staff Found
@@ -72,7 +67,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     /**
-     * Update
+     * Update.
      *
      * @param staff Staff for update
      * @return Staff Updated
@@ -82,7 +77,7 @@ public class StaffServiceImpl implements StaffService {
     }
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of staff
      */

@@ -18,7 +18,7 @@ import com.coffeine.virtuoso.music.model.entity.Style;
 import java.util.List;
 
 /**
- * Service for work with style
+ * Service for work with style.
  *
  * @version 1.0
  */
@@ -26,7 +26,7 @@ public interface StyleService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find styles for page
+     * Find styles for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -35,7 +35,7 @@ public interface StyleService {
     public List< Style > findAll( int page, int limit );
 
     /**
-     * Create
+     * Create.
      *
      * @param style Data for create new style
      * @return Style Created
@@ -43,7 +43,7 @@ public interface StyleService {
     public Style create( Style style );
 
     /**
-     * Find styles by id
+     * Find styles by id.
      *
      * @param id Unique identificator
      * @return Style Found
@@ -51,7 +51,7 @@ public interface StyleService {
     public Style find( Long id );
 
     /**
-     * Update
+     * Update.
      *
      * @param style Style for update
      * @return Style Updated
@@ -59,7 +59,7 @@ public interface StyleService {
     public Style update( Style style );
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of style
      */

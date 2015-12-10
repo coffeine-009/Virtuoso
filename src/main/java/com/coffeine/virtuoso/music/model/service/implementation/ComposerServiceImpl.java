@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Composer    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.Composer;
@@ -24,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service for work with composer
+ * Service for work with composer.
  *
  * @version 1.0
  */
@@ -37,7 +32,7 @@ public class ComposerServiceImpl implements ComposerService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find composers for page
+     * Find composers for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -54,7 +49,7 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     /**
-     * Create a new composer
+     * Create a new composer.
      *
      * @param composer Data for create new composer
      * @return Composer Created composer
@@ -64,7 +59,7 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     /**
-     * Find Composer by id
+     * Find Composer by id.
      *
      * @param id        Identificator of composer
      * @return Composer
@@ -74,7 +69,7 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     /**
-     * Update composer data
+     * Update composer data.
      *
      * @param composer Composer for update
      * @return Composer Updated composer
@@ -84,7 +79,7 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     /**
-     * Delete composer by ID
+     * Delete composer by ID.
      *
      * @param id Identificator of composer
      */

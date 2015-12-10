@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: SongNotes    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -19,12 +14,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect song_text table from persistence layout.
+ * Class for reflect song_text table from persistence layout..
  *
  * @version 1.0
  */
@@ -73,14 +74,14 @@ public class Staff implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Staff() {
 
     }
 
     /**
-     * Constructor for create new Staff
+     * Constructor for create new Staff.
      *
      * @param staffType
      * @param style
@@ -97,7 +98,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Constructor for create new staff
+     * Constructor for create new staff.
      * @param song
      * @param staffType
      * @param style
@@ -119,7 +120,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Constructor for create new staff
+     * Constructor for create new staff.
      *
      * @param style
      * @param locale
@@ -135,7 +136,7 @@ public class Staff implements Serializable {
         this.locale = locale;
     }
     /**
-     * Create text for song
+     * Create text for song.
      *
      * @param locale
      */
@@ -148,7 +149,7 @@ public class Staff implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song staffs
+     * Get ID of song staffs.
      *
      * @return Long
      */
@@ -157,7 +158,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Get song of this staffs
+     * Get song of this staffs.
      *
      * @return Song
      */
@@ -166,7 +167,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Get staffs type
+     * Get staffs type.
      *
      * @return StaffType
      */
@@ -175,7 +176,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Get style of song
+     * Get style of song.
      *
      * @return Style
      */
@@ -184,7 +185,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return String
      */
@@ -193,7 +194,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Get time of create
+     * Get time of create.
      *
      * @return Calendar
      */
@@ -203,7 +204,7 @@ public class Staff implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song staffs
+     * Set ID of song staffs.
      *
      * @param id
      */
@@ -212,7 +213,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Set song of this staffs
+     * Set song of this staffs.
      *
      * @param song
      */
@@ -221,7 +222,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Set type of staffs
+     * Set type of staffs.
      *
      * @param staffType
      */
@@ -230,7 +231,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Set style of song
+     * Set style of song.
      *
      * @param style
      */
@@ -239,7 +240,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param locale
      */

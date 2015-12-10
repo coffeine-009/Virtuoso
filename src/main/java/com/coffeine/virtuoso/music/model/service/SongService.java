@@ -18,7 +18,7 @@ import com.coffeine.virtuoso.music.model.entity.Song;
 import java.util.List;
 
 /**
- * Service for work with song
+ * Service for work with song.
  *
  * @version 1.0
  */
@@ -26,7 +26,7 @@ public interface SongService {
 
     //- SECTION :: MAIN -//
     /**
-     * Get list of Song for page
+     * Get list of Song for page.
      *
      * @param page Number of page for return
      * @param limit Count items per page
@@ -35,7 +35,7 @@ public interface SongService {
     public List <Song> findAll( int page, int limit );
 
     /**
-     * Create a new song
+     * Create a new song.
      *
      * @param song Data for create
      * @return Song
@@ -43,7 +43,7 @@ public interface SongService {
     public Song create( Song song );
 
     /**
-     * Get song by ID
+     * Get song by ID.
      *
      * @param Id Identificator for search
      * @return Song
@@ -51,7 +51,7 @@ public interface SongService {
     public Song find( Long Id );
 
     /**
-     * Update
+     * Update.
      *
      * @param song Data for update
      * @return Song
@@ -59,7 +59,7 @@ public interface SongService {
     public Song update( Song song );
 
     /**
-     * Delete song
+     * Delete song.
 s     *
      * @param id Unique identificator
      */

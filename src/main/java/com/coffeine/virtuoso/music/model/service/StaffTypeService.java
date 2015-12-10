@@ -19,7 +19,7 @@ import com.coffeine.virtuoso.music.model.entity.StaffType;
 import java.util.List;
 
 /**
- * Interface for staff type service
+ * Interface for staff type service.
  
  * @version 1.0
  */
@@ -27,7 +27,7 @@ public interface StaffTypeService {
 
     //-Section :: Main -//
     /**
-     * Find all staff type for page
+     * Find all staff type for page.
      * 
      * @param page Page for search
      * @param limit Count items per page
@@ -39,7 +39,7 @@ public interface StaffTypeService {
     );
 
     /**
-     * Find staff type by id
+     * Find staff type by id.
      * 
      * @param id Identificator of staff type
      * @return StaffType Found by id
@@ -47,7 +47,7 @@ public interface StaffTypeService {
     public StaffType find( Long id );
 
     /**
-     * Create a new type of Staff
+     * Create a new type of Staff.
      * 
      * @param staffType Staff type
      * @return StaffType Created type of Staff
@@ -55,7 +55,7 @@ public interface StaffTypeService {
     public StaffType create( StaffType staffType );
 
     /**
-     * Update exists type of Staff
+     * Update exists type of Staff.
      * 
      * @param staffType Staff type
      * @return StaffType Updated type of video
@@ -63,7 +63,7 @@ public interface StaffTypeService {
     public StaffType update( StaffType staffType);
 
     /**
-     * Delete StaffType
+     * Delete StaffType.
      * 
      * @param id ID of existed type of staff
      */

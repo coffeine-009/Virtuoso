@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Poet    *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.Poet;
@@ -23,7 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 /**
- * Service for work with post
+ * Service for work with post.
  *
  * @version 1.0
  */
@@ -35,7 +30,7 @@ public class PoetServiceImpl implements PoetService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find Poets for page
+     * Find Poets for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -49,7 +44,7 @@ public class PoetServiceImpl implements PoetService {
     }
 
     /**
-     * Create a new Poet
+     * Create a new Poet.
      *
      * @param poet Data for create new poet
      * @return Poet Created
@@ -59,7 +54,7 @@ public class PoetServiceImpl implements PoetService {
     }
 
     /**
-     * Find Poet by id
+     * Find Poet by id.
      *
      * @param id Unique identificator
      * @return Poet Found
@@ -69,7 +64,7 @@ public class PoetServiceImpl implements PoetService {
     }
 
     /**
-     * Update
+     * Update.
      *
      * @param poet Poet for update
      * @return Poet Updated poet
@@ -79,7 +74,7 @@ public class PoetServiceImpl implements PoetService {
     }
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of poet
      */

@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: Video    *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -19,12 +14,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect video table from persistence layout
+ * Class for reflect video table from persistence layout.
  *
  * @version 1.0
  */
@@ -82,14 +83,14 @@ public class Video implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Video() {
 
     }
 
     /**
-     * Create video
+     * Create video.
      *
      * @param title
      * @param locale
@@ -110,7 +111,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Constructor for create new video
+     * Constructor for create new video.
      *
      * @param videoType
      * @param locale
@@ -144,7 +145,7 @@ public class Video implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of video
+     * Get ID of video.
      *
      * @return Long
      */
@@ -153,7 +154,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get videotype for this video
+     * Get videotype for this video.
      *
      * @return VideoType
      */
@@ -162,7 +163,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get Song for this video
+     * Get Song for this video.
      *
      * @return Song
      */
@@ -171,7 +172,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return String
      */
@@ -180,7 +181,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get title of video
+     * Get title of video.
      *
      * @return String
      */
@@ -189,7 +190,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get description of video
+     * Get description of video.
      *
      * @return String
      */
@@ -199,7 +200,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get filename of this video
+     * Get filename of this video.
      * @return String
      */
     public String getFileName() {
@@ -207,7 +208,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Get time of create
+     * Get time of create.
      *
      * @return Calendar
      */
@@ -217,7 +218,7 @@ public class Video implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of video
+     * Set ID of video.
      *
      * @param id
      */
@@ -226,7 +227,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Set video type
+     * Set video type.
      *
      * @param videoType
      */
@@ -235,7 +236,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Set song of this video
+     * Set song of this video.
      *
      * @param song
      */
@@ -244,7 +245,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param locale
      */
@@ -253,7 +254,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Set title of video
+     * Set title of video.
      *
      * @param title
      */
@@ -262,7 +263,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Set description of video
+     * Set description of video.
      *
      * @param description
      */
@@ -271,7 +272,7 @@ public class Video implements Serializable {
     }
 
     /**
-     * Set filename of video
+     * Set filename of video.
      *
      * @param fileName
      */

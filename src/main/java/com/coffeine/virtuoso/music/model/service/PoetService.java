@@ -13,7 +13,7 @@ import com.coffeine.virtuoso.music.model.entity.Poet;
 import java.util.List;
 
 /**
- * Service for work with poet
+ * Service for work with poet.
  *
  * @version 1.0
  */
@@ -21,7 +21,7 @@ public interface PoetService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find Poets for page
+     * Find Poets for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -30,7 +30,7 @@ public interface PoetService {
     public List < Poet > findAll( int page, int limit );
 
     /**
-     * Create a new Poet
+     * Create a new Poet.
      *
      * @param poet Data for create new poet
      * @return Poet Created
@@ -38,7 +38,7 @@ public interface PoetService {
     public Poet create( Poet poet );
 
     /**
-     * Find Poet by id
+     * Find Poet by id.
      *
      * @param id Unique identificator
      * @return Poet Found
@@ -46,7 +46,7 @@ public interface PoetService {
     public Poet find( Long id );
 
     /**
-     * Update
+     * Update.
      *
      * @param poet Poet for update
      * @return Poet Updated poet
@@ -54,7 +54,7 @@ public interface PoetService {
     public Poet update( Poet poet );
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of poet
      */

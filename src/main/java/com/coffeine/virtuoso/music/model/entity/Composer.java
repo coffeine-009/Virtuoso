@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: Composer *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.security.model.entity.User;
@@ -27,14 +22,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Class for reflect table Composer from persistence layout
+ * Class for reflect table Composer from persistence layout.
  *
  * @version 1.0
  */
@@ -88,7 +94,7 @@ public class Composer implements Serializable {
     protected String fatherName;
 
     /**
-     * Original locale of composer
+     * Original locale of composer.
      */
     @NotNull
     @NotEmpty
@@ -115,7 +121,7 @@ public class Composer implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Construct default
+     * Construct default.
      */
     public Composer(
     ) {
@@ -124,7 +130,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Construct for create new composer
+     * Construct for create new composer.
      *
      * @param birthday
      * @param deathDate
@@ -143,7 +149,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Construct for create new composer
+     * Construct for create new composer.
      *
      */
     public Composer(
@@ -169,7 +175,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Constructor for create new composer
+     * Constructor for create new composer.
      *
      * @param data
      * @param locale
@@ -195,7 +201,7 @@ public class Composer implements Serializable {
     }
     //- SECTION :: GET -//
     /**
-     * Get ID of composer
+     * Get ID of composer.
      *
      * @return Long
      */
@@ -204,7 +210,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get user-composer
+     * Get user-composer.
      *
      * @return User
      */
@@ -213,7 +219,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get composer's data
+     * Get composer's data.
      *
      * @return List<ComposerLocale>
      */
@@ -222,7 +228,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get first name in original locale
+     * Get first name in original locale.
      *
      * @return String
      */
@@ -231,7 +237,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get last name in origin locale
+     * Get last name in origin locale.
      *
      * @return String
      */
@@ -240,7 +246,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get father name in origin locale
+     * Get father name in origin locale.
      *
      * @return String
      */
@@ -249,7 +255,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get locale of this composer
+     * Get locale of this composer.
      *
      * @return String
      */
@@ -258,7 +264,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get gender of this composer
+     * Get gender of this composer.
      *
      * @return Boolean
      */
@@ -267,7 +273,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get date of birthday
+     * Get date of birthday.
      *
      * @return Calendar
      */
@@ -276,7 +282,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get date of death
+     * Get date of death.
      *
      * @return Calendar
      */
@@ -285,7 +291,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Get time of create record
+     * Get time of create record.
      *
      * @return Calendar
      */
@@ -296,7 +302,7 @@ public class Composer implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of composer
+     * Set ID of composer.
      *
      * @param id
      */
@@ -305,7 +311,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set user-composer
+     * Set user-composer.
      *
      * @param user
      */
@@ -314,7 +320,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set composer's data
+     * Set composer's data.
      *
      * @param data
      */
@@ -323,7 +329,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set locale of this composer
+     * Set locale of this composer.
      *
      * @param locale
      */
@@ -332,7 +338,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set gender of this composer
+     * Set gender of this composer.
      *
      * @param gender
      */
@@ -341,7 +347,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set date of birthday
+     * Set date of birthday.
      *
      * @param birthday
      */
@@ -350,7 +356,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Set date of death
+     * Set date of death.
      *
      * @param deathDate
      */
@@ -359,7 +365,7 @@ public class Composer implements Serializable {
     }
 
     /**
-     * Add unique composer locale
+     * Add unique composer locale.
      *
      * @param composerLocale
      */
@@ -376,7 +382,7 @@ public class Composer implements Serializable {
 
     //- SECTION :: HELPER -//
     /**
-     * Populate not stored data
+     * Populate not stored data.
      */
     @PostLoad
     private void postRead() {

@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: SongText *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -19,12 +14,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect song_text table from persistence layout
+ * Class for reflect song_text table from persistence layout.
  *
  * @version 1.0
  */
@@ -61,14 +62,14 @@ public class Text implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Text() {
 
     }
 
     /**
-     * Create text for song
+     * Create text for song.
      *
      * @param locale
      */
@@ -91,7 +92,7 @@ public class Text implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song text
+     * Get ID of song text.
      *
      * @return Long
      */
@@ -100,7 +101,7 @@ public class Text implements Serializable {
     }
 
     /**
-     * Get composer for this song text
+     * Get composer for this song text.
      *
      * @return Song
      */
@@ -109,7 +110,7 @@ public class Text implements Serializable {
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return String
      */
@@ -118,7 +119,7 @@ public class Text implements Serializable {
     }
 
     /**
-     * Get time of create
+     * Get time of create.
      *
      * @return Calendar
      */
@@ -128,7 +129,7 @@ public class Text implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song text
+     * Set ID of song text.
      *
      * @param id
      */
@@ -137,7 +138,7 @@ public class Text implements Serializable {
     }
 
     /**
-     * Set song of text
+     * Set song of text.
      *
      * @param song
      */
@@ -146,7 +147,7 @@ public class Text implements Serializable {
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param locale
      */

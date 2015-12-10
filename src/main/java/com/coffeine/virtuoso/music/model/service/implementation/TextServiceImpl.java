@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Text    *** *** *** *** *** *** *** *** ///
-
-//*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service.implementation;
 
 import com.coffeine.virtuoso.music.model.entity.Text;
@@ -24,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * Service for work with texts.
+ *
  * @version 1.0
  */
 @Service
@@ -37,7 +34,7 @@ public class TextServiceImpl implements TextService {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
     /**
-     * Find song's texts for page
+     * Find song's texts for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -51,7 +48,7 @@ public class TextServiceImpl implements TextService {
     }
 
     /**
-     * Create
+     * Create.
      *
      * @param text Data for create new song's text
      * @return Text Created
@@ -61,7 +58,7 @@ public class TextServiceImpl implements TextService {
     }
 
     /**
-     * Find song's text by id
+     * Find song's text by id.
      *
      * @param id Unique identificator
      * @return Text Found
@@ -71,7 +68,7 @@ public class TextServiceImpl implements TextService {
     }
 
     /**
-     * Update
+     * Update.
      *
      * @param text Text for update
      * @return Text Updated text
@@ -81,7 +78,7 @@ public class TextServiceImpl implements TextService {
     }
 
     /**
-     * Delete
+     * Delete.
      *
      * @param id Identificator of text
      */

@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Composer    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service;
 
 
@@ -28,7 +23,7 @@ public interface ComposerService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find composers for page
+     * Find composers for page.
      *
      * @param page  Number of page for search
      * @param limit Count of items per page
@@ -37,7 +32,7 @@ public interface ComposerService {
     public List < Composer > findAll( int page, int limit );
 
     /**
-     * Create a new composer
+     * Create a new composer.
      *
      * @param composer Data for create new composer
      * @return Composer Created composer
@@ -45,7 +40,7 @@ public interface ComposerService {
     public Composer create( Composer composer );
 
     /**
-     * Find Composer by id
+     * Find Composer by id.
      *
      * @param id        Identificator of composer
      * @return Composer found composer
@@ -53,7 +48,7 @@ public interface ComposerService {
     public Composer find( Long id );
 
     /**
-     * Update composer data
+     * Update composer data.
      *
      * @param composer Composer for update
      * @return Composer Updated composer
@@ -61,7 +56,7 @@ public interface ComposerService {
     public Composer update( Composer composer );
 
     /**
-     * Delete composer by ID
+     * Delete composer by ID.
      *
      * @param id Identificator of composer
      */

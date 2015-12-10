@@ -26,10 +26,10 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.UUID;
+import javax.transaction.Transactional;
 
 import static org.springframework.util.Assert.notNull;
 

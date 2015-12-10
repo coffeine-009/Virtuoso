@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: PoetLocale   *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -19,12 +14,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect composer_locale table from persistence layout
+ * Class for reflect composer_locale table from persistence layout.
  *
  * @version 1.0
  */
@@ -75,14 +76,14 @@ public class PoetLocale implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public PoetLocale() {
         
     }
 
     /**
-     * Create composer locale
+     * Create composer locale.
      *
      * @param firstName     First name of poet
      * @param lastName      Last name of poet
@@ -100,7 +101,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Create composer locale
+     * Create composer locale.
      *
      * @param firstName     First name of poet
      * @param lastName      Last name of poet
@@ -121,7 +122,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Constructor for create poet locale
+     * Constructor for create poet locale.
      *
      * @param poet
      * @param firstName
@@ -147,7 +148,7 @@ public class PoetLocale implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of composer locale data
+     * Get ID of composer locale data.
      *
      * @return Long
      */
@@ -156,7 +157,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Get composer for this locale data
+     * Get composer for this locale data.
      *
      * @return Composer
      */
@@ -165,7 +166,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Get first name for current locale
+     * Get first name for current locale.
      *
      * @return String
      */
@@ -174,7 +175,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Get last name for current locale
+     * Get last name for current locale.
      *
      * @return String
      */
@@ -183,7 +184,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Get middle name for current locale
+     * Get middle name for current locale.
      *
      * @return String
      */
@@ -192,7 +193,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return String
      */
@@ -201,7 +202,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Get time of create
+     * Get time of create.
      *
      * @return Calendar
      */
@@ -211,7 +212,7 @@ public class PoetLocale implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of composer's data
+     * Set ID of composer's data.
      *
      * @param id 
      */
@@ -220,7 +221,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Set composer of this data
+     * Set composer of this data.
      *
      * @param poet 
      */
@@ -229,7 +230,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Set first name in choosen locale
+     * Set first name in choosen locale.
      *
      * @param firstName 
      */
@@ -238,7 +239,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Set last name in choosen locale
+     * Set last name in chosen locale.
      *
      * @param lastName 
      */
@@ -247,7 +248,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Set middle name in choosen locale
+     * Set middle name in choosen locale.
      *
      * @param middleName 
      */
@@ -256,7 +257,7 @@ public class PoetLocale implements Serializable {
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param locale 
      */

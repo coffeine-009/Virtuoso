@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Repository :: Style    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.repository;
 
 import com.coffeine.virtuoso.music.model.entity.Style;
@@ -18,7 +13,7 @@ import com.coffeine.virtuoso.music.model.entity.Style;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Interface for work with persistence layout
+ * Interface for work with persistence layout.
  *
  * @version 1.0
  */

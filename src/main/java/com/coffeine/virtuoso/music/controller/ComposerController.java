@@ -16,7 +16,12 @@ import com.coffeine.virtuoso.music.view.form.ComposerForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +35,7 @@ import javax.ws.rs.PUT;
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Controller for work with Composer
+ * Controller for work with Composer.
  *
  * @version 1.0
  */
@@ -45,7 +50,7 @@ public class ComposerController {
 
     /// *** Methods     *** ///
     /**
-     * Get list of composers
+     * Get list of composers.
      *
      * @param page  Number of page
      * @param limit Count items per page
@@ -68,7 +73,7 @@ public class ComposerController {
     }
 
     /**
-     * Action for create a new composer
+     * Action for create a new composer.
      *
      * @param form      Data about composer
      * @param response  Use for set HTTP status
@@ -126,7 +131,7 @@ public class ComposerController {
     }
 
     /**
-     * Action for searching a composer
+     * Action for searching a composer.
      *
      * @param id        Id of composer
      * @param response  Use for set HTTP status
@@ -162,7 +167,7 @@ public class ComposerController {
     }
 
     /**
-     * Action for update a new composer
+     * Action for update a new composer.
      *
      * @param form      Data about composer
      * @param response  Use for set HTTP status
@@ -216,7 +221,7 @@ public class ComposerController {
     }
 
     /**
-     * Action for delete a composer
+     * Action for delete a composer.
      *
      * @param id        Id Id of composer
      * @param response  Use for set HTTP status

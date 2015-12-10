@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: Song *** *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -21,12 +16,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table from persistence layout
+ * Class for reflect table from persistence layout.
  *
  * @version 1.0
  */
@@ -110,7 +116,7 @@ public class Song implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Song() {
 
@@ -122,7 +128,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param poet
      * @param title
@@ -148,7 +154,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Constructor for create new song
+     * Constructor for create new song.
      *
      * @param composer
      * @param poet
@@ -188,7 +194,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Constructor for create new song
+     * Constructor for create new song.
      *
      * @param composer
      * @param poet
@@ -234,7 +240,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Constructor for create new song
+     * Constructor for create new song.
      *
      * @param composer
      * @param poet
@@ -255,7 +261,7 @@ public class Song implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song
+     * Get ID of song.
      *
      * @return Long ID of song
      */
@@ -264,7 +270,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get composer of song
+     * Get composer of song.
      *
      * @return Composer
      */
@@ -273,7 +279,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get poet of song
+     * Get poet of song.
      *
      * @return Poet
      */
@@ -282,7 +288,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get title of song
+     * Get title of song.
      *
      * @return String
      */
@@ -290,7 +296,7 @@ public class Song implements Serializable {
         return title;
     }
     /**
-     * Get data for locale
+     * Get data for locale.
      *
      * @return List<SongLocale>
      */
@@ -299,7 +305,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get musical staffs
+     * Get musical staffs.
      *
      * @return List<SongStaff>
      */
@@ -308,7 +314,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get text
+     * Get text.
      *
      * @return List<SongText>
      */
@@ -317,7 +323,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get video
+     * Get video.
      *
      * @return List<Video>
      */
@@ -326,7 +332,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get locate of song
+     * Get locate of song.
      *
      * @return String
      */
@@ -335,7 +341,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get song's date of write
+     * Get song's date of write.
      *
      * @return Calendar
      */
@@ -344,7 +350,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get time of create record
+     * Get time of create record.
      *
      * @return Calendar
      */
@@ -357,14 +363,14 @@ public class Song implements Serializable {
     /**
      * Set ID of song
      *
-     * @param id ID of song
+     * @param id ID of song.
      */
     public void setId( Long id ) {
         this.id = id;
     }
 
     /**
-     * Set composer of song
+     * Set composer of song.
      *
      * @param composer Composer of song
      */
@@ -373,7 +379,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set poet of this song
+     * Set poet of this song.
      *
      * @param poet Poet of song
      */
@@ -382,7 +388,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set data for current locale
+     * Set data for current locale.
      *
      * @param data Localized data
      */
@@ -391,7 +397,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set musical staffs
+     * Set musical staffs.
      *
      * @param staffs List of staffs
      */
@@ -400,7 +406,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set text
+     * Set text.
      *
      * @param texts List of texts
      */
@@ -409,7 +415,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set video
+     * Set video.
      *
      * @param videos List of videos
      */
@@ -418,7 +424,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set locale of song
+     * Set locale of song.
      *
      * @param locale Locale of song
      */
@@ -427,7 +433,7 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set song's date of write
+     * Set song's date of write.
      *
      * @param writeDate Date of write
      */

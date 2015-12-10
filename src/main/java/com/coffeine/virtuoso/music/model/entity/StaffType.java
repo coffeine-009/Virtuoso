@@ -6,22 +6,22 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Entity :: NotesType    *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.entity;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect table staffs type from persistence layout
+ * Class for reflect table staffs type from persistence layout.
  *
  * @version 1.0
  */
@@ -60,14 +60,14 @@ public class StaffType implements Serializable {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public StaffType() {
         
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param code
      * @param title
@@ -85,7 +85,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Constructor for create new Staff type
+     * Constructor for create new Staff type.
      *
      * @param id
      * @param code
@@ -108,7 +108,7 @@ public class StaffType implements Serializable {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of staffs type
+     * Get ID of staffs type.
      *
      * @return Long ID of staffs type
      */
@@ -117,7 +117,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Get code of staffs type
+     * Get code of staffs type.
      *
      * @return String
      */
@@ -126,7 +126,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Get title of staffs type
+     * Get title of staffs type.
      *
      * @return String
      */
@@ -135,7 +135,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Get description about staffs type
+     * Get description about staffs type.
      *
      * @return String
      */
@@ -146,7 +146,7 @@ public class StaffType implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of staffs type
+     * Set ID of staffs type.
      *
      * @param id ID of staffs type
      */
@@ -155,7 +155,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Set code of staffs type
+     * Set code of staffs type.
      * Ex. TABULATRE
      *
      * @param code
@@ -165,7 +165,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Set title of staffs type
+     * Set title of staffs type.
      *
      * @param title
      */
@@ -174,7 +174,7 @@ public class StaffType implements Serializable {
     }
 
     /**
-     * Set description of staffs type
+     * Set description of staffs type.
      *
      * @param description 
      */

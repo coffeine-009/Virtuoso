@@ -17,7 +17,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 /**
- * Form for create/update Composer
+ * Form for create/update Composer.
  *
  * @version 1.0
  */
@@ -28,24 +28,24 @@ public class ComposerForm {
 
         /// *** Properties  *** ///
         /**
-         * Locale
+         * Locale.
          */
         private String locale;
 
         /**
-         * First name of composer
+         * First name of composer.
          */
         @NotBlank
         private String firstName;
 
         /**
-         * Last name of composer
+         * Last name of composer.
          */
         @NotBlank
         private String lastName;
 
         /**
-         * Father's name if exists
+         * Father's name if exists.
          */
         private String fatherName;
 
@@ -89,18 +89,18 @@ public class ComposerForm {
 
     /// *** Properties  *** ///
     /**
-     * ID of user if composer want to manage own songs
+     * ID of user if composer want to manage own songs.
      */
     protected Long userId;
 
     /**
-     * Gender: true - man, false - woman
+     * Gender: true - man, false - woman.
      */
     @NotNull
     protected Boolean gender;
 
     /**
-     * Code of country(Ex. UA, US, ... .)
+     * Code of country(Ex. UA, US, ... .).
      */
     @NotBlank
     @Length( min = 5, max = 5 )
@@ -113,7 +113,7 @@ public class ComposerForm {
     protected LocalDate birthday;
 
     /**
-     * Death date if composer is dead
+     * Death date if composer is dead.
      */
     protected LocalDate deathDate;
 

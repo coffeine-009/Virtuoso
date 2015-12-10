@@ -15,7 +15,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * Form for text of song
+ * Form for text of song.
  *
  * @version 1.0
  */
@@ -36,14 +36,14 @@ public class TextForm {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public TextForm() {
 
     }
 
     /**
-     * Create text for song
+     * Create text for song.
      *
      * @param locale
      */
@@ -57,7 +57,7 @@ public class TextForm {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song text
+     * Get ID of song text.
      *
      * @return Long
      */
@@ -66,7 +66,7 @@ public class TextForm {
     }
 
     /**
-     * Get id of song
+     * Get id of song.
      *
      * @return Long
      */
@@ -75,7 +75,7 @@ public class TextForm {
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return String
      */
@@ -86,7 +86,7 @@ public class TextForm {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song text
+     * Set ID of song text.
      *
      * @param id
      */
@@ -95,7 +95,7 @@ public class TextForm {
     }
 
     /**
-     * Set song of text
+     * Set song of text.
      *
      * @param songId
      */
@@ -104,7 +104,7 @@ public class TextForm {
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param locale
      */
