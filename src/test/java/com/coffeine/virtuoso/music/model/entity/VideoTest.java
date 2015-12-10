@@ -146,7 +146,8 @@ public class VideoTest extends AbstractModel {
             ),
             "uk-UA",
             "video",
-            "Happy end"
+            "Happy end",
+            "Happy_end"
         );
         //- Validate -//
         constraintViolationSet = validator.validate( videoSuccess );
@@ -168,7 +169,8 @@ public class VideoTest extends AbstractModel {
             null,
             "uk-UA",
             "video",
-            "Happy end"
+            "Happy end",
+            "Happy_end.avi"
         );
         //- Validate -//
         constraintViolationSet = validator.validate( videoFailureNotNull);
@@ -305,6 +307,7 @@ public class VideoTest extends AbstractModel {
                 "Polka",
                 "Ukrainian polka"
             ),
+            null,
             null,
             null,
             null
@@ -457,6 +460,7 @@ public class VideoTest extends AbstractModel {
             ),
             "123456",
             "123456789012345678901234567890123",
+            "123456789",
             "12345678901234567890123456789012345678901234567890123456789012345"
         );
 
@@ -604,6 +608,7 @@ public class VideoTest extends AbstractModel {
                 "Polka",
                 "Ukrainian polka"
             ),
+            "",
             "",
             "",
             ""
