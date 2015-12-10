@@ -22,10 +22,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Controller for video
@@ -49,22 +48,22 @@ public class VideoController {
     /// *** Methods     *** ///
     //- SECTION :: ACTION -//
     /**
-     * Find all videos per page
+     * Find all videos per page.
      *
      * @param page  Number of page
      * @param limit Count of items per page
-     * @return List < Video > List of videos
+     *
+     * @return List of videos
      */
-    @GET
-    @RequestMapping( value = "/list/{PAGE}/{LIMIT}" )
+    @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody
     public List <Video> findAllAction(
-            @PathVariable( "PAGE" )
-            int page,
+        @RequestParam( value = "page", required = false, defaultValue = "1" )
+        int page,
 
-            @PathVariable( "LIMIT" )
-            int limit
+        @RequestParam( value = "limit", required = false, defaultValue = "10" )
+        int limit
     ) {
         //- Search page -//
         return this.videoService.findAll(
@@ -74,21 +73,21 @@ public class VideoController {
     }
 
     /**
-     * Create a new video
+     * Create a new video.
      *
      * @param video Video for create
      * @param response  Used for set HTTP status
+     *
      * @return Video
      */
-    @POST
-    @RequestMapping( value = "/" )
+    @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
     public Video createAction(
-            @RequestBody
-            @Valid
-            Video video,
+        @RequestBody
+        @Valid
+        Video video,
 
-            HttpServletResponse response
+        HttpServletResponse response
     ) {
         //- Search video type -//
         VideoType videoType = this.videoTypeService.find( 1L );
@@ -113,6 +112,38 @@ public class VideoController {
         catch ( Exception e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
+        }
+
+        return null;
+    }
+
+    /**
+     * Find.
+     *
+     * @param id          ID of video.
+     * @param response    Used for set HTTP status.
+     *
+     * @return Found video.
+     */
+    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    @ResponseBody
+    public Video findAction(
+        @PathVariable( "id" )
+        Long id,
+
+        HttpServletResponse response
+    ) {
+        try {
+            //- Search -//
+            Video video = this.videoService.find( id );
+
+            //- Check -//
+            notNull( video );
+
+            return video;
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. Cannot find video type -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
 
         return null;
@@ -169,35 +200,26 @@ public class VideoController {
     }
 
     /**
-     * Delete video type
+     * Delete video type.
      *
      * @param id        ID of video for delete
      * @param response  Used for set HTTP status
      */
-    @DELETE
-    @RequestMapping( value = "/{ID}" )
+    @RequestMapping( value = "/{id}" )
     @ResponseBody
     public void deleteAction(
-            @PathVariable( "ID" )
-            Long id,
+        @PathVariable( "id" )
+        Long id,
 
-            HttpServletResponse response
+        HttpServletResponse response
     ) {
         //- Try to delete Video type -//
         try {
-            //- Set HTTP status -//
-            response.setStatus( HttpStatus.OK.value() );
-
             //- Success. Delete video type -//
             this.videoService.delete( id );
-        }
-        catch ( EmptyResultDataAccessException e ) {
+        } catch ( EmptyResultDataAccessException e ) {
             //- Not exists ID -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
-            //- Not exists ID -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
         }
     }
 }

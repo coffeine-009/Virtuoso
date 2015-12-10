@@ -20,15 +20,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.ws.rs.DELETE;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
- * Controller for managing types of video
+ * Controller for managing types of video.
  *
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/user/video/type" )
+@RequestMapping( value = "/music/videos/types" )
 public class VideoTypeController {
 
     /// *** Properties  *** ///
@@ -39,34 +40,39 @@ public class VideoTypeController {
     /// *** Methods     *** ///
     //- SECTION :: ACTION -//
     /**
-     * Find all video types per page
+     * Find all video types per page.
      *
      * @param page  Number of page
      * @param limit Count of items per page
-     * @return List < VideoType > List of video types
+     *
+     * @return List of video types
      */
-    @RequestMapping( value = "/list/{PAGE}/{LIMIT}", method = RequestMethod.GET )
+    @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody
-    public List < VideoType > findAllAction(
-        @PathVariable( "PAGE" )
+    public List<VideoType> findAllAction(
+        @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
 
-        @PathVariable( "LIMIT" )
+        @RequestParam( value = "limit", required = false, defaultValue = "10" )
         int limit
     ) {
         //- Search page -//
-        return this.videoTypeService.findAll( page, limit );
+        return this.videoTypeService.findAll(
+            Math.min( page - 1, 0 ),
+            limit
+        );
     }
 
     /**
-     * Create a new video type
+     * Create a new video type.
      *
      * @param videoType Type of video for create
      * @param response  Used for set HTTP status
-     * @return VideoType Created type of video
+     *
+     * @return Created type of video
      */
-    @RequestMapping( value = "/", method = RequestMethod.POST )
+    @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
     public VideoType createAction(
         @RequestBody
@@ -82,12 +88,7 @@ public class VideoTypeController {
 
             //- Success. Return created video type -//
             return this.videoTypeService.create( videoType );
-        }
-        catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
@@ -96,17 +97,50 @@ public class VideoTypeController {
     }
 
     /**
-     * Update video type
+     * Find.
+     *
+     * @param id          ID of video type.
+     * @param response    Used for set HTTP status.
+     *
+     * @return Found video type.
+     */
+    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    @ResponseBody
+    public VideoType findAction(
+        @PathVariable( "id" )
+        Long id,
+
+        HttpServletResponse response
+    ) {
+        try {
+            //- Search -//
+            VideoType videoType = this.videoTypeService.find( id );
+
+            //- Check -//
+            notNull( videoType );
+
+            return videoType;
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. Cannot find video type -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        }
+
+        return null;
+    }
+
+    /**
+     * Update video type.
      *
      * @param id        ID of video type for update
      * @param videoType Data for update
      * @param response  Used for set HTTP status
-     * @return VideoType Updated type of video
+     *
+     * @return Updated type of video.
      */
-    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
+    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public VideoType updateAction(
-        @PathVariable( "ID" )
+        @PathVariable( "id" )
         Long id,
 
         @RequestBody
@@ -120,7 +154,7 @@ public class VideoTypeController {
 
         if ( videoTypeOrigin == null ) {
             //- Not exists ID of video type -//
-            response.setStatus( HttpStatus.NOT_FOUND.value() );
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
             return null;
         }
 
@@ -136,12 +170,7 @@ public class VideoTypeController {
 
             //- Success. Return created video type -//
             return this.videoTypeService.update( videoTypeOrigin );
-        }
-        catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
             response.setStatus( HttpStatus.FORBIDDEN.value() );
         }
@@ -150,35 +179,26 @@ public class VideoTypeController {
     }
 
     /**
-     * Delete video type
+     * Delete video type.
      *
      * @param id        ID of video type for delete
      * @param response  Used for set HTTP status
      */
-    @DELETE
-    @RequestMapping( value = "/{ID}", method = RequestMethod.DELETE )
+    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseBody
     public void deleteAction(
-        @PathVariable( "ID" )
+        @PathVariable( "id" )
         Long id,
 
         HttpServletResponse response
     ) {
         //- Try to delete Video type -//
         try {
-            //- Set HTTP status -//
-            response.setStatus( HttpStatus.OK.value() );
-
             //- Success. Delete video type -//
             this.videoTypeService.delete( id );
-        }
-        catch ( EmptyResultDataAccessException e ) {
+        } catch ( EmptyResultDataAccessException e ) {
             //- Not exists ID -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
         }
-       catch ( Exception e ) {
-           //- Not exists ID -//
-           response.setStatus( HttpStatus.FORBIDDEN.value() );
-       }
     }
 }
