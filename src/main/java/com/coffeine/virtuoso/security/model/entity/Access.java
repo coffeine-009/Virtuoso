@@ -217,7 +217,6 @@ public class Access implements Serializable {
     public String toString() {
         return "Access{" +
             "id=" + id +
-            ", user=" + user +
             ", password='" + password + '\'' +
             ", modification=" + modification +
             ", creation=" + creation +

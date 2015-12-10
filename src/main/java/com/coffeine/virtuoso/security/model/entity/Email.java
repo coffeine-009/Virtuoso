@@ -196,7 +196,6 @@ public class Email implements Serializable {
     public String toString() {
         return "Email{" +
             "id=" + id +
-            ", user=" + user +
             ", address='" + address + '\'' +
             ", creation=" + creation +
             '}';

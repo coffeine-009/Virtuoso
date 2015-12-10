@@ -31,15 +31,15 @@
 
         <link
             rel = "stylesheet"
-            href = "<c:url value = "/resources/client/module/main/view/style/main.css" />"
+            href = "/resources/client/module/main/view/style/main.css"
         >
         <link
             rel = "stylesheet"
-            href = "<c:url value = "/resources/client/module/user/view/style/main.css" />"
+            href = "/resources/client/module/user/view/style/main.css"
         >
         <link
             rel = "stylesheet"
-            href = "<c:url value = "/resources/client/module/user/view/style/song/create.css" />"
+            href = "/resources/client/module/user/view/style/song/create.css"
         >
 
 
