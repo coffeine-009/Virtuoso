@@ -14,13 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -129,17 +123,30 @@ public class Video implements Serializable {
         this.title = title;
         this.fileName = fileName;
     }
+
+    /**
+     * Create a new video from form.
+     *
+     * @param song           Song of this video
+     * @param videoType      Type of video.
+     * @param locale         Locale.
+     * @param title          Title of video.
+     * @param description    Description of video.
+     * @param filename       Video file name.
+     */
     public Video(
         Song song,
         VideoType videoType,
         String locale,
         String title,
+        String description,
         String filename
     ) {
         this.song = song;
         this.videoType = videoType;
         this.locale = locale;
         this.title = title;
+        this.description = description;
         this.fileName = filename;
     }
 

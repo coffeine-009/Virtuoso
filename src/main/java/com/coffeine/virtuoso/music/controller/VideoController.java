@@ -8,33 +8,28 @@
 
 package com.coffeine.virtuoso.music.controller;
 
+import com.coffeine.virtuoso.music.model.entity.Song;
 import com.coffeine.virtuoso.music.model.entity.Video;
 import com.coffeine.virtuoso.music.model.entity.VideoType;
+import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.music.model.service.VideoService;
 import com.coffeine.virtuoso.music.model.service.VideoTypeService;
+import com.coffeine.virtuoso.music.view.form.VideoForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.ws.rs.PUT;
 
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Controller for video
+ * Controller for video.
  *
  * @version 1.0
  */
@@ -46,10 +41,13 @@ public class VideoController {
 
     /// *** Properties  *** ///
     @Autowired
-    protected VideoService videoService;
+    protected VideoTypeService videoTypeService;
 
     @Autowired
-    protected VideoTypeService videoTypeService;
+    private SongService songService;
+
+    @Autowired
+    protected VideoService videoService;
 
 
     /// *** Methods     *** ///
@@ -82,43 +80,50 @@ public class VideoController {
     /**
      * Create a new video.
      *
-     * @param video Video for create
-     * @param response  Used for set HTTP status
+     * @param form      Video data for create.
+     * @param response  Used for set HTTP status.
      *
-     * @return Video
+     * @return Video.
      */
     @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
     public Video createAction(
         @RequestBody
         @Valid
-        Video video,
+        VideoForm form,
 
         HttpServletResponse response
     ) {
-        //- Search video type -//
-        VideoType videoType = this.videoTypeService.find( 1L );
-
-        // TODO: not null
-
-        //- Set relations -//
-        video.setVideoType( videoType );
-
         //- Try to create new type of video -//
         try {
+            //- Search video type -//
+            VideoType videoType = this.videoTypeService.find( form.getVideoTypeId() );
+            Song song = this.songService.find( form.getSongId() );
+
+            //- Check -//
+            notNull( videoType );
+            notNull( song );
+
             //- Set HTTP status -//
             response.setStatus( HttpStatus.CREATED.value() );
 
             //- Success. Return created video type -//
-            return this.videoService.create( video );
-        }
-        catch ( DataIntegrityViolationException e ) {
+            return this.videoService.create(
+                new Video(
+                    song,
+                    videoType,
+                    form.getLocale(),
+                    form.getTitle(),
+                    form.getDescription(),
+                    form.getFileName()
+                )
+            );
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. Cannot find related entities -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
-            //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
 
         return null;
@@ -157,57 +162,57 @@ public class VideoController {
     }
 
     /**
-     * Update video
+     * Update video.
      *
      * @param id        ID of video for update
      * @param video     Data for update
      * @param response  Used for set HTTP status
      * @return Video
      */
-    @PUT
-    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
+    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public Video updateAction(
-            @PathVariable( "ID" )
+            @PathVariable( "id" )
             Long id,
 
             @RequestBody
             @Valid
-            Video video,
+            VideoForm form,
 
             HttpServletResponse response
     ) {
-        //- Try to create new type of video -//
+        //- Try to update the video -//
         try {
-            //- Set HTTP status -//
-            response.setStatus( HttpStatus.OK.value() );
+            //- Search video type -//
+            VideoType videoType = this.videoTypeService.find( form.getVideoTypeId() );
+            Song song = this.songService.find( form.getSongId() );
+            Video video = this.videoService.find( id );
+
+            //- Check -//
+            notNull( videoType );
+            notNull( song );
+            notNull( video );
 
             //- Update value  -//
-//            videoOrigin.setTitle( videoType.getTitle() );
-//            videoOrigin.setCode( videoType.getCode() );
-//            videoOrigin.setDescription( videoType.getDescription() );
+            video.setSong( song );
+            video.setVideoType( videoType );
+            video.setLocale( form.getLocale() );
+            video.setTitle( form.getTitle() );
+            video.setDescription( form.getDescription() );
+            video.setFileName( form.getFileName() );
 
-            //- Success. Return created video type -//
+            //- Success. Return created form type -//
             return this.videoService.update( video );
+        } catch ( DataIntegrityViolationException e ) {
+            //- Failure. Can not to create form type -//
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
-        catch ( DataIntegrityViolationException e ) {
-            //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-        catch ( Exception e ) {
-            //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
-        }
-
-//        //- Not exists ID of video type -//
-//        response.setStatus( HttpStatus.NOT_FOUND.value() );
-//        return null;
 
         return null;
     }
 
     /**
-     * Delete video type.
+     * Delete video.
      *
      * @param id        ID of video for delete
      * @param response  Used for set HTTP status
@@ -220,13 +225,13 @@ public class VideoController {
 
         HttpServletResponse response
     ) {
-        //- Try to delete Video type -//
+        //- Try to delete Video -//
         try {
-            //- Success. Delete video type -//
+            //- Success. Delete video -//
             this.videoService.delete( id );
         } catch ( EmptyResultDataAccessException e ) {
-            //- Not exists ID -//
-            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
+            //- Failure. Cannot find -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
     }
 }
