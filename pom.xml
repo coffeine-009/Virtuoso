@@ -44,7 +44,7 @@
         <servlet.version>3.0.1</servlet.version>
         <jaxb-impl.version>2.2.7</jaxb-impl.version>
 
-        <mysql-version>5.1.37</mysql-version>
+        <mysql-version>5.1.18</mysql-version>
 
 		<!-- Database access -->
 		<ehcache.version>2.6.6</ehcache.version>
