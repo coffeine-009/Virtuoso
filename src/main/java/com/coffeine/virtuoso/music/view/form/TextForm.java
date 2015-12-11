@@ -22,16 +22,14 @@ import javax.validation.constraints.NotNull;
 public class TextForm {
 
     /// *** Properties  *** ///
-    protected Long id;
-
     @NotNull
     @Min( 0 )
-    protected Long songId;
+    private Long songId;
 
     @NotNull
     @NotEmpty
     @Length( max = 5 )
-    protected String locale;
+    private String locale;
 
 
     /// *** Methods     *** ///
@@ -57,15 +55,6 @@ public class TextForm {
 
     //- SECTION :: GET -//
     /**
-     * Get ID of song text.
-     *
-     * @return Long
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
      * Get id of song.
      *
      * @return Long
@@ -85,15 +74,6 @@ public class TextForm {
 
 
     //- SECTION :: SET -//
-    /**
-     * Set ID of song text.
-     *
-     * @param id
-     */
-    public void setId( Long id ) {
-        this.id = id;
-    }
-
     /**
      * Set song of text.
      *
