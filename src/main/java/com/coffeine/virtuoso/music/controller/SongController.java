@@ -15,7 +15,6 @@ import com.coffeine.virtuoso.music.model.service.ComposerService;
 import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.music.view.form.SongForm;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -24,13 +23,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Locale;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.util.Assert.notNull;
 
@@ -139,7 +138,7 @@ public class SongController {
      * Get data about song by ID.
      *
      * @param Id        Id of song.
-     * @param response  UserService for work with HTTP.
+     * @param response  Use for work with HTTP.
      *
      * @return Song.
      */
@@ -171,17 +170,52 @@ public class SongController {
     /**
      * Update song by ID.
      *
-     * @param Id    Id of song.
-     * @return Song
+     * @param id        Id of song.
+     * @param form      Form for input.
+     * @param response  Use for work with HTTP.
+     *
+     * @return Song.
      */
     @Secured( "MUSICIAN" )
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public Song updateAction(
         @PathVariable( value = "id" )
-        Long Id
+        Long id,
+
+        @Valid
+        @RequestBody
+        SongForm form,
+
+        HttpServletResponse response
     ) {
-        //TODO: to implement
+        try {
+            //- Search related entities -//
+            Song song = this.songService.find( id );
+            Composer composer = this.composerService.find( form.getComposerId() );
+            Poet poet = this.poetService.find( form.getPoetId() );
+
+            //- Check -//
+            notNull( song );
+            notNull( composer );
+            notNull( poet );
+
+            //- Update data -//
+            song.setComposer( composer );
+            song.setPoet(poet);
+            song.setData(form.getData());
+            song.setStaffs(form.getStaffs());
+            song.setTexts(form.getTexts());
+            song.setVideos(form.getVideos());
+            song.setLocale( form.getLocale() );
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. Cannot find related entities -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        } catch ( DataIntegrityViolationException e ) {
+            //- Failure. Cannot update song -//
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
+        }
+
         return null;
     }
 
@@ -189,7 +223,7 @@ public class SongController {
      * Delete song by ID.
      *
      * @param id        Id of song.
-     * @param response  UserService for work with HTTP.
+     * @param response  Use for work with HTTP.
      */
     @Secured( "ADMINISTRATOR" )
     @DELETE
