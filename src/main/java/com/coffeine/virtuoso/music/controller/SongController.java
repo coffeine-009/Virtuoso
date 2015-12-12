@@ -13,27 +13,29 @@ import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.security.model.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 
+import static org.springframework.util.Assert.notNull;
+
 /**
  * SongController.
+ *
+ * @version 1.0
  */
 @Controller
-@RequestMapping( value = "/user/song" )
+@RequestMapping( value = "/music/songs" )
 public class SongController {
 
     @Autowired
@@ -45,21 +47,22 @@ public class SongController {
 
     //- SECTION :: ACTIONS -//
     /**
-     * GET list of songs
+     * GET list of songs.
      *
-     * @param page Number of page
-     * @param limit Count items per page
-     * @return List < Song > List of songs for requested page
+     * @param page Number of page.
+     * @param limit Count items per page.
+     *
+     * @return List of songs for requested page
      */
     @GET
-    @RequestMapping( value = "/list/{PAGE}/{LIMIT}", method = RequestMethod.GET )
+    @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
-    public List < Song > listAction(
-        @PathVariable( "PAGE" )
+    public List<Song> listAction(
+        @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
 
-        @PathVariable( "LIMIT" )
+        @RequestParam( value = "limit", required = false, defaultValue = "10" )
         int limit
     ) {
         //- Get list of song from persistence layout -//
@@ -70,20 +73,19 @@ public class SongController {
     }
 
     /**
-     * Create new song
+     * Create new song.
      *
-     * @param song
+     * @param song    Song for create.
+     *
      * @return Song
      */
     @POST
     @RequestMapping(
-        value = "/",
         method = RequestMethod.POST,
         produces = {
             "application/json"
         }
     )
-    @ResponseStatus( value = HttpStatus.CREATED )
     @ResponseBody
     public Song createAction(
         @RequestBody
@@ -97,33 +99,46 @@ public class SongController {
     }
 
     /**
-     * Get data about song by ID
+     * Get data about song by ID.
      *
-     * @param Id
-     * @return Song
+     * @param Id        Id of song.
+     * @param response  UserService for work with HTTP.
+     *
+     * @return Song.
      */
     @GET
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
-    @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public Song readAction( 
         @PathVariable( value = "id" )
-        Long Id
+        Long Id,
+
+        HttpServletResponse response
     ) {
-        Song song = songService.find( Id );
-        
-        return song;
+        try {
+            //- Search -//
+            Song song = this.songService.find( Id );
+
+            //- Check -//
+            notNull( song );
+
+            return song;
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. cannot find song -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        }
+
+        return null;
     }
 
     /**
-     * Update song by ID
+     * Update song by ID.
      *
-     * @param Id
+     * @param Id    Id of song.
      * @return Song
      */
     @Secured( "MUSICIAN" )
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
-    @ResponseStatus( value = HttpStatus.OK )
     @ResponseBody
     public Song updateAction(
         @PathVariable( value = "id" )
@@ -134,18 +149,26 @@ public class SongController {
     }
 
     /**
-     * Delete song by ID
+     * Delete song by ID.
      *
-     * @param id
+     * @param id        Id of song.
+     * @param response  UserService for work with HTTP.
      */
-//    @Secured( "ADMIN" )
+    @Secured( "ADMINISTRATOR" )
+    @DELETE
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
-    @ResponseStatus( value = HttpStatus.OK )
+    @ResponseBody
     public void deleteAction(
         @PathVariable( value = "id" )
-        Long id
+        Long id,
+
+        HttpServletResponse response
     ) {
-        //this.songService.delete( id );
-        this.userService.delete( id );
+        try {
+            this.songService.delete( id );
+        } catch ( EmptyResultDataAccessException e ) {
+            //- Failure. Cannot find this song -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        }
     }
 }

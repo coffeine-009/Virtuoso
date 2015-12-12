@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Controller :: Song  *** *** *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
@@ -34,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for SongController
+ * Tests for SongController.
  */
 public class SongControllerTest extends AbstractRestControllerTest {
 
@@ -82,7 +77,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         // Success. Get list of songs
         this.mockMvc.perform(
-            get( "/user/song/list/{page}/{limit}", 1, 10 )
+            get( "/music/songs?page={page}&limit={limit}", 1, 10 )
         )
             .andExpect(status().isOk() )
             .andDo( print() );
@@ -127,12 +122,11 @@ public class SongControllerTest extends AbstractRestControllerTest {
 //        this.fail("To implement");
     }
 
-    @Ignore
     @Test
     public void testDeleteAction() throws Exception {
 
         this.mockMvc.perform(
-            delete( "/user/song/{SONG_ID}", 1 )
+            delete( "/music/songs/{SONG_ID}", 1 )
                 .contentType( MediaType.APPLICATION_JSON )
         )
             .andDo( print() );
