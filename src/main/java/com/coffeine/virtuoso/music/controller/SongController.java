@@ -8,11 +8,16 @@
 
 package com.coffeine.virtuoso.music.controller;
 
+import com.coffeine.virtuoso.music.model.entity.Composer;
+import com.coffeine.virtuoso.music.model.entity.Poet;
 import com.coffeine.virtuoso.music.model.entity.Song;
+import com.coffeine.virtuoso.music.model.service.ComposerService;
+import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
-import com.coffeine.virtuoso.security.model.service.UserService;
+import com.coffeine.virtuoso.music.view.form.SongForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
@@ -42,8 +47,10 @@ public class SongController {
     private SongService songService;
 
     @Autowired
-    private UserService userService;
+    private ComposerService composerService;
 
+    @Autowired
+    private PoetService poetService;
 
     //- SECTION :: ACTIONS -//
     /**
@@ -75,7 +82,7 @@ public class SongController {
     /**
      * Create new song.
      *
-     * @param song    Song for create.
+     * @param form    Song for create.
      *
      * @return Song
      */
@@ -90,12 +97,42 @@ public class SongController {
     public Song createAction(
         @RequestBody
         @Valid
-        Song song,
+        SongForm form,
 
-        Locale locale
+        Locale locale,
+
+        HttpServletResponse response
     ) {
-        //- Save song -//
-        return this.songService.create( song );
+        try {
+            //- Search related entities -//
+            Composer composer = this.composerService.find( form.getComposerId() );
+            Poet poet = this.poetService.find( form.getPoetId() );
+
+            //- Check -//
+            notNull( composer );
+            notNull( poet );
+
+            //- Save song -//
+            return this.songService.create(
+                new Song(
+                    composer,
+                    poet,
+                    form.getData(),
+                    form.getStaffs(),
+                    form.getTexts(),
+                    form.getVideos(),
+                    form.getLocale()
+                )
+            );
+        } catch ( IllegalArgumentException e ) {
+            //- Failure. Cannot find related entities -//
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+        } catch ( DataIntegrityViolationException e ) {
+            //- Failure. Cannot save this song -//
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
+        }
+
+        return null;
     }
 
     /**
