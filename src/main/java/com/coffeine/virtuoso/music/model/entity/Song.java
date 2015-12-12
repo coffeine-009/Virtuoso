@@ -16,18 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -71,7 +60,7 @@ public class Song implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List < SongLocale > data;
+    protected List<SongLocale> data = new ArrayList<>();
 
     @NotNull
     @NotEmpty
@@ -80,23 +69,24 @@ public class Song implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List <Staff > staffs;
+    protected List<Staff> staffs = new ArrayList<>();
 
     @NotNull
     @NotEmpty
     @OneToMany(
-            mappedBy = "song",
-            cascade = CascadeType.ALL,
-            orphanRemoval = false
+        mappedBy = "song",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
     )
-    protected List < Text > texts;
+    protected List<Text> texts = new ArrayList<>();
 
+    @NotNull
     @OneToMany(
-            mappedBy = "song",
-            cascade = CascadeType.ALL,
-            orphanRemoval = false
+        mappedBy = "song",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
     )
-    protected List < Video > videos;
+    protected List<Video> videos = new ArrayList<>();
 
     @NotNull
     @NotEmpty
@@ -119,12 +109,7 @@ public class Song implements Serializable {
      * Default constructor.
      */
     public Song() {
-
         //- Initialization -//
-        this.data = new ArrayList < SongLocale >();
-        this.texts = new ArrayList < Text >();
-        this.staffs = new ArrayList < Staff >();
-        this.videos = new ArrayList < Video >();
     }
 
     /**
