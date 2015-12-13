@@ -9,12 +9,13 @@
 package com.coffeine.virtuoso.library.validator.anotation.Implementation;
 
 import com.coffeine.virtuoso.library.validator.anotation.Event;
+
 import org.apache.commons.beanutils.BeanUtils;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 /**
  * Implementation of Event validator.
@@ -22,10 +23,10 @@ import java.time.LocalDate;
  *
  * @version 1.0
  */
-public class EventValidatorImpl implements ConstraintValidator< Event, Object > {
+public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
 
     /**
-     * Name of field which contains start date of event
+     * Name of field which contains start date of event.
      */
     private String startDateFieldName;
 

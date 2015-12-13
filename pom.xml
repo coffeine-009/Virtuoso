@@ -402,13 +402,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- View :: Template -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
         <!-- Notification -->
         <dependency>
             <groupId>javax.mail</groupId>

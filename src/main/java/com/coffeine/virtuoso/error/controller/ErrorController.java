@@ -1,18 +1,11 @@
-/// *** Error :: Controller :: Error    *** *** *** *** *** *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 12/13/15 2:18 PM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-07-25 15:21:04 :: 2014-07-25 17:22:29
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.error.controller;
 
 import com.coffeine.virtuoso.error.model.entity.ValidationError;
@@ -33,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 
 /**
- * Controller for handle validation errors from others controllers
+ * Controller for handle validation errors from others controllers.
  *
  * @version 1.0
  */
@@ -47,7 +40,7 @@ public class ErrorController {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public ErrorController() {
         //TODO
@@ -58,9 +51,9 @@ public class ErrorController {
      * Handle mapping errors.
      * E.g. JSON deserialization.
      *
-     * @param e    HttpMessageNotReadableException
+     * @param e    HttpMessageNotReadableException.
      *
-     * @return ValidationError
+     * @return ValidationError.
      */
     @ExceptionHandler( HttpMessageNotReadableException.class )
     @ResponseStatus( HttpStatus.BAD_REQUEST )
@@ -85,10 +78,11 @@ public class ErrorController {
     }
 
     /**
-     * Handle validation errors
+     * Handle validation errors.
      *
      * @param exeption Object that contain description for this exception
-     * @return ValidationError Object for response about error
+     *
+     * @return ValidationError Object for response about error.
      */
     @ExceptionHandler( MethodArgumentNotValidException.class )
     @ResponseStatus( HttpStatus.BAD_REQUEST )
@@ -104,33 +98,37 @@ public class ErrorController {
 
     //- SECTION :: HELPER -//
     /**
-     * Helper for filling field's errors
+     * Helper for filling field's errors.
      *
-     * @param fieldErrors List of fields with errors
-     * @return ValidationError Object for response about error
+     * @param fieldErrors List of fields with errors.
+     *
+     * @return ValidationError Object for response about error.
      */
     private ValidationError processFieldErrors(
-        List < FieldError > fieldErrors
+        List<FieldError> fieldErrors
     ) {
         //- Result -//
         ValidationError validationError = new ValidationError();
 
-        for ( FieldError fieldError: fieldErrors ) {
-            //- Add field's errors -//
-            validationError.addFieldError(
-                fieldError.getField(),
-                this.resolveLocalizedErrorMessage( fieldError )
-            );
-        }
+        fieldErrors.forEach(
+            fieldError -> {
+                //- Add field's errors -//
+                validationError.addFieldError(
+                    fieldError.getField(),
+                    this.resolveLocalizedErrorMessage( fieldError )
+                );
+            }
+        );
 
         return validationError;
     }
 
     /**
-     * Helper for localization of error message
+     * Helper for localization of error message.
      *
-     * @param fieldError Field with error(s)
-     * @return String Localized message about error
+     * @param fieldError Field with error(s).
+     *
+     * @return String Localized message about error.
      */
     private String resolveLocalizedErrorMessage( FieldError fieldError ) {
         return messageSource.getMessage(

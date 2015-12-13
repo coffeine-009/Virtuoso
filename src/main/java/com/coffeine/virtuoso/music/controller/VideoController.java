@@ -20,7 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +70,7 @@ public class VideoController {
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody
-    public List <Video> findAllAction(
+    public List<Video> findAllAction(
         @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
 
@@ -165,21 +172,22 @@ public class VideoController {
      * Update video.
      *
      * @param id        ID of video for update
-     * @param video     Data for update
+     * @param form      Data for update
      * @param response  Used for set HTTP status
+     *
      * @return Video
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public Video updateAction(
-            @PathVariable( "id" )
-            Long id,
+        @PathVariable( "id" )
+        Long id,
 
-            @RequestBody
-            @Valid
-            VideoForm form,
+        @RequestBody
+        @Valid
+        VideoForm form,
 
-            HttpServletResponse response
+        HttpServletResponse response
     ) {
         //- Try to update the video -//
         try {

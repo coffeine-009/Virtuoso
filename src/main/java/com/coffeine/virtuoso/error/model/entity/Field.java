@@ -1,43 +1,38 @@
-/// *** Error :: Model :: Entity :: Field   *** *** *** *** *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 12/13/15 2:22 PM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-07-25 15:35:28 :: 2014-07-25 15:39:08
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.error.model.entity;
 
 /**
+ * Describe fild with validation error.
+ *
  * @version 1.0.
  */
 public class Field {
 
     /// *** Properties  *** ///
     /**
-     * Field, which contain error
+     * Field, which contain error.
      */
     protected String field;
 
     /**
-     * Message of error
+     * Message of error.
      */
     protected String message;
 
 
     /// *** Methods     *** ///
     /**
-     * Constructor, init error
+     * Constructor, init error.
      *
-     * @param field Name of field
-     * @param message Message about error for this field
+     * @param field     Name of field.
+     * @param message   Message about error for this field.
      */
     public Field(
         String field,
@@ -50,18 +45,18 @@ public class Field {
     //- SECTION :: GET -//
 
     /**
-     * Get field
+     * Get field.
      *
-     * @return String
+     * @return String.
      */
     public String getField() {
         return field;
     }
 
     /**
-     * Get message
+     * Get message.
      *
-     * @return String
+     * @return String.
      */
     public String getMessage() {
         return message;
@@ -70,18 +65,18 @@ public class Field {
 
     //- SECTION :: SET -//
     /**
-     * Set field
+     * Set field.
      *
-     * @param field Name of field
+     * @param field Name of field.
      */
     public void setField( String field ) {
         this.field = field;
     }
 
     /**
-     * Set message
+     * Set message.
      *
-     * @param message Message about error for this field
+     * @param message Message about error for this field.
      */
     public void setMessage( String message ) {
         this.message = message;

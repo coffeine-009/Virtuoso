@@ -1,25 +1,18 @@
-/// *** Error :: Model :: Entity :: ValidationError *** *** *** *** *** *** ///
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
+ *
+ * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
+ * @date 12/13/15 2:24 PM
+ */
 
-    /** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-     *                                                                  *
-     * @copyright 2014 (c), by Coffeine
-     *
-     * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
-     *
-     * @date 2014-07-25 15:40:00 :: 2014-07-25 15:44:14
-     *
-     * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
-     *                                                                  *
-    *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.error.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Object for describe input error
+ * Object for describe input error.
  *
  * @version 1.0
  */
@@ -27,24 +20,24 @@ public class ValidationError {
 
     /// *** Properties  *** ///
     /**
-     * List of errors/field
+     * List of errors/field.
      */
-    protected List < Field > fieldErrors;
+    protected List<Field> fieldErrors = new ArrayList<>();
 
 
     //***    Methods     *** ///
     /**
-     * Default constructor
+     * Default constructor.
      */
     public ValidationError() {
-        this.fieldErrors = new ArrayList<>();
+        //TODO
     }
 
     /**
-     * Add new fieldErrors
+     * Add new fieldErrors.
      *
-     * @param field Name of field
-     * @param message Message about error for this field
+     * @param field     Name of field.
+     * @param message   Message about error for this field.
      */
     public void addFieldError( String field, String message ) {
         fieldErrors.add(
@@ -58,9 +51,9 @@ public class ValidationError {
 
     //-  SECTION :: GET -//
     /**
-     * Get field erros
+     * Get field errors.
      *
-     * @return List<Field> List of errors/fields
+     * @return List of errors/fields.
      */
     public List < Field > getFieldErrors() {
         return fieldErrors;
@@ -69,11 +62,11 @@ public class ValidationError {
 
     //- SECTION :: SET -//
     /**
-     * Set field error
+     * Set field error.
      *
-     * @param fieldErrors List of errors/fields
+     * @param fieldErrors List of errors/fields.
      */
-    public void setFieldErrors( List < Field > fieldErrors ) {
+    public void setFieldErrors( List<Field> fieldErrors ) {
         this.fieldErrors = fieldErrors;
     }
 }

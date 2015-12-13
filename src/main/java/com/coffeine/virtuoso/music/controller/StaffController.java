@@ -54,7 +54,7 @@ public class StaffController {
     private StyleService styleService;
 
     /**
-     * Service for work with staffs
+     * Service for work with staffs.
      */
     @Autowired
     private StaffService staffService;

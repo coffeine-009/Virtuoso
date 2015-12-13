@@ -55,7 +55,7 @@ public class ComposerController {
      * @param page  Number of page
      * @param limit Count items per page
      *
-     * @return List<Composer>
+     * @return List of Composer.
      */
     @GET
     @RequestMapping( method = RequestMethod.GET )
@@ -95,7 +95,7 @@ public class ComposerController {
             response.setStatus( HttpServletResponse.SC_CREATED );
 
             //- Prepare data for localization -//
-            List <ComposerLocale> data = new ArrayList<>();
+            List<ComposerLocale> data = new ArrayList<>();
                 for ( ComposerForm.Data dataLocalized : form.getData() ) {
                     data.add(
                         new ComposerLocale(

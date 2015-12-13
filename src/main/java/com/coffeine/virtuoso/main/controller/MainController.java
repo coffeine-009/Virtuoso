@@ -1,34 +1,28 @@
-/// *** User :: Controller :: Song  *** *** *** *** *** *** *** *** *** *** ///
-
-/** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
- *                                                                  *
- * @copyright 2014 (c), by Coffeine
+/**
+ * Copyright (c) 2014-2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
  *
- * @date 2014-07-24 13:39:58 :: ....-..-.. ..:..:..
- *
- * @address /Ukraine/Ivano-Frankivsk/Tychyny/7a
- *                                                                  *
- *///*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
+ * @date 12/13/15 1:58 PM
+ */
 
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * Main controller.
+ *
  * @version 1.0
  */
-@RequestMapping( value = "" )
+@RequestMapping( value = "/" )
 @Controller
 public class MainController {
 
     /// *** Methods     *** ///
     //- Actions -//
-    public ModelAndView mainAction() {
-        return new ModelAndView( "/index" );
+    public void mainAction() {
+        //TODO
     }
 }

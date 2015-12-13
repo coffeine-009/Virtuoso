@@ -10,13 +10,18 @@ package com.coffeine.virtuoso.library.validator.anotation;
 
 import com.coffeine.virtuoso.library.validator.anotation.Implementation.EventValidatorImpl;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import javax.validation.Constraint;
+import javax.validation.Payload;
 
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
@@ -43,36 +48,36 @@ public @interface Event {
     /**
      * Date of start event.
      *
-     * @return Field name of the start date
+     * @return Field name of the start date.
      */
     String start();
 
     /**
      * Date of the end event.
      *
-     * @return Field name of the end date
+     * @return Field name of the end date.
      */
     String end();
 
     /**
      * Message for invalid values.
      *
-     * @return String Error message
+     * @return String Error message.
      */
     String message() default "{javax.validation.constraints.Event.message}";
 
     /**
      * Validate group of events.
      *
-     * @return Event
+     * @return Event.
      */
-    Class< ? >[] groups() default {};
+    Class<?>[] groups() default {};
 
     /**
      * FIXME: Investigate if this is needed
      * @return
      */
-    Class< ? extends Payload >[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
     /**
      * Defines several {@link Event} annotations on the same element.

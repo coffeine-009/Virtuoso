@@ -18,7 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -111,7 +118,7 @@ public class TextController {
         } catch ( IllegalArgumentException e ) {
             //- Failure. Cannot find related entities -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        } catch( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create text -//
             response.setStatus( HttpServletResponse.SC_FORBIDDEN );
         }
@@ -190,7 +197,7 @@ public class TextController {
         } catch ( IllegalArgumentException e ) {
             //- Failure. Cannot found related entities -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        } catch( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to update text-//
             response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
@@ -216,7 +223,7 @@ public class TextController {
         try {
             //- Try to delete text -//
             this.textService.delete( id );
-        } catch( EmptyResultDataAccessException e ) {
+        } catch ( EmptyResultDataAccessException e ) {
             // Failure. Text doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );

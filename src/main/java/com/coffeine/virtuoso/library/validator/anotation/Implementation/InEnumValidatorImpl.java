@@ -10,30 +10,32 @@ package com.coffeine.virtuoso.library.validator.anotation.Implementation;
 
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 /**
+ * Validator for enumeration values.
+ *
  * @version 1.0
  */
-public class InEnumImpl implements ConstraintValidator <InEnum, List < String > > {
+public class InEnumValidatorImpl implements ConstraintValidator<InEnum, List<String>> {
+
     /// *** Properties  *** ///
     /**
-     * List of available values
+     * List of available values.
      */
-    private List < String > valueList = null;
+    private List<String> valueList = null;
 
 
     /// *** Methods     *** ///
-
     /**
-     * Validate input
+     * Validate input.
      *
      * @param values
      * @param context
-     * @return boolean true - input is valid, false - not valid
+     * @return boolean true - input is valid, false - not valid.
      */
     @Override
     public boolean isValid(
@@ -50,7 +52,7 @@ public class InEnumImpl implements ConstraintValidator <InEnum, List < String > 
     }
 
     /**
-     * Initialization
+     * Initialization.
      *
      * @param constraintAnnotation
      */
@@ -59,7 +61,7 @@ public class InEnumImpl implements ConstraintValidator <InEnum, List < String > 
 
         valueList = new ArrayList <>();
 
-        Class < ? extends Enum < ? > > enumClass = constraintAnnotation.enumClass();
+        Class<? extends Enum<?>> enumClass = constraintAnnotation.enumClass();
 
         @SuppressWarnings( "rawtypes" )
         Enum[] enumValArr = enumClass.getEnumConstants();

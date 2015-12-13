@@ -143,10 +143,10 @@ public class StyleController {
      *
      * @return Updated style.
      */
-    @RequestMapping( value = "/{ID}", method = RequestMethod.PUT )
+    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public Style createAction(
-        @PathVariable( "ID" )
+        @PathVariable( "id" )
         Long id,
 
         @RequestBody
