@@ -16,7 +16,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -124,8 +135,8 @@ public class Song implements Serializable {
     public Song(
         Poet poet,
         String title,
-        List < Text > texts,
-        List < Video > videos,
+        List<Text> texts,
+        List<Video> videos,
         String locale
     ) {
         //- Initialization -//
@@ -151,9 +162,9 @@ public class Song implements Serializable {
     public Song(
         Composer composer,
         Poet poet,
-        List < SongLocale > data,
-        List < Text > texts,
-        List < Video > videos,
+        List<SongLocale> data,
+        List<Text> texts,
+        List<Video> videos,
         String locale
 
     ) {
@@ -167,11 +178,11 @@ public class Song implements Serializable {
             this.addSongLocale( songLocale );
         }
 
-        for ( Text text : texts) {
+        for ( Text text : texts ) {
             this.addText( text );
         }
 
-        for( Video video : videos) {
+        for( Video video : videos ) {
             this.addVideo( video );
         }
 
@@ -192,10 +203,10 @@ public class Song implements Serializable {
     public Song(
         Composer composer,
         Poet poet,
-        List < SongLocale > data,
-        List < Staff > staffs,
-        List < Text > texts,
-        List < Video > videos,
+        List<SongLocale> data,
+        List<Staff> staffs,
+        List<Text> texts,
+        List<Video> videos,
         String locale
 
     ) {
@@ -209,15 +220,15 @@ public class Song implements Serializable {
             this.addSongLocale( songLocale );
         }
 
-        for( Staff staff : staffs) {
+        for( Staff staff : staffs ) {
             this.addStaff( staff );
         }
 
-        for ( Text text : texts) {
+        for ( Text text : texts ) {
             this.addText( text );
         }
 
-        for( Video video : videos) {
+        for( Video video : videos ) {
             this.addVideo( video );
         }
 
@@ -285,7 +296,7 @@ public class Song implements Serializable {
      *
      * @return List<SongLocale>
      */
-    public List < SongLocale > getData() {
+    public List<SongLocale> getData() {
         return data;
     }
 
@@ -294,7 +305,7 @@ public class Song implements Serializable {
      *
      * @return List<SongStaff>
      */
-    public List <Staff > getStaffs() {
+    public List<Staff> getStaffs() {
         return staffs;
     }
 
@@ -303,7 +314,7 @@ public class Song implements Serializable {
      *
      * @return List<SongText>
      */
-    public List < Text > getTexts() {
+    public List<Text> getTexts() {
         return texts;
     }
 
@@ -312,7 +323,7 @@ public class Song implements Serializable {
      *
      * @return List<Video>
      */
-    public List < Video > getVideos() {
+    public List<Video> getVideos() {
         return videos;
     }
 
@@ -377,7 +388,7 @@ public class Song implements Serializable {
      *
      * @param data Localized data
      */
-    public void setData( List < SongLocale > data ) {
+    public void setData( List<SongLocale> data ) {
         this.data = data;
     }
 
@@ -386,7 +397,7 @@ public class Song implements Serializable {
      *
      * @param staffs List of staffs
      */
-    public void setStaffs(List<Staff > staffs) {
+    public void setStaffs(List<Staff> staffs) {
         this.staffs = staffs;
     }
 
@@ -395,7 +406,7 @@ public class Song implements Serializable {
      *
      * @param texts List of texts
      */
-    public void setTexts( List < Text > texts ) {
+    public void setTexts( List<Text> texts ) {
         this.texts = texts;
     }
 
@@ -404,7 +415,7 @@ public class Song implements Serializable {
      *
      * @param videos List of videos
      */
-    public void setVideos( List < Video > videos ) {
+    public void setVideos( List<Video> videos ) {
         this.videos = videos;
     }
 
