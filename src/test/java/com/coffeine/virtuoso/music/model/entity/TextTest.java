@@ -36,7 +36,7 @@ public class TextTest extends AbstractModel {
      * Test field validation for entity field correct
      */
     @Test
-    public void TestTextFieldsSuccess() {
+    public void testTextFieldsSuccess() {
 
         Set < ConstraintViolation < Text > > constraintViolationSet;
         //- Success -//
@@ -149,7 +149,7 @@ public class TextTest extends AbstractModel {
      * Test field validation for entity field failure
      */
     @Test
-    public void TestSongFieldsFailure() {
+    public void testSongFieldsFailure() {
         Set < ConstraintViolation < Text > > constraintViolationSet;
         //- Failure : incorrect song -//
         //- Create entity -//

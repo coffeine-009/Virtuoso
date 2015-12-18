@@ -37,7 +37,7 @@ public class SongTest extends AbstractModel {
      * Test field validation for entity field correct
      */
     @Test
-    public void TestSongFieldsSuccess() {
+    public void testSongFieldsSuccess() {
 
         Set < ConstraintViolation < Song > > constraintViolationSet;
 
@@ -148,7 +148,7 @@ public class SongTest extends AbstractModel {
      * Test field validation for entity field failure
      */
     @Test
-    public void TestSongFieldsFailure() {
+    public void testSongFieldsFailure() {
         Set < ConstraintViolation < Song > > constraintViolationSet;
 
         //- Failure -//
