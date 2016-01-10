@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -63,6 +64,17 @@ public class PoetServiceImpl implements PoetService {
      */
     public Poet find( Long id ) {
         return this.poetRepository.findOne( id );
+    }
+
+    /**
+     * Find Poets by ids.
+     *
+     * @param ids Unique ids.
+     * @return Poet Found
+     */
+    @Override
+    public List<Poet> find( List<Long> ids ) {
+        return this.poetRepository.find( ids );
     }
 
     /**

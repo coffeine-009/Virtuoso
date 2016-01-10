@@ -35,7 +35,7 @@ import static org.springframework.util.Assert.notNull;
  * @version 1.0
  */
 @Controller
-@RequestMapping( value = "/user/styles" )
+@RequestMapping( value = "/music/styles" )
 public class StyleController {
 
     /// *** Properties  *** ///

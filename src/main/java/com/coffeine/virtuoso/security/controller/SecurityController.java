@@ -135,7 +135,7 @@ public class SecurityController {
                         newUser.getLocale(),
                         newUser.getGender(),
                         registrationForm.getBirthday(),
-                        registrationForm.getDeathDay(),
+                        registrationForm.getDeathDate(),
                         new ArrayList<ComposerLocale>() {{
                             add(
                                 new ComposerLocale(
@@ -157,7 +157,7 @@ public class SecurityController {
                         newUser.getLocale(),
                         newUser.getGender(),
                         registrationForm.getBirthday(),
-                        registrationForm.getDeathDay(),
+                        registrationForm.getDeathDate(),
                         new ArrayList<PoetLocale>() {{
                             add(
                                 new PoetLocale(

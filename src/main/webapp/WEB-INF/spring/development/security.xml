@@ -19,12 +19,6 @@
         jsr250-annotations = "enabled"
     />
 
-    <!-- Public resource -->
-    <security:http
-        security = "none"
-        pattern = "/"
-    />
-
     <!-- Authorization -->
     <security:http
         authentication-manager-ref = "authenticationManager"
@@ -48,7 +42,7 @@
     <security:http
         create-session = "never"
         entry-point-ref = "securityAuthenticationEntryPoint"
-        pattern = "/user/**"
+        pattern = "/music/**"
         access-decision-manager-ref = "accessDecisionManager"
     >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
@@ -58,7 +52,7 @@
             ref = "resourceServerFilter"
         />
         <security:intercept-url
-            pattern = "/user/**"
+            pattern = "/music/**"
             access = "IS_AUTHENTICATED_FULLY"
         />
     </security:http>

@@ -2,16 +2,17 @@
  * Copyright (c) 2014-2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
- *
- * @date 12/7/15 10:23 PM
+ * @date 01/7/2015 08:27 PM
  */
 
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.music.model.entity.Composer;
-import com.coffeine.virtuoso.music.model.entity.ComposerLocale;
-import com.coffeine.virtuoso.music.model.service.ComposerService;
+import com.coffeine.virtuoso.music.model.entity.Poet;
+import com.coffeine.virtuoso.music.model.entity.PoetLocale;
+import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.view.form.ComposerForm;
+import com.coffeine.virtuoso.music.view.form.PoetForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,32 +24,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Controller for work with Composer.
+ * Controller for work with Poet.
  *
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/music/composers" )
-public class ComposerController {
+@RequestMapping(value = "/music/poets")
+public class PoetController {
 
     /// *** Properties  *** ///
     @Autowired
-    private ComposerService composerService;
+    private PoetService poetService;
 
 
     /// *** Methods     *** ///
+
     /**
      * Get list of composers.
      *
@@ -58,17 +60,17 @@ public class ComposerController {
      * @return List of Composer.
      */
     @GET
-    @RequestMapping( method = RequestMethod.GET )
-    public List<Composer> listAction(
-        @RequestParam( value = "page", required = false, defaultValue = "1" )
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Poet> listAction(
+        @RequestParam(value = "page", required = false, defaultValue = "1")
         int page,
 
-        @RequestParam( value = "limit", required = false, defaultValue = "10" )
+        @RequestParam(value = "limit", required = false, defaultValue = "10")
         int limit
     ) {
-        return this.composerService.findAll(
-            Math.max( page - 1, 0 ),
-            limit
+        return this.poetService.findAll(
+                Math.max(page - 1, 0),
+                limit
         );
     }
 
@@ -81,50 +83,48 @@ public class ComposerController {
      * @return Composer
      */
     @POST
-    @RequestMapping( method = RequestMethod.POST )
-    public Composer createAction(
+    @RequestMapping(method = RequestMethod.POST)
+    public Poet createAction(
         @RequestBody
         @Valid
-        ComposerForm form,
+        PoetForm form,
 
         HttpServletResponse response
     ) {
         //- Try to create new composer -//
         try {
             //- Set HTTP status -//
-            response.setStatus( HttpServletResponse.SC_CREATED );
+            response.setStatus(HttpServletResponse.SC_CREATED);
 
             //- Prepare data for localization -//
-            List<ComposerLocale> data = new ArrayList<>();
-                for ( ComposerForm.Data dataLocalized : form.getData() ) {
-                    data.add(
-                        new ComposerLocale(
-                            dataLocalized.getFirstName(),
-                            dataLocalized.getLastName(),
-                            dataLocalized.getFatherName(),
-                            dataLocalized.getLocale()
+            List<PoetLocale> data = new ArrayList<>();
+            for (PoetForm.Data dataLocalized : form.getData()) {
+                data.add(
+                        new PoetLocale(
+                                dataLocalized.getFirstName(),
+                                dataLocalized.getLastName(),
+                                dataLocalized.getFatherName(),
+                                dataLocalized.getLocale()
                         )
-                    );
-                }
+                );
+            }
 
             //- Success. Composer has created -//
-            return this.composerService.create(
-                new Composer(
-                    form.getLocale(),
-                    form.getGender(),
-                    form.getBirthday(),
-                    form.getDeathDate(),
-                    data
-                )
+            return this.poetService.create(
+                    new Poet(
+                            form.getLocale(),
+                            form.getGender(),
+                            form.getBirthday(),
+                            form.getDeathDate(),
+                            data
+                    )
             );
-        }
-        catch ( DataIntegrityViolationException e ) {
+        } catch (DataIntegrityViolationException e) {
             //- Warning, can not create duplicate -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        }
-        catch ( Exception e ) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (Exception e) {
             //- Failure. Can not to create a composer -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
         return null;
@@ -139,9 +139,9 @@ public class ComposerController {
      * @return Composer
      */
     @GET
-    @RequestMapping( value = "/{id}", method = RequestMethod.GET )
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Composer readAction(
-        @PathVariable( "id" )
+        @PathVariable("id")
         Long id,
 
         HttpServletResponse response
@@ -149,18 +149,16 @@ public class ComposerController {
         //- Try to find composer -//
         try {
             //- Success. Composer has found -//
-            Composer composer = this.composerService.find( id );
+            Poet poet = this.poetService.find(id);
 
             //- Check composer -//
-            notNull( composer );
-        }
-        catch ( IllegalArgumentException e ) {
+            notNull(poet);
+        } catch (IllegalArgumentException e) {
             //- Composer did not find -//
-            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        }
-        catch ( Exception e ) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } catch (Exception e) {
             //- Failure. Unknown error -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
         return null;
@@ -175,9 +173,9 @@ public class ComposerController {
      * @return Composer
      */
     @PUT
-    @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
-    public Composer updateAction(
-        @PathVariable( "id" )
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Poet updateAction(
+        @PathVariable("id")
         Long id,
 
         @RequestBody
@@ -189,32 +187,29 @@ public class ComposerController {
         //- Try to update new composer -//
         try {
             //- Search  -//
-            Composer composer = this.composerService.find( id );
+            Poet poet = this.poetService.find(id);
 
             //- Check composer -//
-            notNull( composer );
+            notNull(poet);
 
             //- Update data -//
-            composer.setLocale( form.getLocale() );
-            composer.setGender( form.getGender() );
-            composer.setBirthday( form.getBirthday() );
-            composer.setDeathDate( form.getDeathDate() );
+            poet.setLocale(form.getLocale());
+            poet.setGender(form.getGender());
+            poet.setBirthday(form.getBirthday());
+            poet.setDeathDate(form.getDeathDate());
             //TODO: finish
 
             //- Success. Composer has updated -//
-            return this.composerService.update( composer );
-        }
-        catch ( IllegalArgumentException e ) {
+            return this.poetService.update(poet);
+        } catch (IllegalArgumentException e) {
             //- Warning. Composer has not found -//
-            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        }
-        catch ( DataIntegrityViolationException e ) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } catch (DataIntegrityViolationException e) {
             //- Warning, can not create duplicate -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        }
-        catch ( Exception e ) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } catch (Exception e) {
             //- Failure. Can not to create a composer -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
         return null;
@@ -227,9 +222,9 @@ public class ComposerController {
      * @param response  Use for set HTTP status
      */
     @DELETE
-    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteAction(
-        @PathVariable( "id" )
+        @PathVariable("id")
         Long id,
 
         HttpServletResponse response
@@ -237,15 +232,13 @@ public class ComposerController {
         //- Try to delete composer -//
         try {
             //- Success. Composer has deleted -//
-            this.composerService.delete( id );
-        }
-        catch ( EmptyResultDataAccessException e ) {
+            this.poetService.delete(id);
+        } catch (EmptyResultDataAccessException e) {
             //- Warning. Composer has not found -//
-            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        }
-        catch ( Exception e ) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        } catch (Exception e) {
             //- Failure. Unknown error -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 }

@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
  *
  * @version 1.0
  */
-@Event( start = "birthday", end = "deathDay" )
+@Event( start = "birthday", end = "deathDate" )
 public class RegistrationForm {
 
     /// *** Properties  *** ///
@@ -67,7 +67,7 @@ public class RegistrationForm {
     protected LocalDate birthday;//FIXME: Add validation for date format
 
     @JsonDeserialize( using = LocalDateDeserializer.class )
-    protected LocalDate deathDay;
+    protected LocalDate deathDate;
 
 
     /// *** Methods     *** ///
@@ -120,7 +120,7 @@ public class RegistrationForm {
      * @param gender       True - man, false - woman
      * @param locale       User's locale
      * @param birthday     Birthday of user
-     * @param deathDay     Birthday of death if it is known
+     * @param deathDate     Birthday of death if it is known
      */
     public RegistrationForm(
         String username,
@@ -131,7 +131,7 @@ public class RegistrationForm {
         List<String> roles,
         String locale,
         LocalDate birthday,
-        LocalDate deathDay
+        LocalDate deathDate
     ) {
         //- Initialization -//
         this(
@@ -144,7 +144,7 @@ public class RegistrationForm {
             locale,
             birthday
         );
-        this.deathDay = deathDay;
+        this.deathDate = deathDate;
     }
 
     //- SECTION :: GET -//
@@ -225,8 +225,8 @@ public class RegistrationForm {
      *
      * @return Date Day of death.
      */
-    public LocalDate getDeathDay() {
-        return deathDay;
+    public LocalDate getDeathDate() {
+        return deathDate;
     }
 
 
@@ -306,9 +306,9 @@ public class RegistrationForm {
     /**
      * Set day of death.
      *
-     * @param deathDay    Day of death.
+     * @param deathDate    Day of death.
      */
-    public void setDeathDay( LocalDate deathDay ) {
-        this.deathDay = deathDay;
+    public void setDeathDate(LocalDate deathDate) {
+        this.deathDate = deathDate;
     }
 }

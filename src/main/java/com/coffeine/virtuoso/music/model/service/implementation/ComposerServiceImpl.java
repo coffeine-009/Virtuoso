@@ -69,6 +69,17 @@ public class ComposerServiceImpl implements ComposerService {
     }
 
     /**
+     * Find Composer by ids.
+     *
+     * @param ids Ids of composer
+     * @return Composer found composer
+     */
+    @Override
+    public List<Composer> find( List<Long> ids ) {
+        return this.composerRepository.find( ids );
+    }
+
+    /**
      * Update composer data.
      *
      * @param composer Composer for update

@@ -38,6 +38,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 
+import static org.springframework.util.Assert.notEmpty;
 import static org.springframework.util.Assert.notNull;
 
 /**
@@ -111,22 +112,24 @@ public class SongController {
     ) {
         try {
             //- Search related entities -//
-            Composer composer = this.composerService.find( form.getComposerId() );
-            Poet poet = this.poetService.find( form.getPoetId() );
+            List<Composer> composers = this.composerService.find( form.getComposerIds() );
+            List<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
-            notNull( composer );
-            notNull( poet );
+            notNull( composers );
+            notNull( poets );
+            notEmpty( composers );
+            notEmpty( poets );
 
             //- Save song -//
             return this.songService.create(
                 new Song(
-                    composer,
-                    poet,
-                    form.getData(),
-                    form.getStaffs(),
-                    form.getTexts(),
-                    form.getVideos(),
+                    composers,
+                    poets,
+//                    form.getData(),
+//                    form.getStaffs(),
+//                    form.getTexts(),
+//                    form.getVideos(),
                     form.getLocale()
                 )
             );
@@ -199,21 +202,23 @@ public class SongController {
         try {
             //- Search related entities -//
             Song song = this.songService.find( id );
-            Composer composer = this.composerService.find( form.getComposerId() );
-            Poet poet = this.poetService.find( form.getPoetId() );
+            List<Composer> composers = this.composerService.find( form.getComposerIds() );
+            List<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
             notNull( song );
-            notNull( composer );
-            notNull( poet );
+            notNull( composers );
+            notNull( poets );
+            notEmpty( composers );
+            notEmpty( poets );
 
             //- Update data -//
-            song.setComposer( composer );
-            song.setPoet(poet);
-            song.setData(form.getData());
-            song.setStaffs(form.getStaffs());
-            song.setTexts(form.getTexts());
-            song.setVideos(form.getVideos());
+            song.setComposers( composers );
+            song.setPoets( poets );
+//            song.setData( form.getData() );
+//            song.setStaffs( form.getStaffs() );
+//            song.setTexts( form.getTexts() );
+//            song.setVideos( form.getVideos() );
             song.setLocale( form.getLocale() );
         } catch ( IllegalArgumentException e ) {
             //- Failure. Cannot find related entities -//

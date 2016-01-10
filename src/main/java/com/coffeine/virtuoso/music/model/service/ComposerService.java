@@ -29,7 +29,7 @@ public interface ComposerService {
      * @param limit Count of items per page
      * @return List < Composer > List of composers per page
      */
-    public List < Composer > findAll( int page, int limit );
+    List<Composer> findAll( int page, int limit );
 
     /**
      * Create a new composer.
@@ -37,7 +37,7 @@ public interface ComposerService {
      * @param composer Data for create new composer
      * @return Composer Created composer
      */
-    public Composer create( Composer composer );
+    Composer create( Composer composer );
 
     /**
      * Find Composer by id.
@@ -45,7 +45,15 @@ public interface ComposerService {
      * @param id        Identificator of composer
      * @return Composer found composer
      */
-    public Composer find( Long id );
+    Composer find( Long id );
+
+    /**
+     * Find Composer by ids.
+     *
+     * @param ids       Ids of composer
+     * @return Composer found composer
+     */
+    List<Composer> find( List<Long> ids );
 
     /**
      * Update composer data.
@@ -53,12 +61,12 @@ public interface ComposerService {
      * @param composer Composer for update
      * @return Composer Updated composer
      */
-    public Composer update( Composer composer );
+    Composer update( Composer composer );
 
     /**
      * Delete composer by ID.
      *
      * @param id Identificator of composer
      */
-    public void delete( Long id );
+    void delete( Long id );
 }

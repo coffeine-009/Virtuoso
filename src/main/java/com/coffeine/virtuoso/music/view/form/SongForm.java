@@ -13,15 +13,16 @@ import com.coffeine.virtuoso.music.model.entity.Staff;
 import com.coffeine.virtuoso.music.model.entity.Text;
 import com.coffeine.virtuoso.music.model.entity.Video;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * Form for create/update song.
@@ -31,61 +32,93 @@ import javax.validation.constraints.Size;
 public class SongForm {
 
     @NotNull
-    @Min( 0 )
-    private Long composerId;
+    @Size( min = 1 )
+    private List<Long> composerIds;
 
     @NotNull
-    @Min( 0 )
-    private Long poetId;
-
-    @NotNull
-    @NotEmpty
-    @Size( min = 2 )
-    private List<SongLocale> data = new ArrayList<>();
+    @Size( min = 1 )
+    private List<Long> poetIds;
 
     @NotNull
     @NotEmpty
-    protected List<Staff> staffs = new ArrayList<>();
+    @Size( min = 1 )
+    private List<SongForm.SongLocaleForm> data = new ArrayList<>();//TODO: add forms
 
     @NotNull
     @NotEmpty
-    private List<Text> texts = new ArrayList<>();
+    protected List<SongForm.StaffForm> staffs = new ArrayList<>();
 
     @NotNull
-    private List<Video> videos = new ArrayList<>();
+    @NotEmpty
+    private List<SongForm.TextForm> texts = new ArrayList<>();
+
+    @NotNull
+    private List<SongForm.VideoForm> videos = new ArrayList<>();
 
     @NotNull
     @NotEmpty
     @Length( max = 5 )
     private String locale;
 
+    @JsonDeserialize( using = LocalDateDeserializer.class )
     private LocalDate writeDate;
 
 
+    private static class SongLocaleForm {
+
+        @NotNull
+        @NotEmpty
+        @Length( max = 64 )
+        protected String title;
+
+        @NotNull
+        @NotEmpty
+        @Length( max = 5 )
+        protected String locale;
+
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getLocale() {
+            return locale;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setLocale(String locale) {
+            this.locale = locale;
+        }
+    }
+
+    private class StaffForm {
+
+        private Long staffTypeId;
+
+        private Long styleId;
+
+
+    }
+
+    private class TextForm {
+    }
+
+    private class VideoForm {
+    }
+
     //- SECTION :: GET -//
-    public Long getComposerId() {
-        return composerId;
+
+    public List<Long> getComposerIds() {
+        return composerIds;
     }
 
-    public Long getPoetId() {
-        return poetId;
+    public List<Long> getPoetIds() {
+        return poetIds;
     }
 
-    public List<SongLocale> getData() {
-        return data;
-    }
-
-    public List<Staff> getStaffs() {
-        return staffs;
-    }
-
-    public List<Text> getTexts() {
-        return texts;
-    }
-
-    public List<Video> getVideos() {
-        return videos;
-    }
 
     public String getLocale() {
         return locale;
@@ -97,29 +130,15 @@ public class SongForm {
 
 
     //- SECTION :: SET -//
-    public void setComposerId( Long composerId ) {
-        this.composerId = composerId;
+
+    public void setComposerIds(List<Long> composerIds) {
+        this.composerIds = composerIds;
     }
 
-    public void setPoetId( Long poetId ) {
-        this.poetId = poetId;
+    public void setPoetIds(List<Long> poetIds) {
+        this.poetIds = poetIds;
     }
 
-    public void setData( List<SongLocale> data ) {
-        this.data = data;
-    }
-
-    public void setStaffs( List<Staff> staffs ) {
-        this.staffs = staffs;
-    }
-
-    public void setTexts( List<Text> texts ) {
-        this.texts = texts;
-    }
-
-    public void setVideos( List<Video> videos ) {
-        this.videos = videos;
-    }
 
     public void setLocale( String locale ) {
         this.locale = locale;

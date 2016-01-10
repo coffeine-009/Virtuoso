@@ -27,7 +27,7 @@ public interface PoetService {
      * @param limit Count of items per page
      * @return List < Poet > List of poets per page
      */
-    public List < Poet > findAll( int page, int limit );
+    List<Poet> findAll( int page, int limit );
 
     /**
      * Create a new Poet.
@@ -35,7 +35,7 @@ public interface PoetService {
      * @param poet Data for create new poet
      * @return Poet Created
      */
-    public Poet create( Poet poet );
+    Poet create( Poet poet );
 
     /**
      * Find Poet by id.
@@ -43,7 +43,16 @@ public interface PoetService {
      * @param id Unique identificator
      * @return Poet Found
      */
-    public Poet find( Long id );
+    Poet find( Long id );
+
+    /**
+     * Find Poets by ids.
+     *
+     * @param ids Unique ids.
+     *
+     * @return Poet Found
+     */
+    List<Poet> find( List<Long> ids );
 
     /**
      * Update.
@@ -51,12 +60,12 @@ public interface PoetService {
      * @param poet Poet for update
      * @return Poet Updated poet
      */
-    public Poet update( Poet poet );
+    Poet update( Poet poet );
 
     /**
      * Delete.
      *
      * @param id Identificator of poet
      */
-    public void delete( Long id );
+    void delete( Long id );
 }

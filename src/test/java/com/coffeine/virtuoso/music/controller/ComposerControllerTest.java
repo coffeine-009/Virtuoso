@@ -9,7 +9,7 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposeMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 
 import org.junit.After;
@@ -83,7 +83,7 @@ public class ComposerControllerTest extends AbstractRestControllerTest {
         //- Assumptions -//
         when(
             this.composerService.findAll( anyInt(), anyInt() )
-        ).thenReturn( ComposeMock.findAll() );
+        ).thenReturn( ComposerMock.findAll() );
 
         //- Execution -//
         // Success. Get list of songs
