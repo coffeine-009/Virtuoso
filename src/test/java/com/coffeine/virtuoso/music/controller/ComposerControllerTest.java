@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ComposerControllerTest extends AbstractRestControllerTest {
 
     /// *** Constants   *** ///
-    private static final String RESOURCE_URI = "/composers";
+    private static final String RESOURCE_URI = "/music/composers";
 
 
     /// *** Properties  *** ///

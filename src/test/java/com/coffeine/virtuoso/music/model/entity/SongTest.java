@@ -217,8 +217,8 @@ public class SongTest extends AbstractModel {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add("composer");
-                    add("poet");
+                    add("composers");
+                    add("poets");
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
