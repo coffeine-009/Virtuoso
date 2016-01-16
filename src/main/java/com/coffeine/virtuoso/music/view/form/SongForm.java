@@ -8,21 +8,16 @@
 
 package com.coffeine.virtuoso.music.view.form;
 
-import com.coffeine.virtuoso.music.model.entity.SongLocale;
-import com.coffeine.virtuoso.music.model.entity.Staff;
-import com.coffeine.virtuoso.music.model.entity.Text;
-import com.coffeine.virtuoso.music.model.entity.Video;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Form for create/update song.
