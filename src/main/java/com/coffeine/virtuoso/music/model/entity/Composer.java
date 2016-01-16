@@ -25,6 +25,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -79,6 +80,7 @@ public class Composer implements Serializable {
     @JsonManagedReference
     @OneToMany(
         mappedBy = "composer",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
@@ -387,7 +389,7 @@ public class Composer implements Serializable {
     @PostLoad
     private void postRead() {
         //- Search origin data about composer -//
-        for (ComposerLocale composerLocale : this.data ) {
+        this.data.forEach( (ComposerLocale composerLocale) -> {
             //- Check origin locale -//
             if (this.locale.equals( composerLocale.getLocale() )) {
                 //- Populate data -//
@@ -395,6 +397,6 @@ public class Composer implements Serializable {
                 this.lastName = composerLocale.getLastName();
                 this.fatherName = composerLocale.getMiddleName();
             }
-        }
+        });
     }
 }

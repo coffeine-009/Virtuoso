@@ -10,6 +10,8 @@ package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.security.model.entity.User;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
@@ -23,6 +25,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -61,22 +64,25 @@ public class Poet implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonIgnore
+    @JsonBackReference
     @NotNull
     @Valid
     @OneToOne
     @JoinColumn( name = "id_user" )
     protected User user;
 
+    @NotNull
+    @NotEmpty
+    @Valid
     @JsonManagedReference
-//    @NotNull
-//    @NotEmpty
-//    @Valid
     @OneToMany(
         mappedBy = "poet",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List < PoetLocale > data;
+    protected List<PoetLocale> data = new ArrayList<>();
 
     @NotNull
     @NotEmpty
@@ -91,7 +97,7 @@ public class Poet implements Serializable {
     protected LocalDate birthday;
 
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
-    protected LocalDate deathDay;
+    protected LocalDate deathDate;
 
     @Column(
         name = "creation",
@@ -114,13 +120,13 @@ public class Poet implements Serializable {
      * Construct for create new poet.
      *
      * @param birthday
-     * @param deathDay
+     * @param deathDate
      */
     public Poet(
         String locale,
         Boolean gender,
         LocalDate birthday,
-        LocalDate deathDay,
+        LocalDate deathDate,
         List < PoetLocale > data
     ) {
         //- Check params -//
@@ -130,7 +136,7 @@ public class Poet implements Serializable {
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
-        this.deathDay = deathDay;
+        this.deathDate = deathDate;
         this.data = data;
 
         for ( PoetLocale poetLocale : this.data ) {
@@ -202,6 +208,14 @@ public class Poet implements Serializable {
         return data;
     }
 
+    public String getLocale() {
+        return locale;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
     /**
      * Get date of birthday.
      *
@@ -216,8 +230,8 @@ public class Poet implements Serializable {
      *
      * @return Calendar
      */
-    public LocalDate getDeathDay() {
-        return deathDay;
+    public LocalDate getDeathDate() {
+        return deathDate;
     }
 
     /**
@@ -258,6 +272,14 @@ public class Poet implements Serializable {
         this.data = data;
     }
 
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
     /**
      * Set date of birthday.
      *
@@ -270,10 +292,10 @@ public class Poet implements Serializable {
     /**
      * Set date of death.
      *
-     * @param deathDay
+     * @param deathDate
      */
-    public void setDeathDay( LocalDate deathDay ) {
-        this.deathDay = deathDay;
+    public void setDeathDate(LocalDate deathDate) {
+        this.deathDate = deathDate;
     }
 
     /**

@@ -9,10 +9,9 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposeMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -21,7 +20,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ComposerControllerTest extends AbstractRestControllerTest {
 
     /// *** Constants   *** ///
-    private static final String RESOURCE_URI = "/composers";
+    private static final String RESOURCE_URI = "/music/composers";
 
 
     /// *** Properties  *** ///
@@ -49,7 +50,7 @@ public class ComposerControllerTest extends AbstractRestControllerTest {
 
     /// *** Methods     *** ///
     /**
-     * Init environment for run test
+     * Init environment for run test.
      */
     @Before
     @Override
@@ -61,14 +62,6 @@ public class ComposerControllerTest extends AbstractRestControllerTest {
         this.mockMvc = MockMvcBuilders
             .standaloneSetup( this.composerController )
             .build();
-    }
-
-    /**
-     * Reset environment to previous state
-     */
-    @After
-    public void tearDown() {
-
     }
 
 
@@ -83,7 +76,7 @@ public class ComposerControllerTest extends AbstractRestControllerTest {
         //- Assumptions -//
         when(
             this.composerService.findAll( anyInt(), anyInt() )
-        ).thenReturn( ComposeMock.findAll() );
+        ).thenReturn( ComposerMock.findAll() );
 
         //- Execution -//
         // Success. Get list of songs

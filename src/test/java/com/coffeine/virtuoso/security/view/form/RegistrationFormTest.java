@@ -307,7 +307,7 @@ public class RegistrationFormTest extends AbstractModel {
                     }},
                     1,
                     new ArrayList< String >() {{
-                        add( "deathDay" );
+                        add( "deathDate" );
                     }},
                     new ArrayList< Class >() {{
                         add( Event.class );

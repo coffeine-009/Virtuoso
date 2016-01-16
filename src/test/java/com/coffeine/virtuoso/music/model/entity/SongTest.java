@@ -9,19 +9,17 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.security.model.entity.Access;
-import com.coffeine.virtuoso.security.model.entity.Email;
-import com.coffeine.virtuoso.security.model.entity.Role;
-import com.coffeine.virtuoso.security.model.entity.User;
+import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Set;
 
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
@@ -45,47 +43,9 @@ public class SongTest extends AbstractModel {
         //- Create entity-//
         Song songSuccess = new Song(
             //-Create composer-//
-            new Composer(
-                new ArrayList< ComposerLocale >() {{
-                    add(
-                        new ComposerLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            ComposerMock.findAll(),
             //- Create poet-//
-            new Poet(
-                new User(
-                    //- Roles -//
-                    new ArrayList < Role >() {{
-                        add( new Role( "POET", "Poet" ) );
-                    }},
-                    //- Access -//
-                    new Access( "MyP@$$w0rd" ),
-                    //- Emails -//
-                    new Email( "myemail@virtuoso.com" ),
-                    "Tester",
-                    "Unit",
-                    "JUnit",
-                    "uk-UA"
-                ),
-                new ArrayList < PoetLocale >() {{
-                    add(
-                        new PoetLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            PoetMock.findAll(),
             //- Create list of song locale -//
             new ArrayList < SongLocale >() {{
                 add(
@@ -98,28 +58,28 @@ public class SongTest extends AbstractModel {
             //- Create list of staff -//
             new ArrayList < Staff >() {{
                 add(
-                 new Staff(
-                     new StaffType(
-                         "CHORDS",
-                         "Chords",
-                         "Standard chords"
-                         ),
-                     new Style(
-                         "One",
-                         "Two",
-                         "three"
+                    new Staff(
+                        new StaffType(
+                            "CHORDS",
+                            "Chords",
+                            "Standard chords"
                         ),
-                     "uk-UA"
+                        new Style(
+                            "One",
+                            "Two",
+                            "three"
+                        ),
+                        "uk-UA"
                     )
                 );
             }},
             //- Create list of text -//
             new ArrayList < Text >() {{
-               add(
-                   new Text(
-                       "uk-UA"
-                   )
-               );
+                add(
+                    new Text(
+                        "uk-UA"
+                    )
+                );
             }},
             //- Create list of video -//
             new ArrayList < Video >() {{
@@ -155,47 +115,9 @@ public class SongTest extends AbstractModel {
         //- Create entity -//
         Song songFailure = new Song(
             //-Create composer-//
-            new Composer(
-                new ArrayList< ComposerLocale >() {{
-                    add(
-                        new ComposerLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            ComposerMock.findAll(),
             //- Create poet-//
-            new Poet(
-                new User(
-                    //- Roles -//
-                    new ArrayList < Role >() {{
-                        add( new Role( "POET", "Poet" ) );
-                    }},
-                    //- Access -//
-                    new Access( "MyP@$$w0rd" ),
-                    //- Emails -//
-                    new Email( "myemail@virtuoso.com" ),
-                    "Tester",
-                    "Unit",
-                    "JUnit",
-                    "uk-UA"
-                ),
-                new ArrayList < PoetLocale >() {{
-                    add(
-                        new PoetLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            PoetMock.findAll(),
             null
         );
         //- Validate -//
@@ -295,8 +217,8 @@ public class SongTest extends AbstractModel {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add("composer");
-                    add("poet");
+                    add("composers");
+                    add("poets");
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -322,47 +244,9 @@ public class SongTest extends AbstractModel {
         //- Create entity -//
         Song songFailureLength = new Song(
             //-Create composer-//
-            new Composer(
-                new ArrayList< ComposerLocale >() {{
-                    add(
-                        new ComposerLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            ComposerMock.findAll(),
             //- Create poet-//
-            new Poet(
-                new User(
-                    //- Roles -//
-                    new ArrayList < Role >() {{
-                        add( new Role( "POET", "Poet" ) );
-                    }},
-                    //- Access -//
-                    new Access( "MyP@$$w0rd" ),
-                    //- Emails -//
-                    new Email( "myemail@virtuoso.com" ),
-                    "Tester",
-                    "Unit",
-                    "JUnit",
-                    "uk-UA"
-                ),
-                new ArrayList < PoetLocale >() {{
-                    add(
-                        new PoetLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            PoetMock.findAll(),
             //- Create list of song locale -//
             new ArrayList < SongLocale >() {{
                 add(
@@ -460,47 +344,9 @@ public class SongTest extends AbstractModel {
         //- Create entity -//
         Song songFailureEmpty = new Song(
             //-Create composer-//
-            new Composer(
-                new ArrayList< ComposerLocale >() {{
-                    add(
-                        new ComposerLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            ComposerMock.findAll(),
             //- Create poet-//
-            new Poet(
-                new User(
-                    //- Roles -//
-                    new ArrayList < Role >() {{
-                        add( new Role( "POET", "Poet" ) );
-                    }},
-                    //- Access -//
-                    new Access( "MyP@$$w0rd" ),
-                    //- Emails -//
-                    new Email( "myemail@virtuoso.com" ),
-                    "Tester",
-                    "Unit",
-                    "JUnit",
-                    "uk-UA"
-                ),
-                new ArrayList < PoetLocale >() {{
-                    add(
-                        new PoetLocale(
-                            "Test",
-                            "Unit",
-                            "Validation",
-                            "en-US"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            PoetMock.findAll(),
             //- Create list of song locale -//
             new ArrayList < SongLocale >(),
             //- Create list of staff -//

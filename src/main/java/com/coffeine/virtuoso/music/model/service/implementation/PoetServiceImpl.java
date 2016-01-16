@@ -66,6 +66,17 @@ public class PoetServiceImpl implements PoetService {
     }
 
     /**
+     * Find Poets by ids.
+     *
+     * @param ids Unique ids.
+     * @return Poet Found
+     */
+    @Override
+    public List<Poet> find( List<Long> ids ) {
+        return this.poetRepository.find( ids );
+    }
+
+    /**
      * Update.
      *
      * @param poet Poet for update

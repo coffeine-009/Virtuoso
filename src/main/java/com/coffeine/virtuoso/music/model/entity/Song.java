@@ -23,11 +23,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PostLoad;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -49,15 +51,67 @@ public class Song implements Serializable {
 
     @NotNull
     @Valid
-    @ManyToOne
-    @JoinColumn( name = "id_composer" )
-    protected Composer composer;
+    @ManyToMany( fetch = FetchType.EAGER )
+    @JoinTable(
+        name = "song_composers",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                columnNames = {
+                    "id_composer",
+                    "id_song"
+                }
+            )
+        },
+        joinColumns = {
+            @JoinColumn(
+                name = "id_composer",
+                unique = false,
+                nullable = false,
+                updatable = false
+            )
+        },
+        inverseJoinColumns = {
+            @JoinColumn(
+                name = "id_song",
+                unique = false,
+                nullable = false,
+                updatable = false
+            )
+        }
+    )
+    protected List<Composer> composers;
 
     @NotNull
     @Valid
-    @ManyToOne
-    @JoinColumn( name = "id_poet" )
-    protected Poet poet;
+    @ManyToMany( fetch = FetchType.EAGER )
+    @JoinTable(
+        name = "song_poets",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                columnNames = {
+                    "id_poet",
+                    "id_song"
+                }
+            )
+        },
+        joinColumns = {
+            @JoinColumn(
+                name = "id_poet",
+                unique = false,
+                nullable = false,
+                updatable = false
+            )
+        },
+        inverseJoinColumns = {
+            @JoinColumn(
+                name = "id_song",
+                unique = false,
+                nullable = false,
+                updatable = false
+            )
+        }
+    )
+    protected List<Poet> poets;
 
     @JsonProperty( "title" )
     @Transient
@@ -126,14 +180,14 @@ public class Song implements Serializable {
     /**
      * Constructor.
      *
-     * @param poet
+     * @param poets
      * @param title
      * @param texts
      * @param videos
      * @param locale
      */
     public Song(
-        Poet poet,
+        List<Poet> poets,
         String title,
         List<Text> texts,
         List<Video> videos,
@@ -142,7 +196,7 @@ public class Song implements Serializable {
         //- Initialization -//
         this();
 
-        this.poet = poet;
+        this.poets = poets;
         this.title = title;
         this.texts = texts;
         this.videos = videos;
@@ -152,16 +206,16 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composer
-     * @param poet
+     * @param composers
+     * @param poets
      * @param data
      * @param texts
      * @param videos
      * @param locale
      */
     public Song(
-        Composer composer,
-        Poet poet,
+        List<Composer> composers,
+        List<Poet> poets,
         List<SongLocale> data,
         List<Text> texts,
         List<Video> videos,
@@ -171,8 +225,8 @@ public class Song implements Serializable {
         //- Initialization -//
         this();
 
-        this.composer = composer;
-        this.poet = poet;
+        this.composers = composers;
+        this.poets = poets;
 
         for ( SongLocale songLocale : data ) {
             this.addSongLocale( songLocale );
@@ -192,8 +246,8 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composer
-     * @param poet
+     * @param composers
+     * @param poets
      * @param data
      * @param staffs
      * @param texts
@@ -201,8 +255,8 @@ public class Song implements Serializable {
      * @param locale
      */
     public Song(
-        Composer composer,
-        Poet poet,
+        List<Composer> composers,
+        List<Poet> poets,
         List<SongLocale> data,
         List<Staff> staffs,
         List<Text> texts,
@@ -213,8 +267,8 @@ public class Song implements Serializable {
         //- Initialization -//
         this();
 
-        this.composer = composer;
-        this.poet = poet;
+        this.composers = composers;
+        this.poets = poets;
 
         for ( SongLocale songLocale : data ) {
             this.addSongLocale( songLocale );
@@ -238,17 +292,17 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composer
-     * @param poet
+     * @param composers
+     * @param poets
      * @param locale
      */
     public Song(
-        Composer composer,
-        Poet poet,
+        List<Composer> composers,
+        List<Poet> poets,
         String locale
     ) {
-        this.composer = composer;
-        this.poet = poet;
+        this.composers = composers;
+        this.poets = poets;
         this.data = null;
         this.staffs = null;
         this.texts = null;
@@ -270,8 +324,8 @@ public class Song implements Serializable {
      *
      * @return Composer
      */
-    public Composer getComposer() {
-        return composer;
+    public List<Composer> getComposers() {
+        return composers;
     }
 
     /**
@@ -279,8 +333,8 @@ public class Song implements Serializable {
      *
      * @return Poet
      */
-    public Poet getPoet() {
-        return poet;
+    public List<Poet> getPoets() {
+        return poets;
     }
 
     /**
@@ -368,19 +422,19 @@ public class Song implements Serializable {
     /**
      * Set composer of song.
      *
-     * @param composer Composer of song
+     * @param composers Composer of song
      */
-    public void setComposer( Composer composer ) {
-        this.composer = composer;
+    public void setComposers(List<Composer> composers) {
+        this.composers = composers;
     }
 
     /**
      * Set poet of this song.
      *
-     * @param poet Poet of song
+     * @param poets Poet of song
      */
-    public void setPoet( Poet poet ) {
-        this.poet = poet;
+    public void setPoets(List<Poet> poets) {
+        this.poets = poets;
     }
 
     /**

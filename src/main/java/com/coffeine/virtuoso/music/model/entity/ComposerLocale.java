@@ -5,6 +5,7 @@
  *
  * @date 12/7/15 10:23 PM
  */
+
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
