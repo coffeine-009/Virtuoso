@@ -389,7 +389,7 @@ public class Composer implements Serializable {
     @PostLoad
     private void postRead() {
         //- Search origin data about composer -//
-        for (ComposerLocale composerLocale : this.data ) {
+        this.data.forEach( (ComposerLocale composerLocale) -> {
             //- Check origin locale -//
             if (this.locale.equals( composerLocale.getLocale() )) {
                 //- Populate data -//
@@ -397,6 +397,6 @@ public class Composer implements Serializable {
                 this.lastName = composerLocale.getLastName();
                 this.fatherName = composerLocale.getMiddleName();
             }
-        }
+        });
     }
 }
