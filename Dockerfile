@@ -1,6 +1,9 @@
 #- OS :: Debian -#
 FROM debian:jessie
 
+# Author
+MAINTAINER Coffeine Inc
+
 #- Dependencies -#
 # Install Java.
 RUN \
@@ -17,8 +20,14 @@ RUN apt-get install -y tomcat8
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
+# Mount src dir
+ADD . /usr/src/virtuoso
+
 # Define working directory.
-WORKDIR /
+WORKDIR /usr/src/virtuoso
+
+# Install related services
+#RUN pip install -r requirements.txt
 
 # Define default command.
 CMD ["bash"]

@@ -1,0 +1,19 @@
+api:
+  image: coffeine/virtuoso-api
+  ports:
+   - "8080:8080"
+  volumes:
+   - .:/usr/src/virtuoso
+  links:
+   - postgres
+
+postgres:
+  image: postgres:9.1
+  volumes:
+    - local_postgres:/var/lib/postgresql/data
+  ports:
+   - "5432:5432"
+  environment:
+    POSTGRES_DB: "virtuoso"
+    POSTGRES_USER: "virtuoso"
+    POSTGRES_PASSWORD: "virtuoso"
