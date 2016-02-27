@@ -1,3 +1,4 @@
+# REST API server
 api:
   image: coffeine/virtuoso-api
   ports:
@@ -7,6 +8,7 @@ api:
   links:
    - postgres
 
+# Database
 postgres:
   image: postgres:9.1
   volumes:
