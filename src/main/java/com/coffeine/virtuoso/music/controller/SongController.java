@@ -147,7 +147,7 @@ public class SongController {
     /**
      * Get data about song by ID.
      *
-     * @param Id        Id of song.
+     * @param id        id of song.
      * @param response  Use for work with HTTP.
      *
      * @return Song.
@@ -157,13 +157,13 @@ public class SongController {
     @ResponseBody
     public Song readAction( 
         @PathVariable( value = "id" )
-        Long Id,
+        Long id,
 
         HttpServletResponse response
     ) {
         try {
             //- Search -//
-            Song song = this.songService.find( Id );
+            Song song = this.songService.find( id );
 
             //- Check -//
             notNull( song );
@@ -180,7 +180,7 @@ public class SongController {
     /**
      * Update song by ID.
      *
-     * @param id        Id of song.
+     * @param id        id of song.
      * @param form      Form for input.
      * @param response  Use for work with HTTP.
      *
@@ -234,7 +234,7 @@ public class SongController {
     /**
      * Delete song by ID.
      *
-     * @param id        Id of song.
+     * @param id        id of song.
      * @param response  Use for work with HTTP.
      */
     @Secured( "ADMINISTRATOR" )

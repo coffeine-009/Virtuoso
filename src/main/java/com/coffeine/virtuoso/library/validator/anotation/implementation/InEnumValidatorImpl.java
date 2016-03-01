@@ -6,7 +6,7 @@
  * @date 08/12/14 3:26 PM
  */
 
-package com.coffeine.virtuoso.library.validator.anotation.Implementation;
+package com.coffeine.virtuoso.library.validator.anotation.implementation;
 
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 
@@ -33,13 +33,14 @@ public class InEnumValidatorImpl implements ConstraintValidator<InEnum, List<Str
     /**
      * Validate input.
      *
-     * @param values
-     * @param context
+     * @param values     List of values for checking.
+     * @param context    Context.
+     *
      * @return boolean true - input is valid, false - not valid.
      */
     @Override
     public boolean isValid(
-        List < String > values,
+        List<String> values,
         ConstraintValidatorContext context
     ) {
         for ( String value : values ) {
@@ -54,7 +55,7 @@ public class InEnumValidatorImpl implements ConstraintValidator<InEnum, List<Str
     /**
      * Initialization.
      *
-     * @param constraintAnnotation
+     * @param constraintAnnotation    Annotation.
      */
     @Override
     public void initialize( InEnum constraintAnnotation ) {

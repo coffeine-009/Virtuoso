@@ -8,7 +8,7 @@
 
 package com.coffeine.virtuoso.library.validator.anotation;
 
-import com.coffeine.virtuoso.library.validator.anotation.Implementation.EventValidatorImpl;
+import com.coffeine.virtuoso.library.validator.anotation.implementation.EventValidatorImpl;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -40,7 +41,7 @@ public class Staff implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
-    @JsonIgnore
+    @JsonBackReference
     @NotNull
     @Valid
     @ManyToOne
@@ -64,6 +65,11 @@ public class Staff implements Serializable {
     @Length( max = 5 )
     @Column( name = "locale", length = 5 )
     protected String locale;
+
+    @NotNull
+    @NotEmpty
+    @Column( name = "file", columnDefinition = "TEXT")
+    protected String file;
 
     @Column(
         name = "creation",
@@ -128,12 +134,14 @@ public class Staff implements Serializable {
 
     public Staff(
         Style style,
-        String locale
+        String locale,
+        String file
     ) {
         this.song = null;
         this.staffType = null;
         this.style = style;
         this.locale = locale;
+        this.file = file;
     }
     /**
      * Create text for song.
@@ -145,6 +153,16 @@ public class Staff implements Serializable {
     ) {
         //- Initialization -//
         this.locale = locale;
+    }
+
+    public Staff(Song song, StaffType staffType, Style style, String locale, String file) {
+        this.song = song;
+        this.staffType = staffType;
+        this.style = style;
+        this.locale = locale;
+        this.file = file;
+
+        this.song.addStaff(this);
     }
 
     //- SECTION :: GET -//
@@ -191,6 +209,10 @@ public class Staff implements Serializable {
      */
     public String getLocale() {
         return locale;
+    }
+
+    public String getFile() {
+        return file;
     }
 
     /**
@@ -246,5 +268,9 @@ public class Staff implements Serializable {
      */
     public void setLocale( String locale ) {
         this.locale = locale;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 }

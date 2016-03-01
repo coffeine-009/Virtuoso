@@ -2,6 +2,7 @@
  * Copyright (c) 2014-2015 by Coffeine Inc
  *
  * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ *
  * @date 01/7/2015 08:27 PM
  */
 
@@ -24,14 +25,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.springframework.util.Assert.notNull;
 

@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: VideoType   *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service;
 
 import com.coffeine.virtuoso.music.model.entity.VideoType;
@@ -28,11 +23,12 @@ public interface VideoTypeService {
     /**
      * Find all video types for page.
      *
-     * @param page  Page for search
-     * @param limit Count of items per page
-     * @return List < VideoType > List of video types
+     * @param page  Page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of video types
      */
-    public List < VideoType > findAll(
+    List<VideoType> findAll(
         int page,
         int limit
     );
@@ -40,31 +36,34 @@ public interface VideoTypeService {
     /**
      * Find video type by ID.
      *
-     * @param id Identificator of video type
-     * @return VideoType Found by ID
+     * @param id Identificator of video type.
+     *
+     * @return VideoType Found by ID.
      */
-    public VideoType find( Long id );
+    VideoType find( Long id );
 
     /**
      * Create a new type of Video.
      *
      * @param videoType Video type
-     * @return VideoType Created type of video
+     *
+     * @return VideoType Created type of video.
      */
-    public VideoType create( VideoType videoType );
+    VideoType create( VideoType videoType );
 
     /**
      * Update exists type of Video.
      *
-     * @param videoType Video type
-     * @return VideoType Created type of video
+     * @param videoType Video type.
+     *
+     * @return VideoType Created type of video.
      */
-    public VideoType update( VideoType videoType );
+    VideoType update( VideoType videoType );
 
     /**
      * Delete VideoType.
      *
-     * @param id ID of Existed type of video
+     * @param id ID of Existed type of video.
      */
-    public void delete( Long id );
+    void delete( Long id );
 }

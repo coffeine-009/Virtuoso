@@ -6,7 +6,7 @@
  * @date 11/25/15 10:40 PM
  */
 
-package com.coffeine.virtuoso.library.validator.anotation.Implementation;
+package com.coffeine.virtuoso.library.validator.anotation.implementation;
 
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 
@@ -19,9 +19,9 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * Implementation of Event validator.
- * @see Event
  *
  * @version 1.0
+ * @see Event
  */
 public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
 
@@ -42,8 +42,8 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
      * {@link #isValid(Object, ConstraintValidatorContext)} calls.
      * The constraint annotation for a given constraint declaration
      * is passed.
-     * <p>
-     * This method is guaranteed to be called before any use of this instance for
+     *
+     * <p>This method is guaranteed to be called before any use of this instance for
      * validation.
      *
      * @param constraintAnnotation annotation instance for a given constraint declaration
@@ -58,8 +58,8 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
     /**
      * Implements the validation logic.
      * The state of {@code value} must not be altered.
-     * <p>
-     * This method can be accessed concurrently, thread-safety must be ensured
+     *
+     * <p>This method can be accessed concurrently, thread-safety must be ensured
      * by the implementation.
      *
      * @param value   object to validate
@@ -78,12 +78,15 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
             String endDate = BeanUtils.getProperty( value, this.endDateFieldName );
 
             //- Validate -//
-            valid = endDate == null || LocalDate.parse( startDate ).isBefore( LocalDate.parse( endDate ) );
+            valid = endDate == null
+                || LocalDate.parse( startDate ).isBefore( LocalDate.parse( endDate ) );
 
             //- Add error message to second field -//
             if ( !valid ) {
                 context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate( context.getDefaultConstraintMessageTemplate() )
+                context.buildConstraintViolationWithTemplate(
+                    context.getDefaultConstraintMessageTemplate()
+                )
                     .addPropertyNode( this.endDateFieldName )
                     .addConstraintViolation();
             }

@@ -64,12 +64,12 @@ public class SongServiceImpl implements SongService {
     /**
      * Get song by ID.
      *
-     * @param Id Unique identificator of song
+     * @param id Unique identificator of song
      * @return Song
      */
     @Override
-    public Song find( Long Id ) {
-        return songRespository.findOne( Id );
+    public Song find( Long id) {
+        return songRespository.findOne(id);
     }
 
     /**

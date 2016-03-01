@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -49,6 +50,7 @@ public class Song implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
+    @JsonManagedReference
     @NotNull
     @Valid
     @ManyToMany( fetch = FetchType.EAGER )
@@ -81,6 +83,7 @@ public class Song implements Serializable {
     )
     protected List<Composer> composers;
 
+    @JsonManagedReference
     @NotNull
     @Valid
     @ManyToMany( fetch = FetchType.EAGER )
@@ -117,6 +120,7 @@ public class Song implements Serializable {
     @Transient
     protected String title;
 
+    @JsonManagedReference
     @NotNull
     @NotEmpty
     @OneToMany(
@@ -127,27 +131,33 @@ public class Song implements Serializable {
     )
     protected List<SongLocale> data = new ArrayList<>();
 
+    @JsonManagedReference
     @NotNull
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
     protected List<Staff> staffs = new ArrayList<>();
 
+    @JsonManagedReference
     @NotNull
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
     protected List<Text> texts = new ArrayList<>();
 
+    @JsonManagedReference
     @NotNull
     @OneToMany(
         mappedBy = "song",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )

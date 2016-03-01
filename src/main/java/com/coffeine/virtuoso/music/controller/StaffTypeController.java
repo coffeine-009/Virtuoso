@@ -60,7 +60,7 @@ public class StaffTypeController {
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK)
     @ResponseBody
-    public List <StaffType> findAllAction(
+    public List<StaffType> findAllAction(
         @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
 

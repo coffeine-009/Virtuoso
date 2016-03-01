@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Video   *** *** *** *** *** *** *** *** ///
-
-//*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service;
 
 import com.coffeine.virtuoso.music.model.entity.Video;
@@ -28,11 +23,12 @@ public interface VideoService {
     /**
      * Find all videos per page.
      *
-     * @param page  Requested page
-     * @param limit Count items per page
-     * @return List < Video >
+     * @param page  Requested page.
+     * @param limit Count items per page.
+     *
+     * @return List of Video.
      */
-    public List <Video> findAll(
+    List<Video> findAll(
         int page,
         int limit
     );
@@ -40,30 +36,34 @@ public interface VideoService {
     /**
      * Create a new video.
      *
-     * @param video Data for create
-     * @return Video
+     * @param video Data for create.
+     *
+     * @return Video.
      */
-    public Video create( Video video );
+    Video create( Video video );
 
     /**
      * Find video.
      *
-     * @param id Identificator of video
-     * @return Video
+     * @param id Identificator of video.
+     *
+     * @return Video.
      */
-    public Video find( Long id );
+    Video find( Long id );
 
     /**
      * Update video.
      *
-     * @param video Data for update
-     * @return Video
+     * @param video Data for update.
+     *
+     * @return Video.
      */
-    public Video update( Video video );
+    Video update( Video video );
 
     /**
      * Delete video.
-     * @param id Identificator of video
+     *
+     * @param id Identificator of video.
      */
-    public void delete( Long id );
+    void delete( Long id );
 }

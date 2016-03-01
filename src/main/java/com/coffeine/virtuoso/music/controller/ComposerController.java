@@ -96,16 +96,16 @@ public class ComposerController {
 
             //- Prepare data for localization -//
             List<ComposerLocale> data = new ArrayList<>();
-                for ( ComposerForm.Data dataLocalized : form.getData() ) {
-                    data.add(
-                        new ComposerLocale(
-                            dataLocalized.getFirstName(),
-                            dataLocalized.getLastName(),
-                            dataLocalized.getFatherName(),
-                            dataLocalized.getLocale()
-                        )
-                    );
-                }
+            form.getData().forEach( (dataLocalized) ->
+                data.add(
+                    new ComposerLocale(
+                        dataLocalized.getFirstName(),
+                        dataLocalized.getLastName(),
+                        dataLocalized.getFatherName(),
+                        dataLocalized.getLocale()
+                    )
+                )
+            );
 
             //- Success. Composer has created -//
             return this.composerService.create(
@@ -117,12 +117,10 @@ public class ComposerController {
                     data
                 )
             );
-        }
-        catch ( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException exception ) {
             //- Warning, can not create duplicate -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        }
-        catch ( Exception e ) {
+        } catch ( Exception exception ) {
             //- Failure. Can not to create a composer -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }

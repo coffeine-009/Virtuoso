@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @version 1.0
  */
-public interface ComposerRepository extends JpaRepository<Composer, Long > {
+public interface ComposerRepository extends JpaRepository<Composer, Long> {
 
     /// *** Methods     *** ///
     /**

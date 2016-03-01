@@ -44,8 +44,6 @@ import static org.springframework.util.Assert.notNull;
 @RequestMapping( value = "/user/video" )
 public class VideoController {
 
-//    private final static
-
     /// *** Properties  *** ///
     @Autowired
     protected VideoTypeService videoTypeService;

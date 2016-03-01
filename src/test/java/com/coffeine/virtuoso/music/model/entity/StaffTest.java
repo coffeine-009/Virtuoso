@@ -90,7 +90,8 @@ public class StaffTest extends AbstractModel {
                 "POLKA",
                 "Polka"
             ),
-            "en-US"
+            "en-US",
+            "<xml>MusicXML</xml>"
         );
         //- Validate-//
         constraintViolationSet = validator.validate(staffSuccess);
@@ -110,7 +111,8 @@ public class StaffTest extends AbstractModel {
         //- Create entity -//
         Staff staffFailure = new Staff(
             null,
-            "uk-UA"
+            "uk-UA",
+            "<xml>MusicXML</xml>"
         );
         //- Validate -//
         constraintViolationSet = validator.validate(staffFailure);
@@ -198,7 +200,8 @@ public class StaffTest extends AbstractModel {
                 "POLKA",
                 "Polka"
             ),
-            null
+            null,
+            "<xml>MusicXML</xml>"
         );
         //- Validate -//
         constraintViolationSet = validator.validate(staffFailureLocale);
@@ -295,7 +298,8 @@ public class StaffTest extends AbstractModel {
                 "POLKA",
                 "Polka"
             ),
-            "123456"
+            "123456",
+            "<xml>MusicXML</xml>"
         );
         //- Validate -//
         constraintViolationSet = validator.validate( staffFailureLength );
@@ -389,7 +393,8 @@ public class StaffTest extends AbstractModel {
                 "POLKA",
                 "Polka"
             ),
-            ""
+            "",
+            "<xml>MusicXML</xml>"
         );
         constraintViolationSet = validator.validate( staffFailureEmpty );
 

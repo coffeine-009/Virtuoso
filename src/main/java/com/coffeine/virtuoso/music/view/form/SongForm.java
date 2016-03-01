@@ -90,7 +90,7 @@ public class SongForm {
     /**
      * Music notes form.
      */
-    public class MusicNotesForm {
+    public static class MusicNotesForm {
 
         /**
          * Id of type of music notes.
@@ -148,13 +148,13 @@ public class SongForm {
     /**
      * Form for input text(s).
      */
-    public class TextForm {
+    public static class TextForm {
     }
 
     /**
      * Form for input video(s).
      */
-    public class VideoForm {
+    public static class VideoForm {
     }
 
     /// *** Properties  *** ///
