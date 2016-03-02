@@ -66,7 +66,7 @@ public class Song implements Serializable {
         },
         joinColumns = {
             @JoinColumn(
-                name = "id_composer",
+                name = "id_song",
                 unique = false,
                 nullable = false,
                 updatable = false
@@ -74,7 +74,7 @@ public class Song implements Serializable {
         },
         inverseJoinColumns = {
             @JoinColumn(
-                name = "id_song",
+                name = "id_composer",
                 unique = false,
                 nullable = false,
                 updatable = false
@@ -99,7 +99,7 @@ public class Song implements Serializable {
         },
         joinColumns = {
             @JoinColumn(
-                name = "id_poet",
+                name = "id_song",
                 unique = false,
                 nullable = false,
                 updatable = false
@@ -107,7 +107,7 @@ public class Song implements Serializable {
         },
         inverseJoinColumns = {
             @JoinColumn(
-                name = "id_song",
+                name = "id_poet",
                 unique = false,
                 nullable = false,
                 updatable = false
