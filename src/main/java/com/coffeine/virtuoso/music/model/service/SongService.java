@@ -6,11 +6,6 @@
  * @date 12/7/15 10:23 PM
  */
 
-/// *** User :: Model :: Service :: Song    *** *** *** *** *** *** *** *** ///
-
-    //*** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *
-
-/// *** Code    *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ///
 package com.coffeine.virtuoso.music.model.service;
 
 import com.coffeine.virtuoso.music.model.entity.Song;
@@ -28,40 +23,44 @@ public interface SongService {
     /**
      * Get list of Song for page.
      *
-     * @param page Number of page for return
-     * @param limit Count items per page
-     * @return List < Song > List of found songs
+     * @param page Number of page for return.
+     * @param limit Count items per page.
+     *
+     * @return List of found songs
      */
-    public List <Song> findAll( int page, int limit );
+    List<Song> findAll( int page, int limit );
 
     /**
      * Create a new song.
      *
-     * @param song Data for create
+     * @param song Data for create.
+     *
      * @return Song
      */
-    public Song create( Song song );
+    Song create( Song song );
 
     /**
      * Get song by ID.
      *
-     * @param Id Identificator for search
+     * @param id Identificator for search.
+     *
      * @return Song
      */
-    public Song find( Long Id );
+    Song find( Long id );
 
     /**
      * Update.
      *
-     * @param song Data for update
+     * @param song Data for update.
+     *
      * @return Song
      */
-    public Song update( Song song );
+    Song update( Song song );
 
     /**
      * Delete song.
-s     *
-     * @param id Unique identificator
+     *
+     * @param id Unique identificator.
      */
-    public void delete( Long id );
+    void delete( Long id );
 }

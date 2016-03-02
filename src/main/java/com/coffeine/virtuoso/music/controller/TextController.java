@@ -74,7 +74,7 @@ public class TextController {
         int limit
     ) {
         return this.textService.findAll( 
-            Math.max( page -1, 0 ), 
+            Math.max( page - 1, 0 ),
             limit
         );
     }
@@ -98,7 +98,7 @@ public class TextController {
         HttpServletResponse response
     ) {
         //- Try add a new text of song -//
-        try{
+        try {
             //- Search song -//
             Song song = this.songService.find( form.getSongId() );
 

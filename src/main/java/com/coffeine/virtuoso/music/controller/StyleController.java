@@ -145,7 +145,7 @@ public class StyleController {
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
-    public Style createAction(
+    public Style updateAction(
         @PathVariable( "id" )
         Long id,
 
@@ -198,7 +198,7 @@ public class StyleController {
         try {   
             //- Try to delete style -//
             this.styleService.delete( id );
-        } catch( InvalidDataAccessApiUsageException e ) {
+        } catch ( InvalidDataAccessApiUsageException e ) {
             // Failure. Style doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );

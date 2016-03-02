@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2014-2015 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliyacm@gmail.com">Vitaliy Tsutsman></a>
  *
  * @date 12/13/15 2:18 PM
  */
@@ -51,19 +51,19 @@ public class ErrorController {
      * Handle mapping errors.
      * E.g. JSON deserialization.
      *
-     * @param e    HttpMessageNotReadableException.
+     * @param exception    HttpMessageNotReadableException.
      *
      * @return ValidationError.
      */
     @ExceptionHandler( HttpMessageNotReadableException.class )
     @ResponseStatus( HttpStatus.BAD_REQUEST )
     @ResponseBody
-    public ValidationError processDeserializationError( HttpMessageNotReadableException e ) {
+    public ValidationError processDeserializationError( HttpMessageNotReadableException exception) {
 
         ValidationError error = new ValidationError();
 
         //- Add error message for each field -//
-        ( ((JsonMappingException) e.getCause()).getPath() ).forEach(
+        ( ((JsonMappingException) exception.getCause()).getPath() ).forEach(
             reference -> error.addFieldError(
                 reference.getFieldName(),
                 this.messageSource.getMessage(

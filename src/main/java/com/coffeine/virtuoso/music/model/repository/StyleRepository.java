@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface StyleRepository extends JpaRepository <Style, Long > {
+public interface StyleRepository extends JpaRepository<Style, Long> {
 
     /// *** Methods     *** ///
 }

@@ -8,7 +8,7 @@
 
 package com.coffeine.virtuoso.library.validator.anotation;
 
-import com.coffeine.virtuoso.library.validator.anotation.Implementation.InEnumValidatorImpl;
+import com.coffeine.virtuoso.library.validator.anotation.implementation.InEnumValidatorImpl;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

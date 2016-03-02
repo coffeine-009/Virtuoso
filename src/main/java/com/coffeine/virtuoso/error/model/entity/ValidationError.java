@@ -55,7 +55,7 @@ public class ValidationError {
      *
      * @return List of errors/fields.
      */
-    public List < Field > getFieldErrors() {
+    public List<Field> getFieldErrors() {
         return fieldErrors;
     }
 

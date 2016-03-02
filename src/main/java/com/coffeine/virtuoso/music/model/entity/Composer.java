@@ -84,7 +84,7 @@ public class Composer implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List < ComposerLocale > data;
+    protected List<ComposerLocale> data;
 
     @Transient
     protected String firstName;
@@ -125,8 +125,7 @@ public class Composer implements Serializable {
     /**
      * Construct default.
      */
-    public Composer(
-    ) {
+    public Composer() {
         //- Initialization -//
         this.data = new ArrayList<>();
     }
@@ -159,7 +158,7 @@ public class Composer implements Serializable {
         Boolean gender,
         LocalDate birthday,
         LocalDate deathDate,
-        List < ComposerLocale > data
+        List<ComposerLocale> data
     ) {
         //- Check params -//
         notNull( data );
@@ -183,7 +182,7 @@ public class Composer implements Serializable {
      * @param locale
      */
     public Composer(
-        List < ComposerLocale > data,
+        List<ComposerLocale> data,
         String locale
     ) {
         this();
@@ -225,7 +224,7 @@ public class Composer implements Serializable {
      *
      * @return List<ComposerLocale>
      */
-    public List < ComposerLocale > getData() {
+    public List<ComposerLocale> getData() {
         return data;
     }
 
@@ -326,7 +325,7 @@ public class Composer implements Serializable {
      *
      * @param data
      */
-    public void setData( List < ComposerLocale > data ) {
+    public void setData( List<ComposerLocale> data ) {
         this.data = data;
     }
 
@@ -389,7 +388,7 @@ public class Composer implements Serializable {
     @PostLoad
     private void postRead() {
         //- Search origin data about composer -//
-        this.data.forEach( (ComposerLocale composerLocale) -> {
+        this.data.forEach( (composerLocale) -> {
             //- Check origin locale -//
             if (this.locale.equals( composerLocale.getLocale() )) {
                 //- Populate data -//

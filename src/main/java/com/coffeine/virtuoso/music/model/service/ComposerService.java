@@ -15,9 +15,9 @@ import java.util.List;
 
 /**
  * Service for work with Composer.
- * @see Composer
  *
  * @version 1.0
+ * @see Composer
  */
 public interface ComposerService {
 

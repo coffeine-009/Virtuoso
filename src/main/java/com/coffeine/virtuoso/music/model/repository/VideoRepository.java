@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface VideoRepository extends JpaRepository <Video, Long > {
+public interface VideoRepository extends JpaRepository<Video, Long> {
 
     /// *** Methods     *** ///
 }

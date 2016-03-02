@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface TextRepository extends JpaRepository < Text, Long > {
+public interface TextRepository extends JpaRepository<Text, Long> {
 
     /// *** Methods     *** ///
 }

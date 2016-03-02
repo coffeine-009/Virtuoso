@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface SongRepository extends JpaRepository < Song, Long > {
+public interface SongRepository extends JpaRepository<Song, Long> {
 
     /// *** Methods     *** ///
     /**

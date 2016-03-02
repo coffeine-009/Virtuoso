@@ -8,12 +8,10 @@
 
 package com.coffeine.virtuoso.music.model.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.io.Serializable;
-import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Class for reflect song_locale table from persistence layout.
@@ -40,7 +40,7 @@ public class SongLocale implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
-    @JsonIgnore
+    @JsonBackReference
     @NotNull
     @Valid
     @ManyToOne
