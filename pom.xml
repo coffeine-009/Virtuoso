@@ -393,7 +393,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- jUnit -->
+        <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
