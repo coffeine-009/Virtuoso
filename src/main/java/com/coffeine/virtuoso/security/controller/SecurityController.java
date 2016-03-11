@@ -24,6 +24,10 @@ import com.coffeine.virtuoso.security.model.service.UserService;
 import com.coffeine.virtuoso.security.view.form.ForgotPasswordForm;
 import com.coffeine.virtuoso.security.view.form.RegistrationForm;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -50,6 +54,18 @@ import static org.springframework.util.Assert.isTrue;
 @RestController
 @RequestMapping( value = "/security" )
 public class SecurityController {
+
+    /// *** Constants   *** ///
+    /**
+     * Logger.
+     */
+    private static final Logger log = LogManager.getLogger( SecurityController.class );
+
+    /**
+     * Marker for actions.
+     */
+    private static final Marker ACTION_MARKER = MarkerManager.getMarker( "ACTION" );
+
 
     /// *** Properties  *** ///
     //- SECTION :: CRYPTOGRAPHY -//
@@ -98,6 +114,9 @@ public class SecurityController {
 
         HttpServletResponse response
     ) {
+        //- Log action -//
+        log.info( ACTION_MARKER, "Sign Up" );
+
         try {
             //- Recognise roles -//
             List<String> requestRoles = registrationForm.getRoles();

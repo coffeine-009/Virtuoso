@@ -54,6 +54,12 @@ public class Text implements Serializable {
     protected String locale;
 
     @Column(
+        name = "lyrics",
+        columnDefinition = "TEXT"
+    )
+    protected String lyrics;
+
+    @Column(
         name = "creation",
         columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
@@ -119,6 +125,15 @@ public class Text implements Serializable {
     }
 
     /**
+     * Get lyrics.
+     *
+     * @return String
+     */
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    /**
      * Get time of create.
      *
      * @return Calendar
@@ -153,5 +168,14 @@ public class Text implements Serializable {
      */
     public void setLocale( String locale ) {
         this.locale = locale;
+    }
+
+    /**
+     * Set lyrics.
+     *
+     * @param lyrics    Text of the song.
+     */
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
     }
 }
