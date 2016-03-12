@@ -27,7 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ContextConfiguration(
     locations = {
         "file:src/main/webapp/WEB-INF/spring/mvc-dispatcher-servlet.xml",
-        "file:src/main/webapp/WEB-INF/spring/mail.xml",
+        "file:src/main/webapp/WEB-INF/spring/test/mail.xml",
         "file:src/main/webapp/WEB-INF/spring/notification.xml",
         "file:src/main/webapp/WEB-INF/spring/test/spring-context.xml",
         "file:src/main/webapp/WEB-INF/spring/development/security.xml",//FIXME

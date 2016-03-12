@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 11/25/15 10:40 PM
  */
@@ -11,11 +11,15 @@ package com.coffeine.virtuoso.library.validator.anotation.implementation;
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import static org.springframework.util.Assert.isTrue;
 
 /**
  * Implementation of Event validator.
@@ -24,6 +28,11 @@ import javax.validation.ConstraintValidatorContext;
  * @see Event
  */
 public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
+
+    /**
+     * Logger.
+     */
+    private static final Logger log = LogManager.getLogger( EventValidatorImpl.class );
 
     /**
      * Name of field which contains start date of event.
@@ -74,24 +83,31 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
 
         try {
             //- Get values for validation -//
-            String startDate = BeanUtils.getProperty( value, this.startDateFieldName );
-            String endDate = BeanUtils.getProperty( value, this.endDateFieldName );
+            LocalDate startDate = LocalDate.parse( BeanUtils.getProperty( value, this.startDateFieldName ) );
+            String endDate =  BeanUtils.getProperty( value, this.endDateFieldName );
 
             //- Validate -//
             valid = endDate == null
-                || LocalDate.parse( startDate ).isBefore( LocalDate.parse( endDate ) );
+                || startDate.isBefore( LocalDate.parse( endDate ) ) && startDate.isBefore( LocalDate.now() );
 
             //- Add error message to second field -//
-            if ( !valid ) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(
-                    context.getDefaultConstraintMessageTemplate()
-                )
-                    .addPropertyNode( this.endDateFieldName )
-                    .addConstraintViolation();
-            }
-        } catch ( IllegalAccessException | InvocationTargetException | NoSuchMethodException e ) {
-            e.printStackTrace();//FIXME: use log
+            isTrue( valid );
+        } catch (
+            IllegalArgumentException
+            | IllegalAccessException
+            | InvocationTargetException
+            | NoSuchMethodException
+            | NullPointerException e
+        ) {
+            //- Log exception -//
+            log.warn( "Validation error.", e );
+
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(
+                context.getDefaultConstraintMessageTemplate()
+            )
+                .addPropertyNode( this.endDateFieldName )
+                .addConstraintViolation();
         }
 
         return valid;

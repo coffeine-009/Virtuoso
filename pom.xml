@@ -34,6 +34,7 @@
         <orm.hibernate.version>5.0.4.Final</orm.hibernate.version>
 
         <mysql-version>5.1.18</mysql-version>
+        <logger-version>2.5</logger-version>
 
         <!-- Data mapper :: JSON -->
         <fasterxml.version>2.6.3</fasterxml.version>
@@ -382,6 +383,17 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Logger -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${logger-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${logger-version}</version>
+        </dependency>
 
 
         <!-- Tests -->
@@ -560,10 +572,8 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.6</version>
                 <configuration>
-                    <linkXref>true</linkXref>
                     <sourceEncoding>utf-8</sourceEncoding>
                     <minimumTokens>100</minimumTokens>
-                    <cpd>true</cpd>
                     <targetJdk>1.8</targetJdk>
                     <excludes>
                         <exclude>**/*Bean.java</exclude>

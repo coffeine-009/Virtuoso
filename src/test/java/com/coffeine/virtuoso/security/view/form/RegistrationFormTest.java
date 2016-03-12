@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 11/30/15 11:14 PM
  */
@@ -11,17 +11,22 @@ package com.coffeine.virtuoso.security.view.form;
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
 import com.coffeine.virtuoso.module.model.AbstractModel;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -174,11 +179,12 @@ public class RegistrationFormTest extends AbstractModel {
             add( "locale" );
             add( "roles" );
             add( "birthday" );
+            add( "deathDate" );
         }};
 
         return Arrays.asList(
             new Object[][] {
-                //- Success. Correct input -//
+                //- Success. Correct input. Single role -//
                 {
                     "unit@test.com",
                     "te$t",
@@ -186,10 +192,30 @@ public class RegistrationFormTest extends AbstractModel {
                     "Test",
                     false,
                     "en-US",
-                    LocalDate.now(),
+                    LocalDate.now().minusYears( 1 ),
                     LocalDate.now().plusYears( 90 ),
                     new ArrayList< String >() {{
                         add( "STUDENT" );
+                    }},
+                    0,
+                    new ArrayList< String >(),
+                    new ArrayList< Class >(),
+                    new ArrayList< String >()
+                },
+                //- Success. Correct input. Multiple roles -//
+                {
+                    "unit@test.com",
+                    "te$t",
+                    "Unit",
+                    "Test",
+                    true,
+                    "en-US",
+                    LocalDate.now().minusYears( 1 ),
+                    LocalDate.now().plusYears( 90 ),
+                    new ArrayList< String >() {{
+                        add( "STUDENT" );
+                        add( "POET" );
+                        add( "COMPOSER" );
                     }},
                     0,
                     new ArrayList< String >(),
@@ -204,7 +230,7 @@ public class RegistrationFormTest extends AbstractModel {
                     "Test",
                     false,
                     "en-US",
-                    LocalDate.now(),
+                    LocalDate.now().minusYears( 1 ),
                     LocalDate.now().plusYears( 90 ),
                     new ArrayList< String >() {{
                         add( "STUDENT" );
@@ -231,18 +257,20 @@ public class RegistrationFormTest extends AbstractModel {
                     null,
                     null,
                     null,
-                    14,
+                    15,
                     fieldNames,
                     new ArrayList< Class >() {{
                         add( NotNull.class );
                         add( NotEmpty.class );
                         add( Valid.class );
                         add( InEnum.class );
+                        add( Event.class );
                     }},
                     new ArrayList< String >() {{
                         add( "may not be null" );
                         add( "may not be empty" );
                         add( "Value is not valid" );
+                        add( "{javax.validation.constraints.Event.message}" );
                     }}
                 },
                 //- Failure. incorrect input, bad filled form -//
@@ -253,7 +281,7 @@ public class RegistrationFormTest extends AbstractModel {
                     "",
                     false,
                     "",
-                    LocalDate.now(),
+                    LocalDate.now().minusYears( 1 ),
                     null,
                     new ArrayList< String >(),
                     6,
@@ -277,7 +305,7 @@ public class RegistrationFormTest extends AbstractModel {
                     "Test",
                     false,
                     "en-US",
-                    LocalDate.now(),
+                    LocalDate.now().minusYears( 1 ),
                     null,
                     new ArrayList< String >() {{
                         add( "UNIT_TEST" );
@@ -300,8 +328,32 @@ public class RegistrationFormTest extends AbstractModel {
                     "Test",
                     false,
                     "en-US",
+                    LocalDate.now().plusYears( 1 ),
                     LocalDate.now(),
-                    LocalDate.now().minusYears( 90 ),
+                    new ArrayList< String >() {{
+                        add( "POET" );
+                    }},
+                    1,
+                    new ArrayList< String >() {{
+                        add( "deathDate" );
+                    }},
+                    new ArrayList< Class >() {{
+                        add( Event.class );
+                    }},
+                    new ArrayList< String >() {{
+                        add( "{javax.validation.constraints.Event.message}" );
+                    }}
+                },
+                //- Failure. incorrect input, bad day of death -//
+                {
+                    "unit@test.com",
+                    "Te$t",
+                    "Unit",
+                    "Test",
+                    false,
+                    "en-US",
+                    LocalDate.now().minusYears( 100 ),
+                    LocalDate.now().minusYears( 101 ),
                     new ArrayList< String >() {{
                         add( "POET" );
                     }},
@@ -324,10 +376,11 @@ public class RegistrationFormTest extends AbstractModel {
                     "Test",
                     false,
                     "en-US",
-                    LocalDate.now(),
+                    LocalDate.now().minusYears( 1 ),
                     LocalDate.now().plusYears( 90 ),
                     new ArrayList< String >() {{
                         add( "TEST_UNIT" );
+                        add( "STUDENT" );
                     }},
                     1,
                     new ArrayList< String >() {{

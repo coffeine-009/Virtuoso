@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com">Vitaliy Tsutsman</a>
  *
  * @date 11/30/15 11:14 PM
  */
@@ -24,6 +24,10 @@ import com.coffeine.virtuoso.security.model.service.UserService;
 import com.coffeine.virtuoso.security.view.form.ForgotPasswordForm;
 import com.coffeine.virtuoso.security.view.form.RegistrationForm;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
@@ -50,6 +54,18 @@ import static org.springframework.util.Assert.isTrue;
 @RestController
 @RequestMapping( value = "/security" )
 public class SecurityController {
+
+    /// *** Constants   *** ///
+    /**
+     * Logger.
+     */
+    private static final Logger log = LogManager.getLogger( SecurityController.class );
+
+    /**
+     * Marker for actions.
+     */
+    private static final Marker ACTION_MARKER = MarkerManager.getMarker( "ACTION" );
+
 
     /// *** Properties  *** ///
     //- SECTION :: CRYPTOGRAPHY -//
@@ -98,6 +114,9 @@ public class SecurityController {
 
         HttpServletResponse response
     ) {
+        //- Log action -//
+        log.info( ACTION_MARKER, "Sign Up" );
+
         try {
             //- Recognise roles -//
             List<String> requestRoles = registrationForm.getRoles();
@@ -180,7 +199,7 @@ public class SecurityController {
             //- Cannot save this data -//
             response.setStatus( HttpServletResponse.SC_CONFLICT );
 
-            //FIXME: log
+            log.warn( "Attempt to register duplicate.", e );
         }
 
         return null;
@@ -200,6 +219,9 @@ public class SecurityController {
 
         HttpServletResponse response
     ) {
+        //- Log action -//
+        log.info( ACTION_MARKER, "Recovery password." );
+
         //- Try to make request for recovery access to account -//
         try {
             //- Inform about loosing access -//
