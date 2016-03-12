@@ -79,7 +79,6 @@ public class RecoveryAccess {
     /**
      * Time of creation.
      */
-    @NotNull
     @Column(
         name = "created_at",
         columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"

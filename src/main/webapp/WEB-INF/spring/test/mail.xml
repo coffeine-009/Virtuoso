@@ -8,6 +8,8 @@
   -->
 
 <beans
+    profile = "test"
+
     xmlns       = "http://www.springframework.org/schema/beans"
     xmlns:xsi   = "http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation = "http://www.springframework.org/schema/beans
@@ -15,8 +17,8 @@
 >
     <!-- Sender -->
     <bean id = "mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name = "host" value = "${mail.host}" />
-        <property name = "port" value = "${mail.port}" />
+        <property name = "host" value = "localhost" />
+        <property name = "port" value = "2525" />
         <property name = "username" value = "${mail.username}" />
         <property name = "password" value = "${mail.password}" />
         <property name = "javaMailProperties">

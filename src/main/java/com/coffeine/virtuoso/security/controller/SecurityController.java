@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com">Vitaliy Tsutsman</a>
  *
  * @date 11/30/15 11:14 PM
  */
@@ -199,7 +199,7 @@ public class SecurityController {
             //- Cannot save this data -//
             response.setStatus( HttpServletResponse.SC_CONFLICT );
 
-            //FIXME: log
+            log.warn( "Attempt to register duplicate.", e );
         }
 
         return null;
@@ -219,6 +219,9 @@ public class SecurityController {
 
         HttpServletResponse response
     ) {
+        //- Log action -//
+        log.info( ACTION_MARKER, "Recovery password." );
+
         //- Try to make request for recovery access to account -//
         try {
             //- Inform about loosing access -//

@@ -210,7 +210,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     public void testForgotPasswordActionSuccess() throws Exception {
 
         //- Mock SMTP server -//
-        GreenMail smtpServer = new GreenMail( new ServerSetup( 3025, null, "smtp" ) );
+        GreenMail smtpServer = new GreenMail( new ServerSetup( 2525, null, "smtp" ) );
 
         //- Turn on SMTP Server -//
         smtpServer.start();
