@@ -60,7 +60,7 @@ public class InEnumValidatorImpl implements ConstraintValidator<InEnum, List<Str
     @Override
     public void initialize( InEnum constraintAnnotation ) {
 
-        valueList = new ArrayList <>();
+        valueList = new ArrayList<>();
 
         Class<? extends Enum<?>> enumClass = constraintAnnotation.enumClass();
 

@@ -26,7 +26,7 @@ public class ComposerMock {
     /**
      * Get list of composers
      *
-     * @return List<Composer>
+     * @return List of Composers.
      */
     public static List< Composer > findAll() {
         return new ArrayList < Composer >() {{

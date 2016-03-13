@@ -69,7 +69,7 @@ public class ComposerControllerTest extends AbstractRestControllerTest {
      * Test listAction.
      * @see ComposerController#listAction(int, int)
      *
-     * @throws Exception
+     * @throws Exception General Exception of application.
      */
     @Test
     public void testListAction() throws Exception {

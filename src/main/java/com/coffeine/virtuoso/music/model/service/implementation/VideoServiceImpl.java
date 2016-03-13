@@ -39,9 +39,10 @@ public class VideoServiceImpl implements VideoService {
     /**
      * Find all videos per page.
      *
-     * @param page  Requested page
-     * @param limit Count items per page
-     * @return List < Video >
+     * @param page  Requested page.
+     * @param limit Count items per page.
+     *
+     * @return List of Videos.
      */
     public List<Video> findAll(
             int page,

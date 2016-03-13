@@ -89,7 +89,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     /**
      * Test for sign up a new user.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testSignupActionSuccess() throws Exception {
@@ -127,7 +127,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     /**
      * Test for sign up a new user with invalid input.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testSignupActionFailure() throws Exception {
@@ -156,7 +156,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     /**
      * Test for success of forgotPassword action.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testForgotPasswordActionSuccess() throws Exception {
@@ -178,7 +178,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     /**
      * Test for failure of forgotPassword action.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testForgotPasswordActionFailure() throws Exception {
@@ -199,7 +199,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     /**
      * Test for failure of forgotPassword action.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testForgotPasswordActionFailureEmail() throws Exception {

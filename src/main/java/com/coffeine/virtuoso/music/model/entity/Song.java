@@ -358,7 +358,7 @@ public class Song implements Serializable {
     /**
      * Get data for locale.
      *
-     * @return List<SongLocale>
+     * @return List of SongLocale.
      */
     public List<SongLocale> getData() {
         return data;
@@ -367,7 +367,7 @@ public class Song implements Serializable {
     /**
      * Get musical staffs.
      *
-     * @return List<SongStaff>
+     * @return List of SongStaff.
      */
     public List<Staff> getStaffs() {
         return staffs;
@@ -376,7 +376,7 @@ public class Song implements Serializable {
     /**
      * Get text.
      *
-     * @return List<SongText>
+     * @return List of SongText.
      */
     public List<Text> getTexts() {
         return texts;
@@ -385,7 +385,7 @@ public class Song implements Serializable {
     /**
      * Get video.
      *
-     * @return List<Video>
+     * @return List of Video.
      */
     public List<Video> getVideos() {
         return videos;

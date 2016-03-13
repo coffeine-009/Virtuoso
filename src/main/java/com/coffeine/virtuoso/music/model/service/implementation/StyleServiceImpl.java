@@ -36,9 +36,10 @@ public class StyleServiceImpl implements StyleService {
     /**
      * Find styles for page.
      *
-     * @param page  Number of page for search
-     * @param limit Count of items per page
-     * @return List < Style > List of song's styles per page
+     * @param page  Number of page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of song's styles per page.
      */
     public List<Style> findAll( int page, int limit ) {
         return this.styleRepository.findAll(

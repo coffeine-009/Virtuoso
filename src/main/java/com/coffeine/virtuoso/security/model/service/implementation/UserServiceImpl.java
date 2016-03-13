@@ -9,16 +9,28 @@
 
 package com.coffeine.virtuoso.security.model.service.implementation;
 
+import com.coffeine.virtuoso.notification.model.entity.Email;
+import com.coffeine.virtuoso.notification.model.entity.EmailAddress;
+import com.coffeine.virtuoso.notification.model.service.NotificationService;
 import com.coffeine.virtuoso.security.model.entity.User;
 import com.coffeine.virtuoso.security.model.repository.UserRepository;
 import com.coffeine.virtuoso.security.model.service.UserService;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import javax.transaction.Transactional;
+
+import static org.springframework.util.Assert.notNull;
 
 /**
  * Implementation of user service.
@@ -29,10 +41,38 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+    /// *** Constants   *** ///
+    /**
+     * Logger
+     */
+    private static final Logger log = LogManager.getLogger( UserServiceImpl.class );
+
+
     /// *** Properties  *** ///
     //- SECTION :: REPOSITORIES -//
+    /**
+     * Repository for users.
+     */
     @Autowired
     private UserRepository userRepository;
+
+    /**
+     * Source of localized messages.
+     */
+    @Autowired
+    private MessageSource messageSource;
+
+    /**
+     * Manager of templates.
+     */
+    @Autowired
+    private Handlebars templateManager;
+
+    /**
+     * Service for work with notifications.
+     */
+    @Autowired
+    private NotificationService notificationService;
 
 
     /// *** Methods     *** ///
@@ -68,6 +108,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     *
      * Find all.
      *
      * @param page  Requested page.
@@ -94,7 +135,35 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create( User user ) {
         //- Save user to persistence -//
-        return this.userRepository.save( user );
+        final User newUser = this.userRepository.save(user);
+
+        //- Check created user -//
+        notNull( newUser );
+
+        //- Send notification -//
+        try {
+            //- Prepare content -//
+            Template template = this.templateManager.compile( "security.signup" );
+
+            //- Send notification-//
+            this.notificationService.send(
+                new EmailAddress( "system@virtuoso.com" ),
+                new EmailAddress( newUser.getEmails().get( 0 ).getAddress() ),
+                new Email(
+                    this.messageSource.getMessage(
+                        "notification.security.signup.subject",
+                        null,
+                        LocaleContextHolder.getLocale()
+                    ),
+                    template.apply( newUser )
+                )
+            );
+        } catch ( IOException e ) {
+            //- Error. Cannot send notification -//
+            log.error( "Cannot prepare or send notification.", e );
+        }
+
+        return newUser;
     }
 
     /**

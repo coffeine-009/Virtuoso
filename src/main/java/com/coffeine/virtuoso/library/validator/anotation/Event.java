@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 11/25/15 10:41 PM
  */
@@ -27,16 +27,16 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * The annotated class must contain two LocalDate fields.
  *
- * <p/>
- * Annotation does validation of end date for event(s).
+ * <p>Annotation does validation of end date for event(s).
  * The end date must be later then start date or must be null.
  * endDate = null means that event has not finished.
- * <p/>
- * Supported types are:
+ * </p>
+ *
+ * <p>Supported types are:
  * <ul>
  *     <li>{@code java.time.LocalDate}</li>
  * </ul>
- * <p/>
+ *
  * {@code null} end dates are considered valid.
  */
 @Documented

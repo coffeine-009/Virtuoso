@@ -18,7 +18,11 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
@@ -155,7 +159,7 @@ public class VideoTypeControllerTest extends AbstractRestControllerTest {
     /**
      * Test for findAll action
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindAll() throws Exception {

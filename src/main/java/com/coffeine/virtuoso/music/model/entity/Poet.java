@@ -11,7 +11,6 @@ package com.coffeine.virtuoso.music.model.entity;
 import com.coffeine.virtuoso.security.model.entity.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
@@ -64,7 +63,6 @@ public class Poet implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
-    @JsonIgnore
     @JsonBackReference
     @NotNull
     @Valid

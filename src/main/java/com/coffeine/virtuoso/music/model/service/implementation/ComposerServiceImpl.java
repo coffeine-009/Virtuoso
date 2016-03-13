@@ -34,9 +34,10 @@ public class ComposerServiceImpl implements ComposerService {
     /**
      * Find composers for page.
      *
-     * @param page  Number of page for search
-     * @param limit Count of items per page
-     * @return List < Composer > List of composers per page
+     * @param page  Number of page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of composers per page.
      */
     public List< Composer > findAll( int page, int limit )  {
         return this.composerRepository.findAll(

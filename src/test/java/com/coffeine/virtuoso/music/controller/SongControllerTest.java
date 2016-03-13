@@ -67,7 +67,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
     /**
      * Test getting list of songs
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testListAction() throws Exception {
@@ -86,7 +86,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
     /**
      * Test create new song
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Ignore
     @Test

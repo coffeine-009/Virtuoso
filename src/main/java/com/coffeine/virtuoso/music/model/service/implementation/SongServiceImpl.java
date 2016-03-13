@@ -36,9 +36,10 @@ public class SongServiceImpl implements SongService {
     /**
      * Get list of song for page.
      *
-     * @param page Number of page for return
-     * @param limit Count items per page
-     * @return List < Song >
+     * @param page Number of page for return.
+     * @param limit Count items per page.
+     *
+     * @return List of Songs.
      */
     public List <Song> findAll( int page, int limit ) {
         return songRespository.findAll(
