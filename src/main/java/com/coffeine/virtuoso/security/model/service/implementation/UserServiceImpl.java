@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
         final User newUser = this.userRepository.save(user);
 
         //- Check created user -//
-        notNull( newUser );
+        notNull( newUser, "Cannot save user." );
 
         //- Send notification -//
         try {
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
             //- Send notification-//
             this.notificationService.send(
                 new EmailAddress( "system@virtuoso.com" ),
-                new EmailAddress( newUser.getEmails().get( 0 ).getAddress() ),
+                new EmailAddress( newUser.getEmails().get( 0 ).getAddress() ),//FIXME: get email more safely
                 new Email(
                     this.messageSource.getMessage(
                         "notification.security.signup.subject",

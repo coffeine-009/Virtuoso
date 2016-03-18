@@ -117,7 +117,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
         //TODO: finish
 
         //- Check if notification was sent -//
-        assertEquals( 1, smtpServer.getReceivedMessages().length );
+        assertEquals( "Count of messages does not matches", 1, smtpServer.getReceivedMessages().length );
     }
 
     @Test
