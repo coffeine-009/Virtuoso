@@ -27,6 +27,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -55,6 +57,9 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
         smtpServer.start();
     }
 
+    /**
+     * Clear environment.
+     */
     @After
     public void tearDown() {
         //- Turn on SMTP Server -//
@@ -62,6 +67,11 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     }
 
     //- SECTION :: TEST -//
+    /**
+     * Test successful registration attempt.
+     *
+     * @throws Exception
+     */
     @Test
     public void testRegistrationActionSuccess() throws Exception {
 
@@ -127,6 +137,11 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
         //TODO: Add checking email.
     }
 
+    /**
+     * Test unsuccessful registration attempt.
+     *
+     * @throws Exception
+     */
     @Test
     public void testRegistrationActionFailure() throws Exception {
 
@@ -155,6 +170,12 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
         //TODO: finish
     }
 
+    /**
+     * Test unsuccessful registration attempt.
+     * Bad date format.
+     *
+     * @throws Exception
+     */
     @Test
     public void testRegistrationActionFailureMapping() throws Exception {
 
@@ -183,13 +204,18 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
         //TODO: finish
     }
 
+    /**
+     * Test successful sign in attempt.
+     *
+     * @throws Exception
+     */
     @Test
-    public void testSigninSuccess() throws Exception {
+    public void testSignInSuccess() throws Exception {
 
         //- Success -//
         this.mockMvc.perform(
-            post("/oauth/token")
-                .contentType(MediaType.APPLICATION_JSON)
+            post( "/oauth/token" )
+                .contentType( MediaType.APPLICATION_FORM_URLENCODED )
                 .header(
                     "Authorization",
                     "Basic " + new String(
@@ -198,48 +224,60 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         )
                     )
                 )
-                .param("grant_type", "password")
-                .param("scope", "read")
-                .param("clientId", "developer")
-                .param("clientSecret", "developer32")
-                .param("username", "user@virtuoso.com")
-                .param("password", "123")
+                .param( "grant_type", "password" )
+                .param( "scope", "read" )
+                .param( "clientId", "developer" )
+                .param( "clientSecret", "developer32" )
+                .param( "username", "user@virtuoso.com" )
+                .param( "password", "123" )
         )
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-            .andExpect(jsonPath("$.access_token", notNullValue()))
-            .andExpect(jsonPath("$.access_token", not(empty())))
-            .andExpect(jsonPath("$.expires_in", notNullValue()))
-            .andExpect(jsonPath("$.expires_in", not(empty())))
-            .andExpect(jsonPath("$.token_type").value("bearer"))
-            .andExpect(jsonPath("$.scope").value("read"))
+            .andExpect( status().isOk() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.access_token", notNullValue() ) )
+            .andExpect( jsonPath( "$.access_token", not( empty() ) ) )
+            .andExpect( jsonPath( "$.expires_in", notNullValue() ) )
+            .andExpect( jsonPath( "$.expires_in", not( empty() ) ) )
+            .andExpect( jsonPath( "$.token_type", notNullValue() ) )
+            .andExpect( jsonPath( "$.token_type", not( empty() ) ) )
+            .andExpect( jsonPath( "$.token_type" ).value( "bearer" ) )
+            .andExpect( jsonPath( "$.scope", notNullValue() ) )
+            .andExpect( jsonPath( "$.scope", not( empty() ) ) )
+            .andExpect( jsonPath( "$.scope" ).value( "read" ) )
             .andDo(
                 document(
-                    "signin-example",
+                    "sign-in-example",
+                    requestParameters(
+                        parameterWithName( "username" ).description( "E-mail of new user." ),
+                        parameterWithName( "password" ).description( "Password of new user." ),
+                        parameterWithName( "clientId" ).description( "Client(app) id." ),
+                        parameterWithName( "clientSecret" ).description( "Client(app) password." ),
+                        parameterWithName( "scope" ).description( "Scope." ),
+                        parameterWithName( "grant_type" ).description( "Grant type." )
+                    ),
                     responseFields(
                         fieldWithPath( "access_token" ).description( "Token for access to private API." ),
                         fieldWithPath( "refresh_token" ).description( "Token for refresh access token to private API." ),
                         fieldWithPath( "scope" ).description( "Token scope." ),
                         fieldWithPath( "token_type" ).description( "Type of token." ),
                         fieldWithPath( "expires_in" ).description( "Time of expiring." )
-//                        fieldWithPath( "username" ).description( "E-mail of new user." ),
-//                        fieldWithPath( "password" ).description( "Password of new user." ),
-//                        fieldWithPath( "clientId" ).description( "Client(app) id." ),
-//                        fieldWithPath( "clientSecret" ).description( "Client(app) password." ),
-//                        fieldWithPath( "scope" ).description( "Scope." ),
-//                        fieldWithPath( "grant_type" ).description( "Grant type." )
                     )
                 )
-            );;
+            );
     }
 
+    /**
+     * Test unsuccessful sign in attempt.
+     * Bad credentials.
+     *
+     * @throws Exception
+     */
     @Test
-    public void testSigninFailure() throws Exception {
+    public void testSignInFailure() throws Exception {
 
         //- Success -//
         this.mockMvc.perform(
-            post("/oauth/token")
-                .contentType(MediaType.APPLICATION_JSON)
+            post( "/oauth/token" )
+                .contentType( MediaType.APPLICATION_FORM_URLENCODED )
                 .header(
                     "Authorization",
                     "Basic " + new String(
@@ -248,22 +286,34 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         )
                     )
                 )
-                .param("grant_type", "password")
-                .param("scope", "read")
-                .param("clientId", "developer")
-                .param("clientSecret", "developer32")
-                .param("username", "user@virtuoso.com")
-                .param("password", "1234")
+                .param( "grant_type", "password" )
+                .param( "scope", "read" )
+                .param( "clientId", "developer" )
+                .param( "clientSecret", "developer32" )
+                .param( "username", "new.user@virtuoso.com" )
+                .param( "password", "1234" )
         )
-            .andExpect(status().isBadRequest())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-            .andExpect(jsonPath("$.error", notNullValue()))
-            .andExpect(jsonPath("$.error", not(empty())))
-            .andExpect(jsonPath("$.error").value("invalid_grant"))
-            .andExpect(jsonPath("$.error_description", notNullValue()))
-            .andExpect(jsonPath("$.error_description", not(empty())))
-            .andExpect(jsonPath("$.error_description").value("Bad user credentials"));
-        //TODO: finish
+            .andExpect( status().isBadRequest() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.error", notNullValue() ) )
+            .andExpect( jsonPath( "$.error", not( empty() ) ) )
+            .andExpect( jsonPath( "$.error" ).value( "invalid_grant" ) )
+            .andExpect( jsonPath( "$.error_description", notNullValue() ) )
+            .andExpect( jsonPath( "$.error_description", not( empty() ) ) )
+            .andExpect( jsonPath( "$.error_description" ).value( "Bad user credentials" ) )
+            .andDo(
+                document(
+                    "sign-in-fail-example",
+                    requestParameters(
+                        parameterWithName( "username" ).description( "E-mail of new user." ),
+                        parameterWithName( "password" ).description( "Password of new user." ),
+                        parameterWithName( "clientId" ).description( "Client(app) id." ),
+                        parameterWithName( "clientSecret" ).description( "Client(app) password." ),
+                        parameterWithName( "scope" ).description( "Scope." ),
+                        parameterWithName( "grant_type" ).description( "Grant type." )
+                    )
+                )
+            );
     }
 
     /**
