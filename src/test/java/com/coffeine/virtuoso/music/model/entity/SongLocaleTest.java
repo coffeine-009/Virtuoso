@@ -16,13 +16,14 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Tests for song locale

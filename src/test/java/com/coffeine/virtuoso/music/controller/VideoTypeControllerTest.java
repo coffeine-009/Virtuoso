@@ -155,6 +155,7 @@ public class VideoTypeControllerTest extends AbstractRestControllerTest {
         ).when( videoTypeRepository ).findAll(new PageRequest(1, 2));
 
     }
+
     //- SECTION :: TEST -//
     /**
      * Test for findAll action

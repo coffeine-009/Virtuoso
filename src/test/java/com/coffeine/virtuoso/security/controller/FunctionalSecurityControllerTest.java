@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -82,7 +83,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"birthday\": \"1990-08-10\"" +
                     "}"
                 )
-        ).andDo( print() )
+        )
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$.id", notNullValue() ) )
             .andExpect( jsonPath( "$.id", not( empty() ) ) )
@@ -99,6 +100,12 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect( jsonPath( "$.lastName" ).value( "Test" ) )
             .andExpect( jsonPath( "$.gender" ).value( false ) )
             .andExpect( jsonPath( "$.locale" ).value( "en-US" ) )
+            .andExpect( jsonPath( "$.poet", notNullValue() ) )
+            .andExpect( jsonPath( "$.poet", not( empty() ) ) )
+            .andExpect( jsonPath( "$.poet.birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$.poet.birthday", not( empty() ) ) )
+//            .andExpect( jsonPath( "$.poet.birthday" ).value( "1990-08-10" ) )//FIXME: Configure JsonSerializer for LocalDate
+            .andExpect( jsonPath( "$.poet.deathDate", nullValue() ) )
             .andDo(
                 document(
                     "signup-example",
@@ -114,10 +121,10 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                     )
                 )
             );
-        //TODO: finish
 
         //- Check if notification was sent -//
         assertEquals( "Count of messages does not matches", 1, smtpServer.getReceivedMessages().length );
+        //TODO: Add checking email.
     }
 
     @Test

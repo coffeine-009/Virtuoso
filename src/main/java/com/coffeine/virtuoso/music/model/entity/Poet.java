@@ -13,6 +13,8 @@ import com.coffeine.virtuoso.security.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -91,9 +93,11 @@ public class Poet implements Serializable {
     @Column( name = "gender" )
     protected Boolean gender;
 
+    @JsonSerialize( using = LocalDateSerializer.class )
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
     protected LocalDate birthday;
 
+    @JsonSerialize( using = LocalDateSerializer.class )
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
     protected LocalDate deathDate;
 

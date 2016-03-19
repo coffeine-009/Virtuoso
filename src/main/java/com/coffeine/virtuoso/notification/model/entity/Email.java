@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/4/15 12:13 AM
  */
@@ -15,11 +15,20 @@ package com.coffeine.virtuoso.notification.model.entity;
  */
 public class Email implements Message {
 
+    /**
+     * Subject of e-mail.
+     */
+    private String subject;
+
+    /**
+     * Content(body) of e-mail.
+     */
     private String text;
 
 
     public Email( String subject, String text ) {
         //- Initialization -//
+        this.subject = subject;
         this.text = text;
     }
 
@@ -30,7 +39,7 @@ public class Email implements Message {
      */
     @Override
     public String getSubject() {
-        return null;//TODO: impl
+        return this.subject;
     }
 
     /**

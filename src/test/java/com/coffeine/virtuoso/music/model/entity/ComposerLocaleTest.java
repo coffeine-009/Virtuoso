@@ -19,8 +19,9 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Tests for ComposerLocale
