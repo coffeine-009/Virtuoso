@@ -35,7 +35,8 @@ public class RoleServiceImpl implements RoleService {
      * Find roles by codes.
      *
      * @param codes
-     * @return List<Role>
+     *
+     * @return List of Roles.
      */
     public List<Role> findByCodes( List<String> codes ) {
         return this.roleRepository.findByCodes( codes );

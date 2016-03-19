@@ -128,7 +128,6 @@ public class User implements Serializable {
     /**
      * Composer If user has role COMPOSER.
      */
-    @JsonIgnore
     @JsonManagedReference
     @Valid
     @OneToOne(
@@ -142,7 +141,6 @@ public class User implements Serializable {
     /**
      * Poet if User has role POET.
      */
-    @JsonIgnore
     @JsonManagedReference
     @Valid
     @OneToOne( 
@@ -295,7 +293,7 @@ public class User implements Serializable {
         //- Initialization -//
         this.roles = roles;
         this.addAccess( access );
-        this.addEmail(email);
+        this.addEmail( email );
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;

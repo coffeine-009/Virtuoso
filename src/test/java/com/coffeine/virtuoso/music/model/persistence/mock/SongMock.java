@@ -23,7 +23,7 @@ public class SongMock {
     /**
      * Get list of songs
      *
-     * @return List<Song>
+     * @return List of Songs.
      */
     public static List<Song> getList() {
         return new ArrayList < Song >() {{

@@ -24,7 +24,7 @@ public class RoleMock {
     /**
      * Mock for findByCodes.
      *
-     * @return List<Role>
+     * @return List of Roles.
      */
     public static List<Role> findByCodes() {
 

@@ -18,7 +18,6 @@ import com.coffeine.virtuoso.module.AbstractTest;
  *
  * @version 1.0
  */
-public abstract class AbstractControllerTest extends AbstractTest
-{
+public abstract class AbstractControllerTest extends AbstractTest {
 
 }

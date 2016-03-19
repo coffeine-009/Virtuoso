@@ -23,9 +23,10 @@ public interface PoetService {
     /**
      * Find Poets for page.
      *
-     * @param page  Number of page for search
-     * @param limit Count of items per page
-     * @return List < Poet > List of poets per page
+     * @param page  Number of page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of poets per page.
      */
     List<Poet> findAll( int page, int limit );
 

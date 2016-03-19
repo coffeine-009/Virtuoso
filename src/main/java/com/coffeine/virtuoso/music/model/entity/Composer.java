@@ -11,7 +11,6 @@ package com.coffeine.virtuoso.music.model.entity;
 import com.coffeine.virtuoso.security.model.entity.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
@@ -66,7 +65,6 @@ public class Composer implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
-    @JsonIgnore
     @JsonBackReference
     @Valid
     @OneToOne
@@ -222,7 +220,7 @@ public class Composer implements Serializable {
     /**
      * Get composer's data.
      *
-     * @return List<ComposerLocale>
+     * @return List of ComposerLocales.
      */
     public List<ComposerLocale> getData() {
         return data;

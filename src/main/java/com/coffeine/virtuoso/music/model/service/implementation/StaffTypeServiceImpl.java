@@ -33,9 +33,10 @@ public class StaffTypeServiceImpl implements StaffTypeService{
     /**
      * Find all types of staff.
      * 
-     * @param page Page for search
-     * @param limit Count of items per page
-     * @return List < StaffType > List of staff types
+     * @param page Page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of staff types.
      */
     public List < StaffType > findAll(
     int page,

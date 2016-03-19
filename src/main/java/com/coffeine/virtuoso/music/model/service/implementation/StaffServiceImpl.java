@@ -35,9 +35,10 @@ public class StaffServiceImpl implements StaffService {
     /**
      * Find staffs for page.
      *
-     * @param page  Number of page for search
-     * @param limit Count of items per page
-     * @return List < Staff > List of song's staffs per page
+     * @param page  Number of page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of song's staffs per page.
      */
     public List<Staff> findAll( int page, int limit ) {
         return this.staffRepository.findAll(

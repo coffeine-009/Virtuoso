@@ -36,9 +36,10 @@ public class TextServiceImpl implements TextService {
     /**
      * Find song's texts for page.
      *
-     * @param page  Number of page for search
-     * @param limit Count of items per page
-     * @return List < Text > List of song's texts per page
+     * @param page  Number of page for search.
+     * @param limit Count of items per page.
+     *
+     * @return List of song's texts per page.
      */
     public List< Text > findAll( int page, int limit ) {
         return this.textRepository.findAll(
