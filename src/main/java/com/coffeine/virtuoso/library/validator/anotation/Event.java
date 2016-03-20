@@ -74,8 +74,8 @@ public @interface Event {
     Class<?>[] groups() default {};
 
     /**
-     * FIXME: Investigate if this is needed
-     * @return
+     * FIXME: Investigate if this is needed.
+     * @return TODO
      */
     Class<? extends Payload>[] payload() default {};
 

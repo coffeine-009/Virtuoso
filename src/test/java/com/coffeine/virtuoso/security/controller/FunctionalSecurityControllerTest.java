@@ -21,6 +21,7 @@ import org.springframework.http.MediaType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -461,12 +462,11 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect( jsonPath( "$.fieldErrors[0].field" ).value( "hash" ) )
             .andExpect( jsonPath( "$.fieldErrors[0].message", notNullValue() ) )
             .andExpect( jsonPath( "$.fieldErrors[0].message", not( empty() ) ) )
-            .andExpect( jsonPath( "$.fieldErrors[0].message" ).value( "may not be empty" ) )
+            .andExpect( jsonPath( "$.fieldErrors[*].message", containsInAnyOrder( "may not be null", "may not be empty" ) ) )
             .andExpect( jsonPath( "$.fieldErrors[1].field", notNullValue() ) )
             .andExpect( jsonPath( "$.fieldErrors[1].field", not( empty() ) ) )
             .andExpect( jsonPath( "$.fieldErrors[1].field" ).value( "hash" ) )
             .andExpect( jsonPath( "$.fieldErrors[1].message", notNullValue() ) )
-            .andExpect( jsonPath( "$.fieldErrors[1].message", not( empty() ) ) )
-            .andExpect( jsonPath( "$.fieldErrors[1].message" ).value( "may not be null" ) );
+            .andExpect( jsonPath( "$.fieldErrors[1].message", not( empty() ) ) );
     }
 }
