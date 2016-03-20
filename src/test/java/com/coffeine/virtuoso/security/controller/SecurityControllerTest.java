@@ -219,4 +219,53 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
         ).andDo( print() )
             .andExpect( status().isNotFound() );
     }
+
+    /**
+     * Test of successful recovering of access.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testAccessRecoverySuccess() throws Exception {
+        //- Mocking -//
+        doNothing().when( this.accessRecoveryService ).restore( anyString(), anyString() );
+
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/access/recovery" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"hash\": \"4aa46f256305e166c4c63d178dc883c45ec87812\"," +
+                        "\"password\": \"p@$sw0rd\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isOk() );
+    }
+
+    /**
+     * Test of unsuccessful recovering of access.
+     * Invalid hash.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testAccessRecoveryFailure() throws Exception {
+        //- Mocking -//
+        doThrow( IllegalArgumentException.class ).when( this.accessRecoveryService ).restore( anyString(), anyString() );
+
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/access/recovery" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"hash\": \"invalid_hash\"," +
+                        "\"password\": \"p@$sw0rd\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isBadRequest() );
+    }
 }

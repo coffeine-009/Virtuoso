@@ -83,12 +83,16 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
 
         try {
             //- Get values for validation -//
-            LocalDate startDate = LocalDate.parse( BeanUtils.getProperty( value, this.startDateFieldName ) );
+            LocalDate startDate = LocalDate.parse( BeanUtils.getProperty(
+                value,
+                this.startDateFieldName
+            ));
             String endDate =  BeanUtils.getProperty( value, this.endDateFieldName );
 
             //- Validate -//
             valid = endDate == null
-                || startDate.isBefore( LocalDate.parse( endDate ) ) && startDate.isBefore( LocalDate.now() );
+                || startDate.isBefore( LocalDate.parse( endDate ) )
+                && startDate.isBefore( LocalDate.now() );
 
             //- Add error message to second field -//
             isTrue( valid );

@@ -25,4 +25,12 @@ public interface AccessRecoveryService {
      * @param contact    Contact associated to account.
      */
     void lostAccess( Contact contact ) throws IOException;
+
+    /**
+     * Restore access.
+     *
+     * @param hash        One time hash.
+     * @param password    New password.
+     */
+    void restore( String hash, String password );
 }
