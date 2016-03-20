@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/13/15 2:27 PM
  */
@@ -33,11 +33,31 @@ import javax.validation.constraints.NotNull;
 @ReportAsSingleViolation
 public @interface InEnum {
 
+    /**
+     * Enum that contains values for checking.
+     *
+     * @return Enum.
+     */
     Class<? extends Enum<?>> enumClass();
 
+    /**
+     * Default message for constraint violation.
+     *
+     * @return String.
+     */
     String message() default "Value is not valid";
 
+    /**
+     * Grouping.
+     *
+     * @return Array of classes.
+     */
     Class<?>[] groups() default {};
 
+    /**
+     * Payload.
+     *
+     * @return Class.
+     */
     Class<? extends Payload>[] payload() default {};
 }

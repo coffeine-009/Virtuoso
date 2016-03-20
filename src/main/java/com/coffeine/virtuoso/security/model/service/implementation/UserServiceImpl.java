@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/5/15 2:07 PM
  */
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     /// *** Constants   *** ///
     /**
-     * Logger
+     * Logger.
      */
     private static final Logger log = LogManager.getLogger( UserServiceImpl.class );
 
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
-     /**
+    /**
      * Find user by email and hash of password.
      *
      * @param username    Username(e-mail).
@@ -108,7 +108,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
      * Find all.
      *
      * @param page  Requested page.
@@ -128,8 +127,9 @@ public class UserServiceImpl implements UserService {
     /**
      * Create a new user.
      *
-     * @param user
-     * @return User
+     * @param user    User object for creating.
+     *
+     * @return Created user.
      */
     @Transactional
     @Override
@@ -180,8 +180,9 @@ public class UserServiceImpl implements UserService {
     /**
      * Update user.
      *
-     * @param user
-     * @return User
+     * @param user    User object for update.
+     *
+     * @return Updated user.
      */
     @Override
     public User update( User user ) {
@@ -190,9 +191,9 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Delete user
+     * Delete user.
      *
-     * @param id
+     * @param id    Id of user.
      */
     public void delete( Long id ) {
         this.userRepository.delete( id );

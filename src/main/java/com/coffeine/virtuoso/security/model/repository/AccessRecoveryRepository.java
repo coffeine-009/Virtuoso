@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/5/15 4:11 PM
  */
@@ -19,4 +19,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AccessRecoveryRepository extends JpaRepository<RecoveryAccess, Long> {
 
+    /**
+     * Find by hash.
+     *
+     * @param hash    One time hash.
+     *
+     * @return RecoveryAccess.
+     */
+    RecoveryAccess findByHash( String hash );
 }
