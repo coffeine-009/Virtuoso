@@ -15,6 +15,7 @@ import com.coffeine.virtuoso.security.model.entity.Email;
 import com.coffeine.virtuoso.security.model.entity.Role;
 import com.coffeine.virtuoso.security.model.entity.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,36 +33,41 @@ public class PoetMock {
      * @return List of poets.
      */
     public static List<Poet> findAll() {
-        return new ArrayList<Poet>() {{
-            add(
-                new Poet(
-                    new User(
-                        //- Roles -//
-                        new ArrayList<Role>() {{
-                            add(new Role("POET", "Poet"));
-                        }},
-                        //- Access -//
-                        new Access("MyP@$$w0rd"),
-                        //- Emails -//
-                        new Email("myemail@virtuoso.com"),
-                        "Tester",
+        //- Mock poet -//
+        final Poet poet = new Poet(
+            new User(
+                //- Roles -//
+                new ArrayList<Role>() {{
+                    add( new Role( "POET", "Poet" ) );
+                }},
+                //- Access -//
+                new Access( "MyP@$$w0rd" ),
+                //- Emails -//
+                new Email( "myemail@virtuoso.com" ),
+                "Tester",
+                "Unit",
+                "JUnit",
+                "uk-UA"
+            ),
+            new ArrayList<PoetLocale>() {{
+                add(
+                    new PoetLocale(
+                        "Test",
                         "Unit",
-                        "JUnit",
+                        "Mockito",
                         "uk-UA"
-                    ),
-                    new ArrayList<PoetLocale>() {{
-                        add(
-                            new PoetLocale(
-                                "Test",
-                                "Unit",
-                                "Validation",
-                                "en-US"
-                            )
-                        );
-                    }},
-                    "uk-UA"
-                )
-            );
+                    )
+                );
+            }},
+            "uk-UA",
+            true,
+            LocalDate.now().minusYears( 32 ),
+            null
+        );
+        poet.setId( 1L );
+
+        return new ArrayList<Poet>() {{
+            add( poet );
         }};
     }
 }

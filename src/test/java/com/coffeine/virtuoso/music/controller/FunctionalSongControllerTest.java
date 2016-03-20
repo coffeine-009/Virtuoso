@@ -3,25 +3,15 @@
  *
  * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
- * @date 3/20/16 10:24 PM
+ * @date 3/20/16 10:49 PM
  */
 
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
-import com.coffeine.virtuoso.music.model.service.SongService;
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -29,31 +19,19 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for SongController.
+ * Functional tests for SongController.
  *
  * @version 1.0
- * @see SongController
+ * @see StyleController
  */
-public class SongControllerTest extends AbstractRestControllerTest {
+public class FunctionalSongControllerTest extends AbstractRestControllerTest {
 
-    /// *** Properties  *** ///
-    @Mock
-    private SongService songService;
-
-    @InjectMocks
-    private SongController songController;
-
-
-    /// *** Methods     *** ///
     /**
      * Init environment for run test
      */
@@ -62,35 +40,16 @@ public class SongControllerTest extends AbstractRestControllerTest {
     public void tearUp() {
 
         super.tearUp();
-
-        //- Set up application -//
-        this.mockMvc = MockMvcBuilders.standaloneSetup( songController ).build();
     }
 
-    /**
-     * Reset environment to previous state
-     */
-    @After
-    public void tearDown() {
-
-    }
-
-
-    /**
-     * Test getting list of songs
-     *
-     * @throws Exception    General Exception of application.
-     */
     @Test
-    public void testListAction() throws Exception {
-
-        //- Mock service -//
-        when( songService.findAll( anyInt(), anyInt() ) ).thenReturn( SongMock.getList() );
+    public void testListActionSuccess() throws Exception {
 
         // Success. Get list of songs
         this.mockMvc.perform(
             get( "/music/songs?page={page}&limit={limit}", 1, 10 )
-        )
+            .session( this.session )
+        ).andDo( print() )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$", hasSize( 1 ) ) )
@@ -127,74 +86,5 @@ public class SongControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$[*].staffs", notNullValue() ) )
             .andExpect( jsonPath( "$[*].texts", notNullValue() ) )
             .andExpect( jsonPath( "$[*].videos", notNullValue() ) );
-    }
-
-    /**
-     * Test getting list of songs in failure case.
-     *
-     * @throws Exception    General Exception of application.
-     */
-    @Test
-    public void testListFailureAction() throws Exception {
-
-        //- Mock service -//
-        when( songService.findAll( anyInt(), anyInt() ) ).thenReturn( new ArrayList<>( 0 ) );
-
-        // Success. Get list of songs
-        this.mockMvc.perform(
-            get( "/music/songs?page={page}&limit={limit}", 1, 10 )
-        )
-            .andExpect( status().isOk() )
-            .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect( jsonPath( "$", hasSize( 0 ) ) );
-    }
-
-    /**
-     * Test create new song
-     *
-     * @throws Exception    General Exception of application.
-     */
-    @Ignore
-    @Test
-    public void testCreateAction() throws Exception {
-        // Do request for get list of songs
-//        HttpResponse songsResponse = HttpClientBuilder.create().build().execute(
-//            new HttpPost(
-//                String.format(
-//                    "%s://%s:%s%s",
-//                    //- Params -//
-//                    PROTOCOL,
-//                    DOMAIN,
-//                    PORT,
-//                    URL_SONG_CREATE
-//                )
-//            )
-//        );
-//        String body = EntityUtils.toString(
-//                songsResponse.getEntity()
-//        );
-//        this.fail("To implement");
-    }
-
-    @Ignore
-    @Test
-    public void testReadAction() throws Exception {
-        //this.fail("To implement");
-    }
-
-    @Ignore
-    @Test
-    public void testUpdateAction() throws Exception {
-//        this.fail("To implement");
-    }
-
-    @Test
-    public void testDeleteAction() throws Exception {
-
-        this.mockMvc.perform(
-            delete( "/music/songs/{SONG_ID}", 1 )
-                .contentType( MediaType.APPLICATION_JSON )
-        )
-            .andDo( print() );
     }
 }

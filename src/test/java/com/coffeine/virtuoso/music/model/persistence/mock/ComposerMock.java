@@ -29,25 +29,27 @@ public class ComposerMock {
      * @return List of Composers.
      */
     public static List< Composer > findAll() {
+        //- Mock composer -//
+        final Composer composer = new Composer(
+            "uk-UA",
+            true,
+            LocalDate.now(),
+            null,
+            new ArrayList<ComposerLocale>() {{
+                add(
+                    new ComposerLocale(
+                        "Test",
+                        "Unit",
+                        "Mockito",
+                        "uk-UA"
+                    )
+                );
+            }}
+        );
+        composer.setId( 1L );
+
         return new ArrayList < Composer >() {{
-            add(
-                new Composer(
-                    "en-US",
-                    true,
-                    LocalDate.now(),
-                    null,
-                    new ArrayList<ComposerLocale>() {{
-                        add(
-                            new ComposerLocale(
-                                "Test",
-                                "Unit",
-                                "Mockito",
-                                "en-US"
-                            )
-                        );
-                    }}
-                )
-            );
+            add( composer );
         }};
     }
 }

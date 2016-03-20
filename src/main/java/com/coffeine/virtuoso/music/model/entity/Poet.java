@@ -8,13 +8,13 @@
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import com.coffeine.virtuoso.main.model.serializer.JsonDateSerializer;
 import com.coffeine.virtuoso.security.model.entity.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -93,11 +93,11 @@ public class Poet implements Serializable {
     @Column( name = "gender" )
     protected Boolean gender;
 
-    @JsonSerialize( using = LocalDateSerializer.class )
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
     protected LocalDate birthday;
 
-    @JsonSerialize( using = LocalDateSerializer.class )
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
     protected LocalDate deathDate;
 
@@ -166,6 +166,32 @@ public class Poet implements Serializable {
             this.addPoetLocale( poetLocale );
         }
         this.locale = locale;
+    }
+
+    /**
+     * Constructor for creating a new poet fully filled.
+     *
+     * @param user         User.
+     * @param data         Localized data.
+     * @param locale       Locale.
+     * @param gender       Gender.
+     * @param birthday     Birthday.
+     * @param deathDate    Date of death.
+     */
+    public Poet(
+        User user,
+        List<PoetLocale> data,
+        String locale,
+        Boolean gender,
+        LocalDate birthday,
+        LocalDate deathDate
+    ) {
+        this.user = user;
+        this.data = data;
+        this.locale = locale;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.deathDate = deathDate;
     }
 
     /**

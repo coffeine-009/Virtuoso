@@ -8,11 +8,13 @@
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import com.coffeine.virtuoso.main.model.serializer.JsonDateSerializer;
 import com.coffeine.virtuoso.security.model.entity.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -105,10 +107,12 @@ public class Composer implements Serializable {
     @Column( name = "gender" )
     protected Boolean gender;
 
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "birthday", columnDefinition = "DATE" )
     protected LocalDate birthday;
 
     //TODO: add validation
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "deathDate", columnDefinition = "DATE" )
     protected LocalDate deathDate;
 
