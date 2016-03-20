@@ -75,7 +75,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     /**
      * Test successful registration attempt.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testRegistrationActionSuccess() throws Exception {
@@ -145,7 +145,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     /**
      * Test unsuccessful registration attempt.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testRegistrationActionFailure() throws Exception {
@@ -179,7 +179,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
      * Test unsuccessful registration attempt.
      * Bad date format.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testRegistrationActionFailureMapping() throws Exception {
@@ -212,7 +212,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     /**
      * Test successful sign in attempt.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testSignInSuccess() throws Exception {
@@ -274,7 +274,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
      * Test unsuccessful sign in attempt.
      * Bad credentials.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testSignInFailure() throws Exception {
@@ -436,7 +436,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     /**
      * Test of successful recovering of access.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testAccessRecoverySuccess() throws Exception {
@@ -466,7 +466,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     /**
      * Test of unsuccessful recovering of access.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testAccessRecoveryFailure() throws Exception {
@@ -489,7 +489,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
      * Test of unsuccessful recovering of access.
      * Invalid input data.
      *
-     * @throws Exception
+     * @throws Exception    General exception from mockMVC.
      */
     @Test
     public void testAccessRecoveryFailureInvalidInput() throws Exception {
