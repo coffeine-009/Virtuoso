@@ -25,7 +25,7 @@ use of HTTP verbs.
 | `POST`
 | Used to create a new resource
 
-| `PUT`
+| `PUT`, `PATCH`
 | Used to update an existing resource, including partial updates
 
 | `DELETE`
@@ -64,12 +64,12 @@ use of HTTP status codes.
 Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
 that describes the problem. The error object has the following structure:
 
-include::{snippets}/error-example/response-fields.adoc[]
+include::{snippets}/access-recovery-forgot-password-failure-example/response-fields.adoc[]
 
 For example, a request that attempts to apply a non-existent tag to a note will produce a
 `400 Bad Request` response:
 
-include::{snippets}/error-example/http-response.adoc[]
+include::{snippets}/access-recovery-forgot-password-failure-example/http-response.adoc[]
 
 [[overview-hypermedia]]
 == Hypermedia
@@ -136,22 +136,60 @@ include::{snippets}/signin-example/http-response.adoc[]
 
 
 
-[[resources-tags-create]]
-=== Creating a tag
+[[resources-access-recovery]]
+== Access recovery
 
-A `POST` request is used to create a note
+
+[[resources-access-recovery-forgot-password]]
+=== Forgot password
+
+A `POST` request is used to start access recovery process
 
 ==== Request structure
 
-//include::{snippets}/tags-create-example/request-fields.adoc[]
+include::{snippets}/access-recovery-forgot-password-example/request-fields.adoc[]
 
 ==== Example request
 
-//include::{snippets}/tags-create-example/curl-request.adoc[]
+include::{snippets}/access-recovery-forgot-password-example/http-request.adoc[]
 
 ==== Example response
 
-//include::{snippets}/tags-create-example/http-response.adoc[]
+===== Success
+
+include::{snippets}/access-recovery-forgot-password-example/http-response.adoc[]
+
+===== Failure
+
+Input e-mail has not registered in system.
+
+include::{snippets}/access-recovery-forgot-password-failure-input-example/http-response.adoc[]
+
+
+[[resources-access-recovery-restore]]
+=== Restore access
+
+A `POST` request is used to finish access recovery process
+
+==== Request structure
+
+include::{snippets}/access-recovery-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/access-recovery-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+
+include::{snippets}/access-recovery-success-example/http-response.adoc[]
+
+===== Failure
+
+Input e-mail has not registered in system.
+
+include::{snippets}/access-recovery-failure-example/http-response.adoc[]
 
 
 

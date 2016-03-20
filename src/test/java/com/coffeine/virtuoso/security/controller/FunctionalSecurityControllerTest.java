@@ -18,11 +18,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -276,22 +280,37 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
 
         //- Perform -//
         this.mockMvc.perform(
-            post("/security/forgotPassword")
-                .contentType(MediaType.APPLICATION_JSON)
+            post( "/security/forgotPassword" )
+                .contentType( MediaType.APPLICATION_JSON )
                 .content(
                     "{" +
                         "\"email\": \"unit@test.com\"" +
-                        "}"
+                    "}"
                 )
-        ).andDo(print())
-            .andExpect(status().isOk());
+        )
+            .andExpect( status().isOk() )
+            .andDo(
+                document(
+                    "access-recovery-forgot-password-example",
+                    requestFields(
+                        fieldWithPath( "email" ).description( "E-mail of user for recovering access." )
+                    )
+                )
+            );
 
 
-        assertEquals(1, smtpServer.getReceivedMessages().length);
+        assertEquals( 1, smtpServer.getReceivedMessages().length );
+
+        //- Check message content -//
+        final String messageContent = (String) smtpServer.getReceivedMessages()[ 0 ].getContent();
+        Matcher matcher = Pattern.compile( "\\s\\w{40}\\s" ).matcher( messageContent );
+
+        assertTrue( "Cannot find link.", matcher.find() );
     }
 
     /**
      * Test for failure of forgotPassword action.
+     * Invalid input.
      *
      * @throws Exception    General Exception of application.
      */
@@ -300,28 +319,42 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
 
         //- Perform request -//
         this.mockMvc.perform(
-            post("/security/forgotPassword")
-                .contentType(MediaType.APPLICATION_JSON)
+            post( "/security/forgotPassword" )
+                .contentType( MediaType.APPLICATION_JSON )
                 .content(
                     "{" +
                         "\"email\": \"unit#test.com\"" +
-                        "}"
+                    "}"
                 )
-        ).andDo(print())
-            .andExpect(status().isBadRequest())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-            .andExpect(jsonPath("$.fieldErrors", notNullValue()))
-            .andExpect(jsonPath("$.fieldErrors", not(empty())))
-            .andExpect(jsonPath("$.fieldErrors[0].field", notNullValue()))
-            .andExpect(jsonPath("$.fieldErrors[0].field", not(empty())))
-            .andExpect(jsonPath("$.fieldErrors[0].field").value("email"))
-            .andExpect(jsonPath("$.fieldErrors[0].message", notNullValue()))
-            .andExpect(jsonPath("$.fieldErrors[0].message", not(empty())))
-            .andExpect(jsonPath("$.fieldErrors[0].message").value("not a well-formed email address"));
+        )
+            .andExpect( status().isBadRequest() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.fieldErrors", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field" ).value( "email" ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message" ).value( "not a well-formed email address" ) )
+            .andDo(
+                document(
+                    "access-recovery-forgot-password-failure-example",
+                    requestFields(
+                        fieldWithPath( "email" ).description( "E-mail of user for recovering access." )
+                    ),
+                    responseFields(
+                        fieldWithPath( "fieldErrors" ).description( "List of erors for each field from request" ),
+                        fieldWithPath( "fieldErrors[].field" ).description( "Field name that contains error." ),
+                        fieldWithPath( "fieldErrors[].message" ).description( "Message that describes error." )
+                    )
+                )
+            );
     }
 
     /**
      * Test for failure of forgotPassword action.
+     * Username was not found.
      *
      * @throws Exception    General Exception of application.
      */
@@ -330,14 +363,110 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
 
         //- Perform request -//
         this.mockMvc.perform(
-            post("/security/forgotPassword")
-                .contentType(MediaType.APPLICATION_JSON)
+            post( "/security/forgotPassword" )
+                .contentType( MediaType.APPLICATION_JSON )
                 .content(
                     "{" +
                         "\"email\": \"unit-non-exists@test.com\"" +
-                        "}"
+                    "}"
                 )
-        ).andDo(print())
-            .andExpect(status().isNotFound());
+        )
+            .andExpect( status().isNotFound() )
+            .andDo(
+                document(
+                    "access-recovery-forgot-password-failure-input-example",
+                    requestFields(
+                        fieldWithPath( "email" ).description( "E-mail of user for recovering access." )
+                    )
+                )
+            );
+    }
+
+    /**
+     * Test of successful recovering of access.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testAccessRecoverySuccess() throws Exception {
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/access/recovery" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"hash\": \"4aa46f256305e166c4c63d178dc883c45ec87812\"," +
+                        "\"password\": \"p@$sw0rd\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isOk() )
+            .andDo(
+                document(
+                    "access-recovery-success-example",
+                    requestFields(
+                        fieldWithPath( "hash" ).description( "One time hash for recovering access." ),
+                        fieldWithPath( "password" ).description( "New password." )
+                    )
+                )
+            );
+    }
+
+    /**
+     * Test of unsuccessful recovering of access.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testAccessRecoveryFailure() throws Exception {
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/access/recovery" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"hash\": \"invalid_hash\"," +
+                        "\"password\": \"p@$sw0rd\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isBadRequest() )
+            .andDo( document( "access-recovery-failure-example" ) );
+    }
+
+    /**
+     * Test of unsuccessful recovering of access.
+     * Invalid input data.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testAccessRecoveryFailureInvalidInput() throws Exception {
+        //- Perform request -//
+        this.mockMvc.perform(
+            post( "/security/access/recovery" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"password\": \"p@$sw0rd\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isBadRequest() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.fieldErrors", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].field" ).value( "hash" ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[0].message" ).value( "may not be empty" ) )
+            .andExpect( jsonPath( "$.fieldErrors[1].field", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[1].field", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[1].field" ).value( "hash" ) )
+            .andExpect( jsonPath( "$.fieldErrors[1].message", notNullValue() ) )
+            .andExpect( jsonPath( "$.fieldErrors[1].message", not( empty() ) ) )
+            .andExpect( jsonPath( "$.fieldErrors[1].message" ).value( "may not be null" ) );
     }
 }

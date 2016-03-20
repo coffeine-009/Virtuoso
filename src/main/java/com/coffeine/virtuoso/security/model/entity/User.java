@@ -106,6 +106,7 @@ public class User implements Serializable {
     @Valid
     @OneToMany(
         mappedBy = "user",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )

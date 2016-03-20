@@ -19,4 +19,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AccessRecoveryRepository extends JpaRepository<RecoveryAccess, Long> {
 
+    /**
+     * Find by hash.
+     *
+     * @param hash    One time hash.
+     *
+     * @return RecoveryAccess.
+     */
+    RecoveryAccess findByHash( String hash );
 }

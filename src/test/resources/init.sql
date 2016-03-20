@@ -49,3 +49,18 @@ VALUES
 INSERT INTO access( id, id_user, password )
 VALUES
   ( 1, 1, '40bd001563085fc35165329ea1ff5c5ecbdbbeef' );
+
+INSERT INTO recovery_access(
+  id,
+  id_user,
+  hash,
+  expired_at,
+  created_at
+)
+VALUES (
+  1,
+  1,
+  '4aa46f256305e166c4c63d178dc883c45ec87812',
+  '2032-02-08 23:59:59',
+  NOW()
+);

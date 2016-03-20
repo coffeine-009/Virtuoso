@@ -12,6 +12,7 @@ import com.coffeine.virtuoso.notification.model.entity.Contact;
 import com.coffeine.virtuoso.notification.model.entity.Email;
 import com.coffeine.virtuoso.notification.model.entity.EmailAddress;
 import com.coffeine.virtuoso.notification.model.service.NotificationService;
+import com.coffeine.virtuoso.security.model.entity.Access;
 import com.coffeine.virtuoso.security.model.entity.RecoveryAccess;
 import com.coffeine.virtuoso.security.model.entity.User;
 import com.coffeine.virtuoso.security.model.repository.AccessRecoveryRepository;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 import javax.transaction.Transactional;
 
@@ -119,5 +121,41 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
                 template.apply( hash )
             )
         );
+    }
+
+    /**
+     * Restore access.
+     *
+     * @param hash     One time hash.
+     * @param password New password.
+     */
+    @Transactional
+    @Override
+    public void restore( String hash, String password ) {
+        //- Search request for recovering access -//
+        RecoveryAccess recoveryAccess = this.accessRecoveryRepository.findByHash( hash );
+
+        //- Check if request was -//
+        notNull( recoveryAccess );
+
+        //- Get user -//
+        User user = recoveryAccess.getUser();
+
+        //- Get access -//
+        List<Access> access = user.getAccess();
+
+        //- Update access params -//
+        access.get( 0 ).setPassword(
+            this.passwordEncoder.encodePassword(
+                password,
+                null
+            )
+        );
+
+        //- Save changes -//
+        this.userService.update( user );
+
+        //- Delete request for recovering -//
+        this.accessRecoveryRepository.delete( recoveryAccess );
     }
 }
