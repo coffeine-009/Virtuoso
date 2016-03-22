@@ -28,7 +28,7 @@ public class ComposerMock {
      *
      * @return List of Composers.
      */
-    public static List< Composer > findAll() {
+    public static List<Composer> findAll() {
         //- Mock composer -//
         final Composer composer = new Composer(
             "uk-UA",

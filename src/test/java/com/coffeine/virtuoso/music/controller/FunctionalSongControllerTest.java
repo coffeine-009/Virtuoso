@@ -19,6 +19,9 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -89,6 +92,24 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$[*].data", notNullValue() ) )
             .andExpect( jsonPath( "$[*].staffs", notNullValue() ) )
             .andExpect( jsonPath( "$[*].texts", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].videos", notNullValue() ) );
+            .andExpect( jsonPath( "$[*].videos", notNullValue() ) )
+            .andDo(
+                document(
+                    "songs-list-example",
+                    responseFields(
+                        fieldWithPath( "[].id" ).description( "Id of song." ),
+                        fieldWithPath( "[].composers" ).description( "List of composers." ),
+                        fieldWithPath( "[].poets" ).description( "List of poets." ),
+                        fieldWithPath( "[].data" ).description( "Localized data of song." ),
+                        fieldWithPath( "[].staffs" ).description( "List of musical notes." ),
+                        fieldWithPath( "[].texts" ).description( "List of texts." ),
+                        fieldWithPath( "[].videos" ).description( "List of videos." ),
+                        fieldWithPath( "[].locale" ).description( "Locale of song." ),
+                        fieldWithPath( "[].writeDate" ).description( "Write date of song." ),
+                        fieldWithPath( "[].title" ).description( "Title of song for current locale." ),
+                        fieldWithPath( "[].creation" ).description( "Time of creation of this record." )
+                    )
+                )
+            );
     }
 }

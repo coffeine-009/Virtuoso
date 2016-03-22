@@ -203,17 +203,27 @@ include::{snippets}/access-recovery-failure-example/http-response.adoc[]
 
 
 
-[[resources-note]]
-== Note
+[[resources-songs]]
+== Songs
 
-The Note resource is used to retrieve, update, and delete individual notes
+The Songs resource is used to retrieve, update, and delete individual songs.
 
 
 
-[[resources-note-links]]
-=== Links
+[[resources-songs-list]]
+=== Songs list
 
-//include::{snippets}/note-get-example/links.adoc[]
+==== Response structure
+
+include::{snippets}/songs-list-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/songs-list-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/songs-list-example/http-response.adoc[]
 
 
 
