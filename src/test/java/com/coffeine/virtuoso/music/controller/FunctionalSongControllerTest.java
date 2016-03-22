@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class FunctionalSongControllerTest extends AbstractRestControllerTest {
 
     /**
-     * Init environment for run test
+     * Init environment for run test.
      */
     @Before
     @Override
@@ -42,14 +41,19 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
         super.tearUp();
     }
 
+    /**
+     * Test successful getting list of songs.
+     *
+     * @throws Exception    General application exception.
+     */
     @Test
     public void testListActionSuccess() throws Exception {
 
         // Success. Get list of songs
         this.mockMvc.perform(
             get( "/music/songs?page={page}&limit={limit}", 1, 10 )
-            .session( this.session )
-        ).andDo( print() )
+            .header( "Authorization", this.session.getAuthorizationHeader() )
+        )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$", hasSize( 1 ) ) )
