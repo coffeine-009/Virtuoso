@@ -67,7 +67,7 @@ public class InEnumValidatorImpl implements ConstraintValidator<InEnum, List<Str
         @SuppressWarnings( "rawtypes" )
         Enum[] enumValArr = enumClass.getEnumConstants();
 
-        for( Enum enumVal : enumValArr ) {
+        for ( Enum enumVal: enumValArr ) {
             valueList.add( enumVal.toString().toUpperCase() );
         }
 

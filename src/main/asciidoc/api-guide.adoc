@@ -203,36 +203,52 @@ include::{snippets}/access-recovery-failure-example/http-response.adoc[]
 
 
 
-[[resources-note]]
-== Note
+[[resources-songs]]
+== Songs
 
-The Note resource is used to retrieve, update, and delete individual notes
-
-
-
-[[resources-note-links]]
-=== Links
-
-//include::{snippets}/note-get-example/links.adoc[]
+The Songs resource is used to retrieve, update, and delete individual songs.
 
 
 
-[[resources-note-retrieve]]
-=== Retrieve a note
-
-A `GET` request will retrieve the details of a note
+[[resources-songs-list]]
+=== Songs list
 
 ==== Response structure
 
-//include::{snippets}/note-get-example/response-fields.adoc[]
+include::{snippets}/songs-list-example/response-fields.adoc[]
 
 ==== Example request
 
-//include::{snippets}/note-get-example/curl-request.adoc[]
+include::{snippets}/songs-list-example/http-request.adoc[]
 
 ==== Example response
 
-//include::{snippets}/note-get-example/http-response.adoc[]
+include::{snippets}/songs-list-example/http-response.adoc[]
+
+
+
+[[resources-song-retrieve]]
+=== Retrieve a song
+
+A `GET` request will retrieve the details of a song
+
+==== Response structure
+
+include::{snippets}/song-get-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/song-get-example/http-request.adoc[]
+
+==== Example response
+
+==== Success
+
+include::{snippets}/song-get-example/http-response.adoc[]
+
+==== Failure
+
+include::{snippets}/song-get-failure-example/http-response.adoc[]
 
 
 
