@@ -125,7 +125,7 @@ public class SongTest extends AbstractModel {
         //- Validate -//
         constraintViolationSet = validator.validate( songFailure );
 
-        assertEquals( 8, constraintViolationSet.size() );
+        assertEquals( 5, constraintViolationSet.size() );
         for ( ConstraintViolation<Song> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(

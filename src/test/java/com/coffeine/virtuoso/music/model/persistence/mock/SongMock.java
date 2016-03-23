@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @version 1.0
  */
-public class SongMock {
+public abstract class SongMock {
 
     /**
      * Get list of songs.
@@ -37,5 +37,21 @@ public class SongMock {
         return new ArrayList<Song>() {{
             add( song );
         }};
+    }
+
+    /**
+     * Get song.
+     *
+     * @return Song.
+     */
+    public static Song retrieve() {
+        Song song = new Song(
+            ComposerMock.findAll(),
+            PoetMock.findAll(),
+            "uk-UA"
+        );
+        song.setId( 1L );
+
+        return song;
     }
 }

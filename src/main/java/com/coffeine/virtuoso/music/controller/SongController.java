@@ -145,7 +145,7 @@ public class SongController {
     }
 
     /**
-     * Get data about song by ID.
+     * Get data about song by Id.
      *
      * @param id        id of song.
      * @param response  Use for work with HTTP.

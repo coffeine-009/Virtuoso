@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -176,10 +177,74 @@ public class SongControllerTest extends AbstractRestControllerTest {
 //        this.fail("To implement");
     }
 
-    @Ignore
+    /**
+     * Test of retrieving song by id.
+     * Success.
+     *
+     * @throws Exception    General Exception of application.
+     */
     @Test
-    public void testReadAction() throws Exception {
-        //this.fail("To implement");
+    public void testRetrieveAction() throws Exception {
+        //- Mock service -//
+        when( songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+
+        // Success. Get list of songs
+        this.mockMvc.perform(
+            get( "/music/songs/{id}", 1 )
+        )
+            .andExpect( status().isOk() )
+            .andExpect( jsonPath( "$", notNullValue() ) )
+            .andExpect( jsonPath( "$id", notNullValue() ) )
+            .andExpect( jsonPath( "$id" ).value( 1 ) )
+            //- Composer -//
+            .andExpect( jsonPath( "$composers", notNullValue() ) )
+            .andExpect( jsonPath( "$composers", not( empty() ) ) )
+            .andExpect( jsonPath( "$composers", hasSize( 1 ) ) )
+            .andExpect( jsonPath( "$composers[*].id", containsInAnyOrder( 1 ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$composers[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$composers[*].gender", containsInAnyOrder( true ) ) )
+            .andExpect( jsonPath( "$composers[*].birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$composers[0].deathDate", nullValue() ) )
+            //- Poet -//
+            .andExpect( jsonPath( "$poets[*].id", containsInAnyOrder( 1 ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$poets[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$poets[*].gender", containsInAnyOrder( true ) ) )
+            .andExpect( jsonPath( "$poets[*].birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$poets[0].deathDate", nullValue() ) )
+            //- Song -//
+//            .andExpect( jsonPath( "$title", notNullValue() ) )//FIXME
+            .andExpect( jsonPath( "$locale", notNullValue() ) )
+//            .andExpect( jsonPath( "$writeDate", notNullValue() ) )//FIXME
+            .andExpect( jsonPath( "$data", notNullValue() ) )
+            .andExpect( jsonPath( "$staffs", notNullValue() ) )
+            .andExpect( jsonPath( "$texts", notNullValue() ) )
+            .andExpect( jsonPath( "$videos", notNullValue() ) );
+    }
+
+    /**
+     * Test of retrieving song by id.
+     * Failure.
+     *
+     * @throws Exception    General Exception of application.
+     */
+    @Test
+    public void testRetrieveActionFailure() throws Exception {
+        //- Mock service -//
+        when( songService.find( anyLong() ) ).thenReturn( null );
+
+        // Success. Get list of songs
+        this.mockMvc.perform(
+            get( "/music/songs/{id}", 1 )
+        )
+            .andExpect( status().isNotFound() );
     }
 
     @Ignore
