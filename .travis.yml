@@ -3,5 +3,6 @@ jdk:
   - oraclejdk8
 sudo: required
 before_install:
-  - mkdir /var/log/virtuoso
-  - touch /var/log/virtuoso/actions.log
+  - sudo mkdir /var/log/virtuoso
+  - sudo touch /var/log/virtuoso/actions.log
+  - sudo chmod -R 0777 /var/log/virtuoso
