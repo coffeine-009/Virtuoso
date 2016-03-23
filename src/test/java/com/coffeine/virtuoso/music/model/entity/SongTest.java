@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -26,19 +26,20 @@ import static org.junit.Assert.assertTrue;
 
 
 /**
- * Tests for Song
+ * Tests for Song.
  *
  * @see Song
  * @version 1.0
  */
 public class SongTest extends AbstractModel {
+
     /**
-     * Test field validation for entity field correct
+     * Test field validation for entity field correct.
      */
     @Test
     public void testSongFieldsSuccess() {
 
-        Set < ConstraintViolation < Song > > constraintViolationSet;
+        Set<ConstraintViolation<Song>> constraintViolationSet;
 
         //- Successful-//
         //- Create entity-//
@@ -48,7 +49,7 @@ public class SongTest extends AbstractModel {
             //- Create poet-//
             PoetMock.findAll(),
             //- Create list of song locale -//
-            new ArrayList < SongLocale >() {{
+            new ArrayList<SongLocale>() {{
                 add(
                     new SongLocale(
                         "user",
@@ -57,7 +58,7 @@ public class SongTest extends AbstractModel {
                 );
             }},
             //- Create list of staff -//
-            new ArrayList < Staff >() {{
+            new ArrayList<Staff>() {{
                 add(
                     new Staff(
                         new StaffType(
@@ -75,7 +76,7 @@ public class SongTest extends AbstractModel {
                 );
             }},
             //- Create list of text -//
-            new ArrayList < Text >() {{
+            new ArrayList<Text>() {{
                 add(
                     new Text(
                         "uk-UA"
@@ -83,7 +84,7 @@ public class SongTest extends AbstractModel {
                 );
             }},
             //- Create list of video -//
-            new ArrayList < Video >() {{
+            new ArrayList<Video>() {{
                 add(
                     new Video(
                         new VideoType(
@@ -106,11 +107,11 @@ public class SongTest extends AbstractModel {
     }
 
     /**
-     * Test field validation for entity field failure
+     * Test field validation for entity field failure.
      */
     @Test
     public void testSongFieldsFailure() {
-        Set < ConstraintViolation < Song > > constraintViolationSet;
+        Set<ConstraintViolation<Song>> constraintViolationSet;
 
         //- Failure -//
         //- Create entity -//
@@ -125,14 +126,14 @@ public class SongTest extends AbstractModel {
         constraintViolationSet = validator.validate( songFailure );
 
         assertEquals( 8, constraintViolationSet.size() );
-        for ( ConstraintViolation < Song > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Song> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
-                    add("data");
-                    add("staffs");
-                    add("texts");
-                    add("locale");
+                new ArrayList<String>() {{
+                    add( "data" );
+                    add( "staffs" );
+                    add( "texts" );
+                    add( "locale" );
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -141,7 +142,7 @@ public class SongTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotNull.class );
                     add( NotEmpty.class );
                 }}.contains(
@@ -150,7 +151,7 @@ public class SongTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be null" );
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
@@ -162,7 +163,7 @@ public class SongTest extends AbstractModel {
         Song songFailureNull = new Song(
             null,
             null,
-            new ArrayList < SongLocale >() {{
+            new ArrayList<SongLocale>() {{
                 add(
                     new SongLocale(
                         "user",
@@ -170,7 +171,7 @@ public class SongTest extends AbstractModel {
                     )
                 );
             }},
-            new ArrayList < Staff >() {{
+            new ArrayList<Staff>() {{
                 add(
                     new Staff(
                         new StaffType(
@@ -187,14 +188,14 @@ public class SongTest extends AbstractModel {
                     )
                 );
             }},
-            new ArrayList < Text >() {{
+            new ArrayList<Text>() {{
                 add(
                     new Text(
                         "uk-UA"
                     )
                 );
             }},
-            new ArrayList < Video >() {{
+            new ArrayList<Video>() {{
                 add(
                     new Video(
                         new VideoType(
@@ -214,12 +215,12 @@ public class SongTest extends AbstractModel {
         constraintViolationSet = validator.validate( songFailureNull );
 
         assertEquals( 2, constraintViolationSet.size() );
-        for( ConstraintViolation < Song > constraintViolation : constraintViolationSet ) {
+        for( ConstraintViolation<Song> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
-                    add("composers");
-                    add("poets");
+                new ArrayList<String>() {{
+                    add( "composers" );
+                    add( "poets" );
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -228,7 +229,7 @@ public class SongTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotNull.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -236,7 +237,7 @@ public class SongTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be null" );
                 }}.contains( constraintViolation.getMessage() )
             );
@@ -249,7 +250,7 @@ public class SongTest extends AbstractModel {
             //- Create poet-//
             PoetMock.findAll(),
             //- Create list of song locale -//
-            new ArrayList < SongLocale >() {{
+            new ArrayList<SongLocale>() {{
                 add(
                     new SongLocale(
                         "user",
@@ -276,7 +277,7 @@ public class SongTest extends AbstractModel {
                 );
             }},
             //- Create list of text -//
-            new ArrayList < Text >() {{
+            new ArrayList<Text>() {{
                 add(
                     new Text(
                         "uk-UA"
@@ -284,7 +285,7 @@ public class SongTest extends AbstractModel {
                 );
             }},
             //- Create list of video -//
-            new ArrayList < Video >() {{
+            new ArrayList<Video>() {{
                 add(
                     new Video(
                         new VideoType(
@@ -305,10 +306,10 @@ public class SongTest extends AbstractModel {
 
         assertEquals( 1, constraintViolationSet.size() );
 
-        for ( ConstraintViolation < Song > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Song> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "locale" );
                 }}.contains(
                     this.getPropertyName(
@@ -318,7 +319,7 @@ public class SongTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( Length.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -326,7 +327,7 @@ public class SongTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "length must be between 0 and 5" );
                 }}.contains( constraintViolation.getMessage() )
             );
@@ -339,7 +340,7 @@ public class SongTest extends AbstractModel {
     @Test
     public void testSongFieldEmpty() {
 
-        Set < ConstraintViolation < Song > > constraintViolationSet;
+        Set<ConstraintViolation<Song>> constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
@@ -349,27 +350,27 @@ public class SongTest extends AbstractModel {
             //- Create poet-//
             PoetMock.findAll(),
             //- Create list of song locale -//
-            new ArrayList < SongLocale >(),
+            new ArrayList<>(),
             //- Create list of staff -//
-            new ArrayList < Staff >(),
+            new ArrayList<>(),
             //- Create list of text -//
-            new ArrayList < Text >(),
+            new ArrayList<>(),
             //- Create list of video -//
-            new ArrayList < Video >(),
+            new ArrayList<>(),
             ""
         );
         //- Validate-//
         constraintViolationSet = validator.validate( songFailureEmpty );
 
         assertEquals( 4 , constraintViolationSet.size() );
-        for ( ConstraintViolation < Song > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation<Song> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "data" );
-                    add( "staffs");
-                    add( "texts");
-                    add( "locale");
+                    add( "staffs" );
+                    add( "texts" );
+                    add( "locale" );
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()
@@ -378,7 +379,7 @@ public class SongTest extends AbstractModel {
             );
             //- Annotation type -//
             assertTrue(
-                new ArrayList < Class >() {{
+                new ArrayList<Class>() {{
                     add( NotEmpty.class );
                 }}.contains(
                     constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
@@ -386,7 +387,7 @@ public class SongTest extends AbstractModel {
             );
             //- Message -//
             assertTrue(
-                new ArrayList < String >() {{
+                new ArrayList<String>() {{
                     add( "may not be empty" );
                 }}.contains( constraintViolation.getMessage() )
             );

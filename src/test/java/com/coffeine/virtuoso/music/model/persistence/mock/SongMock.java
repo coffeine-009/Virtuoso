@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -14,22 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mock for song table in persistence layout
+ * Mock for song table in persistence layout.
  *
  * @version 1.0
  */
 public class SongMock {
 
     /**
-     * Get list of songs
+     * Get list of songs.
      *
      * @return List of Songs.
      */
     public static List<Song> getList() {
-        return new ArrayList < Song >() {{
-            add(
-                new Song()
-            );
+        //- Create mock for song -//
+        final Song song = new Song(
+            ComposerMock.findAll(),
+            PoetMock.findAll(),
+            "uk-UA"
+        );
+        song.setId( 1L );
+
+        return new ArrayList<Song>() {{
+            add( song );
         }};
     }
 }

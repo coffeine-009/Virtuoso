@@ -114,7 +114,7 @@ public class Song implements Serializable {
             )
         }
     )
-    protected List<Poet> poets;
+    protected List<Poet> poets = new ArrayList<>();
 
     @JsonProperty( "title" )
     @Transient
@@ -285,6 +285,7 @@ public class Song implements Serializable {
         }
 
         for( Staff staff : staffs ) {
+            staff.setSong( this );
             this.addStaff( staff );
         }
 
@@ -312,7 +313,9 @@ public class Song implements Serializable {
         String locale
     ) {
         this.composers = composers;
-        this.poets = poets;
+        poets.forEach( (poet) -> {
+            this.poets.add( poet );
+        });
         this.data = null;
         this.staffs = null;
         this.texts = null;
@@ -434,7 +437,7 @@ public class Song implements Serializable {
      *
      * @param composers Composer of song
      */
-    public void setComposers(List<Composer> composers) {
+    public void setComposers( List<Composer> composers ) {
         this.composers = composers;
     }
 
@@ -443,7 +446,7 @@ public class Song implements Serializable {
      *
      * @param poets Poet of song
      */
-    public void setPoets(List<Poet> poets) {
+    public void setPoets( List<Poet> poets ) {
         this.poets = poets;
     }
 
@@ -461,7 +464,7 @@ public class Song implements Serializable {
      *
      * @param staffs List of staffs
      */
-    public void setStaffs(List<Staff> staffs) {
+    public void setStaffs( List<Staff> staffs ) {
         this.staffs = staffs;
     }
 

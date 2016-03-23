@@ -168,7 +168,7 @@ public class VideoTypeControllerTest extends AbstractRestControllerTest {
         this.mockMvc.perform(
             get( URI_LIST, "1", "2" )
                 .contentType( MediaType.APPLICATION_JSON )
-                .session( this.session )
+//                .session( this.session )
         ).andDo( print() );
 //            .andExpect( status().isOk() );
     }

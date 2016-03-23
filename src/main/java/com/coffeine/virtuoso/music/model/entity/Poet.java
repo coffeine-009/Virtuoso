@@ -1,20 +1,20 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import com.coffeine.virtuoso.main.model.serializer.JsonDateSerializer;
 import com.coffeine.virtuoso.security.model.entity.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -93,11 +93,11 @@ public class Poet implements Serializable {
     @Column( name = "gender" )
     protected Boolean gender;
 
-    @JsonSerialize( using = LocalDateSerializer.class )
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "birthday", columnDefinition = "TIMESTAMP NULL" )
     protected LocalDate birthday;
 
-    @JsonSerialize( using = LocalDateSerializer.class )
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "deathDate", columnDefinition = "TIMESTAMP NULL" )
     protected LocalDate deathDate;
 
@@ -115,7 +115,7 @@ public class Poet implements Serializable {
     public Poet() {
 
         //- Initialization -//
-        this.data = new ArrayList < PoetLocale >();
+        this.data = new ArrayList<>();
     }
 
     /**
@@ -129,7 +129,7 @@ public class Poet implements Serializable {
         Boolean gender,
         LocalDate birthday,
         LocalDate deathDate,
-        List < PoetLocale > data
+        List<PoetLocale> data
     ) {
         //- Check params -//
         notNull( data );
@@ -141,7 +141,7 @@ public class Poet implements Serializable {
         this.deathDate = deathDate;
         this.data = data;
 
-        for ( PoetLocale poetLocale : this.data ) {
+        for ( PoetLocale poetLocale: this.data ) {
             poetLocale.setPoet( this );
         }
     }
@@ -155,17 +155,47 @@ public class Poet implements Serializable {
      */
     public Poet(
         User user,
-        List < PoetLocale > data,
+        List<PoetLocale> data,
         String locale
     ) {
         this();
 
         this.user = user;
 
-        for( PoetLocale poetLocale : data ) {
+        for( PoetLocale poetLocale: data ) {
             this.addPoetLocale( poetLocale );
         }
         this.locale = locale;
+    }
+
+    /**
+     * Constructor for creating a new poet fully filled.
+     *
+     * @param user         User.
+     * @param data         Localized data.
+     * @param locale       Locale.
+     * @param gender       Gender.
+     * @param birthday     Birthday.
+     * @param deathDate    Date of death.
+     */
+    public Poet(
+        User user,
+        List<PoetLocale> data,
+        String locale,
+        Boolean gender,
+        LocalDate birthday,
+        LocalDate deathDate
+    ) {
+        this.user = user;
+
+        data.forEach( (localizedData) -> {
+            localizedData.setPoet( this );
+            this.data.add( localizedData );
+        });
+        this.locale = locale;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.deathDate = deathDate;
     }
 
     /**
@@ -206,7 +236,7 @@ public class Poet implements Serializable {
      *
      * @return
      */
-    public List < PoetLocale > getData() {
+    public List<PoetLocale> getData() {
         return data;
     }
 
@@ -270,15 +300,15 @@ public class Poet implements Serializable {
      *
      * @param data
      */
-    public void setData( List < PoetLocale > data ) {
+    public void setData( List<PoetLocale> data ) {
         this.data = data;
     }
 
-    public void setLocale(String locale) {
+    public void setLocale( String locale ) {
         this.locale = locale;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender( Boolean gender ) {
         this.gender = gender;
     }
 
@@ -296,7 +326,7 @@ public class Poet implements Serializable {
      *
      * @param deathDate
      */
-    public void setDeathDate(LocalDate deathDate) {
+    public void setDeathDate( LocalDate deathDate ) {
         this.deathDate = deathDate;
     }
 
