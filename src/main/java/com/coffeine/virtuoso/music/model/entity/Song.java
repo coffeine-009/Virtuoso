@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -9,7 +9,6 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -81,7 +80,7 @@ public class Song implements Serializable {
             )
         }
     )
-    protected List<Composer> composers;
+    protected List<Composer> composers = new ArrayList<>();
 
     @JsonManagedReference
     @NotNull
@@ -114,9 +113,8 @@ public class Song implements Serializable {
             )
         }
     )
-    protected List<Poet> poets;
+    protected List<Poet> poets = new ArrayList<>();
 
-    @JsonProperty( "title" )
     @Transient
     protected String title;
 
@@ -238,17 +236,9 @@ public class Song implements Serializable {
         this.composers = composers;
         this.poets = poets;
 
-        for ( SongLocale songLocale : data ) {
-            this.addSongLocale( songLocale );
-        }
-
-        for ( Text text : texts ) {
-            this.addText( text );
-        }
-
-        for( Video video : videos ) {
-            this.addVideo( video );
-        }
+        data.forEach( songLocale -> this.addSongLocale( songLocale ) );
+        texts.forEach( text -> this.addText( text ) );
+        videos.forEach( video -> this.addVideo( video ) );
 
         this.locale = locale;
     }
@@ -285,6 +275,7 @@ public class Song implements Serializable {
         }
 
         for( Staff staff : staffs ) {
+            staff.setSong( this );
             this.addStaff( staff );
         }
 
@@ -312,10 +303,9 @@ public class Song implements Serializable {
         String locale
     ) {
         this.composers = composers;
-        this.poets = poets;
-        this.data = null;
-        this.staffs = null;
-        this.texts = null;
+        poets.forEach( (poet) -> {
+            this.poets.add( poet );
+        });
         this.locale = locale;
     }
 
@@ -323,7 +313,7 @@ public class Song implements Serializable {
     /**
      * Get ID of song.
      *
-     * @return Long ID of song
+     * @return Long ID of song.
      */
     public Long getId() {
         return this.id;
@@ -332,7 +322,7 @@ public class Song implements Serializable {
     /**
      * Get composer of song.
      *
-     * @return Composer
+     * @return Composer.
      */
     public List<Composer> getComposers() {
         return composers;
@@ -341,7 +331,7 @@ public class Song implements Serializable {
     /**
      * Get poet of song.
      *
-     * @return Poet
+     * @return Poet.
      */
     public List<Poet> getPoets() {
         return poets;
@@ -350,7 +340,7 @@ public class Song implements Serializable {
     /**
      * Get title of song.
      *
-     * @return String
+     * @return String.
      */
     public String getTitle() {
         return title;
@@ -394,7 +384,7 @@ public class Song implements Serializable {
     /**
      * Get locate of song.
      *
-     * @return String
+     * @return String.
      */
     public String getLocale() {
         return locale;
@@ -403,7 +393,7 @@ public class Song implements Serializable {
     /**
      * Get song's date of write.
      *
-     * @return Calendar
+     * @return Calendar.
      */
     public Calendar getWriteDate() {
         return writeDate;
@@ -421,7 +411,7 @@ public class Song implements Serializable {
 
     //- SECTION :: SET -//
     /**
-     * Set ID of song
+     * Set ID of song.
      *
      * @param id ID of song.
      */
@@ -434,23 +424,23 @@ public class Song implements Serializable {
      *
      * @param composers Composer of song
      */
-    public void setComposers(List<Composer> composers) {
+    public void setComposers( List<Composer> composers ) {
         this.composers = composers;
     }
 
     /**
      * Set poet of this song.
      *
-     * @param poets Poet of song
+     * @param poets Poet of song.
      */
-    public void setPoets(List<Poet> poets) {
+    public void setPoets( List<Poet> poets ) {
         this.poets = poets;
     }
 
     /**
      * Set data for current locale.
      *
-     * @param data Localized data
+     * @param data Localized data.
      */
     public void setData( List<SongLocale> data ) {
         this.data = data;
@@ -459,16 +449,16 @@ public class Song implements Serializable {
     /**
      * Set musical staffs.
      *
-     * @param staffs List of staffs
+     * @param staffs List of staffs.
      */
-    public void setStaffs(List<Staff> staffs) {
+    public void setStaffs( List<Staff> staffs ) {
         this.staffs = staffs;
     }
 
     /**
      * Set text.
      *
-     * @param texts List of texts
+     * @param texts List of texts.
      */
     public void setTexts( List<Text> texts ) {
         this.texts = texts;
@@ -477,7 +467,7 @@ public class Song implements Serializable {
     /**
      * Set video.
      *
-     * @param videos List of videos
+     * @param videos List of videos.
      */
     public void setVideos( List<Video> videos ) {
         this.videos = videos;
@@ -495,7 +485,7 @@ public class Song implements Serializable {
     /**
      * Set song's date of write.
      *
-     * @param writeDate Date of write
+     * @param writeDate Date of write.
      */
     public void setWriteDate( Calendar writeDate ) {
         this.writeDate = writeDate;
@@ -508,11 +498,11 @@ public class Song implements Serializable {
     }
 
     /**
+     * Add text.
      *
-     *
-     * @param text
+     * @param text    Text of song.
      */
-    public void addText( Text text) {
+    public void addText( Text text ) {
         //- Set Song-//
         text.setSong( this );
 
@@ -527,17 +517,17 @@ public class Song implements Serializable {
         songLocale.setSong( this );
 
         //- Add song locale -//
-        if( !this.data.contains( songLocale )) {
+        if( !this.data.contains( songLocale ) ) {
             this.data.add( songLocale );
         }
     }
 
-    public void addStaff( Staff staff) {
+    public void addStaff( Staff staff ) {
         //- Set Song-//
         staff.setSong( this );
 
         //- Add staff -//
-        if( !this.staffs.contains( staff )) {
+        if( !this.staffs.contains( staff ) ) {
             this.staffs.add( staff );
         }
     }
@@ -547,7 +537,7 @@ public class Song implements Serializable {
         video.setSong( this );
 
         //- Add video-//
-        if( !this.videos.contains( video )) {
+        if( !this.videos.contains( video ) ) {
             this.videos.add( video );
         }
     }

@@ -1,25 +1,27 @@
 /**
- * @copyright (c) 2014, by Coffeine
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
- * @date 9/21/14 6:27 PM :: 9/28/14 8:06 PM
- *
- * @address /Ukraine/Ivano-Frankivsk
+ * @date 9/21/14 6:27 PM
  */
 
 package com.coffeine.virtuoso.module.controller;
 
-import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.codec.binary.Base64;
 import org.mockito.MockitoAnnotations;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Date;
+
+import static org.junit.Assert.fail;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 /**
- * Abstract test for rest controllers
+ * Abstract test for rest controllers.
  *
  * @version 1.0
  */
@@ -28,27 +30,73 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
     /**
      * Mocked session
      */
-    protected MockHttpSession session;
+    protected Token session = new Token();
 
     /**
-     * Mock for security context
+     * Authorization data.
+     * Used for doing private requests.
      */
-    public static class MockSecurityContext implements SecurityContext {
+    protected static class Token {
 
-        private Authentication authentication;
+        @JsonProperty( "token_type" )
+        private String type;
 
-        public MockSecurityContext(Authentication authentication) {
-            this.authentication = authentication;
+        private String scope;
+
+        @JsonProperty( "expires_in" )
+        private Date expiresIn;
+
+        @JsonProperty( "access_token" )
+        private String accessToken;
+
+        @JsonProperty( "refresh_token" )
+        private String refreshToken;
+
+
+        public String getType() {
+            return type;
         }
 
-        @Override
-        public Authentication getAuthentication() {
-            return authentication;
+        public String getScope() {
+            return scope;
         }
 
-        @Override
-        public void setAuthentication(Authentication authentication) {
-            this.authentication = authentication;
+        public Date getExpiresIn() {
+            return expiresIn;
+        }
+
+        public String getAccessToken() {
+            return accessToken;
+        }
+
+        public String getRefreshToken() {
+            return refreshToken;
+        }
+
+        public String getAuthorizationHeader() {
+            return this.type.substring(0, 1).toUpperCase()
+                + this.type.substring(1) + " " + this.accessToken;
+        }
+
+
+        public void setType( String type ) {
+            this.type = type;
+        }
+
+        public void setScope( String scope ) {
+            this.scope = scope;
+        }
+
+        public void setExpiresIn( Date expiresIn ) {
+            this.expiresIn = expiresIn;
+        }
+
+        public void setAccessToken( String accessToken ) {
+            this.accessToken = accessToken;
+        }
+
+        public void setRefreshToken( String refreshToken ) {
+            this.refreshToken = refreshToken;
         }
     }
 
@@ -59,20 +107,51 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
      */
     @Override
     public void tearUp() {
+        //- Prepare parent controller -//
         super.tearUp();
 
-        AuthenticationToken authenticationToken = new AuthenticationToken(
-            "user@virtuoso.com",
-            "P@$$w0rd",
-            null
-        );
-        this.session = new MockHttpSession();
-            session.setAttribute(
-                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                new MockSecurityContext(authenticationToken)
-            );
+        //- Authorize user -//
+        authorization();
 
         //- Init mocks -//
         MockitoAnnotations.initMocks( this );
+    }
+
+    /**
+     * Helper for authorization of user for testing.
+     * FIXME: investigate how to mock session.
+     */
+    private void authorization() {
+        //- Authorize user for tests -//
+        try {
+            //- Success -//
+            final MvcResult result = this.mockMvc.perform(
+                post( "/oauth/token" )
+                    .contentType( MediaType.APPLICATION_FORM_URLENCODED )
+                    .header(
+                        "Authorization",
+                        "Basic " + new String(
+                            Base64.encodeBase64(
+                                "developer:developer32".getBytes()
+                            )
+                        )
+                    )
+                    .param( "grant_type", "password" )
+                    .param( "scope", "read" )
+                    .param( "clientId", "developer" )
+                    .param( "clientSecret", "developer32" )
+                    .param( "username", "user@virtuoso.com" )
+                    .param( "password", "123" )
+            )
+                .andReturn();
+
+            this.session = new ObjectMapper().readValue(
+                result.getResponse().getContentAsByteArray(),
+                Token.class
+            );
+
+        } catch ( Exception e ) {
+            fail( "Cannot pass authorization." );
+        }
     }
 }
