@@ -1,3 +1,6 @@
 language: java
 jdk:
   - oraclejdk8
+before_install:
+  - mkdir /var/log/virtuoso
+  - touch /var/log/virtuoso/actions.log
