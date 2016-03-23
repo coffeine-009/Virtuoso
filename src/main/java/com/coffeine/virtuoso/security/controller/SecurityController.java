@@ -21,6 +21,7 @@ import com.coffeine.virtuoso.security.model.entity.User;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
 import com.coffeine.virtuoso.security.model.service.RoleService;
 import com.coffeine.virtuoso.security.model.service.UserService;
+import com.coffeine.virtuoso.security.view.form.AccessRecoveryForm;
 import com.coffeine.virtuoso.security.view.form.ForgotPasswordForm;
 import com.coffeine.virtuoso.security.view.form.RegistrationForm;
 
@@ -207,8 +208,9 @@ public class SecurityController {
 
     /**
      * Forgot password.
+     * Request for recovering access.
      *
-     * @param form    Filled form if you forgot password
+     * @param form    Filled form if you forgot password.
      */
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
     @ResponseBody
@@ -220,7 +222,7 @@ public class SecurityController {
         HttpServletResponse response
     ) {
         //- Log action -//
-        log.info( ACTION_MARKER, "Recovery password." );
+        log.info( ACTION_MARKER, "Request for recovering password." );
 
         //- Try to make request for recovery access to account -//
         try {
@@ -234,6 +236,38 @@ public class SecurityController {
         } catch ( IOException e ) {
             //- Error. Cannot apply template -//
             response.setStatus( HttpServletResponse.SC_INTERNAL_SERVER_ERROR );
+        }
+    }
+
+    /**
+     * Recovery access.
+     *
+     * @param form        Form with data for recovering.
+     * @param response    HTTP response.
+     */
+    @RequestMapping( value = "/access/recovery", method = RequestMethod.POST )
+    @ResponseBody
+    public void accessRecoveryAction(
+        @Valid
+        @RequestBody
+        AccessRecoveryForm form,
+
+        HttpServletResponse response
+    ) {
+        //- Log action -//
+        log.info( ACTION_MARKER, "Access recovery::Reset password." );
+
+        try {
+            //- Set up new access params -//
+            this.accessRecoveryService.restore(
+                form.getHash(),
+                form.getPassword()
+            );
+        } catch ( DataIntegrityViolationException | IllegalArgumentException e ) {
+            //- Invalid request -//
+            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+
+            log.error( "Cannot recovery access.", e );
         }
     }
 }

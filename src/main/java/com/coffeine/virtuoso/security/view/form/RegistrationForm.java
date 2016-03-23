@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 11/30/15 11:14 PM
  */
@@ -63,8 +63,8 @@ public class RegistrationForm {
     protected String locale;
 
     @NotNull
-    @JsonDeserialize( using = LocalDateDeserializer.class )
-    protected LocalDate birthday;//FIXME: Add validation for date format
+    @JsonDeserialize( using = LocalDateDeserializer.class )//FIXME: Add validation for date format
+    protected LocalDate birthday;
 
     @JsonDeserialize( using = LocalDateDeserializer.class )
     protected LocalDate deathDate;

@@ -25,7 +25,7 @@ use of HTTP verbs.
 | `POST`
 | Used to create a new resource
 
-| `PUT`
+| `PUT`, `PATCH`
 | Used to update an existing resource, including partial updates
 
 | `DELETE`
@@ -64,12 +64,12 @@ use of HTTP status codes.
 Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
 that describes the problem. The error object has the following structure:
 
-include::{snippets}/error-example/response-fields.adoc[]
+include::{snippets}/access-recovery-forgot-password-failure-example/response-fields.adoc[]
 
 For example, a request that attempts to apply a non-existent tag to a note will produce a
 `400 Bad Request` response:
 
-include::{snippets}/error-example/http-response.adoc[]
+include::{snippets}/access-recovery-forgot-password-failure-example/http-response.adoc[]
 
 [[overview-hypermedia]]
 == Hypermedia
@@ -122,69 +122,133 @@ Authorization of users.
 
 A `POST` request will try to authorize user by credentials.
 
+==== Request structure
+
+include::{snippets}/sign-in-example/request-parameters.adoc[]
+
 ==== Response structure
 
-include::{snippets}/signin-example/response-fields.adoc[]
+include::{snippets}/sign-in-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/signin-example/http-request.adoc[]
+include::{snippets}/sign-in-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/signin-example/http-response.adoc[]
+===== Success
+
+include::{snippets}/sign-in-example/http-response.adoc[]
+
+===== Failure
+
+include::{snippets}/sign-in-fail-example/http-response.adoc[]
 
 
 
-[[resources-tags-create]]
-=== Creating a tag
+[[resources-access-recovery]]
+== Access recovery
 
-A `POST` request is used to create a note
+
+[[resources-access-recovery-forgot-password]]
+=== Forgot password
+
+A `POST` request is used to start access recovery process
 
 ==== Request structure
 
-//include::{snippets}/tags-create-example/request-fields.adoc[]
+include::{snippets}/access-recovery-forgot-password-example/request-fields.adoc[]
 
 ==== Example request
 
-//include::{snippets}/tags-create-example/curl-request.adoc[]
+include::{snippets}/access-recovery-forgot-password-example/http-request.adoc[]
 
 ==== Example response
 
-//include::{snippets}/tags-create-example/http-response.adoc[]
+===== Success
+
+include::{snippets}/access-recovery-forgot-password-example/http-response.adoc[]
+
+===== Failure
+
+Input e-mail has not registered in system.
+
+include::{snippets}/access-recovery-forgot-password-failure-input-example/http-response.adoc[]
+
+
+[[resources-access-recovery-restore]]
+=== Restore access
+
+A `POST` request is used to finish access recovery process
+
+==== Request structure
+
+include::{snippets}/access-recovery-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/access-recovery-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+
+include::{snippets}/access-recovery-success-example/http-response.adoc[]
+
+===== Failure
+
+Input e-mail has not registered in system.
+
+include::{snippets}/access-recovery-failure-example/http-response.adoc[]
 
 
 
-[[resources-note]]
-== Note
+[[resources-songs]]
+== Songs
 
-The Note resource is used to retrieve, update, and delete individual notes
-
-
-
-[[resources-note-links]]
-=== Links
-
-//include::{snippets}/note-get-example/links.adoc[]
+The Songs resource is used to retrieve, update, and delete individual songs.
 
 
 
-[[resources-note-retrieve]]
-=== Retrieve a note
-
-A `GET` request will retrieve the details of a note
+[[resources-songs-list]]
+=== Songs list
 
 ==== Response structure
 
-//include::{snippets}/note-get-example/response-fields.adoc[]
+include::{snippets}/songs-list-example/response-fields.adoc[]
 
 ==== Example request
 
-//include::{snippets}/note-get-example/curl-request.adoc[]
+include::{snippets}/songs-list-example/http-request.adoc[]
 
 ==== Example response
 
-//include::{snippets}/note-get-example/http-response.adoc[]
+include::{snippets}/songs-list-example/http-response.adoc[]
+
+
+
+[[resources-song-retrieve]]
+=== Retrieve a song
+
+A `GET` request will retrieve the details of a song
+
+==== Response structure
+
+include::{snippets}/song-get-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/song-get-example/http-request.adoc[]
+
+==== Example response
+
+==== Success
+
+include::{snippets}/song-get-example/http-response.adoc[]
+
+==== Failure
+
+include::{snippets}/song-get-failure-example/http-response.adoc[]
 
 
 

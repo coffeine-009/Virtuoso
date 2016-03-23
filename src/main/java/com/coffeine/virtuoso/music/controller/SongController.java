@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -21,7 +21,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Locale;
@@ -46,7 +46,7 @@ import static org.springframework.util.Assert.notNull;
  *
  * @version 1.0
  */
-@Controller
+@RestController
 @RequestMapping( value = "/music/songs" )
 public class SongController {
 
@@ -63,10 +63,10 @@ public class SongController {
     /**
      * GET list of songs.
      *
-     * @param page Number of page.
+     * @param page  Number of page.
      * @param limit Count items per page.
      *
-     * @return List of songs for requested page
+     * @return List of songs for requested page.
      */
     @GET
     @RequestMapping( method = RequestMethod.GET )
@@ -145,7 +145,7 @@ public class SongController {
     }
 
     /**
-     * Get data about song by ID.
+     * Get data about song by Id.
      *
      * @param id        id of song.
      * @param response  Use for work with HTTP.

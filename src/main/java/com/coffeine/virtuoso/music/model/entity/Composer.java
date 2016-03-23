@@ -1,18 +1,20 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import com.coffeine.virtuoso.main.model.serializer.JsonDateSerializer;
 import com.coffeine.virtuoso.security.model.entity.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -105,10 +107,12 @@ public class Composer implements Serializable {
     @Column( name = "gender" )
     protected Boolean gender;
 
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "birthday", columnDefinition = "DATE" )
     protected LocalDate birthday;
 
     //TODO: add validation
+    @JsonSerialize( using = JsonDateSerializer.class )
     @Column( name = "deathDate", columnDefinition = "DATE" )
     protected LocalDate deathDate;
 
@@ -168,7 +172,7 @@ public class Composer implements Serializable {
         this.deathDate = deathDate;
         this.data = data;
 
-        for ( ComposerLocale composerLocale : this.data ) {
+        for ( ComposerLocale composerLocale: this.data ) {
             composerLocale.setComposer( this );
         }
     }
@@ -186,7 +190,7 @@ public class Composer implements Serializable {
         this();
 
         //- Set locales -//
-        for ( ComposerLocale composerLocale : data ) {
+        for ( ComposerLocale composerLocale: data ) {
             this.addComposerLocale( composerLocale );
         }
         this.locale = locale;
@@ -368,7 +372,7 @@ public class Composer implements Serializable {
      *
      * @param composerLocale
      */
-    public void addComposerLocale( ComposerLocale composerLocale) {
+    public void addComposerLocale( ComposerLocale composerLocale ) {
         //- Set composer-//
         composerLocale.setComposer( this );
 

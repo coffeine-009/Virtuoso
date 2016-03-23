@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/5/15 11:47 AM
  */
@@ -106,6 +106,7 @@ public class User implements Serializable {
     @Valid
     @OneToMany(
         mappedBy = "user",
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
@@ -215,7 +216,7 @@ public class User implements Serializable {
      * @param locale        Default locale
      */
     public User(
-        List < Role > roles,
+        List<Role> roles,
         Email email,
         String firstName,
         String lastName,
@@ -456,7 +457,7 @@ public class User implements Serializable {
     /**
      * Set role.
      *
-     * @param roles
+     * @param roles    List of roles.
      */
     public void setRoles( List<Role> roles ) {
         this.roles = roles;
@@ -465,7 +466,7 @@ public class User implements Serializable {
     /**
      * Set access.
      *
-     * @param access
+     * @param access    List of accesses.
      */
     public void setAccess( List<Access> access ) {
         this.access = access;
@@ -474,7 +475,7 @@ public class User implements Serializable {
     /**
      * Set email of this user.
      *
-     * @param emails
+     * @param emails    List of e-mails.
      */
     public void setEmails( List<Email> emails ) {
         this.emails = emails;
@@ -499,7 +500,7 @@ public class User implements Serializable {
     /**
      * Set poet's data.
      *
-     * @param poet
+     * @param poet    Poet.
      */
     public void setPoet( Poet poet ) {
         //- Check params -//
@@ -515,7 +516,7 @@ public class User implements Serializable {
     /**
      * Set first name.
      *
-     * @param firstName
+     * @param firstName    First name of user.
      */
     public void setFirstName( String firstName ) {
         this.firstName = firstName;
@@ -524,7 +525,7 @@ public class User implements Serializable {
     /**
      * Set last name.
      *
-     * @param lastName
+     * @param lastName     Last name of user.
      */
     public void setLastName( String lastName ) {
         this.lastName = lastName;
@@ -533,7 +534,7 @@ public class User implements Serializable {
     /**
      * Set middle name.
      *
-     * @param middleName
+     * @param middleName    Father's name of user if exists.
      */
     public void setMiddleName( String middleName ) {
         this.middleName = middleName;

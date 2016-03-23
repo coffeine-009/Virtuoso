@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 08/12/14 3:26 PM
  */
@@ -67,7 +67,7 @@ public class InEnumValidatorImpl implements ConstraintValidator<InEnum, List<Str
         @SuppressWarnings( "rawtypes" )
         Enum[] enumValArr = enumClass.getEnumConstants();
 
-        for( @SuppressWarnings( "rawtypes" )Enum enumVal : enumValArr ) {
+        for ( Enum enumVal: enumValArr ) {
             valueList.add( enumVal.toString().toUpperCase() );
         }
 
