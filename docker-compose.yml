@@ -4,9 +4,9 @@ api:
   ports:
    - "8080:8080"
   volumes:
-   - .:/usr/src/virtuoso
+    - .:/usr/src/virtuoso
   links:
-   - postgres
+    - postgres
 
 # Database
 postgres:

@@ -1,8 +1,8 @@
-#- OS :: Debian -#
-FROM debian:jessie
+#- OS :: CentOS -#
+FROM centos:7
 
 # Author
-MAINTAINER Coffeine Inc
+MAINTAINER Coffeine, Inc <support@coffeine.com>
 
 #- Dependencies -#
 # Install Java.
@@ -29,5 +29,7 @@ WORKDIR /usr/src/virtuoso
 # Install related services
 #RUN pip install -r requirements.txt
 
-# Define default command.
-CMD ["bash"]
+EXPOSE 8080
+
+#- Entry point -#
+CMD ["tail", "-f", "/var/log/tomcat8/catalina.out"]
