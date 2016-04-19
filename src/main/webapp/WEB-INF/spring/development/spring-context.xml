@@ -85,10 +85,10 @@
         class = "com.jolbox.bonecp.BoneCPDataSource"
         destroy-method = "close"
     >
-        <property name = "driverClass" value = "com.mysql.jdbc.Driver" />
+        <property name = "driverClass" value = "org.postgresql.Driver" />
         <property
             name = "jdbcUrl"
-            value = "jdbc:mysql://localhost:3306/virtuoso?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;sessionVariables=storage_engine=InnoDB&amp;zeroDateTimeBehavior=convertToNull"
+            value = "jdbc:postgresql://localhost:5432/virtuoso"
         />
         <property name = "username" value = "${persistence.username}" />
         <property name = "password" value = "${persistence.password}" />
@@ -108,7 +108,7 @@
     >
         <property name = "showSql" value = "true" />
         <property name = "generateDdl" value = "true" />
-        <property name = "database" value = "MYSQL" />
+        <property name = "database" value = "POSTGRESQL" />
     </bean>
 
     <bean

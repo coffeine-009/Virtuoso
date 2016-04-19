@@ -59,8 +59,8 @@ public class Access implements Serializable {
      */
     @NotNull
     @NotEmpty
-    @Length( max = 256 )
-    @Column
+    @Length( max = 80 )
+    @Column( length = 80 )
     protected String password;
 
     /**
