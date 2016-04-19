@@ -9,6 +9,7 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -53,10 +54,8 @@ public class Text implements Serializable {
     @Column( name = "locale", length = 5 )
     protected String locale;
 
-    @Column(
-        name = "lyrics",
-        columnDefinition = "TEXT"
-    )
+    @Column( name = "lyrics" )
+    @Type( type = "text" )
     protected String lyrics;
 
     @Column(

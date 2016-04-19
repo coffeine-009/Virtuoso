@@ -1,8 +1,8 @@
 <project
-  xmlns     = "http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
-    http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns               = "http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi           = "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation  = "http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/xsd/maven-4.0.0.xsd"
 >
   <name>Virtuoso</name>
   <groupId>com.coffeine</groupId>
@@ -33,7 +33,6 @@
     <!-- ORM :: Hibernate -->
     <orm.hibernate.version>5.0.4.Final</orm.hibernate.version>
 
-    <mysql-version>5.1.18</mysql-version>
     <logger-version>2.5</logger-version>
 
     <!-- Data mapper :: JSON -->
@@ -425,16 +424,17 @@
       </exclusions>
     </dependency>
 
-    <!-- MySQL -->
+    <!-- PostgreSQL -->
     <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>${mysql-version}</version>
+        <groupId>postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>9.1-901-1.jdbc4</version>
     </dependency>
+
     <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>jta</artifactId>
-      <version>1.1</version>
+        <groupId>javax.transaction</groupId>
+        <artifactId>jta</artifactId>
+        <version>1.1</version>
     </dependency>
 
     <!-- Servlet API 3.0 -->

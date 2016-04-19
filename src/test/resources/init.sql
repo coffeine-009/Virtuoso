@@ -18,7 +18,7 @@ INSERT INTO role(
 /**
  * Users.
  */
-INSERT INTO user(
+INSERT INTO users(
   id,
   first_name,
   last_name,

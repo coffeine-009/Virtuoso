@@ -49,7 +49,7 @@ import static org.springframework.util.Assert.notNull;
 @JsonIgnoreProperties( ignoreUnknown = true )
 @SuppressWarnings( "serial" )
 @Entity
-@Table( name = "user" )
+@Table( name = "users" )
 public class User implements Serializable {
 
     /// *** Properties  *** ///

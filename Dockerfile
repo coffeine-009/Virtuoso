@@ -1,24 +1,39 @@
-#- OS :: Debian -#
-FROM debian:jessie
+#- OS :: CentOS -#
+FROM centos:7
+
+# Author
+MAINTAINER Coffeine, Inc <support@musician-virtuoso.com>
 
 #- Dependencies -#
-# Install Java.
-RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list && \
-  echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list && \
-  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer
+# Install GIT, Java.
+RUN yum install -y git wget java-1.8.0-openjdk-devel
 
-# Install tomcat8
-RUN apt-get install -y tomcat8
+# Install tomcat #
+RUN cd /opt \
+    && wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz \
+    && tar xvf apache-tomcat-8.0.33.tar.gz \
+    && ln -s /opt/apache-tomcat-8.0.33 /usr/share/tomcat \
+    && wget http://apache.volia.net/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz \
+    && tar -xzf apache-maven-3.3.9-bin.tar.gz && rm apache-maven-3.3.9-bin.tar.gz;
+
+RUN alternatives --install /usr/bin/mvn mvn /opt/apache-maven-3.3.9/bin/mvn 1;
+
+RUN chmod +x /usr/share/tomcat/bin/catalina.sh
 
 # Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java
+
+# Mount src dir
+ADD . /usr/src/virtuoso
+
+RUN mvn install
+
+RUN cp target/Virtuoso-1.0-SNAPSHOT.war /usr/share/tomcat/webapps/virtuoso.war
 
 # Define working directory.
-WORKDIR /
+WORKDIR /usr/src/virtuoso
 
-# Define default command.
-CMD ["bash"]
+EXPOSE 8080
+
+#- Entry point -#
+CMD [ "/usr/share/tomcat/bin/catalina.sh", "run" ]
