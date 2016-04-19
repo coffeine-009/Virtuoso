@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.music.model.entity;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -54,7 +55,8 @@ public class StaffType implements Serializable {
     @Column( name = "title", length = 32 )
     protected String title;
 
-    @Column( name = "description", columnDefinition = "TEXT" )
+    @Column( name = "description" )
+    @Type( type = "text" )
     protected String description;
 
 

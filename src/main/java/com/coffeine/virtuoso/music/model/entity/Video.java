@@ -10,9 +10,12 @@ package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +25,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.Calendar;
 
 /**
  * Class for reflect video table from persistence layout.
@@ -67,7 +68,8 @@ public class Video implements Serializable {
     @Column( name = "title", length = 32 )
     protected String title;
 
-    @Column( name = "description", columnDefinition = "TEXT" )
+    @Column( name = "description" )
+    @Type( type = "text" )
     protected String description;
 
     @NotNull

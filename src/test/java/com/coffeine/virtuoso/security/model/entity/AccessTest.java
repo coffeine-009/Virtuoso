@@ -227,7 +227,7 @@ public class AccessTest extends AbstractModel {
             //- Message -//
             assertTrue(
                 new ArrayList<String>() {{
-                    add( "length must be between 0 and 256" );
+                    add( "length must be between 0 and 80" );
                 }}.contains(
                     constraintViolation.getMessage()
                 )
