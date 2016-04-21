@@ -12,6 +12,8 @@ import com.coffeine.virtuoso.music.model.entity.Song;
 import com.coffeine.virtuoso.music.model.repository.SongRepository;
 import com.coffeine.virtuoso.music.model.service.SongService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,8 @@ import java.util.List;
  */
 @Service
 public class SongServiceImpl implements SongService {
+
+    private final static Logger log = LogManager.getLogger( SongServiceImpl.class );
 
     /// *** Properties  *** ///
     @Autowired

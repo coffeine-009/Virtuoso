@@ -2,7 +2,7 @@
 FROM centos:7
 
 # Author
-MAINTAINER Coffeine, Inc <support@musician-virtuoso.com>
+MAINTAINER Coffeine, Inc <vitaliy.tsutsman@musician-virtuoso.com>
 
 #- Dependencies -#
 # Install GIT, Java.
