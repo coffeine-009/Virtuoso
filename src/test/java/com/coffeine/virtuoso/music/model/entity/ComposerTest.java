@@ -12,7 +12,6 @@ import com.coffeine.virtuoso.module.model.AbstractModel;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -64,7 +63,6 @@ public class ComposerTest extends AbstractModel {
     /*
      * Test field validation for entity failure
      */
-    @Ignore
     @Test
     public void testComposerFieldFailure() {
 
@@ -79,12 +77,11 @@ public class ComposerTest extends AbstractModel {
         //- Validate -//
         constraintViolationSet = validator.validate( composerFailure );
 
-        assertEquals( 4, constraintViolationSet.size() );
+        assertEquals( 2, constraintViolationSet.size() );
         for ( ConstraintViolation < Composer > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
-                    add("data");
                     add("locale");
                 }}.contains(
                     this.getPropertyName(
