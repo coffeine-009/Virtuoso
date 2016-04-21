@@ -19,11 +19,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-    /// *** Methods     *** ///
-    /**
-     * Find song by ID in persistence layout
-     *
-     * @return Song
-     */
-    //public Song findById( Long Id );
 }

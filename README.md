@@ -8,6 +8,12 @@ Beginners can easily learn favorite songs.
 
 ## Getting Started
 ### On the server
+#### Docker
+```bash
+docker build --rm -t coffeine/virtuoso-api .
+docker run -p 8080:8080 -d coffeine/virtuoso-api
+docker run -it coffeine/virtuoso-api bash
+```
 _(Coming soon)_
 
 ## Documentation

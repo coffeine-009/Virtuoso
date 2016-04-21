@@ -26,12 +26,12 @@ ENV JAVA_HOME /usr/lib/jvm/java
 # Mount src dir
 ADD . /usr/src/virtuoso
 
+# Define working directory.
+WORKDIR /usr/src/virtuoso
+
 RUN mvn install
 
 RUN cp target/Virtuoso-1.0-SNAPSHOT.war /usr/share/tomcat/webapps/virtuoso.war
-
-# Define working directory.
-WORKDIR /usr/src/virtuoso
 
 EXPOSE 8080
 
