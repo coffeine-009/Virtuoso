@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com">Vitaliy Tsutsman </a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -12,6 +12,8 @@ import com.coffeine.virtuoso.music.model.entity.Song;
 import com.coffeine.virtuoso.music.model.repository.SongRepository;
 import com.coffeine.virtuoso.music.model.service.SongService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,8 @@ import java.util.List;
  */
 @Service
 public class SongServiceImpl implements SongService {
+
+    private final static Logger log = LogManager.getLogger( SongServiceImpl.class );
 
     /// *** Properties  *** ///
     @Autowired
@@ -41,7 +45,11 @@ public class SongServiceImpl implements SongService {
      *
      * @return List of Songs.
      */
-    public List <Song> findAll( int page, int limit ) {
+    public List<Song> findAll( int page, int limit ) {
+        //- Log request -//
+        log.info( "Search songs[page={}, limit={}]", page, limit );
+
+        //- Return found songs -//
         return songRespository.findAll(
             new PageRequest(
                 Math.max( page - 1, 0 ),

@@ -128,6 +128,36 @@ INSERT INTO song_locale(
 ) VALUES
 ( 1, 1, 'uk-UA', '', NOW() );
 
+INSERT INTO style(
+  id,
+  code,
+  title,
+  description 
+) VALUES 
+( 1, 'WALTZ', 'Waltz', 'Waltz.' );
+
+INSERT INTO staff_type(
+  id,
+  code,
+  title,
+  description 
+) VALUES 
+( 1, 'TABS', 'Tabs', 'Tabulatures.' );
+
+/**
+ * Staffs of songs.
+ */
+INSERT INTO song_notes( 
+  id,
+  id_song,
+  id_staff_type,
+  id_style,
+  locale,
+  file,
+  creation
+) VALUES
+( 1, 1, 1, 1, 'uk-UA', 'ok\n==============', NOW() );
+
 INSERT INTO song_composers(
   id_song,
   id_composer
