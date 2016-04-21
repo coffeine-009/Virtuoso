@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com">Vitaliy Tsutsman </a>
  *
  * @date 12/7/15 10:23 PM
  */
