@@ -45,7 +45,11 @@ public class SongServiceImpl implements SongService {
      *
      * @return List of Songs.
      */
-    public List <Song> findAll( int page, int limit ) {
+    public List<Song> findAll( int page, int limit ) {
+        //- Log request -//
+        log.info( "Search songs[page={}, limit={}]", page, limit );
+
+        //- Return found songs -//
         return songRespository.findAll(
             new PageRequest(
                 Math.max( page - 1, 0 ),

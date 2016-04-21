@@ -45,6 +45,6 @@ public class SongServiceTest extends AbstractServiceTest {
     @Ignore
     @Test
     public void testFindAll() {
-
+        //TODO: put here asserts
     }
 }
