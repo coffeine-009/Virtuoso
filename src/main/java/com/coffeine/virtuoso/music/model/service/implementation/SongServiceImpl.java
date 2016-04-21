@@ -32,7 +32,7 @@ public class SongServiceImpl implements SongService {
 
     /// *** Properties  *** ///
     @Autowired
-    private SongRepository songRespository;
+    private SongRepository songRepository;
 
 
     /// *** Methods     *** ///
@@ -50,7 +50,7 @@ public class SongServiceImpl implements SongService {
         log.info( "Search songs[page={}, limit={}]", page, limit );
 
         //- Return found songs -//
-        return songRespository.findAll(
+        return songRepository.findAll(
             new PageRequest(
                 Math.max( page - 1, 0 ),
                 limit
@@ -67,7 +67,7 @@ public class SongServiceImpl implements SongService {
      */
     @Override
     public Song create( Song song ) {
-        return this.songRespository.save( song );
+        return this.songRepository.save( song );
     }
 
     /**
@@ -79,7 +79,7 @@ public class SongServiceImpl implements SongService {
      */
     @Override
     public Song find( Long id ) {
-        return songRespository.findOne( id );
+        return songRepository.findOne( id );
     }
 
     /**
@@ -90,7 +90,7 @@ public class SongServiceImpl implements SongService {
      */
     @Override
     public Song update( Song song ) {
-        return this.songRespository.save( song );
+        return this.songRepository.save( song );
     }
 
     /**
@@ -100,6 +100,6 @@ public class SongServiceImpl implements SongService {
      */
     @Override
     public void delete( Long id ) {
-        this.songRespository.delete( id );
+        this.songRepository.delete( id );
     }
 }
