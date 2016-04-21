@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
  *
  * @date 12/7/15 10:23 PM
  */
