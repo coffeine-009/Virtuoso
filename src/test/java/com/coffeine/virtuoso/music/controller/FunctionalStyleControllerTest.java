@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
 
     /**
-     * Init environment for run test
+     * Init environment for run test.
      */
     @Before
     @Override
@@ -106,7 +106,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$description" ).value(  "Waltz." ) )
             .andDo(
                 document(
-                    "style-retrieve-success-example",
+                    "styles-retrieve-success-example",
                     responseFields(
                         fieldWithPath( "id" ).description( "Id of style." ),
                         fieldWithPath( "code" ).description( "Code of style." ),
@@ -130,7 +130,8 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
             get( "/music/styles/{id}", 999999 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
-            .andExpect( status().isNotFound() );
+            .andExpect( status().isNotFound() )
+            .andDo( document( "styles-retrieve-failure-example" ) );
     }
 
     /**
@@ -164,7 +165,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "description" ).value( "Polka." ) )
             .andDo(
                 document(
-                    "style-create-success-example",
+                    "styles-create-success-example",
                     requestFields(
                         fieldWithPath( "code" ).description( "Code of style." ),
                         fieldWithPath( "title" ).description( "Title of style." ),
@@ -200,8 +201,9 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
                         "\"description\": \"Waltz.\"" +
                     "}"
                 )
-        ).andDo( print() );
+        ).andDo( print() )
 //            .andExpect( status().isConflict() );//FIXME: unique constraint
+            .andDo( document( "styles-create-failure-example" ) );
     }
 
     /**
@@ -235,7 +237,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$description" ).value( "Waltz. Good style." ) )
             .andDo(
                 document(
-                    "style-update-success-example",
+                    "styles-update-success-example",
                     requestFields(
                         fieldWithPath( "code" ).description( "Code of style." ),
                         fieldWithPath( "title" ).description( "Title of style." ),
@@ -252,6 +254,31 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
     }
 
     /**
+     * Test of updating a new style.
+     * Failure.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testUpdateActionFailure() throws Exception {
+        //- Failure. Update a new style -//
+        this.mockMvc.perform(
+            put( "/music/styles/{id}", 99999 )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content(
+                    "{" +
+                        "\"code\": \"WALTZ\"," +
+                        "\"title\": \"Waltz\"," +
+                        "\"description\": \"Waltz. Good style.\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isNotFound() )
+            .andDo( document( "styles-update-failure-example" ) );
+    }
+
+    /**
      * Test of deleting a new style.
      * Success.
      *
@@ -265,7 +292,23 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() )
-            .andDo( document( "style-delete-success-example" ) );
+            .andDo( document( "styles-delete-success-example" ) );
     }
-    //TODO: put here tests
+
+    /**
+     * Test of deleting a new style.
+     * Failure.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testDeleteActionFailure() throws Exception {
+        //- Failure. Delete a style by id -//
+        this.mockMvc.perform(
+            delete( "/music/styles/{id}", 999999 )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+        )
+            .andExpect( status().isNotFound() )
+            .andDo( document( "styles-delete-failure-example" ) );
+    }
 }

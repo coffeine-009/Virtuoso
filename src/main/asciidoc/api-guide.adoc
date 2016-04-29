@@ -284,15 +284,19 @@ A `GET` request is used to get a style
 
 ==== Response structure
 
-include::{snippets}/style-retrieve-success-example/response-fields.adoc[]
+include::{snippets}/styles-retrieve-success-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/style-retrieve-success-example/http-request.adoc[]
+include::{snippets}/styles-retrieve-success-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/style-retrieve-success-example/http-response.adoc[]
+===== Success
+include::{snippets}/styles-retrieve-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/styles-retrieve-failure-example/http-response.adoc[]
 
 
 [[resources-style-update]]
@@ -302,15 +306,19 @@ A `POST` request is used to create a new style
 
 ==== Request structure
 
-include::{snippets}/style-create-success-example/request-fields.adoc[]
+include::{snippets}/styles-create-success-example/request-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/style-create-success-example/http-request.adoc[]
+include::{snippets}/styles-create-success-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/style-create-success-example/http-response.adoc[]
+===== Success
+include::{snippets}/styles-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/styles-create-failure-example/http-response.adoc[]
 
 
 [[resources-style-update]]
@@ -320,15 +328,19 @@ A `PUT` request is used to update a style
 
 ==== Request structure
 
-include::{snippets}/style-update-success-example/request-fields.adoc[]
+include::{snippets}/styles-update-success-example/request-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/style-update-success-example/http-request.adoc[]
+include::{snippets}/styles-update-success-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/style-update-success-example/http-response.adoc[]
+===== Success
+include::{snippets}/styles-update-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/styles-update-failure-example/http-response.adoc[]
 
 
 [[resources-style-delete]]
@@ -338,8 +350,12 @@ A `DELETE` request is used to delete a style
 
 ==== Example request
 
-include::{snippets}/style-delete-success-example/http-request.adoc[]
+include::{snippets}/styles-delete-success-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/style-delete-success-example/http-response.adoc[]
+===== Success
+include::{snippets}/styles-delete-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/styles-delete-failure-example/http-response.adoc[]

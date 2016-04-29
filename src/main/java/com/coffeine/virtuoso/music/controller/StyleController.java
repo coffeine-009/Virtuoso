@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -187,10 +187,10 @@ public class StyleController {
      * @param id          Id of style.
      * @param response    Use for work with HTTP.
      */
-    @RequestMapping( value = "/{ID}", method = RequestMethod.DELETE )
+    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseBody
     public void deleteAction(
-        @PathVariable( "ID" )
+        @PathVariable( "id" )
         Long id,
 
         HttpServletResponse response
