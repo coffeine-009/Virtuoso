@@ -252,73 +252,94 @@ include::{snippets}/song-get-failure-example/http-response.adoc[]
 
 
 
-[[resources-note-update]]
-=== Update a note
+[[resources-styles]]
+== Styles
 
-A `PATCH` request is used to update a note
+The Style resource is used to retrieve, update, and delete individual styles
 
-==== Request structure
+[[resources-styles-links]]
+=== Links
 
-//include::{snippets}/note-update-example/request-fields.adoc[]
+include::{snippets}/styles-list-example/links.adoc[]
 
-To leave an attribute of a note unchanged, any of the above may be omitted from the request.
+
+[[resources-styles-list]]
+=== Get list of styles
+
+A `GET` request is used to get a styles
 
 ==== Example request
 
-//include::{snippets}/note-update-example/curl-request.adoc[]
+include::{snippets}/styles-list-example/http-request.adoc[]
 
 ==== Example response
 
-//include::{snippets}/note-update-example/http-response.adoc[]
+include::{snippets}/styles-list-example/http-response.adoc[]
 
 
+[[resources-style-retrieve]]
+=== Get style
 
-[[resources-tag]]
-== Tag
-
-The Tag resource is used to retrieve, update, and delete individual tags
-
-
-
-[[resources-tag-links]]
-=== Links
-
-include::{snippets}/tag-get-example/links.adoc[]
-
-
-
-[[resources-tag-retrieve]]
-=== Retrieve a tag
-
-A `GET` request will retrieve the details of a tag
+A `GET` request is used to get a style
 
 ==== Response structure
 
-include::{snippets}/tag-get-example/response-fields.adoc[]
+include::{snippets}/style-retrieve-success-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/tag-get-example/curl-request.adoc[]
+include::{snippets}/style-retrieve-success-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/tag-get-example/http-response.adoc[]
+include::{snippets}/style-retrieve-success-example/http-response.adoc[]
 
 
+[[resources-style-update]]
+=== Create a style
 
-[[resources-tag-update]]
-=== Update a tag
-
-A `PATCH` request is used to update a tag
+A `POST` request is used to create a new style
 
 ==== Request structure
 
-include::{snippets}/tag-update-example/request-fields.adoc[]
+include::{snippets}/style-create-success-example/request-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/tag-update-example/curl-request.adoc[]
+include::{snippets}/style-create-success-example/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/tag-update-example/http-response.adoc[]
+include::{snippets}/style-create-success-example/http-response.adoc[]
+
+
+[[resources-style-update]]
+=== Update a style
+
+A `PUT` request is used to update a style
+
+==== Request structure
+
+include::{snippets}/style-update-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/style-update-success-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/style-update-success-example/http-response.adoc[]
+
+
+[[resources-style-delete]]
+=== Delete a style
+
+A `DELETE` request is used to delete a style
+
+==== Example request
+
+include::{snippets}/style-delete-success-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/style-delete-success-example/http-response.adoc[]

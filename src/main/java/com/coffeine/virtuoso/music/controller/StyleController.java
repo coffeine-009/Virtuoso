@@ -15,13 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ import static org.springframework.util.Assert.notNull;
  *
  * @version 1.0
  */
-@Controller
+@RestController
 @RequestMapping( value = "/music/styles" )
 public class StyleController {
 
@@ -96,7 +96,7 @@ public class StyleController {
             return this.styleService.create( style );
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpStatus.CONFLICT.value() );
         }
 
         return null;

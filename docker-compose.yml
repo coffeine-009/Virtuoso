@@ -1,14 +1,22 @@
-# REST API server
-api:
+---
+##
+# Configuration of docker compose.
+# Link and run related images.
+#
+
+#- REST API server -#
+virtuoso-api:
   image: coffeine/virtuoso-api
+  environment:
+    DB_HOST: postgres
   ports:
    - "8080:8080"
-  volumes:
-    - .:/usr/src/virtuoso
+#  volumes:
+#    - .:/usr/src/virtuoso
   links:
     - postgres
 
-# Database
+#- Database -#
 postgres:
   image: postgres:9.1
   volumes:
