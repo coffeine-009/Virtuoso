@@ -22,6 +22,8 @@ RUN chmod +x /usr/share/tomcat/bin/catalina.sh
 
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java
+# Define dafault value of DB host
+ENV DB_HOST localhost
 
 # Mount src dir
 ADD . /usr/src/virtuoso

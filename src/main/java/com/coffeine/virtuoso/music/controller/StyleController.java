@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -15,13 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ import static org.springframework.util.Assert.notNull;
  *
  * @version 1.0
  */
-@Controller
+@RestController
 @RequestMapping( value = "/music/styles" )
 public class StyleController {
 
@@ -96,7 +96,7 @@ public class StyleController {
             return this.styleService.create( style );
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpStatus.CONFLICT.value() );
         }
 
         return null;
@@ -187,10 +187,10 @@ public class StyleController {
      * @param id          Id of style.
      * @param response    Use for work with HTTP.
      */
-    @RequestMapping( value = "/{ID}", method = RequestMethod.DELETE )
+    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseBody
     public void deleteAction(
-        @PathVariable( "ID" )
+        @PathVariable( "id" )
         Long id,
 
         HttpServletResponse response
