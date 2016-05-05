@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.security.model.entity;
 
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -195,25 +196,32 @@ public class Role implements Serializable {
 
 
     @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-        Role role = ( Role ) o;
-        return Objects.equals( code, role.code );
+    public int hashCode() {
+        return Objects.hash( id, code, title, description );
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash( code );
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null || getClass() != obj.getClass() ) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        return Objects.equals( this.id, other.id )
+            && Objects.equals( this.code, other.code )
+            && Objects.equals( this.title, other.title )
+            && Objects.equals( this.description, other.description );
     }
 
     @Override
     public String toString() {
-        return "Role{" +
-            "id=" + id +
-            ", code='" + code + '\'' +
-            ", title='" + title + '\'' +
-            ", description='" + description + '\'' +
-            '}';
+        return MoreObjects.toStringHelper( this )
+            .add( "id", id )
+            .add( "code", code )
+            .add( "title", title )
+            .add( "description", description )
+            .toString();
     }
 }

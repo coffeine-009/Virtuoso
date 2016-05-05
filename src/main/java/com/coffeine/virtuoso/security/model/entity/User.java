@@ -14,6 +14,7 @@ import com.coffeine.virtuoso.music.model.entity.Poet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -596,40 +597,61 @@ public class User implements Serializable {
 
 
     @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-        User user = ( User ) o;
-        return Objects.equals( id, user.id ) &&
-            Objects.equals( roles, user.roles ) &&
-            Objects.equals( emails, user.emails ) &&
-            Objects.equals( firstName, user.firstName ) &&
-            Objects.equals( lastName, user.lastName ) &&
-            Objects.equals( middleName, user.middleName ) &&
-            Objects.equals( gender, user.gender ) &&
-            Objects.equals( locale, user.locale );
+    public int hashCode() {
+        return Objects.hash(
+            id,
+            roles,
+            access,
+            emails,
+            composer,
+            poet,
+            firstName,
+            lastName,
+            middleName,
+            gender,
+            locale,
+            creation
+        );
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash( id, roles, emails, firstName, lastName, middleName, gender, locale );
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null || getClass() != obj.getClass() ) {
+            return false;
+        }
+        final User other = (User) obj;
+        return Objects.equals( this.id, other.id )
+            && Objects.equals( this.roles, other.roles )
+            && Objects.equals( this.access, other.access )
+            && Objects.equals( this.emails, other.emails )
+            && Objects.equals( this.composer, other.composer )
+            && Objects.equals( this.poet, other.poet )
+            && Objects.equals( this.firstName, other.firstName )
+            && Objects.equals( this.lastName, other.lastName )
+            && Objects.equals( this.middleName, other.middleName )
+            && Objects.equals( this.gender, other.gender )
+            && Objects.equals( this.locale, other.locale )
+            && Objects.equals( this.creation, other.creation );
     }
 
     @Override
     public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", roles=" + roles +
-            ", access=" + access +
-            ", emails=" + emails +
-            ", composer=" + composer +
-            ", poet=" + poet +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", middleName='" + middleName + '\'' +
-            ", gender=" + gender +
-            ", locale='" + locale + '\'' +
-            ", creation=" + creation +
-            '}';
+        return MoreObjects.toStringHelper( this )
+            .add( "id", id )
+            .add( "roles", roles )
+            .add( "access", access )
+            .add( "emails", emails )
+            .add( "composer", composer )
+            .add( "poet", poet )
+            .add( "firstName", firstName )
+            .add( "lastName", lastName )
+            .add( "middleName", middleName )
+            .add( "gender", gender )
+            .add( "locale", locale )
+            .add( "creation", creation )
+            .toString();
     }
 }
