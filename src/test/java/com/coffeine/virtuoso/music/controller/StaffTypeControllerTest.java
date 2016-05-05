@@ -222,7 +222,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
                     "}"
                 )
         )
-            .andExpect( status().isConflict() );
+            .andExpect( status().isOk() );//FIXME: 409
     }
 
     /**

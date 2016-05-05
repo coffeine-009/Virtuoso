@@ -161,7 +161,6 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
-            .andExpect( jsonPath( "$id").value( 1 ) )
             .andExpect( jsonPath( "$code", notNullValue() ) )
             .andExpect( jsonPath( "$code" ).value( "TAB" ) )
             .andExpect( jsonPath( "$title", notNullValue() ) )
@@ -229,8 +228,8 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
                 .content(
                     "{" +
                         "\"code\": \"TAB\"," +
-                        "\"title\": \"Tabulature\"," +
-                        "\"description\": \"Tabs.\"" +
+                        "\"title\": \"Tablature\"," +
+                        "\"description\": \"Tablature.\"" +
                     "}"
                 )
         )
@@ -241,9 +240,9 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
             .andExpect( jsonPath( "$code", notNullValue() ) )
             .andExpect( jsonPath( "$code" ).value( "TAB" ) )
             .andExpect( jsonPath( "$title", notNullValue() ) )
-            .andExpect( jsonPath( "$title" ).value( "Tabulature" ) )
+            .andExpect( jsonPath( "$title" ).value( "Tablature" ) )
             .andExpect( jsonPath( "$description", notNullValue() ) )
-            .andExpect( jsonPath( "$description" ).value(  "Tabs." ) )
+            .andExpect( jsonPath( "$description" ).value(  "Tablature." ) )
             .andDo(
                 document(
                     "staff-types-update-success-example",
