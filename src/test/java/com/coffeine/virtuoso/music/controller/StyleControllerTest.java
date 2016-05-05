@@ -72,7 +72,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         // Success. Get list of styles
         this.mockMvc.perform(
             get( "/music/styles?page={page}&limit={limit}", 1, 10 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() );
     }
@@ -90,7 +89,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         // Success. Get list of styles
         this.mockMvc.perform(
             get( "/music/styles/{id}", 1 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() );
     }
@@ -108,7 +106,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         // Success. Get list of styles
         this.mockMvc.perform(
             get( "/music/styles/{id}", 999999 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isNotFound() );
     }
@@ -126,7 +123,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         //- Success. Create a new style -//
         this.mockMvc.perform(
             post( "/music/styles" )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -152,7 +148,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         //- Failure. Create a new style -//
         this.mockMvc.perform(
             post( "/music/styles" )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -180,7 +175,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         //- Success. Update a new style -//
         this.mockMvc.perform(
             put( "/music/styles/{id}", 1 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -206,7 +200,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         //- Failure. Update a new style -//
         this.mockMvc.perform(
             put( "/music/styles/{id}", 99999 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -232,7 +225,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         //- Success. Delete a style by id -//
         this.mockMvc.perform(
             delete( "/music/styles/{id}", 1 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() );
     }
@@ -250,7 +242,6 @@ public class StyleControllerTest extends AbstractRestControllerTest {
         //- Failure. Delete a style by id -//
         this.mockMvc.perform(
             delete( "/music/styles/{id}", 999999 )
-                .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isNotFound() );
     }

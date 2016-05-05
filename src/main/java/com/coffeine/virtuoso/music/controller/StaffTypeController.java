@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -12,8 +12,8 @@ import com.coffeine.virtuoso.music.model.entity.StaffType;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,8 +52,8 @@ public class StaffTypeController {
     /**
      * Find all staff types per page.
      *
-     * @param page  Number of page
-     * @param limit Count of items per page
+     * @param page  Number of page.
+     * @param limit Count of items per page.
      *
      * @return List of staff types.
      */
@@ -77,10 +77,10 @@ public class StaffTypeController {
     /**
      * Create a new staff type.
      *
-     * @param staffType Type of staff for create
-     * @param response  Used for set HTTP status
+     * @param staffType Type of staff for create.
+     * @param response  Used for set HTTP status.
      *
-     * @return Created type of staff
+     * @return Created type of staff.
      */
     @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
@@ -100,7 +100,7 @@ public class StaffTypeController {
             return this.staffTypeService.create( staffType );
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create staff type -//
-            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
 
         return null;
@@ -141,11 +141,11 @@ public class StaffTypeController {
     /**
      * Update staff type.
      *
-     * @param id        ID of video type for update
-     * @param staffType Data for update
-     * @param response  Used for set HTTP status
+     * @param id        ID of video type for update.
+     * @param staffType Data for update.
+     * @param response  Used for set HTTP status.
      *
-     * @return Updated type of staff
+     * @return Updated type of staff.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
@@ -188,13 +188,13 @@ public class StaffTypeController {
     /**
      * Delete staff type.
      *
-     * @param id        ID of staff type for delete
-     * @param response  Used for set HTTP status
+     * @param id        ID of staff type for delete.
+     * @param response  Used for set HTTP status.
      */
-    @RequestMapping( value = "/{id}")
+    @RequestMapping( value = "/{id}" )
     @ResponseBody
     public void deleteAction(
-        @PathVariable("id")
+        @PathVariable( "id" )
         Long id,
 
         HttpServletResponse response 
@@ -203,7 +203,7 @@ public class StaffTypeController {
         try {
             //- Success. Delete staff type -//
             this.staffTypeService.delete( id );
-        } catch ( EmptyResultDataAccessException e ) {
+        } catch ( DataAccessException e ) {
             //- Not exists ID -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }

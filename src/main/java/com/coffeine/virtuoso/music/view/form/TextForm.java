@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -43,7 +43,7 @@ public class TextForm {
     /**
      * Create text for song.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public TextForm(
         String locale
@@ -77,7 +77,7 @@ public class TextForm {
     /**
      * Set song of text.
      *
-     * @param songId
+     * @param songId    Song id.
      */
     public void setSongId( Long songId ) {
         this.songId = songId;
@@ -86,7 +86,7 @@ public class TextForm {
     /**
      * Set locale.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;

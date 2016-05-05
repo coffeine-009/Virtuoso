@@ -12,8 +12,8 @@ import com.coffeine.virtuoso.music.model.entity.Style;
 import com.coffeine.virtuoso.music.model.service.StyleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -198,7 +198,7 @@ public class StyleController {
         try {   
             //- Try to delete style -//
             this.styleService.delete( id );
-        } catch ( InvalidDataAccessApiUsageException e ) {
+        } catch ( DataAccessException e ) {
             // Failure. Style doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpStatus.NOT_FOUND.value() );

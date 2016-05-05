@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -39,7 +39,7 @@ public class PoetServiceImpl implements PoetService {
      *
      * @return List of poets per page.
      */
-    public List <Poet> findAll( int page, int limit ) {
+    public List<Poet> findAll( int page, int limit ) {
         return this.poetRepository.findAll(
             new PageRequest( page, limit )
         )

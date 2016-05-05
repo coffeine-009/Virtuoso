@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -107,7 +107,7 @@ public class ComposerForm {
     protected String locale;
 
     /**
-     * Birthday date
+     * Birthday date.
      */
     @NotNull
     protected LocalDate birthday;
@@ -118,7 +118,7 @@ public class ComposerForm {
     protected LocalDate deathDate;
 
     /**
-     * Localized data
+     * Localized data.
      */
     protected List<Data> data = new ArrayList<>();
 
@@ -145,7 +145,7 @@ public class ComposerForm {
         return deathDate;
     }
 
-    public List < Data > getData() {
+    public List<Data> getData() {
         return data;
     }
 
@@ -170,7 +170,7 @@ public class ComposerForm {
         this.deathDate = deathDate;
     }
 
-    public void setData( List < Data > data ) {
+    public void setData( List<Data> data ) {
         this.data = data;
     }
 }

@@ -142,7 +142,7 @@ INSERT INTO staff_type(
   title,
   description 
 ) VALUES 
-( 1, 'TABS', 'Tabs', 'Tabulatures.' );
+( 1, 'TAB', 'Tabs', 'Tabulatures.' );
 
 /**
  * Staffs of songs.
