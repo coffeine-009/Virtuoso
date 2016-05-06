@@ -19,7 +19,7 @@ import com.coffeine.virtuoso.music.model.service.StyleService;
 import com.coffeine.virtuoso.music.view.form.StaffForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +64,7 @@ public class StaffController {
     /**
      * Find all and filtering by page.
      *
-     * @param page     Numper of page.
+     * @param page     Number of page.
      * @param limit    Count items per page.
      *
      * @return List of staffs.
@@ -88,7 +88,7 @@ public class StaffController {
      * Create a new Staff.
      *
      * @param staffForm    Input.
-     * @param response     Use for work woth HTTP.
+     * @param response     Use for work with HTTP.
      *
      * @return Create staff.
      */
@@ -133,7 +133,7 @@ public class StaffController {
      * Find.
      *
      * @param id          Id of staff.
-     * @param response    Use for work woth HTTP.
+     * @param response    Use for work with HTTP.
      *
      * @return Found staff.
      */
@@ -166,7 +166,7 @@ public class StaffController {
      *
      * @param id           Id of staff.
      * @param staffForm    Input.
-     * @param response     Use for work woth HTTP.
+     * @param response     Use for work with HTTP.
      *
      * @return Updated staff.
      */
@@ -214,7 +214,7 @@ public class StaffController {
      * Delete.
      *
      * @param id          Id of staff.
-     * @param response    Use for work woth HTTP.
+     * @param response    Use for work with HTTP.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseBody
@@ -227,8 +227,8 @@ public class StaffController {
         try {
             //- Delete staff -//
             this.staffService.delete( id );
-        } catch ( EmptyResultDataAccessException e ) {
-            //- failure. Cannot find staff -//
+        } catch ( DataAccessException e ) {
+            //- Failure. Cannot find staff -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
     }

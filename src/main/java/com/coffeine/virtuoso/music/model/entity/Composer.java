@@ -391,7 +391,7 @@ public class Composer implements Serializable {
         composerLocale.setComposer( this );
 
         //- Add Composer locale-//
-        if( !this.data.contains( composerLocale ) ) {
+        if ( !this.data.contains( composerLocale ) ) {
             this.data.add( composerLocale );
         }
     }

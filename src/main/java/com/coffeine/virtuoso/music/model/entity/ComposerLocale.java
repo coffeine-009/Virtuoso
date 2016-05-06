@@ -130,7 +130,7 @@ public class ComposerLocale implements Serializable {
      * @param middleName    Father's name.
      * @param locale        Locale.
      */
-    public ComposerLocale (
+    public ComposerLocale(
         Composer composer,
         String firstName,
         String lastName,
