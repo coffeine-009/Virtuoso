@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.security.model.entity;
 
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -200,26 +201,34 @@ public class Access implements Serializable {
 
 
     @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-        Access access = ( Access ) o;
-        return Objects.equals( id, access.id ) &&
-            Objects.equals( user, access.user );
+    public int hashCode() {
+        return Objects.hash( id, user, password, modification, creation );
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash( id, user );
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null || getClass() != obj.getClass() ) {
+            return false;
+        }
+        final Access other = (Access) obj;
+        return Objects.equals( this.id, other.id )
+            && Objects.equals( this.user, other.user )
+            && Objects.equals( this.password, other.password )
+            && Objects.equals( this.modification, other.modification )
+            && Objects.equals( this.creation, other.creation );
     }
 
     @Override
     public String toString() {
-        return "Access{" +
-            "id=" + id +
-            ", password='" + password + '\'' +
-            ", modification=" + modification +
-            ", creation=" + creation +
-            '}';
+        return MoreObjects.toStringHelper( this )
+            .add( "id", id )
+            .add( "user", user )
+            .add( "password", password )
+            .add( "modification", modification )
+            .add( "creation", creation )
+            .toString();
     }
 }

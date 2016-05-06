@@ -9,6 +9,7 @@
 package com.coffeine.virtuoso.security.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -178,26 +179,32 @@ public class Email implements Serializable {
         this.address = address;
     }
 
-    @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-        Email email = ( Email ) o;
-        return Objects.equals( id, email.id ) &&
-            Objects.equals( address, email.address );
-    }
 
     @Override
     public int hashCode() {
-        return Objects.hash( id, address );
+        return Objects.hash( id, address, creation );
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null || getClass() != obj.getClass() ) {
+            return false;
+        }
+        final Email other = (Email) obj;
+        return Objects.equals( this.id, other.id )
+            && Objects.equals( this.address, other.address )
+            && Objects.equals( this.creation, other.creation );
     }
 
     @Override
     public String toString() {
-        return "Email{" +
-            "id=" + id +
-            ", address='" + address + '\'' +
-            ", creation=" + creation +
-            '}';
+        return MoreObjects.toStringHelper( this )
+            .add( "id", id )
+            .add( "address", address )
+            .add( "creation", creation )
+            .toString();
     }
 }

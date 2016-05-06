@@ -28,7 +28,7 @@ import java.util.List;
 @Service
 public class SongServiceImpl implements SongService {
 
-    private final static Logger log = LogManager.getLogger( SongServiceImpl.class );
+    private static final Logger log = LogManager.getLogger( SongServiceImpl.class );
 
     /// *** Properties  *** ///
     @Autowired

@@ -359,3 +359,223 @@ include::{snippets}/styles-delete-success-example/http-response.adoc[]
 
 ===== Failure
 include::{snippets}/styles-delete-failure-example/http-response.adoc[]
+
+
+
+[[resources-staff-types]]
+== Staff types
+
+The Staff types resource is used to retrieve, update, and delete individual staff types
+
+[[resources-staff-types-links]]
+=== Links
+
+include::{snippets}/staff-types-list-example/links.adoc[]
+
+
+[[resources-staff-types-list]]
+=== Get list of staff types
+
+A `GET` request is used to get a staff types
+
+==== Example request
+
+include::{snippets}/staff-types-list-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/staff-types-list-example/http-response.adoc[]
+
+
+[[resources-staff-types-retrieve]]
+=== Get staff type
+
+A `GET` request is used to get a staff type
+
+==== Response structure
+
+include::{snippets}/staff-types-retrieve-success-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/staff-types-retrieve-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staff-types-retrieve-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staff-types-retrieve-failure-example/http-response.adoc[]
+
+
+[[resources-staff-types-update]]
+=== Create a staff type
+
+A `POST` request is used to create a new staff type
+
+==== Request structure
+
+include::{snippets}/staff-types-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/staff-types-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staff-types-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staff-types-create-failure-example/http-response.adoc[]
+
+
+[[resources-staff-types-update]]
+=== Update a staff type
+
+A `PUT` request is used to update a staff type
+
+==== Request structure
+
+include::{snippets}/staff-types-update-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/staff-types-update-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staff-types-update-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staff-types-update-failure-example/http-response.adoc[]
+
+
+[[resources-staff-types-delete]]
+=== Delete a staff type
+
+A `DELETE` request is used to delete a staff type
+
+==== Example request
+
+include::{snippets}/staff-types-delete-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staff-types-delete-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staff-types-delete-failure-example/http-response.adoc[]
+
+
+
+[[resources-staffs]]
+== Staffs
+
+The Staffs resource is used to retrieve, update, and delete individual staffs
+
+[[resources-staffs-links]]
+=== Links
+
+include::{snippets}/staffs-list-example/links.adoc[]
+
+
+[[resources-staffs-list]]
+=== Get list of staffs
+
+A `GET` request is used to get a staffs
+
+==== Example request
+
+include::{snippets}/staffs-list-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/staffs-list-example/http-response.adoc[]
+
+
+[[resources-staffs-retrieve]]
+=== Get staff
+
+A `GET` request is used to get a staff
+
+==== Response structure
+
+include::{snippets}/staffs-retrieve-success-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/staffs-retrieve-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staffs-retrieve-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staffs-retrieve-failure-example/http-response.adoc[]
+
+
+[[resources-staffs-update]]
+=== Create a staff
+
+A `POST` request is used to create a new staff
+
+==== Request structure
+
+include::{snippets}/staffs-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/staffs-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staffs-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staffs-create-failure-example/http-response.adoc[]
+
+
+[[resources-staffs-update]]
+=== Update a staff
+
+A `PUT` request is used to update a staff
+
+==== Request structure
+
+include::{snippets}/staffs-update-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/staffs-update-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staffs-update-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staffs-update-failure-example/http-response.adoc[]
+
+
+[[resources-staffs-delete]]
+=== Delete a staff
+
+A `DELETE` request is used to delete a staff
+
+==== Example request
+
+include::{snippets}/staffs-delete-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/staffs-delete-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/staffs-delete-failure-example/http-response.adoc[]

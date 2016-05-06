@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -79,20 +79,20 @@ public class ComposerLocale implements Serializable {
      * Default constructor.
      */
     public ComposerLocale() {
-        
+        //- Default constructor -//
     }
 
     /**
      * Create composer locale.
      *
-     * @param firstName
-     * @param lastName
-     * @param locale
+     * @param firstName    Localized first name.
+     * @param lastName     Localized last name.
+     * @param locale       Locale.
      */
     public ComposerLocale(
-            String firstName,
-            String lastName,
-            String locale
+        String firstName,
+        String lastName,
+        String locale
     ) {
         //- Initialization -//
         this.firstName = firstName;
@@ -103,10 +103,10 @@ public class ComposerLocale implements Serializable {
     /**
      * Create composer locale.
      *
-     * @param firstName
-     * @param lastName
-     * @param middleName
-     * @param locale 
+     * @param firstName     First name.
+     * @param lastName      Last name.
+     * @param middleName    Father's name.
+     * @param locale        Locale.
      */
     public ComposerLocale(
         String firstName, 
@@ -124,13 +124,13 @@ public class ComposerLocale implements Serializable {
     /**
      * Constructor for create a composer locale.
      *
-     * @param composer
-     * @param firstName
-     * @param lastName
-     * @param middleName
-     * @param locale
+     * @param composer      Composer.
+     * @param firstName     First name.
+     * @param lastName      Last name.
+     * @param middleName    Father's name.
+     * @param locale        Locale.
      */
-    public ComposerLocale (
+    public ComposerLocale(
         Composer composer,
         String firstName,
         String lastName,

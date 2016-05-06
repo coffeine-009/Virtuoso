@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -41,7 +41,7 @@ public class TextServiceImpl implements TextService {
      *
      * @return List of song's texts per page.
      */
-    public List< Text > findAll( int page, int limit ) {
+    public List<Text> findAll( int page, int limit ) {
         return this.textRepository.findAll(
             new PageRequest( page, limit )
         )

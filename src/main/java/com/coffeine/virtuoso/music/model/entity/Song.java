@@ -274,7 +274,7 @@ public class Song implements Serializable {
             this.addSongLocale( songLocale );
         }
 
-        for( Staff staff : staffs ) {
+        for ( Staff staff : staffs ) {
             staff.setSong( this );
             this.addStaff( staff );
         }
@@ -283,7 +283,7 @@ public class Song implements Serializable {
             this.addText( text );
         }
 
-        for( Video video : videos ) {
+        for ( Video video : videos ) {
             this.addVideo( video );
         }
 
@@ -507,7 +507,7 @@ public class Song implements Serializable {
         text.setSong( this );
 
         //- Add Text-//
-        if( !this.texts.contains( text) ) {
+        if ( !this.texts.contains( text) ) {
             this.texts.add( text );
         }
     }
@@ -517,7 +517,7 @@ public class Song implements Serializable {
         songLocale.setSong( this );
 
         //- Add song locale -//
-        if( !this.data.contains( songLocale ) ) {
+        if ( !this.data.contains( songLocale ) ) {
             this.data.add( songLocale );
         }
     }
@@ -527,7 +527,7 @@ public class Song implements Serializable {
         staff.setSong( this );
 
         //- Add staff -//
-        if( !this.staffs.contains( staff ) ) {
+        if ( !this.staffs.contains( staff ) ) {
             this.staffs.add( staff );
         }
     }
@@ -537,7 +537,7 @@ public class Song implements Serializable {
         video.setSong( this );
 
         //- Add video-//
-        if( !this.videos.contains( video ) ) {
+        if ( !this.videos.contains( video ) ) {
             this.videos.add( video );
         }
     }

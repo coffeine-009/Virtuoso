@@ -26,6 +26,12 @@ public class Email implements Message {
     private String text;
 
 
+    /**
+     * Create a new email.
+     *
+     * @param subject    Subject of message.
+     * @param text       Body of message.
+     */
     public Email( String subject, String text ) {
         //- Initialization -//
         this.subject = subject;

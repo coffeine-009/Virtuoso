@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.security.model.entity;
 
+import com.google.common.base.MoreObjects;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.time.OffsetDateTime;
@@ -198,30 +199,34 @@ public class RecoveryAccess {
 
 
     @Override
-    public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
-        RecoveryAccess that = ( RecoveryAccess ) o;
-        return Objects.equals( id, that.id ) &&
-            Objects.equals( user, that.user ) &&
-            Objects.equals( hash, that.hash ) &&
-            Objects.equals( expiredAt, that.expiredAt ) &&
-            Objects.equals( createdAt, that.createdAt );
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash( id, user, hash, expiredAt, createdAt );
     }
 
     @Override
+    public boolean equals( Object obj ) {
+        if ( this == obj ) {
+            return true;
+        }
+        if ( obj == null || getClass() != obj.getClass() ) {
+            return false;
+        }
+        final RecoveryAccess other = (RecoveryAccess) obj;
+        return Objects.equals( this.id, other.id )
+            && Objects.equals( this.user, other.user )
+            && Objects.equals( this.hash, other.hash )
+            && Objects.equals( this.expiredAt, other.expiredAt )
+            && Objects.equals( this.createdAt, other.createdAt );
+    }
+
+    @Override
     public String toString() {
-        return "RecoveryAccess{" +
-            "id=" + id +
-            ", user=" + user +
-            ", hash='" + hash + '\'' +
-            ", expiredAt=" + expiredAt +
-            ", createdAt=" + createdAt +
-            '}';
+        return MoreObjects.toStringHelper( this )
+            .add( "id", id )
+            .add( "user", user )
+            .add( "hash", hash )
+            .add( "expiredAt", expiredAt )
+            .add( "createdAt", createdAt )
+            .toString();
     }
 }

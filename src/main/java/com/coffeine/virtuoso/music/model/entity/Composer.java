@@ -135,8 +135,10 @@ public class Composer implements Serializable {
     /**
      * Construct for create new composer.
      *
-     * @param birthday
-     * @param deathDate
+     * @param locale       Locale.
+     * @param gender       Gender.
+     * @param birthday     Birthday.
+     * @param deathDate    Date of death.
      */
     public Composer(
         String locale,
@@ -145,6 +147,7 @@ public class Composer implements Serializable {
         LocalDate deathDate
     ) {
         //- Initialisation -//
+        this();
         this.locale = locale;
         this.gender = gender;
         this.birthday = birthday;
@@ -154,6 +157,11 @@ public class Composer implements Serializable {
     /**
      * Construct for create new composer.
      *
+     * @param locale       Locale.
+     * @param gender       Gender.
+     * @param birthday     Birthday.
+     * @param deathDate    Date of death
+     * @param data         Localized data.
      */
     public Composer(
         final String locale,
@@ -180,8 +188,8 @@ public class Composer implements Serializable {
     /**
      * Constructor for create new composer.
      *
-     * @param data
-     * @param locale
+     * @param data      Localized data.
+     * @param locale    Locale.
      */
     public Composer(
         List<ComposerLocale> data,
@@ -196,17 +204,23 @@ public class Composer implements Serializable {
         this.locale = locale;
     }
 
+    /**
+     * Create composer with locale.
+     *
+     * @param locale    Locale.
+     */
     public Composer(
         String locale
     ) {
-        this.data = null;
+        this();
         this.locale = locale;
     }
+
     //- SECTION :: GET -//
     /**
      * Get ID of composer.
      *
-     * @return Long
+     * @return Id of composer.
      */
     public Long getId() {
         return id;
@@ -215,7 +229,7 @@ public class Composer implements Serializable {
     /**
      * Get user-composer.
      *
-     * @return User
+     * @return User.
      */
     public User getUser() {
         return user;
@@ -233,7 +247,7 @@ public class Composer implements Serializable {
     /**
      * Get first name in original locale.
      *
-     * @return String
+     * @return First name.
      */
     public String getFirstName() {
         return firstName;
@@ -242,7 +256,7 @@ public class Composer implements Serializable {
     /**
      * Get last name in origin locale.
      *
-     * @return String
+     * @return Last name.
      */
     public String getLastName() {
         return lastName;
@@ -251,7 +265,7 @@ public class Composer implements Serializable {
     /**
      * Get father name in origin locale.
      *
-     * @return String
+     * @return Father's name.
      */
     public String getFatherName() {
         return fatherName;
@@ -260,7 +274,7 @@ public class Composer implements Serializable {
     /**
      * Get locale of this composer.
      *
-     * @return String
+     * @return Locale.
      */
     public String getLocale() {
         return locale;
@@ -269,7 +283,7 @@ public class Composer implements Serializable {
     /**
      * Get gender of this composer.
      *
-     * @return Boolean
+     * @return true - man, false - woman.
      */
     public Boolean getGender() {
         return gender;
@@ -278,7 +292,7 @@ public class Composer implements Serializable {
     /**
      * Get date of birthday.
      *
-     * @return Calendar
+     * @return Birthday.
      */
     public LocalDate getBirthday() {
         return birthday;
@@ -287,7 +301,7 @@ public class Composer implements Serializable {
     /**
      * Get date of death.
      *
-     * @return Calendar
+     * @return Date of death.
      */
     public LocalDate getDeathDate() {
         return deathDate;
@@ -296,7 +310,7 @@ public class Composer implements Serializable {
     /**
      * Get time of create record.
      *
-     * @return Calendar
+     * @return Time of creating.
      */
     public Calendar getCreation() {
         return creation;
@@ -307,7 +321,7 @@ public class Composer implements Serializable {
     /**
      * Set ID of composer.
      *
-     * @param id
+     * @param id    Id of composer.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -316,7 +330,7 @@ public class Composer implements Serializable {
     /**
      * Set user-composer.
      *
-     * @param user
+     * @param user    User.
      */
     public void setUser( User user ) {
         this.user = user;
@@ -325,7 +339,7 @@ public class Composer implements Serializable {
     /**
      * Set composer's data.
      *
-     * @param data
+     * @param data    Localized data.
      */
     public void setData( List<ComposerLocale> data ) {
         this.data = data;
@@ -334,7 +348,7 @@ public class Composer implements Serializable {
     /**
      * Set locale of this composer.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;
@@ -343,7 +357,7 @@ public class Composer implements Serializable {
     /**
      * Set gender of this composer.
      *
-     * @param gender
+     * @param gender    true - man, false - woman.
      */
     public void setGender( Boolean gender ) {
         this.gender = gender;
@@ -352,7 +366,7 @@ public class Composer implements Serializable {
     /**
      * Set date of birthday.
      *
-     * @param birthday
+     * @param birthday    Birthday.
      */
     public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
@@ -361,7 +375,7 @@ public class Composer implements Serializable {
     /**
      * Set date of death.
      *
-     * @param deathDate
+     * @param deathDate    Date of death.
      */
     public void setDeathDate( LocalDate deathDate ) {
         this.deathDate = deathDate;
@@ -370,14 +384,14 @@ public class Composer implements Serializable {
     /**
      * Add unique composer locale.
      *
-     * @param composerLocale
+     * @param composerLocale    Localized data.
      */
     public void addComposerLocale( ComposerLocale composerLocale ) {
         //- Set composer-//
         composerLocale.setComposer( this );
 
         //- Add Composer locale-//
-        if( !this.data.contains( composerLocale ) ) {
+        if ( !this.data.contains( composerLocale ) ) {
             this.data.add( composerLocale );
         }
     }

@@ -145,10 +145,11 @@ public class UserServiceImpl implements UserService {
             //- Prepare content -//
             Template template = this.templateManager.compile( "security.signup" );
 
+            //FIXME: get email more safely
             //- Send notification-//
             this.notificationService.send(
                 new EmailAddress( "system@virtuoso.com" ),
-                new EmailAddress( newUser.getEmails().get( 0 ).getAddress() ),//FIXME: get email more safely
+                new EmailAddress( newUser.getEmails().get( 0 ).getAddress() ),
                 new Email(
                     this.messageSource.getMessage(
                         "notification.security.signup.subject",

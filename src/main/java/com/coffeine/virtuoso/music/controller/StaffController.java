@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/8/15 9:03 PM
  */
@@ -19,7 +19,8 @@ import com.coffeine.virtuoso.music.model.service.StyleService;
 import com.coffeine.virtuoso.music.view.form.StaffForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +65,7 @@ public class StaffController {
     /**
      * Find all and filtering by page.
      *
-     * @param page     Numper of page.
+     * @param page     Number of page.
      * @param limit    Count items per page.
      *
      * @return List of staffs.
@@ -88,7 +89,7 @@ public class StaffController {
      * Create a new Staff.
      *
      * @param staffForm    Input.
-     * @param response     Use for work woth HTTP.
+     * @param response     Use for work with HTTP.
      *
      * @return Create staff.
      */
@@ -112,6 +113,9 @@ public class StaffController {
             notNull( style );
             notNull( staffType );
 
+            //- Set status -//
+            response.setStatus( HttpServletResponse.SC_CREATED );
+
             //- Create a new Staff -//
             return this.staffService.create(
                 new Staff(
@@ -121,7 +125,7 @@ public class StaffController {
                     staffForm.getLocale()
                 )
             );
-        } catch ( IllegalArgumentException e ) {
+        } catch ( IllegalArgumentException | DataIntegrityViolationException e ) {
             //- Failure. Cannot find depended entities -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
@@ -133,7 +137,7 @@ public class StaffController {
      * Find.
      *
      * @param id          Id of staff.
-     * @param response    Use for work woth HTTP.
+     * @param response    Use for work with HTTP.
      *
      * @return Found staff.
      */
@@ -166,7 +170,7 @@ public class StaffController {
      *
      * @param id           Id of staff.
      * @param staffForm    Input.
-     * @param response     Use for work woth HTTP.
+     * @param response     Use for work with HTTP.
      *
      * @return Updated staff.
      */
@@ -202,9 +206,9 @@ public class StaffController {
             staff.setStaffType( staffType );
 
             return this.staffService.update( staff );
-        } catch ( IllegalArgumentException e ) {
+        } catch ( IllegalArgumentException | DataIntegrityViolationException e ) {
             //- Failure. Cannot update staff -//
-            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
 
         return null;
@@ -214,7 +218,7 @@ public class StaffController {
      * Delete.
      *
      * @param id          Id of staff.
-     * @param response    Use for work woth HTTP.
+     * @param response    Use for work with HTTP.
      */
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseBody
@@ -227,8 +231,8 @@ public class StaffController {
         try {
             //- Delete staff -//
             this.staffService.delete( id );
-        } catch ( EmptyResultDataAccessException e ) {
-            //- failure. Cannot find staff -//
+        } catch ( DataAccessException e ) {
+            //- Failure. Cannot find staff -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
     }

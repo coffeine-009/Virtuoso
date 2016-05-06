@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/8/15 9:18 PM
  */
@@ -21,15 +21,12 @@ import javax.validation.constraints.NotNull;
 public class StaffForm {
 
     @NotNull
-    @NotEmpty
     private Long songId;
 
     @NotNull
-    @NotEmpty
     private Long staffTypeId;
 
     @NotNull
-    @NotEmpty
     private Long styleId;
 
     @NotNull

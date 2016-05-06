@@ -28,21 +28,21 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username    Username of user(e-mail).
      * @param password    Hash of a password.
      *
-     * @return User
+     * @return User.
      */
     @Query(
-        "SELECT " +
-            "u " +
-        "FROM " +
-            "User u " +
-            "LEFT JOIN " +
-            "u.emails e " +
-            "LEFT JOIN " +
-            "u.access a " +
-        "WHERE " +
-            "e.address = :username " +
-            "AND " +
-            "a.password = :password"
+        "SELECT "
+            + "u "
+        + "FROM "
+            + "User u "
+            + "LEFT JOIN "
+            + "u.emails e "
+            + "LEFT JOIN "
+            + "u.access a "
+        + "WHERE "
+            + "e.address = :username "
+            + "AND "
+            + "a.password = :password"
     )
     User findByUsernameAndPassword(
         @Param( "username" )
@@ -57,17 +57,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
      *
      * @param username    Username of user(e-mail).
      *
-     * @return User
+     * @return User.
      */
     @Query(
-        "SELECT " +
-            "u " +
-        "FROM " +
-            "User u " +
-            "LEFT JOIN " +
-            "u.emails e " +
-        "WHERE " +
-            "e.address = :username"
+        "SELECT "
+            + "u "
+        + "FROM "
+            + "User u "
+            + "LEFT JOIN "
+            + "u.emails e "
+        + "WHERE "
+            + "e.address = :username"
     )
     User findByUsername( @Param( "username" ) String username );
 }

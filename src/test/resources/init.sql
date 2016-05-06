@@ -115,7 +115,8 @@ INSERT INTO song(
   write_date,
   creation
 ) VALUES
-( 1, 'uk-UA', NOW(), NOW() );
+( 1, 'uk-UA', NOW(), NOW() ),
+( 2, 'uk-UA', NOW(), NOW() );
 
 /**
  * Localized data of songs.
@@ -126,7 +127,8 @@ INSERT INTO song_locale(
   locale,
   title, creation
 ) VALUES
-( 1, 1, 'uk-UA', '', NOW() );
+( 1, 1, 'uk-UA', '', NOW() ),
+( 2, 2, 'uk-UA', '', NOW() );
 
 INSERT INTO style(
   id,
@@ -142,7 +144,7 @@ INSERT INTO staff_type(
   title,
   description 
 ) VALUES 
-( 1, 'TABS', 'Tabs', 'Tabulatures.' );
+( 1, 'TAB', 'Tabs', 'Tabulatures.' );
 
 /**
  * Staffs of songs.

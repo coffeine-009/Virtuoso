@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 01/7/2016 08:32 PM
  */
@@ -11,10 +11,10 @@ package com.coffeine.virtuoso.music.view.form;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 /**
  * Form for create/update Poet.
@@ -107,7 +107,7 @@ public class PoetForm {
     protected String locale;
 
     /**
-     * Birthday date
+     * Birthday date.
      */
     @NotNull
     protected LocalDate birthday;
@@ -118,7 +118,7 @@ public class PoetForm {
     protected LocalDate deathDate;
 
     /**
-     * Localized data
+     * Localized data.
      */
     protected List<Data> data = new ArrayList<>();
 
@@ -145,7 +145,7 @@ public class PoetForm {
         return deathDate;
     }
 
-    public List < Data > getData() {
+    public List<Data> getData() {
         return data;
     }
 
@@ -170,7 +170,7 @@ public class PoetForm {
         this.deathDate = deathDate;
     }
 
-    public void setData( List < Data > data ) {
+    public void setData( List<Data> data ) {
         this.data = data;
     }
 }
