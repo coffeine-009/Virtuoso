@@ -601,16 +601,12 @@ public class User implements Serializable {
         return Objects.hash(
             id,
             roles,
-            access,
             emails,
-            composer,
-            poet,
             firstName,
             lastName,
             middleName,
             gender,
-            locale,
-            creation
+            locale
         );
     }
 
@@ -625,16 +621,12 @@ public class User implements Serializable {
         final User other = (User) obj;
         return Objects.equals( this.id, other.id )
             && Objects.equals( this.roles, other.roles )
-            && Objects.equals( this.access, other.access )
             && Objects.equals( this.emails, other.emails )
-            && Objects.equals( this.composer, other.composer )
-            && Objects.equals( this.poet, other.poet )
             && Objects.equals( this.firstName, other.firstName )
             && Objects.equals( this.lastName, other.lastName )
             && Objects.equals( this.middleName, other.middleName )
             && Objects.equals( this.gender, other.gender )
-            && Objects.equals( this.locale, other.locale )
-            && Objects.equals( this.creation, other.creation );
+            && Objects.equals( this.locale, other.locale );
     }
 
     @Override
@@ -642,10 +634,7 @@ public class User implements Serializable {
         return MoreObjects.toStringHelper( this )
             .add( "id", id )
             .add( "roles", roles )
-            .add( "access", access )
             .add( "emails", emails )
-            .add( "composer", composer )
-            .add( "poet", poet )
             .add( "firstName", firstName )
             .add( "lastName", lastName )
             .add( "middleName", middleName )

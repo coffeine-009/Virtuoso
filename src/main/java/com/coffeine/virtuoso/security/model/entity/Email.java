@@ -182,7 +182,7 @@ public class Email implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash( id, user, address, creation );
+        return Objects.hash( id, address, creation );
     }
 
     @Override
@@ -195,7 +195,6 @@ public class Email implements Serializable {
         }
         final Email other = (Email) obj;
         return Objects.equals( this.id, other.id )
-            && Objects.equals( this.user, other.user )
             && Objects.equals( this.address, other.address )
             && Objects.equals( this.creation, other.creation );
     }
@@ -204,7 +203,6 @@ public class Email implements Serializable {
     public String toString() {
         return MoreObjects.toStringHelper( this )
             .add( "id", id )
-            .add( "user", user )
             .add( "address", address )
             .add( "creation", creation )
             .toString();

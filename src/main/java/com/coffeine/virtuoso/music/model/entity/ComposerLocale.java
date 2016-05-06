@@ -103,10 +103,10 @@ public class ComposerLocale implements Serializable {
     /**
      * Create composer locale.
      *
-     * @param firstName
-     * @param lastName
-     * @param middleName
-     * @param locale 
+     * @param firstName     First name.
+     * @param lastName      Last name.
+     * @param middleName    Father's name.
+     * @param locale        Locale.
      */
     public ComposerLocale(
         String firstName, 
@@ -124,11 +124,11 @@ public class ComposerLocale implements Serializable {
     /**
      * Constructor for create a composer locale.
      *
-     * @param composer
-     * @param firstName
-     * @param lastName
-     * @param middleName
-     * @param locale
+     * @param composer      Composer.
+     * @param firstName     First name.
+     * @param lastName      Last name.
+     * @param middleName    Father's name.
+     * @param locale        Locale.
      */
     public ComposerLocale (
         Composer composer,

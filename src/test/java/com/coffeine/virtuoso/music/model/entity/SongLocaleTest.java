@@ -39,7 +39,7 @@ public class SongLocaleTest extends AbstractModel {
     @Test
     public void testSongLocaleFieldsSuccess() {
 
-        Set < ConstraintViolation < SongLocale > > constraintViolationSet;
+        Set<ConstraintViolation<SongLocale>> constraintViolationSet;
 
         //- Success -//
         //- Create entity-//
@@ -50,7 +50,7 @@ public class SongLocaleTest extends AbstractModel {
                 //- Create poet-//
                 PoetMock.findAll(),
                 //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
+                new ArrayList<SongLocale>() {{
                     add(
                         new SongLocale(
                             "user",
@@ -59,13 +59,13 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of song staff -//
-                new ArrayList < Staff >() {{
+                new ArrayList<Staff>() {{
                     add(
                         new Staff()
                     );
                 }},
                 //- Create list of text -//
-                new ArrayList < Text >() {{
+                new ArrayList<Text>() {{
                     add(
                         new Text(
                             "uk-UA"
@@ -73,7 +73,7 @@ public class SongLocaleTest extends AbstractModel {
                     );
                 }},
                 //- Create list of video -//
-                new ArrayList < Video >() {{
+                new ArrayList<Video>() {{
                     add(
                         new Video(
                             new VideoType(
