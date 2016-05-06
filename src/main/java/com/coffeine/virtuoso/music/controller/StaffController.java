@@ -20,6 +20,7 @@ import com.coffeine.virtuoso.music.view.form.StaffForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -112,6 +113,9 @@ public class StaffController {
             notNull( style );
             notNull( staffType );
 
+            //- Set status -//
+            response.setStatus( HttpServletResponse.SC_CREATED );
+
             //- Create a new Staff -//
             return this.staffService.create(
                 new Staff(
@@ -121,7 +125,7 @@ public class StaffController {
                     staffForm.getLocale()
                 )
             );
-        } catch ( IllegalArgumentException e ) {
+        } catch ( IllegalArgumentException | DataIntegrityViolationException e ) {
             //- Failure. Cannot find depended entities -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
@@ -202,9 +206,9 @@ public class StaffController {
             staff.setStaffType( staffType );
 
             return this.staffService.update( staff );
-        } catch ( IllegalArgumentException e ) {
+        } catch ( IllegalArgumentException | DataIntegrityViolationException e ) {
             //- Failure. Cannot update staff -//
-            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
+            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
 
         return null;

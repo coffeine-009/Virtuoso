@@ -96,10 +96,10 @@ public class Video implements Serializable {
     /**
      * Create video.
      *
-     * @param title
-     * @param locale
-     * @param description
-     * @param fileName
+     * @param title          Title.
+     * @param locale         Locale.
+     * @param description    Description.
+     * @param fileName       File name.
      */
     public Video(
         String title,
@@ -117,10 +117,10 @@ public class Video implements Serializable {
     /**
      * Constructor for create new video.
      *
-     * @param videoType
-     * @param locale
-     * @param title
-     * @param fileName
+     * @param videoType    Type of video.
+     * @param locale       Locale.
+     * @param title        Title.
+     * @param fileName     File name.
      */
     public Video(
         VideoType videoType,

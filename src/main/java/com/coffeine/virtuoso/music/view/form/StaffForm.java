@@ -21,15 +21,12 @@ import javax.validation.constraints.NotNull;
 public class StaffForm {
 
     @NotNull
-    @NotEmpty
     private Long songId;
 
     @NotNull
-    @NotEmpty
     private Long staffTypeId;
 
     @NotNull
-    @NotEmpty
     private Long styleId;
 
     @NotNull
