@@ -9,15 +9,15 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
+import com.coffeine.virtuoso.module.util.TypeHelper;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -60,21 +60,14 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
     @Test
     public void testListAction() throws Exception {
 
-        this.mockMvc.perform(
+        final ResultActions responseActions = this.mockMvc.perform(
             get( "/music/videos/types?page={page}&limit={limit}", 1, 10 )
                 .contentType( MediaType.APPLICATION_JSON )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
-        ).andDo( print() )
+        );
+
+        responseActions
             .andExpect( status().isOk() )
-            .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect( jsonPath( "$", hasSize( 1 ) ) )
-            .andExpect( jsonPath( "$[*].id", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].code", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].code", containsInAnyOrder( "YOUTUBE" ) ) )
-            .andExpect( jsonPath( "$[*].title", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].title", containsInAnyOrder( "Youtube" ) ) )
-            .andExpect( jsonPath( "$[*].description", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].description", containsInAnyOrder( "Youtube." ) ) )
             .andDo(
                 document(
                     "video-types-list-example",
@@ -86,6 +79,8 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
                     )
                 )
             );
+
+        TypeHelper.check( responseActions, "YOUTUBE", "Youtube", "Youtube." );
     }
 
     /**
@@ -103,9 +98,9 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
                 .header( "Authorization", this.session.getAuthorizationHeader() )
             .content(
                 "{" +
-                    "\"code\": \"YOUTUBE\"," +
-                    "\"title\": \"Youtube\"," +
-                    "\"description\": \"Youtube.\"" +
+                    "\"code\": \"VIMEO\"," +
+                    "\"title\": \"Vimeo\"," +
+                    "\"description\": \"Vimeo.\"" +
                 "}"
             )
         )
@@ -113,11 +108,11 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
             .andExpect( jsonPath( "$code", notNullValue() ) )
-            .andExpect( jsonPath( "$code" ).value ( "YOUTUBE" ) )
+            .andExpect( jsonPath( "$code" ).value ( "VIMEO" ) )
             .andExpect( jsonPath( "$title", notNullValue() ) )
-            .andExpect( jsonPath( "$title" ).value( "Youtube" ) )
+            .andExpect( jsonPath( "$title" ).value( "Vimeo" ) )
             .andExpect( jsonPath( "$description", notNullValue() ) )
-            .andExpect( jsonPath( "$description" ).value( "Youtube." ) )
+            .andExpect( jsonPath( "$description" ).value( "Vimeo." ) )
             .andDo(
                 document(
                     "video-types-create-success-example",
@@ -239,9 +234,9 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
                 .header( "Authorization", this.session.getAuthorizationHeader() )
                 .content(
                     "{" +
-                        "\"code\": \"YOUTUBE\"," +
-                        "\"title\": \"Youtube\"," +
-                        "\"description\": \"Youtube.\"" +
+                        "\"code\": \"FILE\"," +
+                        "\"title\": \"File\"," +
+                        "\"description\": \"File.\"" +
                     "}"
                 )
         )
@@ -249,11 +244,11 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
             .andExpect( jsonPath( "$code", notNullValue() ) )
-            .andExpect( jsonPath( "$code" ).value ( "YOUTUBE" ) )
+            .andExpect( jsonPath( "$code" ).value ( "FILE" ) )
             .andExpect( jsonPath( "$title", notNullValue() ) )
-            .andExpect( jsonPath( "$title" ).value( "Youtube" ) )
+            .andExpect( jsonPath( "$title" ).value( "File" ) )
             .andExpect( jsonPath( "$description", notNullValue() ) )
-            .andExpect( jsonPath( "$description" ).value( "Youtube." ) )
+            .andExpect( jsonPath( "$description" ).value( "File." ) )
             .andDo(
                 document(
                     "video-types-update-success-example",

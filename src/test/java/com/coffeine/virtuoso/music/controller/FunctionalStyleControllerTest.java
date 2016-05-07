@@ -9,14 +9,14 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
+import com.coffeine.virtuoso.module.util.TypeHelper;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -63,21 +63,13 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
     @Test
     public void testListActionSuccess() throws Exception {
         // Success. Get list of styles
-        this.mockMvc.perform(
+        final ResultActions resultActions = this.mockMvc.perform(
             get( "/music/styles?page={page}&limit={limit}", 1, 10 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
-        )
+        );
+
+        resultActions
             .andExpect( status().isOk() )
-            .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect( jsonPath( "$", hasSize( 1 ) ) )
-            .andExpect( jsonPath( "$[*].id", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].id", containsInAnyOrder( 1 ) ) )
-            .andExpect( jsonPath( "$[*].code", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].code", containsInAnyOrder( "WALTZ" ) ) )
-            .andExpect( jsonPath( "$[*].title", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].title", containsInAnyOrder( "Waltz" ) ) )
-            .andExpect( jsonPath( "$[*].description", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].description", containsInAnyOrder( "Waltz." ) ) )
             .andDo(
                 document(
                     "styles-list-example",
@@ -89,6 +81,8 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
                     )
                 )
             );
+
+        TypeHelper.check( resultActions, "WALTZ", "Waltz", "Waltz." );
     }
 
     /**
