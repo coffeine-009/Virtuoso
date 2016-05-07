@@ -84,15 +84,15 @@ public class Staff implements Serializable {
      * Default constructor.
      */
     public Staff() {
-
+        //- Default initialization -//
     }
 
     /**
      * Constructor for create new Staff.
      *
-     * @param staffType
-     * @param style
-     * @param locale
+     * @param staffType    Staff type.
+     * @param style        Style.
+     * @param locale       Locale.
      */
     public Staff(
         StaffType staffType,
@@ -129,8 +129,8 @@ public class Staff implements Serializable {
     /**
      * Constructor for create new staff.
      *
-     * @param style
-     * @param locale
+     * @param style     Style.
+     * @param locale    Locale.
      */
 
     public Staff(
@@ -145,9 +145,9 @@ public class Staff implements Serializable {
         this.file = file;
     }
     /**
-     * Create text for song.
+     * Create staff for song.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public Staff(
         String locale
@@ -156,7 +156,22 @@ public class Staff implements Serializable {
         this.locale = locale;
     }
 
-    public Staff(Song song, StaffType staffType, Style style, String locale, String file) {
+    /**
+     * Create staff.
+     *
+     * @param song         Song.
+     * @param staffType    Staff type.
+     * @param style        Style.
+     * @param locale       Locale.
+     * @param file         File content.
+     */
+    public Staff(
+        Song song,
+        StaffType staffType,
+        Style style,
+        String locale,
+        String file
+    ) {
         this.song = song;
         this.staffType = staffType;
         this.style = style;
@@ -212,6 +227,11 @@ public class Staff implements Serializable {
         return locale;
     }
 
+    /**
+     * Get file content.
+     *
+     * @return Content of file.
+     */
     public String getFile() {
         return file;
     }
@@ -229,7 +249,7 @@ public class Staff implements Serializable {
     /**
      * Set ID of song staffs.
      *
-     * @param id
+     * @param id    Id of staff.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -238,7 +258,7 @@ public class Staff implements Serializable {
     /**
      * Set song of this staffs.
      *
-     * @param song
+     * @param song    Song.
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -247,7 +267,7 @@ public class Staff implements Serializable {
     /**
      * Set type of staffs.
      *
-     * @param staffType
+     * @param staffType    Staff type.
      */
     public void setStaffType(StaffType staffType) {
         this.staffType = staffType;
@@ -256,7 +276,7 @@ public class Staff implements Serializable {
     /**
      * Set style of song.
      *
-     * @param style
+     * @param style    Style.
      */
     public void setStyle( Style style ) {
         this.style = style;
@@ -265,12 +285,17 @@ public class Staff implements Serializable {
     /**
      * Set locale.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;
     }
 
+    /**
+     * Set content of file.
+     *
+     * @param file    Content of file.
+     */
     public void setFile(String file) {
         this.file = file;
     }

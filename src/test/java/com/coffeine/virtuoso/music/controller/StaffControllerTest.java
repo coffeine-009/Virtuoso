@@ -19,6 +19,7 @@ import com.coffeine.virtuoso.music.model.service.StaffService;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 import com.coffeine.virtuoso.music.model.service.StyleService;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -76,6 +77,16 @@ public class StaffControllerTest extends AbstractRestControllerTest {
             this.staffController
         ).build();
     }
+
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
+    }
+
 
     /**
      * Test get list of staffs.

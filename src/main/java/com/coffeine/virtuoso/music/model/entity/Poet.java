@@ -121,8 +121,8 @@ public class Poet implements Serializable {
     /**
      * Construct for create new poet.
      *
-     * @param birthday
-     * @param deathDate
+     * @param birthday     Date of the birth.
+     * @param deathDate    Date of death.
      */
     public Poet(
         String locale,
@@ -149,9 +149,9 @@ public class Poet implements Serializable {
     /**
      * Constructor for create new poet.
      *
-     * @param user
-     * @param data
-     * @param locale
+     * @param user      User.
+     * @param data      Localized data.
+     * @param locale    Locale.
      */
     public Poet(
         User user,
@@ -234,7 +234,7 @@ public class Poet implements Serializable {
     /**
      * Get data for current locale.
      *
-     * @return
+     * @return  Localized data.
      */
     public List<PoetLocale> getData() {
         return data;
@@ -280,7 +280,7 @@ public class Poet implements Serializable {
     /**
      * Set ID of poet.
      *
-     * @param id
+     * @param id    Id of post.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -289,7 +289,7 @@ public class Poet implements Serializable {
     /**
      * Set user-poet.
      *
-     * @param user
+     * @param user    User.
      */
     public void setUser( User user ) {
         this.user = user;
@@ -298,7 +298,7 @@ public class Poet implements Serializable {
     /**
      * Set data of current locale.
      *
-     * @param data
+     * @param data    Localized data.
      */
     public void setData( List<PoetLocale> data ) {
         this.data = data;
@@ -315,7 +315,7 @@ public class Poet implements Serializable {
     /**
      * Set date of birthday.
      *
-     * @param birthday
+     * @param birthday    Date of the birthday.
      */
     public void setBirthday( LocalDate birthday ) {
         this.birthday = birthday;
@@ -324,7 +324,7 @@ public class Poet implements Serializable {
     /**
      * Set date of death.
      *
-     * @param deathDate
+     * @param deathDate    Date of death.
      */
     public void setDeathDate( LocalDate deathDate ) {
         this.deathDate = deathDate;
@@ -333,7 +333,7 @@ public class Poet implements Serializable {
     /**
      * Add unique poet locale.
      *
-     * @param poetLocale
+     * @param poetLocale    Localized data.
      */
     public void addPoetLocale( PoetLocale poetLocale ) {
         //- Set composer-//

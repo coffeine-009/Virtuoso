@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +25,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,6 +44,14 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
         super.tearUp();
     }
 
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
+    }
 
     /**
      * Test get list of staff types.
@@ -57,7 +65,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
         this.mockMvc.perform(
             get( "/music/staffs/types?page={page}&limit={limit}", 1, 10 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
-        ).andDo( print() )
+        )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$", hasSize( 1 ) ) )

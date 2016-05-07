@@ -89,7 +89,9 @@ public class SongController {
     /**
      * Create new song.
      *
-     * @param form    Song for create.
+     * @param form      Song for create.
+     * @param locale    Current locale.
+     * @param response  Use for work with HTTP.
      *
      * @return Song
      */

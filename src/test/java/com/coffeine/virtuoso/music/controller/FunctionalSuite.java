@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2016 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm&#64;gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 4/21/16 1:59 PM
  */
@@ -19,7 +19,8 @@ import org.junit.runners.Suite;
     FunctionalSongControllerTest.class, 
     FunctionalStaffControllerTest.class, 
     FunctionalStaffTypeControllerTest.class, 
-    FunctionalStyleControllerTest.class
+    FunctionalStyleControllerTest.class,
+    FunctionalVideoTypeControllerTest.class
 })
 public class FunctionalSuite {
 

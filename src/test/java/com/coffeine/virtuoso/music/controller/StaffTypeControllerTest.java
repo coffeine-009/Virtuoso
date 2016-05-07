@@ -13,6 +13,7 @@ import com.coffeine.virtuoso.music.model.entity.StaffType;
 import com.coffeine.virtuoso.music.model.persistence.mock.StaffTypeMock;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -60,6 +61,15 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(
             this.staffTypeController
         ).build();
+    }
+
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
     }
 
     /**

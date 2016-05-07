@@ -167,6 +167,7 @@ public class ComposerController {
     /**
      * Action for update a new composer.
      *
+     * @param id        Id of composer.
      * @param form      Data about composer
      * @param response  Use for set HTTP status
      *

@@ -12,8 +12,8 @@ import com.coffeine.virtuoso.music.model.entity.VideoType;
 import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -97,7 +97,7 @@ public class VideoTypeController {
             return this.videoTypeService.create( videoType );
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
 
         return null;
@@ -179,7 +179,7 @@ public class VideoTypeController {
             return this.videoTypeService.update( videoTypeOrigin );
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create video type -//
-            response.setStatus( HttpStatus.FORBIDDEN.value() );
+            response.setStatus( HttpStatus.CONFLICT.value() );
         }
 
         return null;
@@ -203,9 +203,9 @@ public class VideoTypeController {
         try {
             //- Success. Delete video type -//
             this.videoTypeService.delete( id );
-        } catch ( EmptyResultDataAccessException e ) {
+        } catch ( DataAccessException e ) {
             //- Not exists ID -//
-            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
+            response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }
     }
 }

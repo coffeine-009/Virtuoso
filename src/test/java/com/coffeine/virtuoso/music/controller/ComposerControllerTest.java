@@ -12,6 +12,7 @@ import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -64,6 +65,14 @@ public class ComposerControllerTest extends AbstractRestControllerTest {
             .build();
     }
 
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
+    }
 
     /**
      * Test listAction.

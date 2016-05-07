@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,6 +43,15 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
     public void tearUp() {
 
         super.tearUp();
+    }
+
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
     }
 
 

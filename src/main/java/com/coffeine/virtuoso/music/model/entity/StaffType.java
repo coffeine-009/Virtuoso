@@ -71,9 +71,9 @@ public class StaffType implements Serializable {
     /**
      * Constructor.
      *
-     * @param code
-     * @param title
-     * @param description 
+     * @param code           Code.
+     * @param title          Title.
+     * @param description    Description.
      */
     public StaffType(
         String code, 
@@ -89,10 +89,10 @@ public class StaffType implements Serializable {
     /**
      * Constructor for create new Staff type.
      *
-     * @param id
-     * @param code
-     * @param title
-     * @param description
+     * @param id             Id.
+     * @param code           Code.
+     * @param title          Title.
+     * @param description    Description.
      */
     public StaffType(
         Long id,
@@ -112,7 +112,7 @@ public class StaffType implements Serializable {
     /**
      * Get ID of staffs type.
      *
-     * @return Long ID of staffs type
+     * @return Long ID of staffs type.
      */
     public Long getId() {
         return this.id;
@@ -121,7 +121,7 @@ public class StaffType implements Serializable {
     /**
      * Get code of staffs type.
      *
-     * @return String
+     * @return String.
      */
     public String getCode() {
         return code;
@@ -130,7 +130,7 @@ public class StaffType implements Serializable {
     /**
      * Get title of staffs type.
      *
-     * @return String
+     * @return String.
      */
     public String getTitle() {
         return this.title;
@@ -139,7 +139,7 @@ public class StaffType implements Serializable {
     /**
      * Get description about staffs type.
      *
-     * @return String
+     * @return String.
      */
     public String getDescription() {
         return description;
@@ -150,7 +150,7 @@ public class StaffType implements Serializable {
     /**
      * Set ID of staffs type.
      *
-     * @param id ID of staffs type
+     * @param id ID of staffs type.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -158,9 +158,9 @@ public class StaffType implements Serializable {
 
     /**
      * Set code of staffs type.
-     * Ex. TABULATRE
+     * Ex. TAB
      *
-     * @param code
+     * @param code    Code.
      */
     public void setCode( String code ) {
         this.code = code;
@@ -169,7 +169,7 @@ public class StaffType implements Serializable {
     /**
      * Set title of staffs type.
      *
-     * @param title
+     * @param title    Title.
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -178,7 +178,7 @@ public class StaffType implements Serializable {
     /**
      * Set description of staffs type.
      *
-     * @param description 
+     * @param description Description.
      */
     public void setDescription( String description ) {
         this.description = description;

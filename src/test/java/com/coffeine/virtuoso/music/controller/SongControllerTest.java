@@ -72,8 +72,9 @@ public class SongControllerTest extends AbstractRestControllerTest {
      * Reset environment to previous state
      */
     @After
+    @Override
     public void tearDown() {
-
+        //- Clean environment after run tests -//
     }
 
 

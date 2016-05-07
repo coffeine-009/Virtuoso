@@ -88,7 +88,5 @@ public abstract class AbstractTest
     /**
      * Clean environment.
      */
-    public void tearDown() {
-
-    }
+    public abstract void tearDown();
 }

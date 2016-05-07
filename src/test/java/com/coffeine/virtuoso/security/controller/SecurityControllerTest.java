@@ -34,7 +34,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -78,11 +77,12 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Reset environment to previous state
+     * Reset environment to previous state.
      */
     @After
+    @Override
     public void tearDown() {
-
+        //- Clean environment after run tests -//
     }
 
 
@@ -117,7 +117,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                         "\"birthday\": \"1990-08-10\"" +
                     "}"
                 )
-        ).andDo(print())
+        )
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$.roles[0].code", notNullValue() ) );
@@ -148,9 +148,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                     "}"
                 )
         )
-            .andExpect( status().isBadRequest() )
-            .andDo( print() );
-            //TODO: finish
+            .andExpect( status().isBadRequest() );
     }
 
     /**
@@ -171,7 +169,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                         "\"email\": \"unit@test.com\"" +
                     "}"
                 )
-        ).andDo( print() )
+        )
             .andExpect( status().isOk() );
     }
 
@@ -192,7 +190,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                         "\"email\": \"unit#test.com\"" +
                     "}"
                 )
-        ).andDo( print() )
+        )
             .andExpect( status().isBadRequest() );
     }
 
@@ -216,7 +214,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
                         "\"email\": \"unit-non-exists@test.com\"" +
                     "}"
                 )
-        ).andDo( print() )
+        )
             .andExpect( status().isNotFound() );
     }
 

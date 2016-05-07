@@ -168,6 +168,7 @@ public class PoetController {
     /**
      * Action for update a new composer.
      *
+     * @param id        Id of poet.
      * @param form      Data about composer
      * @param response  Use for set HTTP status
      *
