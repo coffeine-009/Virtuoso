@@ -17,8 +17,8 @@ import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 import com.coffeine.virtuoso.music.view.form.VideoForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +41,7 @@ import static org.springframework.util.Assert.notNull;
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/user/video" )
+@RequestMapping( value = "/music/videos" )
 public class VideoController {
 
     /// *** Properties  *** ///
@@ -209,7 +209,7 @@ public class VideoController {
 
             //- Success. Return created form type -//
             return this.videoService.update( video );
-        } catch ( DataIntegrityViolationException e ) {
+        } catch ( IllegalArgumentException | DataIntegrityViolationException e ) {
             //- Failure. Can not to create form type -//
             response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
@@ -235,7 +235,7 @@ public class VideoController {
         try {
             //- Success. Delete video -//
             this.videoService.delete( id );
-        } catch ( EmptyResultDataAccessException e ) {
+        } catch ( DataAccessException e ) {
             //- Failure. Cannot find -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }

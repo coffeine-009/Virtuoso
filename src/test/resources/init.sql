@@ -179,3 +179,15 @@ INSERT INTO video_type(
   description
 ) VALUES
 ( 1, 'YOUTUBE', 'Youtube', 'Youtube.' );
+
+INSERT INTO video(
+  id,
+  id_song,
+  id_video_type,
+  locale,
+  title,
+  description,
+  file_name,
+  creation
+) VALUES
+( 1, 1, 1, 'uk-UA', 'Rose', 'Rose. Ukrainian song.', 'rose.mp4', NOW() );

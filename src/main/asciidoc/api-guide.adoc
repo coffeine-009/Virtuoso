@@ -689,3 +689,113 @@ include::{snippets}/video-types-delete-success-example/http-response.adoc[]
 
 ===== Failure
 include::{snippets}/video-types-delete-failure-example/http-response.adoc[]
+
+
+
+[[resources-videos]]
+== Videos
+
+The videos resource is used to retrieve, update, and delete individual videos
+
+[[resources-videos-links]]
+=== Links
+
+include::{snippets}/videos-list-example/links.adoc[]
+
+
+[[resources-videos-list]]
+=== Get list of videos
+
+A `GET` request is used to get a videos
+
+==== Example request
+
+include::{snippets}/videos-list-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/videos-list-example/http-response.adoc[]
+
+
+[[resources-videos-retrieve]]
+=== Get video
+
+A `GET` request is used to get a video
+
+==== Response structure
+
+include::{snippets}/videos-retrieve-success-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/videos-retrieve-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/videos-retrieve-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/videos-retrieve-failure-example/http-response.adoc[]
+
+
+[[resources-videos-create]]
+=== Create a video
+
+A `POST` request is used to create a new video
+
+==== Request structure
+
+include::{snippets}/videos-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/videos-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/videos-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/videos-create-failure-example/http-response.adoc[]
+
+
+[[resources-videos-update]]
+=== Update a video
+
+A `PUT` request is used to update a video
+
+==== Request structure
+
+include::{snippets}/videos-update-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/videos-update-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/videos-update-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/videos-update-failure-example/http-response.adoc[]
+
+
+[[resources-videos-delete]]
+=== Delete a staff
+
+A `DELETE` request is used to delete a video
+
+==== Example request
+
+include::{snippets}/videos-delete-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/videos-delete-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/videos-delete-failure-example/http-response.adoc[]
