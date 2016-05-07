@@ -519,7 +519,7 @@ include::{snippets}/staffs-retrieve-success-example/http-response.adoc[]
 include::{snippets}/staffs-retrieve-failure-example/http-response.adoc[]
 
 
-[[resources-staffs-update]]
+[[resources-staffs-create]]
 === Create a staff
 
 A `POST` request is used to create a new staff
@@ -579,3 +579,113 @@ include::{snippets}/staffs-delete-success-example/http-response.adoc[]
 
 ===== Failure
 include::{snippets}/staffs-delete-failure-example/http-response.adoc[]
+
+
+
+[[resources-video-types]]
+== Video types
+
+The video types resource is used to retrieve, update, and delete individual video types
+
+[[resources-video-types-links]]
+=== Links
+
+include::{snippets}/video-types-list-example/links.adoc[]
+
+
+[[resources-video-types-list]]
+=== Get list of video types
+
+A `GET` request is used to get a video types
+
+==== Example request
+
+include::{snippets}/video-types-list-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/video-types-list-example/http-response.adoc[]
+
+
+[[resources-video-types-retrieve]]
+=== Get video type
+
+A `GET` request is used to get a video type
+
+==== Response structure
+
+include::{snippets}/video-types-retrieve-success-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/video-types-retrieve-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/video-types-retrieve-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/video-types-retrieve-failure-example/http-response.adoc[]
+
+
+[[resources-video-types-update]]
+=== Create a video type
+
+A `POST` request is used to create a new video type
+
+==== Request structure
+
+include::{snippets}/video-types-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/video-types-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/video-types-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/video-types-create-failure-example/http-response.adoc[]
+
+
+[[resources-video-types-update]]
+=== Update a video type
+
+A `PUT` request is used to update a video type
+
+==== Request structure
+
+include::{snippets}/video-types-update-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/video-types-update-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/video-types-update-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/video-types-update-failure-example/http-response.adoc[]
+
+
+[[resources-video-types-delete]]
+=== Delete a video type
+
+A `DELETE` request is used to delete a video type
+
+==== Example request
+
+include::{snippets}/video-types-delete-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/video-types-delete-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/video-types-delete-failure-example/http-response.adoc[]

@@ -124,11 +124,11 @@ public class PoetLocale implements Serializable {
     /**
      * Constructor for create poet locale.
      *
-     * @param poet
-     * @param firstName
-     * @param lastName
-     * @param middleName
-     * @param locale
+     * @param poet          Poet.
+     * @param firstName     First name.
+     * @param lastName      Last name.
+     * @param middleName    Father's name.
+     * @param locale        Locale.
      */
     public PoetLocale(
         Poet poet,
@@ -214,7 +214,7 @@ public class PoetLocale implements Serializable {
     /**
      * Set ID of composer's data.
      *
-     * @param id 
+     * @param id    Id of Poet's localized data.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -223,7 +223,7 @@ public class PoetLocale implements Serializable {
     /**
      * Set composer of this data.
      *
-     * @param poet 
+     * @param poet    Poet.
      */
     public void setPoet( Poet poet ) {
         this.poet = poet;
@@ -232,7 +232,7 @@ public class PoetLocale implements Serializable {
     /**
      * Set first name in choosen locale.
      *
-     * @param firstName 
+     * @param firstName    First name.
      */
     public void setFirstName( String firstName ) {
         this.firstName = firstName;
@@ -241,7 +241,7 @@ public class PoetLocale implements Serializable {
     /**
      * Set last name in chosen locale.
      *
-     * @param lastName 
+     * @param lastName    Last name.
      */
     public void setLastName( String lastName ) {
         this.lastName = lastName;
@@ -250,7 +250,7 @@ public class PoetLocale implements Serializable {
     /**
      * Set middle name in choosen locale.
      *
-     * @param middleName 
+     * @param middleName    Father's name.
      */
     public void setMiddleName( String middleName ) {
         this.middleName = middleName;
@@ -259,7 +259,7 @@ public class PoetLocale implements Serializable {
     /**
      * Set locale.
      *
-     * @param locale 
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;

@@ -188,11 +188,11 @@ public class Song implements Serializable {
     /**
      * Constructor.
      *
-     * @param poets
-     * @param title
-     * @param texts
-     * @param videos
-     * @param locale
+     * @param poets     List of posts.
+     * @param title     Title.
+     * @param texts     List of texts.
+     * @param videos    List of videos.
+     * @param locale    Locale.
      */
     public Song(
         List<Poet> poets,
@@ -214,12 +214,12 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composers
-     * @param poets
-     * @param data
-     * @param texts
-     * @param videos
-     * @param locale
+     * @param composers    List of composers.
+     * @param poets        List of poets.
+     * @param data         Localized data.
+     * @param texts        List of texts.
+     * @param videos       List of videos.
+     * @param locale       Locale.
      */
     public Song(
         List<Composer> composers,
@@ -246,13 +246,13 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composers
-     * @param poets
-     * @param data
-     * @param staffs
-     * @param texts
-     * @param videos
-     * @param locale
+     * @param composers    List of composers.
+     * @param poets        List of poets.
+     * @param data         Localized data.
+     * @param staffs       List of staffs.
+     * @param texts        List of texts.
+     * @param videos       List of videos.
+     * @param locale       Locale.
      */
     public Song(
         List<Composer> composers,
@@ -293,9 +293,9 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composers
-     * @param poets
-     * @param locale
+     * @param composers    List of composers.
+     * @param poets        List of poets.
+     * @param locale       Locale.
      */
     public Song(
         List<Composer> composers,
@@ -476,7 +476,7 @@ public class Song implements Serializable {
     /**
      * Set locale of song.
      *
-     * @param locale Locale of song
+     * @param locale Locale of song.
      */
     public void setLocale( String locale ) {
         this.locale = locale;
@@ -492,6 +492,9 @@ public class Song implements Serializable {
     }
 
 
+    /**
+     * Set not stored fields.
+     */
     @PostLoad
     public void reinit() {
         this.title = this.data.get(0).getTitle();
@@ -512,6 +515,11 @@ public class Song implements Serializable {
         }
     }
 
+    /**
+     * Add localized data.
+     *
+     * @param songLocale    Localized data.
+     */
     public void addSongLocale( SongLocale songLocale ) {
         //- Set Song-//
         songLocale.setSong( this );
@@ -522,6 +530,11 @@ public class Song implements Serializable {
         }
     }
 
+    /**
+     * Add a new staff.
+     *
+     * @param staff    Staff.
+     */
     public void addStaff( Staff staff ) {
         //- Set Song-//
         staff.setSong( this );
@@ -532,6 +545,11 @@ public class Song implements Serializable {
         }
     }
 
+    /**
+     * Add video.
+     *
+     * @param video    Video.
+     */
     public void addVideo( Video video ) {
         //- Set Song-//
         video.setSong( this );

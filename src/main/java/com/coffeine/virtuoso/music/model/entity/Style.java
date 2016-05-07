@@ -72,9 +72,9 @@ public class Style implements Serializable {
     /**
      * Constructor.
      *
-     * @param code
-     * @param title
-     * @param description 
+     * @param code           Code.
+     * @param title          Title.
+     * @param description    Description.
      */
     public Style(
         String code, 
@@ -90,8 +90,8 @@ public class Style implements Serializable {
     /**
      * Constructor.
      *
-     * @param code
-     * @param title
+     * @param code     Code.
+     * @param title    Title.
      */
     public Style(
         String code,
@@ -104,10 +104,10 @@ public class Style implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param id
-     * @param code
-     * @param title
-     * @param description
+     * @param id             Id.
+     * @param code           Code.
+     * @param title          Title.
+     * @param description    Description.
      */
     public Style(
         Long id,
@@ -126,7 +126,7 @@ public class Style implements Serializable {
     /**
      * Get ID of style.
      *
-     * @return Long ID of style
+     * @return Long ID of style.
      */
     public Long getId() {
         return this.id;
@@ -135,7 +135,7 @@ public class Style implements Serializable {
     /**
      * Get code of style.
      *
-     * @return String
+     * @return String.
      */
     public String getCode() {
         return code;
@@ -144,7 +144,7 @@ public class Style implements Serializable {
     /**
      * Get title of style.
      *
-     * @return String
+     * @return String.
      */
     public String getTitle() {
         return this.title;
@@ -153,7 +153,7 @@ public class Style implements Serializable {
     /**
      * Get description about style.
      *
-     * @return String
+     * @return String.
      */
     public String getDescription() {
         return description;
@@ -164,7 +164,7 @@ public class Style implements Serializable {
     /**
      * Set ID of style.
      *
-     * @param id ID of style
+     * @param id ID of style.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -174,7 +174,7 @@ public class Style implements Serializable {
      * Set code of style.
      * Ex. POLKA, WALTZ, DISCO
      *
-     * @param code
+     * @param code    Code.
      */
     public void setCode( String code ) {
         this.code = code;
@@ -183,7 +183,7 @@ public class Style implements Serializable {
     /**
      * Set title of style.
      *
-     * @param title
+     * @param title    Title.
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -192,7 +192,7 @@ public class Style implements Serializable {
     /**
      * Set description of style.
      *
-     * @param description 
+     * @param description Description.
      */
     public void setDescription( String description ) {
         this.description = description;

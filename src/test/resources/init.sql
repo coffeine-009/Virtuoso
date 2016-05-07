@@ -171,3 +171,11 @@ INSERT INTO song_poets(
   id_poet
 ) VALUES
 ( 1, 1 );
+
+INSERT INTO video_type(
+  id,
+  code,
+  title,
+  description
+) VALUES
+( 1, 'YOUTUBE', 'Youtube', 'Youtube.' );

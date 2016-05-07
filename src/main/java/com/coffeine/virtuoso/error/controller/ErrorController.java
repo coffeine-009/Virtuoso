@@ -40,14 +40,6 @@ public class ErrorController {
 
     /// *** Methods     *** ///
     /**
-     * Default constructor.
-     */
-    public ErrorController() {
-        //TODO
-    }
-
-
-    /**
      * Handle mapping errors.
      * E.g. JSON deserialization.
      *
@@ -80,7 +72,7 @@ public class ErrorController {
     /**
      * Handle validation errors.
      *
-     * @param exeption Object that contain description for this exception
+     * @param exeption Object that contain description for this exception.
      *
      * @return ValidationError Object for response about error.
      */

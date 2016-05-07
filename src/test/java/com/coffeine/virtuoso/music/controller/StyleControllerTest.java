@@ -13,6 +13,7 @@ import com.coffeine.virtuoso.music.model.entity.Style;
 import com.coffeine.virtuoso.music.model.persistence.mock.StyleMock;
 import com.coffeine.virtuoso.music.model.service.StyleService;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -56,6 +57,15 @@ public class StyleControllerTest extends AbstractRestControllerTest {
 
         //- Set up application -//
         this.mockMvc = MockMvcBuilders.standaloneSetup( styleController ).build();
+    }
+
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
     }
 
 

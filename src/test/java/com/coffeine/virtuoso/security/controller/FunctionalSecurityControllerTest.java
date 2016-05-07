@@ -55,6 +55,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
      * Prepare environment for test security.
      */
     @Before
+    @Override
     public void tearUp() {
         super.tearUp();
 
@@ -66,6 +67,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
      * Clear environment.
      */
     @After
+    @Override
     public void tearDown() {
         //- Turn on SMTP Server -//
         smtpServer.stop();

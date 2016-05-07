@@ -77,8 +77,8 @@ public class SongLocale implements Serializable {
     /**
      * Create composer locale.
      *
-     * @param title
-     * @param locale
+     * @param title     Title.
+     * @param locale    Locale.
      */
     public SongLocale(
         String title,
@@ -92,9 +92,9 @@ public class SongLocale implements Serializable {
     /**
      * Create composer locale.
      *
-     * @param song
-     * @param title
-     * @param locale
+     * @param song      Song.
+     * @param title     Title.
+     * @param locale    Locale.
      */
     public SongLocale(
         Song song,
@@ -158,7 +158,7 @@ public class SongLocale implements Serializable {
     /**
      * Set ID of composer's data.
      *
-     * @param id
+     * @param id    Id of song's localied data.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -167,7 +167,7 @@ public class SongLocale implements Serializable {
     /**
      * Set composer of this data.
      *
-     * @param song
+     * @param song    Song.
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -176,7 +176,7 @@ public class SongLocale implements Serializable {
     /**
      * Set first name in chosen locale.
      *
-     * @param title
+     * @param title    Title.
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -185,7 +185,7 @@ public class SongLocale implements Serializable {
     /**
      * Set locale.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;

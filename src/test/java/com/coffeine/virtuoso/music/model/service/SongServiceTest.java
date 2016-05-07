@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.music.model.service;
 
 import com.coffeine.virtuoso.module.model.service.AbstractServiceTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -37,6 +38,15 @@ public class SongServiceTest extends AbstractServiceTest {
 
         //- Init mocks -//
         MockitoAnnotations.initMocks( this );
+    }
+
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
     }
 
     /**

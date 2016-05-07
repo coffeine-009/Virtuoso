@@ -27,13 +27,6 @@ public class ValidationError {
 
     //***    Methods     *** ///
     /**
-     * Default constructor.
-     */
-    public ValidationError() {
-        //TODO
-    }
-
-    /**
      * Add new fieldErrors.
      *
      * @param field     Name of field.

@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/8/15 10:11 PM
  */
@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,6 +42,15 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
     @Override
     public void tearUp() {
         super.tearUp();
+    }
+
+    /**
+     * Clean environment.
+     */
+    @After
+    @Override
+    public void tearDown() {
+        //- Clean environment after run tests -//
     }
 
     /**
