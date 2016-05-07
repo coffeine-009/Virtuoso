@@ -9,6 +9,7 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
@@ -50,6 +51,7 @@ public class Video implements Serializable {
     protected VideoType videoType;
 
     @JsonBackReference
+    @JsonIgnore
     @NotNull
     @Valid
     @ManyToOne
