@@ -20,7 +20,8 @@ import org.junit.runners.Suite;
     FunctionalStaffControllerTest.class, 
     FunctionalStaffTypeControllerTest.class, 
     FunctionalStyleControllerTest.class,
-    FunctionalVideoTypeControllerTest.class
+    FunctionalVideoTypeControllerTest.class,
+    FunctionalVideoControllerTest.class
 })
 public class FunctionalSuite {
 

@@ -151,7 +151,7 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
             );
 
         } catch ( Exception e ) {
-            fail( "Cannot pass authorization." );
+            fail( "Cannot pass authorization. " + e.getMessage() );
         }
     }
 }

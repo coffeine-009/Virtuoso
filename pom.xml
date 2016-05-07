@@ -406,7 +406,7 @@
       </exclusions>
     </dependency>
 
-    <!-- Bone cp -->
+    <!-- Bonecp -->
     <dependency>
       <groupId>com.jolbox</groupId>
       <artifactId>bonecp</artifactId>
@@ -415,6 +415,10 @@
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -426,6 +430,10 @@
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

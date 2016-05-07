@@ -21,11 +21,9 @@ import javax.validation.constraints.NotNull;
 public class VideoForm {
 
     @NotNull
-    @NotEmpty
     private Long videoTypeId;
 
     @NotNull
-    @NotEmpty
     private Long songId;
 
     @NotNull

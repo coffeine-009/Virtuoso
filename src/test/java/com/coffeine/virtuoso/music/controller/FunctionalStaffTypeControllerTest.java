@@ -141,7 +141,8 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
             get( "/music/staffs/types/{id}", 999999 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
-            .andExpect( status().isNotFound() );
+            .andExpect( status().isNotFound() )
+            .andDo( document( "staff-types-retrieve-failure-example" ) );
     }
 
     /**

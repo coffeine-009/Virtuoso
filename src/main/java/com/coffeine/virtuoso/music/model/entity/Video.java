@@ -9,7 +9,6 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -42,14 +41,13 @@ public class Video implements Serializable {
     @Column( name = "id" )
     protected Long id;
 
-    @JsonBackReference
     @NotNull
     @Valid
     @ManyToOne
     @JoinColumn( name = "id_video_type" )
     protected VideoType videoType;
 
-    @JsonIgnore
+    @JsonBackReference
     @NotNull
     @Valid
     @ManyToOne
