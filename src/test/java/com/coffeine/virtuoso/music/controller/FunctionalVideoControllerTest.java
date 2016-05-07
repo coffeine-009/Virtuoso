@@ -192,10 +192,10 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
                     "{" +
                         "\"videoTypeId\": 1," +
                         "\"songId\": 2," +
-                        "\"locale\": \"uk-UA\"," +
-                        "\"title\": \"Rose\"," +
-                        "\"description\": \"Rose. Ukrainian song.\"," +
-                        "\"fileName\": \"rose.mp4\"" +
+                        "\"locale\": \"en-US\"," +
+                        "\"title\": \"Red rose\"," +
+                        "\"description\": \"Ukrainian song.\"," +
+                        "\"fileName\": \"red-rose.mp4\"" +
                     "}"
                 )
         )
@@ -204,19 +204,16 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$id", notNullValue() ) )
             .andExpect( jsonPath( "$videoType.id", notNullValue() ) )
             .andExpect( jsonPath( "$videoType.code", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.code" ).value( "YOUTUBE" ) )
             .andExpect( jsonPath( "$videoType.title", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.title" ).value( "Youtube" ) )
             .andExpect( jsonPath( "$videoType.description", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.description" ).value( "Youtube." ) )
             .andExpect( jsonPath( "$locale", notNullValue() ) )
-            .andExpect( jsonPath( "$locale" ).value( "uk-UA" ) )
+            .andExpect( jsonPath( "$locale" ).value( "en-US" ) )
             .andExpect( jsonPath( "$title", notNullValue() ) )
-            .andExpect( jsonPath( "$title" ).value( "Rose" ) )
+            .andExpect( jsonPath( "$title" ).value( "Red rose" ) )
             .andExpect( jsonPath( "$description", notNullValue() ) )
-            .andExpect( jsonPath( "$description" ).value( "Rose. Ukrainian song." ) )
+            .andExpect( jsonPath( "$description" ).value( "Ukrainian song." ) )
             .andExpect( jsonPath( "$fileName", notNullValue() ) )
-            .andExpect( jsonPath( "$fileName" ).value( "rose.mp4" ) )
+            .andExpect( jsonPath( "$fileName" ).value( "red-rose.mp4" ) )
 //            .andExpect( jsonPath( "$creation", notNullValue() ) )
             .andDo(
                 document(
@@ -228,18 +225,6 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
                         fieldWithPath( "title" ).description( "Title of the video." ),
                         fieldWithPath( "description" ).description( "Description of the video." ),
                         fieldWithPath( "fileName" ).description( "File of the video." )
-                    ),
-                    responseFields(
-                        fieldWithPath( "id" ).description( "Id of video." ),
-                        fieldWithPath( "videoType.id" ).description( "Id of video." ),
-                        fieldWithPath( "videoType.code" ).description( "Code of video." ),
-                        fieldWithPath( "videoType.title" ).description( "Title of video." ),
-                        fieldWithPath( "videoType.description" ).description( "Description of video." ),
-                        fieldWithPath( "locale" ).description( "Locale of the video." ),
-                        fieldWithPath( "title" ).description( "Title of the video." ),
-                        fieldWithPath( "description" ).description( "Description of the video." ),
-                        fieldWithPath( "fileName" ).description( "File of the video." ),
-                        fieldWithPath( "creation" ).description( "Creation date of the video." )
                     )
                 )
             );
@@ -274,6 +259,34 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
     }
 
     /**
+     * Create a video.
+     * Failure.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testCreateActionFailureInput() throws Exception {
+        //- Failure -//
+        this.mockMvc.perform(
+            post( "/music/videos" )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content(
+                    "{" +
+                        "\"videoTypeId\": 99999," +
+                        "\"songId\": 99999," +
+                        "\"locale\": \"uk-UA\"," +
+                        "\"title\": \"Rose\"," +
+                        "\"description\": \"Rose. Ukrainian song.\"," +
+                        "\"fileName\": \"rose.mp4\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isNotFound() )
+            .andDo( document( "videos-create-failure-input-example" ) );
+    }
+
+    /**
      * Update a video.
      * Success.
      *
@@ -290,7 +303,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
                     "{" +
                         "\"videoTypeId\": 1," +
                         "\"songId\": 1," +
-                        "\"locale\": \"en-US\"," +
+                        "\"locale\": \"en\"," +
                         "\"title\": \"Rose\"," +
                         "\"description\": \"Rose. Ukrainian song.\"," +
                         "\"fileName\": \"rose.mp4\"" +
@@ -300,15 +313,9 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.id", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.code", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.code" ).value( "YOUTUBE" ) )
-            .andExpect( jsonPath( "$videoType.title", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.title" ).value( "Youtube" ) )
-            .andExpect( jsonPath( "$videoType.description", notNullValue() ) )
-            .andExpect( jsonPath( "$videoType.description" ).value( "Youtube." ) )
+            .andExpect( jsonPath( "$videoType", notNullValue() ) )
             .andExpect( jsonPath( "$locale", notNullValue() ) )
-            .andExpect( jsonPath( "$locale" ).value( "en-US" ) )
+            .andExpect( jsonPath( "$locale" ).value( "en" ) )
             .andExpect( jsonPath( "$title", notNullValue() ) )
             .andExpect( jsonPath( "$title" ).value( "Rose" ) )
             .andExpect( jsonPath( "$description", notNullValue() ) )
@@ -316,31 +323,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$fileName", notNullValue() ) )
             .andExpect( jsonPath( "$fileName" ).value( "rose.mp4" ) )
 //            .andExpect( jsonPath( "$creation", notNullValue() ) )
-            .andDo(
-                document(
-                    "videos-update-success-example",
-                    requestFields(
-                        fieldWithPath( "videoTypeId" ).description( "Id of video type." ),
-                        fieldWithPath( "songId" ).description( "Id of song." ),
-                        fieldWithPath( "locale" ).description( "Locale of the video." ),
-                        fieldWithPath( "title" ).description( "Title of the video." ),
-                        fieldWithPath( "description" ).description( "Description of the video." ),
-                        fieldWithPath( "fileName" ).description( "File of the video." )
-                    ),
-                    responseFields(
-                        fieldWithPath( "id" ).description( "Id of video." ),
-                        fieldWithPath( "videoType.id" ).description( "Id of video." ),
-                        fieldWithPath( "videoType.code" ).description( "Code of video." ),
-                        fieldWithPath( "videoType.title" ).description( "Title of video." ),
-                        fieldWithPath( "videoType.description" ).description( "Description of video." ),
-                        fieldWithPath( "locale" ).description( "Locale of the video." ),
-                        fieldWithPath( "title" ).description( "Title of the video." ),
-                        fieldWithPath( "description" ).description( "Description of the video." ),
-                        fieldWithPath( "fileName" ).description( "File of the video." ),
-                        fieldWithPath( "creation" ).description( "Creation date of the video." )
-                    )
-                )
-            );
+            .andDo( document( "videos-update-success-example" ) );
     }
 
     /**

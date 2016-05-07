@@ -25,7 +25,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -205,7 +204,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
                         "\"description\": \"Waltz.\"" +
                     "}"
                 )
-        ).andDo( print() )
+        )
 //            .andExpect( status().isConflict() );//FIXME: unique constraint
             .andDo( document( "styles-create-failure-example" ) );
     }

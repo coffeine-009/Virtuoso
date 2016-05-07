@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -178,7 +177,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
             get( "/music/videos/types/{id}", 1 )
                 .contentType( MediaType.APPLICATION_JSON )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
-        ).andDo( print() )
+        )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
