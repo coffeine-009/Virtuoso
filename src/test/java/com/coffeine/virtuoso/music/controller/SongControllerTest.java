@@ -9,32 +9,42 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
+import com.coffeine.virtuoso.music.model.entity.Song;
+import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.StaffTypeMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.StyleMock;
+import com.coffeine.virtuoso.music.model.service.ComposerService;
+import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
+import com.coffeine.virtuoso.music.model.service.StaffTypeService;
+import com.coffeine.virtuoso.music.model.service.StyleService;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.http.MediaType;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,6 +57,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SongControllerTest extends AbstractRestControllerTest {
 
     /// *** Properties  *** ///
+    @Mock
+    private ComposerService composerService;
+
+    @Mock
+    private PoetService poetService;
+
+    @Mock
+    private StaffTypeService staffTypeService;
+
+    @Mock
+    private StyleService styleService;
+
     @Mock
     private SongService songService;
 
@@ -93,42 +115,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
         this.mockMvc.perform(
             get( "/music/songs?page={page}&limit={limit}", 1, 10 )
         )
-            .andExpect( status().isOk() )
-            .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect( jsonPath( "$", hasSize( 1 ) ) )
-            .andExpect( jsonPath( "$[*].id", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].id", containsInAnyOrder( 1 ) ) )
-            //- Composer -//
-            .andExpect( jsonPath( "$[*].composers", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].composers", not( empty() ) ) )
-            .andExpect( jsonPath( "$[*].composers", hasSize( 1 ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].id", containsInAnyOrder( 1 ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].gender", containsInAnyOrder( true ) ) )
-            .andExpect( jsonPath( "$[*].composers[*].birthday", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].composers[0].deathDate", nullValue() ) )
-            //- Poet -//
-            .andExpect( jsonPath( "$[*].poets[*].id", containsInAnyOrder( 1 ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].gender", containsInAnyOrder( true ) ) )
-            .andExpect( jsonPath( "$[*].poets[*].birthday", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].poets[0].deathDate", nullValue() ) )
-            //- Song -//
-            .andExpect( jsonPath( "$[*].title", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].locale", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].writeDate", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].data", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].staffs", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].texts", notNullValue() ) )
-            .andExpect( jsonPath( "$[*].videos", notNullValue() ) );
+            .andExpect( status().isOk() );
     }
 
     /**
@@ -152,30 +139,159 @@ public class SongControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Test create new song
+     * Test create new song.
+     * Success.
      *
      * @throws Exception    General Exception of application.
      */
-    @Ignore
     @Test
-    public void testCreateAction() throws Exception {
-        // Do request for get list of songs
-//        HttpResponse songsResponse = HttpClientBuilder.create().build().execute(
-//            new HttpPost(
-//                String.format(
-//                    "%s://%s:%s%s",
-//                    //- Params -//
-//                    PROTOCOL,
-//                    DOMAIN,
-//                    PORT,
-//                    URL_SONG_CREATE
-//                )
-//            )
-//        );
-//        String body = EntityUtils.toString(
-//                songsResponse.getEntity()
-//        );
-//        this.fail("To implement");
+    public void testCreateActionSuccess() throws Exception {
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
+        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
+        when( this.songService.create( any( Song.class ) ) ).thenReturn( SongMock.retrieve() );
+
+        //- Success. Create a new songs -//
+        this.mockMvc.perform(
+            post( "/music/songs" )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content(
+                    "{" +
+                        "\"composerIds\": [ 1 ]," +
+                        "\"poetIds\": [ 1 ]," +
+                        "\"data\": [ {" +
+                            "\"title\": \"Rose\"," +
+                            "\"locale\": \"en-US\"" +
+                        "} ]," +
+                        "\"staffs\": [ {" +
+                            "\"musicNotesTypeId\": 1," +
+                            "\"styleId\": 1" +
+                        "} ]," +
+                        "\"texts\": [ {" +
+                            "\"locale\": \"en-US\"," +
+                            "\"lyrics\": \"Слова, слова,  \\n" +
+                                "Немов вуаль,  \\n" +
+                                "Там, де тонка діагональ  \\n" +
+                                "Звучить кришталь.  \\n" +
+                                "А ніч летить туди у даль,  \\n" +
+                                "Не залишаючи для нас  \\n" +
+                                "Путів, на жаль...  \\n" +
+                                "\\n" +
+                                "#### Приспів:  \\n" +
+                                "Стріляй!  \\n" +
+                                "Скажи, чому боїшся ти  \\n" +
+                                "Зробити цей останній крок?!?  \\n" +
+                                "Давай!  \\n" +
+                                "Най буде так, як хочеш ти,  \\n" +
+                                "Я заплатив за свій урок!  \\n" +
+                                "Прощай, мій Ангелок...  \\n" +
+                                "Давай! Тисни гачок!  \\n" +
+                                "\\n" +
+                                "Слова, слова - \\n" +
+                                "Алмаз вини -  \\n" +
+                                "Мов зачаїлися в думках  \\n" +
+                                "На мить вони...  \\n" +
+                                "І от дуель, і от фінал  \\n" +
+                                "Там, де навколо Колізей  \\n" +
+                                "Звучить метал...  \\n" +
+                                "\\n" +
+                                "#### Приспів. (2)\\n" +
+                                "\\n" +
+                                ">Прощай, мій Ангелок...  \\n" +
+                                "Стріляй!\"" +
+                        "} ]," +
+                        "\"videos\": [ {" +
+                            "\"locale\": \"en-US\"," +
+                            "\"title\": \"Rose\"," +
+                            "\"description\": \"Rose.\"," +
+                            "\"link\": \"rose.mp4\"" +
+                        "} ]," +
+                        "\"locale\": \"en-US\"," +
+                        "\"writeDate\": \"2016-05-08\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isCreated() );
+    }
+
+    /**
+     * Test create new song.
+     * Failure
+     *
+     * @throws Exception    General Exception of application.
+     */
+    @Test
+    public void testCreateActionFailure() throws Exception {
+        //- Params -//
+        final String content = "{" +
+            "\"composerIds\": [ 1 ]," +
+            "\"poetIds\": [ 1 ]," +
+            "\"data\": [ {" +
+                "\"title\": \"Rose\"," +
+                "\"locale\": \"en-US\"" +
+            "} ]," +
+            "\"staffs\": [ {" +
+                "\"musicNotesTypeId\": 1," +
+                "\"styleId\": 1" +
+            "} ]," +
+            "\"texts\": [ {" +
+                "\"locale\": \"en-US\"," +
+                "\"lyrics\": \"Слова, слова,  \\n" +
+                    "Немов вуаль,  \\n" +
+                    "Там, де тонка діагональ  \\n" +
+                    "Звучить кришталь.  \\n" +
+                    "А ніч летить туди у даль,  \\n" +
+                    "Не залишаючи для нас  \\n" +
+                    "Путів, на жаль...\"" +
+            "} ]," +
+            "\"videos\": [ {" +
+                "\"locale\": \"en-US\"," +
+                "\"title\": \"Rose\"," +
+                "\"description\": \"Rose.\"," +
+                "\"link\": \"rose.mp4\"" +
+            "} ]," +
+            "\"locale\": \"en-US\"," +
+            "\"writeDate\": \"2016-05-08\"" +
+        "}";
+
+        //- Conflict -//
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
+        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
+        doThrow( DataIntegrityViolationException.class ).when(
+            this.songService
+        ).create( any( Song.class ) );
+
+        //- Failure. Create a new songs -//
+        this.mockMvc.perform(
+            post( "/music/songs" )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content( content )
+        )
+            .andExpect( status().isConflict() );
+
+        //- Not Found -//
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( null );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( null );
+        doThrow( DataIntegrityViolationException.class ).when(
+            this.songService
+        ).create( any( Song.class ) );
+
+        //- Failure. Create a new songs -//
+        this.mockMvc.perform(
+            post( "/music/songs" )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content( content )
+        )
+            .andExpect( status().isNotFound() );
     }
 
     /**
@@ -185,7 +301,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
      * @throws Exception    General Exception of application.
      */
     @Test
-    public void testRetrieveAction() throws Exception {
+    public void testRetrieveActionSuccess() throws Exception {
         //- Mock service -//
         when( songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
 
@@ -193,41 +309,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
         this.mockMvc.perform(
             get( "/music/songs/{id}", 1 )
         )
-            .andExpect( status().isOk() )
-            .andExpect( jsonPath( "$", notNullValue() ) )
-            .andExpect( jsonPath( "$id", notNullValue() ) )
-            .andExpect( jsonPath( "$id" ).value( 1 ) )
-            //- Composer -//
-            .andExpect( jsonPath( "$composers", notNullValue() ) )
-            .andExpect( jsonPath( "$composers", not( empty() ) ) )
-            .andExpect( jsonPath( "$composers", hasSize( 1 ) ) )
-            .andExpect( jsonPath( "$composers[*].id", containsInAnyOrder( 1 ) ) )
-            .andExpect( jsonPath( "$composers[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
-            .andExpect( jsonPath( "$composers[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
-            .andExpect( jsonPath( "$composers[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
-            .andExpect( jsonPath( "$composers[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$composers[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$composers[*].gender", containsInAnyOrder( true ) ) )
-            .andExpect( jsonPath( "$composers[*].birthday", notNullValue() ) )
-            .andExpect( jsonPath( "$composers[0].deathDate", nullValue() ) )
-            //- Poet -//
-            .andExpect( jsonPath( "$poets[*].id", containsInAnyOrder( 1 ) ) )
-            .andExpect( jsonPath( "$poets[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
-            .andExpect( jsonPath( "$poets[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
-            .andExpect( jsonPath( "$poets[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
-            .andExpect( jsonPath( "$poets[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$poets[*].locale", containsInAnyOrder( "uk-UA" ) ) )
-            .andExpect( jsonPath( "$poets[*].gender", containsInAnyOrder( true ) ) )
-            .andExpect( jsonPath( "$poets[*].birthday", notNullValue() ) )
-            .andExpect( jsonPath( "$poets[0].deathDate", nullValue() ) )
-            //- Song -//
-//            .andExpect( jsonPath( "$title", notNullValue() ) )//FIXME
-            .andExpect( jsonPath( "$locale", notNullValue() ) )
-//            .andExpect( jsonPath( "$writeDate", notNullValue() ) )//FIXME
-            .andExpect( jsonPath( "$data", notNullValue() ) )
-            .andExpect( jsonPath( "$staffs", notNullValue() ) )
-            .andExpect( jsonPath( "$texts", notNullValue() ) )
-            .andExpect( jsonPath( "$videos", notNullValue() ) );
+            .andExpect( status().isOk() );
     }
 
     /**
@@ -248,19 +330,175 @@ public class SongControllerTest extends AbstractRestControllerTest {
             .andExpect( status().isNotFound() );
     }
 
-    @Ignore
+    /**
+     * Test update song.
+     * Success.
+     *
+     * @throws Exception    General Exception of application.
+     */
     @Test
-    public void testUpdateAction() throws Exception {
-//        this.fail("To implement");
+    public void testUpdateActionSuccess() throws Exception {
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        when( this.songService.update( any( Song.class ) ) ).thenReturn( SongMock.retrieve() );
+
+        //- Success. Create a new songs -//
+        this.mockMvc.perform(
+            put( "/music/songs/{id}", 1 )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content(
+                    "{" +
+                        "\"composerIds\": [ 1 ]," +
+                        "\"poetIds\": [ 1 ]," +
+                        "\"data\": [ {" +
+                            "\"title\": \"Стріляй\"," +
+                            "\"locale\": \"uk-UA\"" +
+                        "} ]," +
+                        "\"staffs\": [ {" +
+                            "\"musicNotesTypeId\": 1," +
+                            "\"styleId\": 1" +
+                        "} ]," +
+                        "\"texts\": [ {" +
+                            "\"locale\": \"uk-UA\"," +
+                            "\"lyrics\": \"#### Приспів:  \\n" +
+                                "Стріляй!  \\n" +
+                                "Скажи, чому боїшся ти  \\n" +
+                                "Зробити цей останній крок?!?  \\n" +
+                                "Давай!  \\n" +
+                                "Най буде так, як хочеш ти,  \\n" +
+                                "Я заплатив за свій урок!  \\n" +
+                                "Прощай, мій Ангелок...  \\n" +
+                                "Давай! Тисни гачок!  \"" +
+                        "} ]," +
+                        "\"videos\": [ {" +
+                            "\"locale\": \"uk-UA\"," +
+                            "\"title\": \"Стріляй\"," +
+                            "\"description\": \"Стріляй.\"," +
+                            "\"link\": \"shot.mp4\"" +
+                        "} ]," +
+                        "\"locale\": \"uk-UA\"," +
+                        "\"writeDate\": \"2008-02-08\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isOk() );
     }
 
+    /**
+     * Test update song.
+     * Failure.
+     *
+     * @throws Exception    General Exception of application.
+     */
     @Test
-    public void testDeleteAction() throws Exception {
+    public void testUpdateActionFailure() throws Exception {
+        //- Params -//
+        final String content = "{" +
+            "\"composerIds\": [ 1 ]," +
+            "\"poetIds\": [ 1 ]," +
+            "\"data\": [ {" +
+                "\"title\": \"Стріляй\"," +
+                "\"locale\": \"uk-UA\"" +
+            "} ]," +
+            "\"staffs\": [ {" +
+                "\"musicNotesTypeId\": 1," +
+                "\"styleId\": 1" +
+            "} ]," +
+            "\"texts\": [ {" +
+                "\"locale\": \"uk-UA\"," +
+                "\"lyrics\": \"Слова, слова,  \\n" +
+                    "Немов вуаль,  \\n" +
+                    "Там, де тонка діагональ  \\n" +
+                    "Звучить кришталь.  \\n" +
+                    "А ніч летить туди у даль,  \\n" +
+                    "Не залишаючи для нас  \\n" +
+                    "Путів, на жаль...\"" +
+            "} ]," +
+            "\"videos\": [ {" +
+                "\"locale\": \"uk-UA\"," +
+                "\"title\": \"Стріляй\"," +
+                "\"description\": \"Стріляй.\"," +
+                "\"link\": \"shot.mp4\"" +
+            "} ]," +
+            "\"locale\": \"uk-ua\"," +
+            "\"writeDate\": \"2008-02-08\"" +
+        "}";
 
+        //- Conflict -//
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        doThrow( DataIntegrityViolationException.class ).when(
+            this.songService
+        ).update( any( Song.class ) );
+
+        //- Failure -//
         this.mockMvc.perform(
-            delete( "/music/songs/{SONG_ID}", 1 )
-                .contentType( MediaType.APPLICATION_JSON )
+            put( "/music/songs/{id}", 1 )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content( content )
         )
-            .andDo( print() );
+            .andExpect( status().isConflict() );
+
+        //- Not Found -//
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( null );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( null );
+        when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        doThrow( DataIntegrityViolationException.class ).when(
+            this.songService
+        ).create( any( Song.class ) );
+
+        //- Failure -//
+        this.mockMvc.perform(
+            put( "/music/songs/{id}", 99999 )
+                .header( "Authorization", this.session.getAuthorizationHeader() )
+                .header( "Content-Type", "application/json" )
+                .content( content )
+        )
+            .andExpect( status().isNotFound() );
+    }
+
+    /**
+     * Test of deleting song.
+     * Success
+     *
+     * @throws Exception    General Exception of application.
+     */
+    @Test
+    public void testDeleteActionSuccess() throws Exception {
+        //- Mock -//
+        doNothing().when( this.songService ).delete( anyLong() );
+
+        //- Success -//
+        this.mockMvc.perform(
+            delete( "/music/songs/{id}", 1 )
+        )
+            .andExpect( status().isOk() );
+    }
+
+    /**
+     * Test of deleting song.
+     * Failure.
+     *
+     * @throws Exception    General Exception of application.
+     */
+    @Test
+    public void testDeleteActionFailure() throws Exception {
+        //- Mock -//
+        doThrow( EmptyResultDataAccessException.class ).when(
+            this.songService
+        ).delete( anyLong() );
+
+        //- Failure -//
+        this.mockMvc.perform(
+            delete( "/music/songs/{id}", 1 )
+        )
+            .andExpect( status().isNotFound() );
     }
 }

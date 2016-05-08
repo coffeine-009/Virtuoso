@@ -68,7 +68,8 @@ public class SongLocaleTest extends AbstractModel {
                 new ArrayList<Text>() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -133,7 +134,8 @@ public class SongLocaleTest extends AbstractModel {
                 new ArrayList < Text >() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -254,7 +256,8 @@ public class SongLocaleTest extends AbstractModel {
                 new ArrayList < Text >() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -348,7 +351,8 @@ public class SongLocaleTest extends AbstractModel {
                 new ArrayList < Text >() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},

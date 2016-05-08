@@ -77,7 +77,8 @@ public class TextTest extends AbstractModel {
                 new ArrayList < Text >() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -114,10 +115,9 @@ public class TextTest extends AbstractModel {
         Set < ConstraintViolation < Text > > constraintViolationSet;
         //- Failure : incorrect song -//
         //- Create entity -//
-        Text textFailureSong = new Text(
-            null,
-            "uk-UA"
-        );
+        Text textFailureSong = new Text();
+            textFailureSong.setLocale( "uk-UA" );
+
         //- Validate -//
         constraintViolationSet = validator.validate( textFailureSong );
 
@@ -187,7 +187,8 @@ public class TextTest extends AbstractModel {
                 new ArrayList < Text >() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -291,7 +292,8 @@ public class TextTest extends AbstractModel {
                 new ArrayList < Text >() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},

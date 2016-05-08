@@ -104,6 +104,11 @@ public class SongForm {
          */
         private Long styleId;
 
+        /**
+         * File content. MusicXML.
+         */
+        private String file;
+
 
         //- SECTION :: GET -//
         /**
@@ -124,6 +129,14 @@ public class SongForm {
             return styleId;
         }
 
+        /**
+         * Get content of file.
+         *
+         * @return String.xml.MusicXML
+         */
+        public String getFile() {
+            return file;
+        }
 
         //- SECTION :: SET -//
         /**
@@ -143,18 +156,133 @@ public class SongForm {
         public void setStyleId( Long styleId ) {
             this.styleId = styleId;
         }
+
+        /**
+         * Set content.
+         *
+         * @param file    MusicXML.
+         */
+        public void setFile( String file ) {
+            this.file = file;
+        }
     }
 
     /**
      * Form for input text(s).
      */
     public static class TextForm {
+
+        /**
+         * Selected locale.
+         */
+        @NotNull
+        @NotEmpty
+        @Length( max = 5 )
+        protected String locale;
+
+        @NotNull
+        @NotEmpty
+        @Length( min = 60 )
+        protected String lyrics;
+
+
+        //- SECTION :: GET -//
+        /**
+         * Get locale.
+         *
+         * @return Locale.
+         */
+        public String getLocale() {
+            return locale;
+        }
+
+        /**
+         * Get lyrics.
+         *
+         * @return Lyrics.
+         */
+        public String getLyrics() {
+            return lyrics;
+        }
+
+        //- SECTION :: SET -//
+        /**
+         * Set locale.
+         *
+         * @param locale    Locale.
+         */
+        public void setLocale( String locale ) {
+            this.locale = locale;
+        }
+
+        /**
+         * Set lyrics.
+         *
+         * @param lyrics    Lyrics.
+         */
+        public void setLyrics( String lyrics ) {
+            this.lyrics = lyrics;
+        }
     }
 
     /**
      * Form for input video(s).
      */
     public static class VideoForm {
+
+        @NotNull
+        @NotEmpty
+        @Length( max = 5 )
+        protected String locale;
+
+        @NotNull
+        @NotEmpty
+        @Length( min = 8 )
+        protected String title;
+
+        @NotNull
+        @NotEmpty
+        @Length( min = 8 )
+        protected String description;
+
+        @NotNull
+        @NotEmpty
+        @Length( min = 8 )
+        protected String link;
+
+        //- SECTION :: GET -//
+        public String getLocale() {
+            return locale;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getLink() {
+            return link;
+        }
+
+        //- SECTION :: SET -//
+        public void setLocale( String locale ) {
+            this.locale = locale;
+        }
+
+        public void setTitle( String title ) {
+            this.title = title;
+        }
+
+        public void setDescription( String description ) {
+            this.description = description;
+        }
+
+        public void setLink( String link ) {
+            this.link = link;
+        }
     }
 
     /// *** Properties  *** ///

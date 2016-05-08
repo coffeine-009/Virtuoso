@@ -38,7 +38,6 @@ import javax.validation.constraints.NotNull;
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
 @Entity
 @Table( name = "song" )
 public class Song implements Serializable {
@@ -134,7 +133,7 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
@@ -145,7 +144,7 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )

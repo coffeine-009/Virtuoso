@@ -17,10 +17,10 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.constraints.NotNull;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -60,7 +60,8 @@ public class StaffTest extends AbstractModel {
                 new ArrayList<Text>() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -170,7 +171,8 @@ public class StaffTest extends AbstractModel {
                 new ArrayList<Text>() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -268,7 +270,8 @@ public class StaffTest extends AbstractModel {
                 new ArrayList<Text>() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
@@ -363,7 +366,8 @@ public class StaffTest extends AbstractModel {
                 new ArrayList<Text>() {{
                     add(
                         new Text(
-                            "uk-UA"
+                            "uk-UA",
+                            "Lyrics"
                         )
                     );
                 }},
