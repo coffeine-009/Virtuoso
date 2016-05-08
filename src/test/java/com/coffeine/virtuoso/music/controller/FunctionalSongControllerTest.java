@@ -251,6 +251,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
                                 "Стріляй!\"" +
                         "} ]," +
                         "\"videos\": [ {" +
+                            "\"videoTypeId\": 1," +
                             "\"locale\": \"en-US\"," +
                             "\"title\": \"Rose\"," +
                             "\"description\": \"Rose.\"," +

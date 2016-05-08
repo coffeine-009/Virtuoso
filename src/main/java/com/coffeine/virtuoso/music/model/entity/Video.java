@@ -94,18 +94,21 @@ public class Video implements Serializable {
     /**
      * Create video.
      *
+     * @param videoType      Type of video.
      * @param title          Title.
      * @param locale         Locale.
      * @param description    Description.
      * @param fileName       File name.
      */
     public Video(
+        VideoType videoType,
         String title,
         String locale,
         String description,
         String fileName
     ) {
         //- Initialization -//
+        this.videoType = videoType;
         this.title = title;
         this.locale = locale;
         this.description = description;

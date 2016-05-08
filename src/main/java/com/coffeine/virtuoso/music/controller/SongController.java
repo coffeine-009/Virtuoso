@@ -20,6 +20,7 @@ import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 import com.coffeine.virtuoso.music.model.service.StyleService;
+import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 import com.coffeine.virtuoso.music.view.form.SongForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,9 @@ public class SongController {
 
     @Autowired
     private StaffTypeService staffTypeService;
+
+    @Autowired
+    private VideoTypeService videoTypeService;
 
 
     //- SECTION :: ACTIONS -//
@@ -146,7 +150,8 @@ public class SongController {
                 new Staff(
                     this.staffTypeService.find( item.getMusicNotesTypeId() ),
                     this.styleService.find( item.getStyleId() ),
-                    item.getFile()
+                    item.getFile(),
+                    "uk-UA"//FIXME
                 )
             ));
             form.getTexts().forEach( (item) -> texts.add(
@@ -157,6 +162,7 @@ public class SongController {
             ));
             form.getVideos().forEach( (item) -> videos.add(
                 new Video(
+                    this.videoTypeService.find( item.getVideoTypeId() ),
                     item.getTitle(),
                     item.getLocale(),
                     item.getDescription(),

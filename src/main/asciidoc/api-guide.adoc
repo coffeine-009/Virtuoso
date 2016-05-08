@@ -221,7 +221,6 @@ include::{snippets}/songs-list-example/http-request.adoc[]
 include::{snippets}/songs-list-example/http-response.adoc[]
 
 
-
 [[resources-song-retrieve]]
 === Retrieve a song
 
@@ -229,21 +228,44 @@ A `GET` request will retrieve the details of a song
 
 ==== Response structure
 
-include::{snippets}/song-get-example/response-fields.adoc[]
+include::{snippets}/songs-retrieve-success-example/response-fields.adoc[]
 
 ==== Example request
 
-include::{snippets}/song-get-example/http-request.adoc[]
+include::{snippets}/songs-retrieve-success-example/http-request.adoc[]
 
 ==== Example response
 
 ==== Success
 
-include::{snippets}/song-get-example/http-response.adoc[]
+include::{snippets}/songs-retrieve-success-example/http-response.adoc[]
 
 ==== Failure
 
-include::{snippets}/song-get-failure-example/http-response.adoc[]
+include::{snippets}/songs-retrieve-failure-example/http-response.adoc[]
+
+
+[[resources-songs-create]]
+=== Create a song
+
+A `POST` request is used to create a new song
+
+==== Request structure
+
+include::{snippets}/songs-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/songs-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/songs-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/songs-create-failure-example/http-response.adoc[]
+
 
 [[resources-songs-update]]
 === Create a song

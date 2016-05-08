@@ -9,6 +9,8 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -126,6 +128,7 @@ public class Song implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
+    @Fetch( FetchMode.JOIN )
     protected List<SongLocale> data = new ArrayList<>();
 
     @JsonManagedReference
@@ -133,10 +136,11 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
+    @Fetch( FetchMode.JOIN )
     protected List<Staff> staffs = new ArrayList<>();
 
     @JsonManagedReference
@@ -144,20 +148,22 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
+    @Fetch( FetchMode.JOIN )
     protected List<Text> texts = new ArrayList<>();
 
     @JsonManagedReference
     @NotNull
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
+    @Fetch( FetchMode.JOIN )
     protected List<Video> videos = new ArrayList<>();
 
     @NotNull

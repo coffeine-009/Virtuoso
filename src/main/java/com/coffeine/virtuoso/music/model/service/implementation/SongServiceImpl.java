@@ -60,7 +60,7 @@ public class SongServiceImpl implements SongService {
     }
 
     /**
-     * Save song
+     * Save song.
      *
      * @param song New song for create or update.
      * @return Song
