@@ -79,7 +79,8 @@ public class SongTest extends AbstractModel {
             new ArrayList<Text>() {{
                 add(
                     new Text(
-                        "uk-UA"
+                        "uk-UA",
+                        "Lyrics"
                     )
                 );
             }},
@@ -191,7 +192,8 @@ public class SongTest extends AbstractModel {
             new ArrayList<Text>() {{
                 add(
                     new Text(
-                        "uk-UA"
+                        "uk-UA",
+                        "Lyrics"
                     )
                 );
             }},
@@ -280,7 +282,8 @@ public class SongTest extends AbstractModel {
             new ArrayList<Text>() {{
                 add(
                     new Text(
-                        "uk-UA"
+                        "uk-UA",
+                        "Lyrics"
                     )
                 );
             }},

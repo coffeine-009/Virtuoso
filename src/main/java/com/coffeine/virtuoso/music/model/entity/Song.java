@@ -145,7 +145,7 @@ public class Song implements Serializable {
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )

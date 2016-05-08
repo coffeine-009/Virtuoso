@@ -77,12 +77,15 @@ public class Text implements Serializable {
      * Create text for song.
      *
      * @param locale    Locale.
+     * @param lyrics    Lyrics.
      */
     public Text(
-        String locale
+        String locale,
+        String lyrics
     ) {
         //- Initialization -//
         this.locale = locale;
+        this.lyrics = lyrics;
     }
 
     /**

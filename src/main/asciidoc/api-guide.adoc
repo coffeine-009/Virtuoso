@@ -209,13 +209,8 @@ include::{snippets}/access-recovery-failure-example/http-response.adoc[]
 The Songs resource is used to retrieve, update, and delete individual songs.
 
 
-
 [[resources-songs-list]]
 === Songs list
-
-==== Response structure
-
-include::{snippets}/songs-list-example/response-fields.adoc[]
 
 ==== Example request
 
@@ -249,6 +244,27 @@ include::{snippets}/song-get-example/http-response.adoc[]
 ==== Failure
 
 include::{snippets}/song-get-failure-example/http-response.adoc[]
+
+[[resources-songs-update]]
+=== Create a song
+
+A `POST` request is used to create a new song
+
+==== Request structure
+
+include::{snippets}/songs-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/songs-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/songs-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/songs-create-failure-example/http-response.adoc[]
 
 
 

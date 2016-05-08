@@ -92,16 +92,16 @@ public class Staff implements Serializable {
      *
      * @param staffType    Staff type.
      * @param style        Style.
-     * @param locale       Locale.
+     * @param file         File content(MusicXML).
      */
     public Staff(
         StaffType staffType,
         Style style,
-        String locale
+        String file
     ) {
         this.staffType = staffType;
         this.style = style;
-        this.locale = locale;
+        this.file = file;
     }
 
     /**

@@ -11,9 +11,16 @@ package com.coffeine.virtuoso.music.controller;
 import com.coffeine.virtuoso.music.model.entity.Composer;
 import com.coffeine.virtuoso.music.model.entity.Poet;
 import com.coffeine.virtuoso.music.model.entity.Song;
+import com.coffeine.virtuoso.music.model.entity.SongLocale;
+import com.coffeine.virtuoso.music.model.entity.Staff;
+import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.entity.Video;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
+import com.coffeine.virtuoso.music.model.service.StaffTypeService;
+import com.coffeine.virtuoso.music.model.service.StyleService;
+import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 import com.coffeine.virtuoso.music.view.form.SongForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +66,16 @@ public class SongController {
 
     @Autowired
     private PoetService poetService;
+
+    @Autowired
+    private StyleService styleService;
+
+    @Autowired
+    private StaffTypeService staffTypeService;
+
+    @Autowired
+    private VideoTypeService videoTypeService;
+
 
     //- SECTION :: ACTIONS -//
     /**
@@ -118,15 +136,47 @@ public class SongController {
             notEmpty( composers );
             notEmpty( poets );
 
+            //- Set HTTP status -//
+            response.setStatus( HttpServletResponse.SC_CREATED );
+
+            List<SongLocale> data = new ArrayList<>();
+            List<Staff> staffs = new ArrayList<>();
+            List<Text> texts = new ArrayList<>();
+            List<Video> videos = new ArrayList<>();
+            form.getData().forEach(
+                (item) -> data.add( new SongLocale( item.getTitle(), item.getLocale() ) )
+            );
+            form.getStaffs().forEach( (item) -> staffs.add(
+                new Staff(
+                    this.staffTypeService.find( item.getMusicNotesTypeId() ),
+                    this.styleService.find( item.getStyleId() ),
+                    item.getFile()
+                )
+            ));
+            form.getTexts().forEach( (item) -> texts.add(
+                new Text(
+                    item.getLocale(),
+                    item.getLyrics()
+                )
+            ));
+            form.getVideos().forEach( (item) -> videos.add(
+                new Video(
+                    item.getTitle(),
+                    item.getLocale(),
+                    item.getDescription(),
+                    item.getLink()
+                )
+            ));
+
             //- Save song -//
             return this.songService.create(
                 new Song(
                     composers,
                     poets,
-//                    form.getData(),
-//                    form.getStaffs(),
-//                    form.getTexts(),
-//                    form.getVideos(),
+                    data,
+                    staffs,
+                    texts,
+                    videos,
                     form.getLocale()
                 )
             );
@@ -217,6 +267,8 @@ public class SongController {
 //            song.setTexts( form.getTexts() );
 //            song.setVideos( form.getVideos() );
             song.setLocale( form.getLocale() );
+
+            this.songService.update( song );
         } catch ( IllegalArgumentException e ) {
             //- Failure. Cannot find related entities -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );

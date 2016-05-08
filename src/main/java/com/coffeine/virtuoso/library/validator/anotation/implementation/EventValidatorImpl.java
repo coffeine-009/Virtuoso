@@ -90,8 +90,7 @@ public class EventValidatorImpl implements ConstraintValidator<Event, Object> {
             String endDate =  BeanUtils.getProperty( value, this.endDateFieldName );
 
             //- Validate -//
-            valid = endDate == null
-                || startDate.isBefore( LocalDate.parse( endDate ) )
+            valid = (endDate == null || startDate.isBefore( LocalDate.parse( endDate ) ) )
                 && startDate.isBefore( LocalDate.now() );
 
             //- Add error message to second field -//
