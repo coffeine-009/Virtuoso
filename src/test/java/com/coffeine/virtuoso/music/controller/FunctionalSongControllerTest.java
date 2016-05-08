@@ -264,7 +264,6 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
-            .andExpect( jsonPath( "$id" ).value( 1 ) )
             //- Composer -//
             .andExpect( jsonPath( "$composers", notNullValue() ) )
             .andExpect( jsonPath( "$composers", not( empty() ) ) )

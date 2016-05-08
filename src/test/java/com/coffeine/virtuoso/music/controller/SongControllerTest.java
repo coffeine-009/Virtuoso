@@ -13,9 +13,13 @@ import com.coffeine.virtuoso.music.model.entity.Song;
 import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.StaffTypeMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.StyleMock;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
+import com.coffeine.virtuoso.music.model.service.StaffTypeService;
+import com.coffeine.virtuoso.music.model.service.StyleService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -58,6 +62,12 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
     @Mock
     private PoetService poetService;
+
+    @Mock
+    private StaffTypeService staffTypeService;
+
+    @Mock
+    private StyleService styleService;
 
     @Mock
     private SongService songService;
@@ -139,6 +149,8 @@ public class SongControllerTest extends AbstractRestControllerTest {
         //- Mock -//
         when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
         when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
+        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
         when( this.songService.create( any( Song.class ) ) ).thenReturn( SongMock.retrieve() );
 
         //- Success. Create a new songs -//
@@ -249,6 +261,8 @@ public class SongControllerTest extends AbstractRestControllerTest {
         //- Mock -//
         when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
         when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
+        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
         doThrow( DataIntegrityViolationException.class ).when(
             this.songService
         ).create( any( Song.class ) );
@@ -340,24 +354,16 @@ public class SongControllerTest extends AbstractRestControllerTest {
                         "\"composerIds\": [ 1 ]," +
                         "\"poetIds\": [ 1 ]," +
                         "\"data\": [ {" +
-                            "\"title\": \"Rose\"," +
-                            "\"locale\": \"en-US\"" +
+                            "\"title\": \"Стріляй\"," +
+                            "\"locale\": \"uk-UA\"" +
                         "} ]," +
                         "\"staffs\": [ {" +
                             "\"musicNotesTypeId\": 1," +
                             "\"styleId\": 1" +
                         "} ]," +
                         "\"texts\": [ {" +
-                            "\"locale\": \"en-US\"," +
-                            "\"lyrics\": \"Слова, слова,  \\n" +
-                                "Немов вуаль,  \\n" +
-                                "Там, де тонка діагональ  \\n" +
-                                "Звучить кришталь.  \\n" +
-                                "А ніч летить туди у даль,  \\n" +
-                                "Не залишаючи для нас  \\n" +
-                                "Путів, на жаль...  \\n" +
-                                "\\n" +
-                                "#### Приспів:  \\n" +
+                            "\"locale\": \"uk-UA\"," +
+                            "\"lyrics\": \"#### Приспів:  \\n" +
                                 "Стріляй!  \\n" +
                                 "Скажи, чому боїшся ти  \\n" +
                                 "Зробити цей останній крок?!?  \\n" +
@@ -365,29 +371,16 @@ public class SongControllerTest extends AbstractRestControllerTest {
                                 "Най буде так, як хочеш ти,  \\n" +
                                 "Я заплатив за свій урок!  \\n" +
                                 "Прощай, мій Ангелок...  \\n" +
-                                "Давай! Тисни гачок!  \\n" +
-                                "\\n" +
-                                "Слова, слова - \\n" +
-                                "Алмаз вини -  \\n" +
-                                "Мов зачаїлися в думках  \\n" +
-                                "На мить вони...  \\n" +
-                                "І от дуель, і от фінал  \\n" +
-                                "Там, де навколо Колізей  \\n" +
-                                "Звучить метал...  \\n" +
-                                "\\n" +
-                                "#### Приспів. (2)\\n" +
-                                "\\n" +
-                                ">Прощай, мій Ангелок...  \\n" +
-                                "Стріляй!\"" +
+                                "Давай! Тисни гачок!  \"" +
                         "} ]," +
                         "\"videos\": [ {" +
-                            "\"locale\": \"en-US\"," +
-                            "\"title\": \"Rose\"," +
-                            "\"description\": \"Rose.\"," +
-                            "\"link\": \"rose.mp4\"" +
+                            "\"locale\": \"uk-UA\"," +
+                            "\"title\": \"Стріляй\"," +
+                            "\"description\": \"Стріляй.\"," +
+                            "\"link\": \"shot.mp4\"" +
                         "} ]," +
-                        "\"locale\": \"en-US\"," +
-                        "\"writeDate\": \"2016-05-08\"" +
+                        "\"locale\": \"uk-UA\"," +
+                        "\"writeDate\": \"2008-02-08\"" +
                     "}"
                 )
         )
@@ -407,15 +400,15 @@ public class SongControllerTest extends AbstractRestControllerTest {
             "\"composerIds\": [ 1 ]," +
             "\"poetIds\": [ 1 ]," +
             "\"data\": [ {" +
-                "\"title\": \"Rose\"," +
-                "\"locale\": \"en-US\"" +
+                "\"title\": \"Стріляй\"," +
+                "\"locale\": \"uk-UA\"" +
             "} ]," +
             "\"staffs\": [ {" +
                 "\"musicNotesTypeId\": 1," +
                 "\"styleId\": 1" +
             "} ]," +
             "\"texts\": [ {" +
-                "\"locale\": \"en-US\"," +
+                "\"locale\": \"uk-UA\"," +
                 "\"lyrics\": \"Слова, слова,  \\n" +
                     "Немов вуаль,  \\n" +
                     "Там, де тонка діагональ  \\n" +
@@ -425,13 +418,13 @@ public class SongControllerTest extends AbstractRestControllerTest {
                     "Путів, на жаль...\"" +
             "} ]," +
             "\"videos\": [ {" +
-                "\"locale\": \"en-US\"," +
-                "\"title\": \"Rose\"," +
-                "\"description\": \"Rose.\"," +
-                "\"link\": \"rose.mp4\"" +
+                "\"locale\": \"uk-UA\"," +
+                "\"title\": \"Стріляй\"," +
+                "\"description\": \"Стріляй.\"," +
+                "\"link\": \"shot.mp4\"" +
             "} ]," +
-            "\"locale\": \"en-US\"," +
-            "\"writeDate\": \"2016-05-08\"" +
+            "\"locale\": \"uk-ua\"," +
+            "\"writeDate\": \"2008-02-08\"" +
         "}";
 
         //- Conflict -//

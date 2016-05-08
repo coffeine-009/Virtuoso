@@ -20,7 +20,6 @@ import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 import com.coffeine.virtuoso.music.model.service.StyleService;
-import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 import com.coffeine.virtuoso.music.view.form.SongForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +71,6 @@ public class SongController {
 
     @Autowired
     private StaffTypeService staffTypeService;
-
-    @Autowired
-    private VideoTypeService videoTypeService;
 
 
     //- SECTION :: ACTIONS -//
