@@ -766,10 +766,6 @@ include::{snippets}/videos-create-failure-example/http-response.adoc[]
 
 A `PUT` request is used to update a video
 
-==== Request structure
-
-include::{snippets}/videos-update-success-example/request-fields.adoc[]
-
 ==== Example request
 
 include::{snippets}/videos-update-success-example/http-request.adoc[]
@@ -799,3 +795,109 @@ include::{snippets}/videos-delete-success-example/http-response.adoc[]
 
 ===== Failure
 include::{snippets}/videos-delete-failure-example/http-response.adoc[]
+
+
+
+[[resources-texts]]
+== Texts
+
+The texts resource is used to retrieve, update, and delete individual texts
+
+[[resources-texts-links]]
+=== Links
+
+include::{snippets}/texts-list-example/links.adoc[]
+
+
+[[resources-texts-list]]
+=== Get list of texts
+
+A `GET` request is used to get a texts
+
+==== Example request
+
+include::{snippets}/texts-list-example/http-request.adoc[]
+
+==== Example response
+
+include::{snippets}/texts-list-example/http-response.adoc[]
+
+
+[[resources-texts-retrieve]]
+=== Get text
+
+A `GET` request is used to get a text
+
+==== Response structure
+
+include::{snippets}/texts-retrieve-success-example/response-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/texts-retrieve-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/texts-retrieve-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/texts-retrieve-failure-example/http-response.adoc[]
+
+
+[[resources-texts-create]]
+=== Create a text
+
+A `POST` request is used to create a new text
+
+==== Request structure
+
+include::{snippets}/texts-create-success-example/request-fields.adoc[]
+
+==== Example request
+
+include::{snippets}/texts-create-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/texts-create-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/texts-create-failure-example/http-response.adoc[]
+
+
+[[resources-texts-update]]
+=== Update a text
+
+A `PUT` request is used to update a text
+
+==== Example request
+
+include::{snippets}/texts-update-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/texts-update-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/texts-update-failure-example/http-response.adoc[]
+
+
+[[resources-texts-delete]]
+=== Delete a text
+
+A `DELETE` request is used to delete a text
+
+==== Example request
+
+include::{snippets}/texts-delete-success-example/http-request.adoc[]
+
+==== Example response
+
+===== Success
+include::{snippets}/texts-delete-success-example/http-response.adoc[]
+
+===== Failure
+include::{snippets}/texts-delete-failure-example/http-response.adoc[]

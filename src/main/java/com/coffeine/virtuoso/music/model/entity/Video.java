@@ -235,7 +235,7 @@ public class Video implements Serializable {
     /**
      * Set ID of video.
      *
-     * @param id
+     * @param id    Id.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -244,7 +244,7 @@ public class Video implements Serializable {
     /**
      * Set video type.
      *
-     * @param videoType
+     * @param videoType    Video type.
      */
     public void setVideoType( VideoType videoType ) {
         this.videoType = videoType;
@@ -253,7 +253,7 @@ public class Video implements Serializable {
     /**
      * Set song of this video.
      *
-     * @param song
+     * @param song    Song.
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -262,7 +262,7 @@ public class Video implements Serializable {
     /**
      * Set locale.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;
@@ -271,7 +271,7 @@ public class Video implements Serializable {
     /**
      * Set title of video.
      *
-     * @param title
+     * @param title    Title.
      */
     public void setTitle( String title ) {
         this.title = title;
@@ -280,7 +280,7 @@ public class Video implements Serializable {
     /**
      * Set description of video.
      *
-     * @param description
+     * @param description    Description.
      */
     public void setDescription( String description ) {
         this.description = description;
@@ -289,7 +289,7 @@ public class Video implements Serializable {
     /**
      * Set filename of video.
      *
-     * @param fileName
+     * @param fileName    Filename.
      */
     public void setFileName( String fileName ) {
         this.fileName = fileName;

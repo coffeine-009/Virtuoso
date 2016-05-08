@@ -106,10 +106,11 @@ public class Staff implements Serializable {
 
     /**
      * Constructor for create new staff.
-     * @param song
-     * @param staffType
-     * @param style
-     * @param locale
+     *
+     * @param song         Song.
+     * @param staffType    Staff type.
+     * @param style        Style.
+     * @param locale       Locale.
      */
     public Staff(
         Song song,
@@ -131,6 +132,7 @@ public class Staff implements Serializable {
      *
      * @param style     Style.
      * @param locale    Locale.
+     * @param file      File content.
      */
 
     public Staff(

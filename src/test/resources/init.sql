@@ -191,3 +191,12 @@ INSERT INTO video(
   creation
 ) VALUES
 ( 1, 1, 1, 'uk-UA', 'Rose', 'Rose. Ukrainian song.', 'rose.mp4', NOW() );
+
+INSERT INTO song_text(
+  id,
+  id_song,
+  locale,
+  lyrics,
+  creation
+) VALUES
+( 1, 1, 'uk-UA', 'Rose\n==============', NOW() );

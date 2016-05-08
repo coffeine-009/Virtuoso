@@ -73,10 +73,9 @@ public class Composer implements Serializable {
     @JoinColumn( name = "id_user" )
     protected User user;
 
-//    @NotNull
-//    @NotEmpty
-//    @Size( min = 1 )
-//    @Valid
+    @NotNull
+    @NotEmpty
+    @Valid
     @JsonManagedReference
     @OneToMany(
         mappedBy = "composer",

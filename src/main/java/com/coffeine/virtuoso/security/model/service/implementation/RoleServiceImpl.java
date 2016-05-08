@@ -34,7 +34,7 @@ public class RoleServiceImpl implements RoleService {
     /**
      * Find roles by codes.
      *
-     * @param codes
+     * @param codes    List of role codes.
      *
      * @return List of Roles.
      */

@@ -221,7 +221,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
     /**
      * Test of successful recovering of access.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testAccessRecoverySuccess() throws Exception {
@@ -246,7 +246,7 @@ public class SecurityControllerTest extends AbstractRestControllerTest {
      * Test of unsuccessful recovering of access.
      * Invalid hash.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testAccessRecoveryFailure() throws Exception {

@@ -77,12 +77,13 @@ public class ComposerTest extends AbstractModel {
         //- Validate -//
         constraintViolationSet = validator.validate( composerFailure );
 
-        assertEquals( 2, constraintViolationSet.size() );
+        assertEquals( 3, constraintViolationSet.size() );
         for ( ConstraintViolation < Composer > constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
                     add("locale");
+                    add("data");
                 }}.contains(
                     this.getPropertyName(
                         constraintViolation.getPropertyPath()

@@ -103,6 +103,7 @@ public class SecurityController {
      * Registration a new user.
      *
      * @param registrationForm  Data from registration form for register a new user.
+     * @param response          Use for work with HTTP.
      *
      * @return User Created user.
      */
@@ -210,7 +211,8 @@ public class SecurityController {
      * Forgot password.
      * Request for recovering access.
      *
-     * @param form    Filled form if you forgot password.
+     * @param form      Filled form if you forgot password.
+     * @param response  Use for work with HTTP.
      */
     @RequestMapping( value = "/forgotPassword", method = RequestMethod.POST )
     @ResponseBody

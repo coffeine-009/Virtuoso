@@ -15,8 +15,8 @@ import com.coffeine.virtuoso.music.model.service.TextService;
 import com.coffeine.virtuoso.music.view.form.TextForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -120,7 +120,7 @@ public class TextController {
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         } catch ( DataIntegrityViolationException e ) {
             //- Failure. Can not to create text -//
-            response.setStatus( HttpServletResponse.SC_FORBIDDEN );
+            response.setStatus( HttpServletResponse.SC_CONFLICT );
         }
 
         return null;
@@ -179,15 +179,15 @@ public class TextController {
 
         HttpServletResponse response
     ) {
-        //- Search depended entities -//
-        Text text = this.textService.find( id );
-        Song song = this.songService.find( form.getSongId() );
-
-        //- Check -//
-        notNull( text );
-        notNull( song );
-
         try {
+            //- Search depended entities -//
+            Text text = this.textService.find( id );
+            Song song = this.songService.find( form.getSongId() );
+
+            //- Check -//
+            notNull( text );
+            notNull( song );
+
             //- Update fields -//
             text.setSong( song );
             text.setLocale( form.getLocale() );
@@ -223,7 +223,7 @@ public class TextController {
         try {
             //- Try to delete text -//
             this.textService.delete( id );
-        } catch ( EmptyResultDataAccessException e ) {
+        } catch ( DataAccessException e ) {
             // Failure. Text doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );

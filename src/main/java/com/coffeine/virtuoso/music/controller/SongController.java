@@ -96,12 +96,7 @@ public class SongController {
      * @return Song
      */
     @POST
-    @RequestMapping(
-        method = RequestMethod.POST,
-        produces = {
-            "application/json"
-        }
-    )
+    @RequestMapping( method = RequestMethod.POST, produces = { "application/json" } )
     @ResponseBody
     public Song createAction(
         @RequestBody
@@ -216,7 +211,7 @@ public class SongController {
 
             //- Update data -//
             song.setComposers( composers );
-            song.setPoets( poets );
+            song.setPoets( poets );//FIXME
 //            song.setData( form.getData() );
 //            song.setStaffs( form.getStaffs() );
 //            song.setTexts( form.getTexts() );

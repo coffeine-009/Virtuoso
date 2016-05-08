@@ -151,12 +151,10 @@ public class ComposerController {
 
             //- Check composer -//
             notNull( composer );
-        }
-        catch ( IllegalArgumentException e ) {
+        } catch ( IllegalArgumentException e ) {
             //- Composer did not find -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        }
-        catch ( Exception e ) {
+        } catch ( Exception e ) {
             //- Failure. Unknown error -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
@@ -202,16 +200,13 @@ public class ComposerController {
 
             //- Success. Composer has updated -//
             return this.composerService.update( composer );
-        }
-        catch ( IllegalArgumentException e ) {
+        } catch ( IllegalArgumentException e ) {
             //- Warning. Composer has not found -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        }
-        catch ( DataIntegrityViolationException e ) {
+        } catch ( DataIntegrityViolationException e ) {
             //- Warning, can not create duplicate -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        }
-        catch ( Exception e ) {
+        } catch ( Exception e ) {
             //- Failure. Can not to create a composer -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
@@ -237,12 +232,10 @@ public class ComposerController {
         try {
             //- Success. Composer has deleted -//
             this.composerService.delete( id );
-        }
-        catch ( EmptyResultDataAccessException e ) {
+        } catch ( EmptyResultDataAccessException e ) {
             //- Warning. Composer has not found -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        }
-        catch ( Exception e ) {
+        } catch ( Exception e ) {
             //- Failure. Unknown error -//
             response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
