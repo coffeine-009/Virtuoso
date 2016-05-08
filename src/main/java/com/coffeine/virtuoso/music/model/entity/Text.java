@@ -70,13 +70,13 @@ public class Text implements Serializable {
      * Default constructor.
      */
     public Text() {
-
+        //- Initialization -//
     }
 
     /**
      * Create text for song.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public Text(
         String locale
@@ -85,6 +85,12 @@ public class Text implements Serializable {
         this.locale = locale;
     }
 
+    /**
+     * Create a new text.
+     *
+     * @param song      Song.
+     * @param locale    Locale.
+     */
     public Text(
         Song song,
         String locale
@@ -145,7 +151,7 @@ public class Text implements Serializable {
     /**
      * Set ID of song text.
      *
-     * @param id
+     * @param id    Id.
      */
     public void setId( Long id ) {
         this.id = id;
@@ -154,7 +160,7 @@ public class Text implements Serializable {
     /**
      * Set song of text.
      *
-     * @param song
+     * @param song    Song.
      */
     public void setSong( Song song ) {
         this.song = song;
@@ -163,7 +169,7 @@ public class Text implements Serializable {
     /**
      * Set locale.
      *
-     * @param locale
+     * @param locale    Locale.
      */
     public void setLocale( String locale ) {
         this.locale = locale;

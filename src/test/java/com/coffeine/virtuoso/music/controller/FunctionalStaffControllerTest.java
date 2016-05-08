@@ -57,7 +57,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Get list of staffs.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindAllAction() throws Exception {
@@ -117,7 +117,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Get a staff.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindActionSuccess() throws Exception {
@@ -176,7 +176,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Get a staff.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindActionFailure() throws Exception {
@@ -193,7 +193,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Create a staff.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionSuccess() throws Exception {
@@ -237,19 +237,11 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
             .andDo(
                 document(
                     "staffs-create-success-example",
-                    responseFields(
-                        fieldWithPath( "id" ).description( "Id of staff." ),
-                        fieldWithPath( "staffType.id" ).description( "Id of staff type." ),
-                        fieldWithPath( "staffType.code" ).description( "Code of staff type." ),
-                        fieldWithPath( "staffType.title" ).description( "Title of staff type." ),
-                        fieldWithPath( "staffType.description" ).description( "Description of staff type." ),
-                        fieldWithPath( "style.id" ).description( "Id of style type." ),
-                        fieldWithPath( "style.code" ).description( "Code of style type." ),
-                        fieldWithPath( "style.title" ).description( "Title of style type." ),
-                        fieldWithPath( "style.description" ).description( "Description of style type." ),
-                        fieldWithPath( "locale" ).description( "Locale of the staff." ),
-                        fieldWithPath( "file" ).description( "File of the staff." ),
-                        fieldWithPath( "creation" ).description( "Creation date of the staff." )
+                    requestFields(
+                        fieldWithPath( "songId" ).description( "Id of song." ),
+                        fieldWithPath( "staffTypeId" ).description( "Id of staff." ),
+                        fieldWithPath( "styleId" ).description( "Id of style." ),
+                        fieldWithPath( "locale" ).description( "Locale of the staff." )
                     )
                 )
             );
@@ -259,7 +251,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Create a staff.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionFailure() throws Exception {
@@ -285,7 +277,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Update a staff.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionSuccess() throws Exception {
@@ -333,7 +325,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
                     "staffs-update-success-example",
                     requestFields(
                         fieldWithPath( "songId" ).description( "Id of song." ),
-                        fieldWithPath( "staffTypeId" ).description( "Id of staff type." ),
+                        fieldWithPath( "staffTypeId" ).description( "Id of staff." ),
                         fieldWithPath( "styleId" ).description( "Id of style." ),
                         fieldWithPath( "locale" ).description( "Locale of the staff." )
                     ),
@@ -359,7 +351,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Update a staff.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionFailure() throws Exception {
@@ -385,7 +377,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Delete a staff.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionSuccess() throws Exception {
@@ -402,7 +394,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
      * Delete a staff.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionFailure() throws Exception {

@@ -121,6 +121,9 @@ public class Poet implements Serializable {
     /**
      * Construct for create new poet.
      *
+     * @param locale       Locale.
+     * @param gender       Gender.
+     * @param data         Localized data.
      * @param birthday     Date of the birth.
      * @param deathDate    Date of death.
      */
@@ -162,7 +165,7 @@ public class Poet implements Serializable {
 
         this.user = user;
 
-        for( PoetLocale poetLocale: data ) {
+        for ( PoetLocale poetLocale: data ) {
             this.addPoetLocale( poetLocale );
         }
         this.locale = locale;
@@ -201,8 +204,8 @@ public class Poet implements Serializable {
     /**
      * Constructor for create new poet.
      *
-     * @param user
-     * @param locale
+     * @param user      User.
+     * @param locale    Locale.
      */
     public Poet(
         User user,
@@ -340,7 +343,7 @@ public class Poet implements Serializable {
         poetLocale.setPoet(this);
 
         //- Add Composer locale-//
-        if( !this.data.contains( poetLocale ) ) {
+        if ( !this.data.contains( poetLocale ) ) {
             this.data.add( poetLocale );
         }
     }

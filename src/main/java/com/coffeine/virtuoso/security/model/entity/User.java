@@ -485,7 +485,7 @@ public class User implements Serializable {
     /**
      * Set composer's data.
      *
-     * @param composer
+     * @param composer    Composer.
      */
     public void setComposer( Composer composer ) {
         //- Check params -//

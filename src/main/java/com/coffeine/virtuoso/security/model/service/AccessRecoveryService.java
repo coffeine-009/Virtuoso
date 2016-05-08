@@ -23,6 +23,8 @@ public interface AccessRecoveryService {
      * Make request loosing access to account.
      *
      * @param contact    Contact associated to account.
+     *
+     * @throws IOException  Cannot send via SMTP.
      */
     void lostAccess( Contact contact ) throws IOException;
 

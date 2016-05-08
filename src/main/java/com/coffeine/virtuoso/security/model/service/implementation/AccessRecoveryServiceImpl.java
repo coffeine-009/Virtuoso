@@ -79,6 +79,8 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
      * Make request loosing access to account.
      *
      * @param contact Contact associated to account.
+     *
+     * @throws IOException  Cannot send via SMTP.
      */
     @Transactional
     @Override

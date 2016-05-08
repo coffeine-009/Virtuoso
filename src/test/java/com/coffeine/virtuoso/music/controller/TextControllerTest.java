@@ -3,19 +3,17 @@
  *
  * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
- * @date 5/7/16 6:09 PM
+ * @date 5/8/16 10:40 AM
  */
 
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.music.model.entity.Video;
+import com.coffeine.virtuoso.music.model.entity.Text;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.VideoMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.VideoTypeMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.TextMock;
 import com.coffeine.virtuoso.music.model.service.SongService;
-import com.coffeine.virtuoso.music.model.service.VideoService;
-import com.coffeine.virtuoso.music.model.service.VideoTypeService;
+import com.coffeine.virtuoso.music.model.service.TextService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,23 +37,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for VideoController.
+ * Tests for TextController.
  *
  * @version 1.0
  */
-public class VideoControllerTest extends AbstractRestControllerTest {
+public class TextControllerTest extends AbstractRestControllerTest {
 
     @Mock
     private SongService songService;
 
     @Mock
-    private VideoTypeService videoTypeService;
-
-    @Mock
-    private VideoService videoService;
+    private TextService textService;
 
     @InjectMocks
-    private VideoController videoController;
+    private TextController textController;
 
 
     /**
@@ -69,7 +64,7 @@ public class VideoControllerTest extends AbstractRestControllerTest {
 
         //- Set up application -//
         this.mockMvc = MockMvcBuilders.standaloneSetup(
-            this.videoController
+            this.textController
         ).build();
     }
 
@@ -84,24 +79,24 @@ public class VideoControllerTest extends AbstractRestControllerTest {
 
 
     /**
-     * Test get list of staffs.
+     * Test get list of texts.
      *
      * @throws Exception    General Exception of application.
      */
     @Test
     public void testListActionSuccess() throws Exception {
         //- Mock -//
-        when( this.videoService.findAll( anyInt(), anyInt() ) ).thenReturn( VideoMock.findAll() );
+        when( this.textController.findAll( anyInt(), anyInt() ) ).thenReturn( TextMock.findAll() );
 
         //- Success -//
         this.mockMvc.perform(
-            get( "/music/videos?page={page}&limit={limit}", 1, 10 )
+            get( "/music/texts?page={page}&limit={limit}", 1, 10 )
         )
             .andExpect( status().isOk() );
     }
 
     /**
-     * Test get video.
+     * Test get text.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -109,17 +104,17 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     @Test
     public void testFindActionSuccess() throws Exception {
         //- Mock -//
-        when( this.videoService.find( anyLong() ) ).thenReturn( VideoMock.find() );
+        when( this.textService.find( anyLong() ) ).thenReturn( TextMock.find() );
 
         //- Success -//
         this.mockMvc.perform(
-            get( "/music/videos/{id}", 1 )
+            get( "/music/texts/{id}", 1 )
         )
             .andExpect( status().isOk() );
     }
 
     /**
-     * Test get video.
+     * Test get text.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -127,17 +122,17 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     @Test
     public void testFindActionFailure() throws Exception {
         //- Mock -//
-        when( this.videoService.find( anyLong() ) ).thenReturn( null );
+        when( this.textService.find( anyLong() ) ).thenReturn( null );
 
         //- Failure -//
         this.mockMvc.perform(
-            get( "/music/videos/{id}", 1 )
+            get( "/music/texts/{id}", 1 )
         )
             .andExpect( status().isNotFound() );
     }
 
     /**
-     * Test create a video.
+     * Test create a text.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -146,21 +141,16 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     public void testCreateActionSuccess() throws Exception {
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
-        when( this.videoService.create( any( Video.class ) ) ).thenReturn( VideoMock.find() );
+        when( this.textService.create( any( Text.class ) ) ).thenReturn( TextMock.find() );
 
         //- Success -//
         this.mockMvc.perform(
-            post( "/music/videos" )
+            post( "/music/texts" )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
-                        "\"videoTypeId\": 1," +
                         "\"songId\": 1," +
-                        "\"locale\": \"uk-UA\"," +
-                        "\"title\": \"Rose\"," +
-                        "\"description\": \"Rose. Ukrainian song.\"," +
-                        "\"fileName\": \"rose.mp4\"" +
+                        "\"locale\": \"uk-UA\"" +
                     "}"
                 )
         )
@@ -168,40 +158,56 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Test create a video.
+     * Test create a text.
      * Failure.
      *
      * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionFailure() throws Exception {
+        //- Conflict -//
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
         doThrow( DataIntegrityViolationException.class ).when(
-            this.videoService
-        ).create( any( Video.class ) );
+            this.textService
+        ).create( any( Text.class ) );
 
         //- Failure -//
         this.mockMvc.perform(
-            post( "/music/videos" )
+            post( "/music/texts" )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
-                        "\"videoTypeId\": 1," +
                         "\"songId\": 1," +
-                        "\"locale\": \"uk-UA\"," +
-                        "\"title\": \"Rose\"," +
-                        "\"description\": \"Rose. Ukrainian song.\"," +
-                        "\"fileName\": \"rose.mp4\"" +
+                        "\"locale\": \"uk-UA\"" +
                     "}"
                 )
         )
             .andExpect( status().isConflict() );
+
+        //- Not found -//
+        //- Mock -//
+        when( this.songService.find( anyLong() ) ).thenReturn( null );
+        doThrow( DataIntegrityViolationException.class ).when(
+            this.textService
+        ).create( any( Text.class ) );
+
+        //- Failure -//
+        this.mockMvc.perform(
+            post( "/music/texts" )
+                .header( "Content-Type", "application/json" )
+                .content(
+                    "{" +
+                        "\"songId\": 99999," +
+                        "\"locale\": \"uk-UA\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isNotFound() );
     }
 
     /**
-     * Test update a video.
+     * Test update a text.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -209,23 +215,18 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     @Test
     public void testUpdateActionSuccess() throws Exception {
         //- Mock -//
-        when( this.videoService.find( anyLong() ) ).thenReturn( VideoMock.find() );
+        when( this.textService.find( anyLong() ) ).thenReturn( TextMock.find() );
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
-        when( this.videoService.update( any( Video.class ) ) ).thenReturn( VideoMock.find() );
+        when( this.textService.update( any( Text.class ) ) ).thenReturn( TextMock.find() );
 
         //- Success -//
         this.mockMvc.perform(
-            put( "/music/videos/{id}", 1 )
+            put( "/music/texts/{id}", 1 )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
-                        "\"videoTypeId\": 1," +
                         "\"songId\": 1," +
-                        "\"locale\": \"uk-UA\"," +
-                        "\"title\": \"Rose\"," +
-                        "\"description\": \"Rose. Ukrainian song.\"," +
-                        "\"fileName\": \"rose.mp4\"" +
+                        "\"locale\": \"uk-UA\"" +
                     "}"
                 )
         )
@@ -233,41 +234,58 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Test update a staff.
+     * Test update a text.
      * Failure.
      *
      * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionFailure() throws Exception {
+        //- Conflict -//
         //- Mock -//
-        when( this.videoService.find( anyLong() ) ).thenReturn( VideoMock.find() );
+        when( this.textService.find( anyLong() ) ).thenReturn( TextMock.find() );
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
         doThrow( DataIntegrityViolationException.class ).when(
-            this.videoService
-        ).update( any( Video.class ) );
+            this.textService
+        ).update( any( Text.class ) );
 
         //- Success -//
         this.mockMvc.perform(
-            put( "/music/videos/{id}", 1 )
+            put( "/music/texts/{id}", 1 )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
-                        "\"videoTypeId\": 1," +
                         "\"songId\": 1," +
-                        "\"locale\": \"uk-UA\"," +
-                        "\"title\": \"Rose\"," +
-                        "\"description\": \"Rose. Ukrainian song.\"," +
-                        "\"fileName\": \"rose.mp4\"" +
+                        "\"locale\": \"uk-UA\"" +
                     "}"
                 )
         )
             .andExpect( status().isConflict() );
+
+        //- Not found -//
+        //- Mock -//
+        when( this.textService.find( anyLong() ) ).thenReturn( null );
+        when( this.songService.find( anyLong() ) ).thenReturn( null );
+        doThrow( DataIntegrityViolationException.class ).when(
+            this.textService
+        ).update( any( Text.class ) );
+
+        //- Success -//
+        this.mockMvc.perform(
+            put( "/music/texts/{id}", 1 )
+                .header( "Content-Type", "application/json" )
+                .content(
+                    "{" +
+                        "\"songId\": 99999," +
+                        "\"locale\": \"uk-UA\"" +
+                    "}"
+                )
+        )
+            .andExpect( status().isNotFound() );
     }
 
     /**
-     * Test delete a staff.
+     * Test delete a text.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -275,17 +293,17 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     @Test
     public void testDeleteActionSuccess() throws Exception {
         //- Mock -//
-        doNothing().when( this.videoService ).delete( anyLong() );
+        doNothing().when( this.textService ).delete( anyLong() );
 
         //- Success -//
         this.mockMvc.perform(
-            delete( "/music/videos/{id}", 1 )
+            delete( "/music/texts/{id}", 1 )
         )
             .andExpect( status().isOk() );
     }
 
     /**
-     * Test delete a staff.
+     * Test delete a text.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -294,12 +312,12 @@ public class VideoControllerTest extends AbstractRestControllerTest {
     public void testDeleteActionFailure() throws Exception {
         //- Mock -//
         doThrow( EmptyResultDataAccessException.class ).when(
-            this.videoService
+            this.textService
         ).delete( anyLong() );
 
         //- Success -//
         this.mockMvc.perform(
-            delete( "/music/staffs/{id}", 1 )
+            delete( "/music/texts/{id}", 1 )
         )
             .andExpect( status().isNotFound() );
     }

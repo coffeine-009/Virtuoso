@@ -72,7 +72,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
     /**
      * Test of getting list of styles.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testListActionSuccess() throws Exception {
@@ -90,7 +90,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of getting style by id.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testRetrieveActionSuccess() throws Exception {
@@ -107,7 +107,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of getting style by id.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testRetrieveActionFailure() throws Exception {
@@ -124,7 +124,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of creating a new style.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionSuccess() throws Exception {
@@ -149,7 +149,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of creating a new style.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionFailure() throws Exception {
@@ -175,7 +175,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of updating a new style.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionSuccess() throws Exception {
@@ -201,7 +201,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of updating a new style.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionFailure() throws Exception {
@@ -226,7 +226,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of deleting a new style.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionSuccess() throws Exception {
@@ -243,7 +243,7 @@ public class StyleControllerTest extends AbstractRestControllerTest {
      * Test of deleting a new style.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionFailure() throws Exception {

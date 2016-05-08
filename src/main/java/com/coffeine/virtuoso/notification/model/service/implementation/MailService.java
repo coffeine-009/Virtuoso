@@ -49,11 +49,13 @@ public class MailService implements NotificationService {
 
         //- Create e-mail -//
         SimpleMailMessage email = new SimpleMailMessage();
-            email.setFrom( from.getAddress() );
-            email.setTo( to.getAddress() );
-            email.setSubject( message.getSubject() );
-            email.setText( message.getText() );
-            //TODO: add additional params
+
+        //- Set e-mail content -//
+        email.setFrom( from.getAddress() );
+        email.setTo( to.getAddress() );
+        email.setSubject( message.getSubject() );
+        email.setText( message.getText() );
+        //TODO: add additional params
 
         this.sender.send( email );
     }

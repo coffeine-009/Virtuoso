@@ -75,7 +75,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
     /**
      * Test get list of staff types.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testListActionSuccess() throws Exception {
@@ -93,7 +93,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test get staff type.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindActionSuccess() throws Exception {
@@ -111,7 +111,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test get staff type.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindActionFailure() throws Exception {
@@ -129,7 +129,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test create a staff type.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionSuccess() throws Exception {
@@ -155,7 +155,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test create a staff type.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionFailure() throws Exception {
@@ -183,7 +183,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test update a staff type.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionSuccess() throws Exception {
@@ -210,7 +210,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test update a staff type.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionFailure() throws Exception {
@@ -239,7 +239,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test delete a staff type.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionSuccess() throws Exception {
@@ -257,7 +257,7 @@ public class StaffTypeControllerTest extends AbstractRestControllerTest {
      * Test delete a staff type.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionFailure() throws Exception {

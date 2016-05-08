@@ -81,13 +81,14 @@ public class RegistrationForm {
     /**
      * Create form with required fields.
      *
-     * @param username     Unique username of user
-     * @param password     Password of user
-     * @param firstName    First name of user
-     * @param lastName     Last name of user
-     * @param gender       True - man, false - woman
-     * @param locale       User's locale
-     * @param birthday     Birthday of user
+     * @param username     Unique username of user.
+     * @param password     Password of user.
+     * @param firstName    First name of user.
+     * @param lastName     Last name of user.
+     * @param gender       True - man, false - woman.
+     * @param roles        List of roles.
+     * @param locale       User's locale.
+     * @param birthday     Birthday of user.
      */
     public RegistrationForm(
         String username,
@@ -113,14 +114,15 @@ public class RegistrationForm {
     /**
      * Create form with all fields.
      *
-     * @param username     Unique unsername of user
-     * @param password     Password of user
-     * @param firstName    First name of user
-     * @param lastName     Last name of user
-     * @param gender       True - man, false - woman
-     * @param locale       User's locale
-     * @param birthday     Birthday of user
-     * @param deathDate     Birthday of death if it is known
+     * @param username      Unique username of user.
+     * @param password      Password of user.
+     * @param firstName     First name of user.
+     * @param lastName      Last name of user.
+     * @param gender        True - man, false - woman.
+     * @param roles         List of roles.
+     * @param locale        User's locale.
+     * @param birthday      Birthday of user.
+     * @param deathDate     Birthday of death if it is known.
      */
     public RegistrationForm(
         String username,

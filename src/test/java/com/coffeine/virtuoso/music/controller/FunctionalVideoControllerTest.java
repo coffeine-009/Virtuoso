@@ -57,7 +57,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Get list of videos.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testListAction() throws Exception {
@@ -111,7 +111,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Get a video.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindActionSuccess() throws Exception {
@@ -162,7 +162,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Get a video.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testFindActionFailure() throws Exception {
@@ -179,7 +179,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Create a video.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionSuccess() throws Exception {
@@ -234,7 +234,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Create a video.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionFailure() throws Exception {
@@ -262,7 +262,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Create a video.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testCreateActionFailureInput() throws Exception {
@@ -290,7 +290,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Update a video.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionSuccess() throws Exception {
@@ -330,7 +330,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Update a video.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testUpdateActionFailure() throws Exception {
@@ -358,7 +358,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Delete a video.
      * Success.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionSuccess() throws Exception {
@@ -375,7 +375,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      * Delete a video.
      * Failure.
      *
-     * @throws Exception
+     * @throws Exception    General Exception of application.
      */
     @Test
     public void testDeleteActionFailure() throws Exception {
