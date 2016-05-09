@@ -9,8 +9,7 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -44,52 +43,7 @@ public class SongLocaleTest extends AbstractModel {
         //- Success -//
         //- Create entity-//
         SongLocale songLocaleSuccess = new SongLocale(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of song staff -//
-                new ArrayList<Staff>() {{
-                    add(
-                        new Staff()
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             "title",
             "uk-Ua"
         );
@@ -110,52 +64,7 @@ public class SongLocaleTest extends AbstractModel {
         //- Failure -//
         //- Create entity-//
         SongLocale songLocaleFailure = new SongLocale(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of song staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff()
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             null,
             null
         );
@@ -232,52 +141,7 @@ public class SongLocaleTest extends AbstractModel {
         //- Failure : Incorrect length  -//
         //- Create entity -//
         SongLocale songLocaleFailureLength = new SongLocale(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of song staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff()
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             "12345678901234567890123456789012345678901234567890123456789012345",
             "123456"
         );
@@ -327,52 +191,7 @@ public class SongLocaleTest extends AbstractModel {
         //- Failure: fields is empty-//
         //- Create entity -//
         SongLocale songLocaleFailureEmpty = new SongLocale(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of song staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff()
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             "",
             ""
         );

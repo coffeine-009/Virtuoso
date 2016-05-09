@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service for work with composer.
@@ -39,14 +41,16 @@ public class ComposerServiceImpl implements ComposerService {
      *
      * @return List of composers per page.
      */
-    public List<Composer> findAll( int page, int limit )  {
-        return this.composerRepository.findAll(
-            new PageRequest(
-                page,
-                limit
+    public Set<Composer> findAll( int page, int limit )  {
+        return new HashSet<>(
+            this.composerRepository.findAll(
+                new PageRequest(
+                    page,
+                    limit
+                )
             )
-        )
-            .getContent();
+                .getContent()
+        );
     }
 
     /**
@@ -76,8 +80,8 @@ public class ComposerServiceImpl implements ComposerService {
      * @return Composer found composer
      */
     @Override
-    public List<Composer> find( List<Long> ids ) {
-        return this.composerRepository.find( ids );
+    public Set<Composer> find( List<Long> ids ) {
+        return new HashSet<>( this.composerRepository.find( ids ) );
     }
 
     /**

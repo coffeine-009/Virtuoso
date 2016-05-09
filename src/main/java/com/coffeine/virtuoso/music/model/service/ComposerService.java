@@ -12,6 +12,7 @@ package com.coffeine.virtuoso.music.model.service;
 import com.coffeine.virtuoso.music.model.entity.Composer;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service for work with Composer.
@@ -30,7 +31,7 @@ public interface ComposerService {
      *
      * @return List of composers per page.
      */
-    List<Composer> findAll( int page, int limit );
+    Set<Composer> findAll( int page, int limit );
 
     /**
      * Create a new composer.
@@ -54,7 +55,7 @@ public interface ComposerService {
      * @param ids       Ids of composer
      * @return Composer found composer
      */
-    List<Composer> find( List<Long> ids );
+    Set<Composer> find( List<Long> ids );
 
     /**
      * Update composer data.

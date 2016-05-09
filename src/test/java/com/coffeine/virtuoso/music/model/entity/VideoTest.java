@@ -1,7 +1,7 @@
 /**
- * Copyright (c) 2014-2015 by Coffeine Inc
+ * Copyright (c) 2014-2016 by Coffeine Inc
  *
- * @author Vitaliy Tsutsman <vitaliyacm@gmail.com>
+ * @author <a href = "mailto:vitaliy.tsutsman@musician-virtuoso.com>Vitaliy Tsutsman</a>
  *
  * @date 12/7/15 10:23 PM
  */
@@ -9,8 +9,7 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -25,15 +24,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests for Video
- * @see Video
+ * Tests for Video.
  *
  * @version 1.0
+ * @see Video
  */
 public class VideoTest extends AbstractModel {
 
     /**
-     * Test field validation for entity filled correct
+     * Test field validation for entity filled correct.
      */
     @Test
     public void testVideoFieldsSuccess() {
@@ -42,64 +41,7 @@ public class VideoTest extends AbstractModel {
         //- Success -//
         //- Create entity -//
         Video videoSuccess = new Video(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new VideoType(
                 "POLKA",
                 "Polka",
@@ -168,64 +110,7 @@ public class VideoTest extends AbstractModel {
         //- Failure( for locale, title, filename ) -//
         //- Create entity -//
         Video videoFailure = new Video(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new VideoType(
                 "POLKA",
                 "Polka",
@@ -282,64 +167,7 @@ public class VideoTest extends AbstractModel {
         //- Failure: Incorrect Length -//
         //- Create entity -//
         Video videoFailureLength = new Video(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList<Staff>() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new VideoType(
                 "POLKA",
                 "Polka",
@@ -395,64 +223,7 @@ public class VideoTest extends AbstractModel {
         //- Failure: Empty -//
         //- Create entity -//
         Video videoFailureEmpty = new Video(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList<Staff>() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new VideoType(
                 "POLKA",
                 "Polka",

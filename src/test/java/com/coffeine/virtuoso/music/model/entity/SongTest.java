@@ -11,12 +11,14 @@ package com.coffeine.virtuoso.music.model.entity;
 import com.coffeine.virtuoso.module.model.AbstractModel;
 import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.NotNull;
@@ -43,64 +45,7 @@ public class SongTest extends AbstractModel {
 
         //- Successful-//
         //- Create entity-//
-        Song songSuccess = new Song(
-            //-Create composer-//
-            ComposerMock.findAll(),
-            //- Create poet-//
-            PoetMock.findAll(),
-            //- Create list of song locale -//
-            new ArrayList<SongLocale>() {{
-                add(
-                    new SongLocale(
-                        "user",
-                        "uk-UA"
-                    )
-                );
-            }},
-            //- Create list of staff -//
-            new ArrayList<Staff>() {{
-                add(
-                    new Staff(
-                        new StaffType(
-                            "CHORDS",
-                            "Chords",
-                            "Standard chords"
-                        ),
-                        new Style(
-                            "One",
-                            "Two",
-                            "three"
-                        ),
-                        "uk-UA"
-                    )
-                );
-            }},
-            //- Create list of text -//
-            new ArrayList<Text>() {{
-                add(
-                    new Text(
-                        "uk-UA",
-                        "Lyrics"
-                    )
-                );
-            }},
-            //- Create list of video -//
-            new ArrayList<Video>() {{
-                add(
-                    new Video(
-                        new VideoType(
-                            "POLKA",
-                            "Polka",
-                            "Ukrainian polka"
-                        ),
-                        "uk-UA",
-                        "user",
-                        "video1"
-                    )
-                );
-            }},
-            "uk-UA"
-        );
+        Song songSuccess = SongMock.find();
         //- Validate -//
         constraintViolationSet = validator.validate( songSuccess );
 
@@ -164,7 +109,7 @@ public class SongTest extends AbstractModel {
         Song songFailureNull = new Song(
             null,
             null,
-            new ArrayList<SongLocale>() {{
+            new HashSet<SongLocale>() {{
                 add(
                     new SongLocale(
                         "user",
@@ -172,7 +117,7 @@ public class SongTest extends AbstractModel {
                     )
                 );
             }},
-            new ArrayList<Staff>() {{
+            new HashSet<Staff>() {{
                 add(
                     new Staff(
                         new StaffType(
@@ -189,7 +134,7 @@ public class SongTest extends AbstractModel {
                     )
                 );
             }},
-            new ArrayList<Text>() {{
+            new HashSet<Text>() {{
                 add(
                     new Text(
                         "uk-UA",
@@ -197,7 +142,7 @@ public class SongTest extends AbstractModel {
                     )
                 );
             }},
-            new ArrayList<Video>() {{
+            new HashSet<Video>() {{
                 add(
                     new Video(
                         new VideoType(
@@ -246,64 +191,10 @@ public class SongTest extends AbstractModel {
         }
         //- Failure : Incorrect length  -//
         //- Create entity -//
-        Song songFailureLength = new Song(
-            //-Create composer-//
-            ComposerMock.findAll(),
-            //- Create poet-//
-            PoetMock.findAll(),
-            //- Create list of song locale -//
-            new ArrayList<SongLocale>() {{
-                add(
-                    new SongLocale(
-                        "user",
-                        "uk-UA"
-                    )
-                );
-            }},
-            //- Create list of staff -//
-            new ArrayList < Staff >() {{
-                add(
-                    new Staff(
-                        new StaffType(
-                            "CHORDS",
-                            "Chords",
-                            "Standard chords"
-                        ),
-                        new Style(
-                            "One",
-                            "Two",
-                            "three"
-                        ),
-                        "uk-UA"
-                    )
-                );
-            }},
-            //- Create list of text -//
-            new ArrayList<Text>() {{
-                add(
-                    new Text(
-                        "uk-UA",
-                        "Lyrics"
-                    )
-                );
-            }},
-            //- Create list of video -//
-            new ArrayList<Video>() {{
-                add(
-                    new Video(
-                        new VideoType(
-                            "POLKA",
-                            "Polka",
-                            "Ukrainian polka"
-                        ),
-                        "uk-UA",
-                        "user",
-                        "video1"
-                    )
-                );
-            }},
-            "123456"
-        );
+        Song songFailureLength = SongMock.find();
+        //- Set locale -//
+        songFailureLength.setLocale( "123456" );
+
         //- Validate -//
         constraintViolationSet = validator.validate( songFailureLength );
 
@@ -353,13 +244,13 @@ public class SongTest extends AbstractModel {
             //- Create poet-//
             PoetMock.findAll(),
             //- Create list of song locale -//
-            new ArrayList<>(),
+            new HashSet<>(),
             //- Create list of staff -//
-            new ArrayList<>(),
+            new HashSet<>(),
             //- Create list of text -//
-            new ArrayList<>(),
+            new HashSet<>(),
             //- Create list of video -//
-            new ArrayList<>(),
+            new HashSet<>(),
             ""
         );
         //- Validate-//

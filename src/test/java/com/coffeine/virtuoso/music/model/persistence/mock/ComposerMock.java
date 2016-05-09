@@ -13,7 +13,8 @@ import com.coffeine.virtuoso.music.model.entity.ComposerLocale;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Mock for Composer in persistence layout.
@@ -28,7 +29,7 @@ public class ComposerMock {
      *
      * @return List of Composers.
      */
-    public static List<Composer> findAll() {
+    public static Set<Composer> findAll() {
         //- Mock composer -//
         final Composer composer = new Composer(
             "uk-UA",
@@ -48,7 +49,7 @@ public class ComposerMock {
         );
         composer.setId( 1L );
 
-        return new ArrayList < Composer >() {{
+        return new HashSet<Composer>() {{
             add( composer );
         }};
     }
