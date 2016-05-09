@@ -30,7 +30,6 @@ import javax.validation.constraints.NotNull;
  *
  * @version 1.0
  */
-@SuppressWarnings( "serial" )
 @Entity
 @Table( name = "song_notes" )
 public class Staff implements Serializable {
@@ -102,6 +101,25 @@ public class Staff implements Serializable {
         this.staffType = staffType;
         this.style = style;
         this.file = file;
+    }
+
+    /**
+     * Constructor for create new Staff.
+     *
+     * @param staffType    Staff type.
+     * @param style        Style.
+     * @param file         File content(MusicXML).
+     * @param locale       Locale.
+     */
+    public Staff(
+        StaffType staffType,
+        Style style,
+        String file,
+        String locale
+    ) {
+        this(staffType, style, file);
+
+        this.locale = locale;
     }
 
     /**

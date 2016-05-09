@@ -100,7 +100,6 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$[*].poets[*].birthday", notNullValue() ) )
             .andExpect( jsonPath( "$[*].poets[0].deathDate", nullValue() ) )
             //- Song -//
-            .andExpect( jsonPath( "$[*].title", notNullValue() ) )
             .andExpect( jsonPath( "$[*].locale", notNullValue() ) )
             .andExpect( jsonPath( "$[*].writeDate", notNullValue() ) )
             .andExpect( jsonPath( "$[*].data", notNullValue() ) )
@@ -152,7 +151,6 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$poets[*].birthday", notNullValue() ) )
             .andExpect( jsonPath( "$poets[0].deathDate", nullValue() ) )
             //- Song -//
-            .andExpect( jsonPath( "$title", notNullValue() ) )
             .andExpect( jsonPath( "$locale", notNullValue() ) )
             .andExpect( jsonPath( "$writeDate", notNullValue() ) )
             .andExpect( jsonPath( "$data", notNullValue() ) )
@@ -251,6 +249,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
                                 "Стріляй!\"" +
                         "} ]," +
                         "\"videos\": [ {" +
+                            "\"videoTypeId\": 1," +
                             "\"locale\": \"en-US\"," +
                             "\"title\": \"Rose\"," +
                             "\"description\": \"Rose.\"," +

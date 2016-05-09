@@ -9,13 +9,15 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -79,7 +81,7 @@ public class Song implements Serializable {
             )
         }
     )
-    protected List<Composer> composers = new ArrayList<>();
+    protected Set<Composer> composers = new HashSet<>();
 
     @JsonManagedReference
     @NotNull
@@ -112,7 +114,7 @@ public class Song implements Serializable {
             )
         }
     )
-    protected List<Poet> poets = new ArrayList<>();
+    protected Set<Poet> poets = new HashSet<>();
 
     @Transient
     protected String title;
@@ -126,39 +128,43 @@ public class Song implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List<SongLocale> data = new ArrayList<>();
+    @Fetch( FetchMode.JOIN )
+    protected Set<SongLocale> data = new HashSet<>();
 
     @JsonManagedReference
     @NotNull
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List<Staff> staffs = new ArrayList<>();
+    @Fetch( FetchMode.JOIN )
+    protected Set<Staff> staffs = new HashSet<>();
 
     @JsonManagedReference
     @NotNull
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List<Text> texts = new ArrayList<>();
+    @Fetch( FetchMode.JOIN )
+    protected Set<Text> texts = new HashSet<>();
 
     @JsonManagedReference
     @NotNull
     @OneToMany(
         mappedBy = "song",
-        fetch = FetchType.LAZY,
+        fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    protected List<Video> videos = new ArrayList<>();
+    @Fetch( FetchMode.JOIN )
+    protected Set<Video> videos = new HashSet<>();
 
     @NotNull
     @NotEmpty
@@ -194,10 +200,10 @@ public class Song implements Serializable {
      * @param locale    Locale.
      */
     public Song(
-        List<Poet> poets,
+        Set<Poet> poets,
         String title,
-        List<Text> texts,
-        List<Video> videos,
+        Set<Text> texts,
+        Set<Video> videos,
         String locale
     ) {
         //- Initialization -//
@@ -221,11 +227,11 @@ public class Song implements Serializable {
      * @param locale       Locale.
      */
     public Song(
-        List<Composer> composers,
-        List<Poet> poets,
-        List<SongLocale> data,
-        List<Text> texts,
-        List<Video> videos,
+        Set<Composer> composers,
+        Set<Poet> poets,
+        Set<SongLocale> data,
+        Set<Text> texts,
+        Set<Video> videos,
         String locale
 
     ) {
@@ -254,12 +260,12 @@ public class Song implements Serializable {
      * @param locale       Locale.
      */
     public Song(
-        List<Composer> composers,
-        List<Poet> poets,
-        List<SongLocale> data,
-        List<Staff> staffs,
-        List<Text> texts,
-        List<Video> videos,
+        Set<Composer> composers,
+        Set<Poet> poets,
+        Set<SongLocale> data,
+        Set<Staff> staffs,
+        Set<Text> texts,
+        Set<Video> videos,
         String locale
 
     ) {
@@ -297,8 +303,8 @@ public class Song implements Serializable {
      * @param locale       Locale.
      */
     public Song(
-        List<Composer> composers,
-        List<Poet> poets,
+        Set<Composer> composers,
+        Set<Poet> poets,
         String locale
     ) {
         this.composers = composers;
@@ -323,7 +329,7 @@ public class Song implements Serializable {
      *
      * @return Composer.
      */
-    public List<Composer> getComposers() {
+    public Set<Composer> getComposers() {
         return composers;
     }
 
@@ -332,7 +338,7 @@ public class Song implements Serializable {
      *
      * @return Poet.
      */
-    public List<Poet> getPoets() {
+    public Set<Poet> getPoets() {
         return poets;
     }
 
@@ -349,7 +355,7 @@ public class Song implements Serializable {
      *
      * @return List of SongLocale.
      */
-    public List<SongLocale> getData() {
+    public Set<SongLocale> getData() {
         return data;
     }
 
@@ -358,7 +364,7 @@ public class Song implements Serializable {
      *
      * @return List of SongStaff.
      */
-    public List<Staff> getStaffs() {
+    public Set<Staff> getStaffs() {
         return staffs;
     }
 
@@ -367,7 +373,7 @@ public class Song implements Serializable {
      *
      * @return List of SongText.
      */
-    public List<Text> getTexts() {
+    public Set<Text> getTexts() {
         return texts;
     }
 
@@ -376,7 +382,7 @@ public class Song implements Serializable {
      *
      * @return List of Video.
      */
-    public List<Video> getVideos() {
+    public Set<Video> getVideos() {
         return videos;
     }
 
@@ -423,7 +429,7 @@ public class Song implements Serializable {
      *
      * @param composers Composer of song
      */
-    public void setComposers( List<Composer> composers ) {
+    public void setComposers( Set<Composer> composers ) {
         this.composers = composers;
     }
 
@@ -432,7 +438,7 @@ public class Song implements Serializable {
      *
      * @param poets Poet of song.
      */
-    public void setPoets( List<Poet> poets ) {
+    public void setPoets( Set<Poet> poets ) {
         this.poets = poets;
     }
 
@@ -441,7 +447,7 @@ public class Song implements Serializable {
      *
      * @param data Localized data.
      */
-    public void setData( List<SongLocale> data ) {
+    public void setData( Set<SongLocale> data ) {
         this.data = data;
     }
 
@@ -450,7 +456,7 @@ public class Song implements Serializable {
      *
      * @param staffs List of staffs.
      */
-    public void setStaffs( List<Staff> staffs ) {
+    public void setStaffs( Set<Staff> staffs ) {
         this.staffs = staffs;
     }
 
@@ -459,7 +465,7 @@ public class Song implements Serializable {
      *
      * @param texts List of texts.
      */
-    public void setTexts( List<Text> texts ) {
+    public void setTexts( Set<Text> texts ) {
         this.texts = texts;
     }
 
@@ -468,7 +474,7 @@ public class Song implements Serializable {
      *
      * @param videos List of videos.
      */
-    public void setVideos( List<Video> videos ) {
+    public void setVideos( Set<Video> videos ) {
         this.videos = videos;
     }
 
@@ -496,7 +502,7 @@ public class Song implements Serializable {
      */
     @PostLoad
     public void reinit() {
-        this.title = this.data.get(0).getTitle();
+        //TODO
     }
 
     /**

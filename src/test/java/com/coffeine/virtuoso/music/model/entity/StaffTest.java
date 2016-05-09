@@ -10,8 +10,7 @@ package com.coffeine.virtuoso.music.model.entity;
 
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -42,46 +41,7 @@ public class StaffTest extends AbstractModel {
         //- Success -//
         //- Create entity -//
         Staff staffSuccess = new Staff(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new StaffType(
                 "CHORDS",
                 "Chords",
@@ -153,46 +113,7 @@ public class StaffTest extends AbstractModel {
         //- Failure: locale -//
         //- Create entity -//
         Staff staffFailureLocale = new Staff(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new StaffType(
                 "CHORDS",
                 "Chords",
@@ -252,46 +173,7 @@ public class StaffTest extends AbstractModel {
         //- Failure: Incorrect Length -//
         //- Create entity -//
         Staff staffFailureLength = new Staff(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new StaffType(
                 "CHORDS",
                 "Chords",
@@ -348,46 +230,7 @@ public class StaffTest extends AbstractModel {
         //- Failure: Empty -//
         //- Create entity -//
         Staff staffFailureEmpty = new Staff(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList<SongLocale>() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList<Text>() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList<Video>() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             new StaffType(
                 "CHORDS",
                 "Chords",

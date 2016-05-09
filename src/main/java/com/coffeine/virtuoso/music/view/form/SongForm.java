@@ -231,6 +231,9 @@ public class SongForm {
     public static class VideoForm {
 
         @NotNull
+        protected Long videoTypeId;
+
+        @NotNull
         @NotEmpty
         @Length( max = 5 )
         protected String locale;
@@ -251,6 +254,11 @@ public class SongForm {
         protected String link;
 
         //- SECTION :: GET -//
+
+        public Long getVideoTypeId() {
+            return videoTypeId;
+        }
+
         public String getLocale() {
             return locale;
         }
@@ -268,6 +276,11 @@ public class SongForm {
         }
 
         //- SECTION :: SET -//
+
+        public void setVideoTypeId( Long videoTypeId ) {
+            this.videoTypeId = videoTypeId;
+        }
+
         public void setLocale( String locale ) {
             this.locale = locale;
         }

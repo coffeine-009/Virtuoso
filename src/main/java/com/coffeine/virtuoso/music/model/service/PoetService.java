@@ -11,6 +11,7 @@ package com.coffeine.virtuoso.music.model.service;
 import com.coffeine.virtuoso.music.model.entity.Poet;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service for work with poet.
@@ -53,7 +54,7 @@ public interface PoetService {
      *
      * @return Poet Found
      */
-    List<Poet> find( List<Long> ids );
+    Set<Poet> find( List<Long> ids );
 
     /**
      * Update.

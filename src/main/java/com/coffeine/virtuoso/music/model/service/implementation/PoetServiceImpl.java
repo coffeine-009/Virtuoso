@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service for work with post.
@@ -73,8 +75,8 @@ public class PoetServiceImpl implements PoetService {
      * @return Poet Found
      */
     @Override
-    public List<Poet> find( List<Long> ids ) {
-        return this.poetRepository.find( ids );
+    public Set<Poet> find( List<Long> ids ) {
+        return new HashSet<>( this.poetRepository.find( ids ) );
     }
 
     /**

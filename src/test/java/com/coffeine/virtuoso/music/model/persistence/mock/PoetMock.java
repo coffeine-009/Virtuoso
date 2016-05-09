@@ -17,7 +17,8 @@ import com.coffeine.virtuoso.security.model.entity.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Mock for Poet in persistence layout.
@@ -32,7 +33,7 @@ public class PoetMock {
      *
      * @return List of poets.
      */
-    public static List<Poet> findAll() {
+    public static Set<Poet> findAll() {
         //- Mock poet -//
         final Poet poet = new Poet(
             new User(
@@ -66,7 +67,7 @@ public class PoetMock {
         );
         poet.setId( 1L );
 
-        return new ArrayList<Poet>() {{
+        return new HashSet<Poet>() {{
             add( poet );
         }};
     }

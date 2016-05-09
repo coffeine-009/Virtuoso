@@ -9,8 +9,7 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.junit.Test;
@@ -41,64 +40,7 @@ public class TextTest extends AbstractModel {
         //- Success -//
         //- Create entity -//
         Text textSuccess = new Text(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             "uk-UA"
         );
         //- Validate -//
@@ -151,64 +93,7 @@ public class TextTest extends AbstractModel {
         //- Failure : incorrect locale -//
         //- Create entity -//
         Text textFailureLocale = new Text(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             null
         );
         //- Validate -//
@@ -256,64 +141,7 @@ public class TextTest extends AbstractModel {
         //- Failure: fields is empty-//
         //- Create entity -//
         Text textFailureEmpty = new Text(
-            new Song(
-                //-Create composer-//
-                ComposerMock.findAll(),
-                //- Create poet-//
-                PoetMock.findAll(),
-                //- Create list of song locale -//
-                new ArrayList < SongLocale >() {{
-                    add(
-                        new SongLocale(
-                            "user",
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of staff -//
-                new ArrayList < Staff >() {{
-                    add(
-                        new Staff(
-                            new StaffType(
-                                "CHORDS",
-                                "Chords",
-                                "Standard chords"
-                            ),
-                            new Style(
-                                "One",
-                                "Two",
-                                "three"
-                            ),
-                            "uk-UA"
-                        )
-                    );
-                }},
-                //- Create list of text -//
-                new ArrayList < Text >() {{
-                    add(
-                        new Text(
-                            "uk-UA",
-                            "Lyrics"
-                        )
-                    );
-                }},
-                //- Create list of video -//
-                new ArrayList < Video >() {{
-                    add(
-                        new Video(
-                            new VideoType(
-                                "POLKA",
-                                "Polka",
-                                "Ukrainian polka"
-                            ),
-                            "uk-UA",
-                            "user",
-                            "video1"
-                        )
-                    );
-                }},
-                "uk-UA"
-            ),
+            SongMock.find(),
             ""
         );
         //- Validate -//

@@ -15,11 +15,13 @@ import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.StaffTypeMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.StyleMock;
+import com.coffeine.virtuoso.music.model.persistence.mock.VideoTypeMock;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 import com.coffeine.virtuoso.music.model.service.StyleService;
+import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -67,6 +69,9 @@ public class SongControllerTest extends AbstractRestControllerTest {
     private StaffTypeService staffTypeService;
 
     @Mock
+    private VideoTypeService videoTypeService;
+
+    @Mock
     private StyleService styleService;
 
     @Mock
@@ -88,6 +93,13 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         //- Set up application -//
         this.mockMvc = MockMvcBuilders.standaloneSetup( songController ).build();
+
+        //- Mock -//
+        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
+        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
+        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
+        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
     }
 
     /**
@@ -147,10 +159,6 @@ public class SongControllerTest extends AbstractRestControllerTest {
     @Test
     public void testCreateActionSuccess() throws Exception {
         //- Mock -//
-        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
-        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
-        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
-        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
         when( this.songService.create( any( Song.class ) ) ).thenReturn( SongMock.retrieve() );
 
         //- Success. Create a new songs -//
@@ -204,6 +212,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
                                 "Стріляй!\"" +
                         "} ]," +
                         "\"videos\": [ {" +
+                            "\"videoTypeId\": 1," +
                             "\"locale\": \"en-US\"," +
                             "\"title\": \"Rose\"," +
                             "\"description\": \"Rose.\"," +
@@ -248,6 +257,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
                     "Путів, на жаль...\"" +
             "} ]," +
             "\"videos\": [ {" +
+                "\"videoTypeId\": 1," +
                 "\"locale\": \"en-US\"," +
                 "\"title\": \"Rose\"," +
                 "\"description\": \"Rose.\"," +
@@ -259,10 +269,6 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         //- Conflict -//
         //- Mock -//
-        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
-        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
-        when( this.staffTypeService.find( anyLong() ) ).thenReturn( StaffTypeMock.find() );
-        when( this.styleService.find( anyLong() ) ).thenReturn( StyleMock.find() );
         doThrow( DataIntegrityViolationException.class ).when(
             this.songService
         ).create( any( Song.class ) );
@@ -342,6 +348,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
         when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
         when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
         when( this.songService.update( any( Song.class ) ) ).thenReturn( SongMock.retrieve() );
 
         //- Success. Create a new songs -//
@@ -374,6 +381,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
                                 "Давай! Тисни гачок!  \"" +
                         "} ]," +
                         "\"videos\": [ {" +
+                            "\"videoTypeId\": 1," +
                             "\"locale\": \"uk-UA\"," +
                             "\"title\": \"Стріляй\"," +
                             "\"description\": \"Стріляй.\"," +
@@ -418,6 +426,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
                     "Путів, на жаль...\"" +
             "} ]," +
             "\"videos\": [ {" +
+                "\"videoTypeId\": 1," +
                 "\"locale\": \"uk-UA\"," +
                 "\"title\": \"Стріляй\"," +
                 "\"description\": \"Стріляй.\"," +
@@ -432,6 +441,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
         when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( ComposerMock.findAll() );
         when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        when( this.videoTypeService.find( anyLong() ) ).thenReturn( VideoTypeMock.find() );
         doThrow( DataIntegrityViolationException.class ).when(
             this.songService
         ).update( any( Song.class ) );

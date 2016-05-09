@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
@@ -59,7 +60,7 @@ public class ComposerController {
      */
     @GET
     @RequestMapping( method = RequestMethod.GET )
-    public List<Composer> listAction(
+    public Set<Composer> listAction(
         @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page,
 

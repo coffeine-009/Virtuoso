@@ -20,6 +20,7 @@ import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
 import com.coffeine.virtuoso.music.model.service.StaffTypeService;
 import com.coffeine.virtuoso.music.model.service.StyleService;
+import com.coffeine.virtuoso.music.model.service.VideoTypeService;
 import com.coffeine.virtuoso.music.view.form.SongForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
@@ -71,6 +73,9 @@ public class SongController {
 
     @Autowired
     private StaffTypeService staffTypeService;
+
+    @Autowired
+    private VideoTypeService videoTypeService;
 
 
     //- SECTION :: ACTIONS -//
@@ -123,8 +128,8 @@ public class SongController {
     ) {
         try {
             //- Search related entities -//
-            List<Composer> composers = this.composerService.find( form.getComposerIds() );
-            List<Poet> poets = this.poetService.find( form.getPoetIds() );
+            Set<Composer> composers = this.composerService.find( form.getComposerIds() );
+            Set<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
             notNull( composers );
@@ -135,10 +140,10 @@ public class SongController {
             //- Set HTTP status -//
             response.setStatus( HttpServletResponse.SC_CREATED );
 
-            List<SongLocale> data = new ArrayList<>();
-            List<Staff> staffs = new ArrayList<>();
-            List<Text> texts = new ArrayList<>();
-            List<Video> videos = new ArrayList<>();
+            Set<SongLocale> data = new HashSet<>();
+            Set<Staff> staffs = new HashSet<>();
+            Set<Text> texts = new HashSet<>();
+            Set<Video> videos = new HashSet<>();
             form.getData().forEach(
                 (item) -> data.add( new SongLocale( item.getTitle(), item.getLocale() ) )
             );
@@ -146,7 +151,8 @@ public class SongController {
                 new Staff(
                     this.staffTypeService.find( item.getMusicNotesTypeId() ),
                     this.styleService.find( item.getStyleId() ),
-                    item.getFile()
+                    item.getFile(),
+                    "uk-UA"//FIXME
                 )
             ));
             form.getTexts().forEach( (item) -> texts.add(
@@ -157,6 +163,7 @@ public class SongController {
             ));
             form.getVideos().forEach( (item) -> videos.add(
                 new Video(
+                    this.videoTypeService.find( item.getVideoTypeId() ),
                     item.getTitle(),
                     item.getLocale(),
                     item.getDescription(),
@@ -245,8 +252,8 @@ public class SongController {
         try {
             //- Search related entities -//
             Song song = this.songService.find( id );
-            List<Composer> composers = this.composerService.find( form.getComposerIds() );
-            List<Poet> poets = this.poetService.find( form.getPoetIds() );
+            Set<Composer> composers = this.composerService.find( form.getComposerIds() );
+            Set<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
             notNull( song );
