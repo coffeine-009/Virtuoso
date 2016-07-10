@@ -35,7 +35,7 @@ RUN mvn install
 
 RUN cp target/Virtuoso-1.0-SNAPSHOT.war /usr/share/tomcat/webapps/virtuoso.war
 
-EXPOSE 8080
+EXPOSE 8080 8009
 
 #- Entry point -#
 CMD [ "/usr/share/tomcat/bin/catalina.sh", "run" ]
