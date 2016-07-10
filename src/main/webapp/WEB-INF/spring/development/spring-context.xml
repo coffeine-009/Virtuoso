@@ -88,7 +88,7 @@
         <property name = "driverClass" value = "org.postgresql.Driver" />
         <property
             name = "jdbcUrl"
-            value = "jdbc:postgresql://#{ systemProperties['DB_HOST'] }:5432/virtuoso"
+            value = "jdbc:postgresql://localhost:5432/virtuoso"
         />
         <property name = "username" value = "${persistence.username}" />
         <property name = "password" value = "${persistence.password}" />
