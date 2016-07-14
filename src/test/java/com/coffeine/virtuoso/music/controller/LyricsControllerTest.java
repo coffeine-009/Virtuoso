@@ -10,9 +10,11 @@ package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.coffeine.virtuoso.music.model.entity.Lyrics;
+import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.TextMock;
 import com.coffeine.virtuoso.music.model.service.LyricsService;
+import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
 
 import org.junit.After;
@@ -26,6 +28,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -45,6 +48,9 @@ public class LyricsControllerTest extends AbstractRestControllerTest {
 
     @Mock
     private SongService songService;
+
+    @Mock
+    private PoetService poetService;
 
     @Mock
     private LyricsService lyricsService;
@@ -141,6 +147,7 @@ public class LyricsControllerTest extends AbstractRestControllerTest {
     public void testCreateActionSuccess() throws Exception {
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
         when( this.lyricsService.create( any( Lyrics.class ) ) ).thenReturn( TextMock.find() );
 
         //- Success -//
@@ -149,8 +156,10 @@ public class LyricsControllerTest extends AbstractRestControllerTest {
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
+                        "\"poetIds\": [ 1 ]," +
                         "\"songId\": 1," +
-                        "\"locale\": \"uk-UA\"" +
+                        "\"locale\": \"en-US\"," +
+                        "\"content\": \"Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.\"" +
                     "}"
                 )
         )
@@ -168,6 +177,7 @@ public class LyricsControllerTest extends AbstractRestControllerTest {
         //- Conflict -//
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
+        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( PoetMock.findAll() );
         doThrow( DataIntegrityViolationException.class ).when(
             this.lyricsService
         ).create( any( Lyrics.class ) );
@@ -178,8 +188,10 @@ public class LyricsControllerTest extends AbstractRestControllerTest {
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
+                        "\"poetIds\": [ 1 ]," +
                         "\"songId\": 1," +
-                        "\"locale\": \"uk-UA\"" +
+                        "\"locale\": \"en-US\"," +
+                        "\"content\": \"Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.\"" +
                     "}"
                 )
         )
@@ -198,8 +210,10 @@ public class LyricsControllerTest extends AbstractRestControllerTest {
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
+                        "\"poetIds\": [ 1 ]," +
                         "\"songId\": 99999," +
-                        "\"locale\": \"uk-UA\"" +
+                        "\"locale\": \"en-US\"," +
+                        "\"content\": \"Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.\"" +
                     "}"
                 )
         )

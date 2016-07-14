@@ -77,7 +77,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
             //- Composer -//
             .andExpect( jsonPath( "$[*].composers", notNullValue() ) )
             .andExpect( jsonPath( "$[*].composers", not( empty() ) ) )
-            .andExpect( jsonPath( "$[*].composers", hasSize( 2 ) ) )
+            .andExpect( jsonPath( "$[*].composers", hasSize( 1 ) ) )
             .andExpect( jsonPath( "$[*].composers[*].id", containsInAnyOrder( 1 ) ) )
             .andExpect( jsonPath( "$[*].composers[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
             .andExpect( jsonPath( "$[*].composers[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )

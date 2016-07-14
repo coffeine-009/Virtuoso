@@ -127,13 +127,6 @@ public class SongController {
         HttpServletResponse response
     ) {
         try {
-            //- Search related entities -//
-            Set<Composer> composers = this.composerService.find( form.getComposerIds() );
-
-            //- Check -//
-            notNull( composers );
-            notEmpty( composers );
-
             //- Set HTTP status -//
             response.setStatus( HttpServletResponse.SC_CREATED );
 
@@ -144,15 +137,26 @@ public class SongController {
             form.getData().forEach(
                 (item) -> data.add( new SongLocale( item.getTitle(), item.getLocale() ) )
             );
-            form.getStaffs().forEach( (item) -> staffs.add(
-                new Staff(
-                    composers,
-                    this.staffTypeService.find( item.getMusicNotesTypeId() ),
-                    this.styleService.find( item.getStyleId() ),
-                    item.getFile(),
-                    "uk-UA"//FIXME
-                )
-            ));
+            form.getStaffs().forEach(
+                (item) -> {
+                    //- Search related entities -//
+                    Set<Composer> composers = this.composerService.find( item.getComposerIds() );
+
+                    //- Check -//
+                    notNull( composers );
+                    notEmpty( composers );
+
+                    staffs.add(
+                        new Staff(
+                            composers,
+                            this.staffTypeService.find( item.getMusicNotesTypeId() ),
+                            this.styleService.find( item.getStyleId() ),
+                            item.getFile(),
+                            "uk-UA"//FIXME
+                        )
+                    );
+                }
+            );
             form.getLyrics().forEach(
                 (item) -> {
                     Set<Poet> poets = this.poetService.find( item.getPoetIds() );
@@ -165,7 +169,7 @@ public class SongController {
                         new Lyrics(
                             poets,
                             item.getLocale(),
-                            item.getLyrics()
+                            item.getContent()
                         )
                     );
                 }
@@ -259,18 +263,12 @@ public class SongController {
         try {
             //- Search related entities -//
             Song song = this.songService.find( id );
-            Set<Composer> composers = this.composerService.find( form.getComposerIds() );
 
             //- Check -//
             notNull( song );
-            notNull( composers );
-            notEmpty( composers );
 
             //- Update data -//
-//            song.setData( form.getData() );
-//            song.setStaffs( form.getStaffs() );
-//            song.setLyricses( form.getLyricses() );
-//            song.setVideos( form.getVideos() );
+            //TODO: set updated data
             song.setLocale( form.getLocale() );
 
             this.songService.update( song );

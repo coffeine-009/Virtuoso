@@ -180,7 +180,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
                         "\"lyrics\": [ {" +
                             "\"poetIds\": [ 1 ]," +
                             "\"locale\": \"en-US\"," +
-                            "\"lyrics\": \"Слова, слова,  \\n" +
+                            "\"content\": \"Слова, слова,  \\n" +
                                 "Немов вуаль,  \\n" +
                                 "Там, де тонка діагональ  \\n" +
                                 "Звучить кришталь.  \\n" +
@@ -248,7 +248,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
             "\"lyrics\": [ {" +
                 "\"poetIds\": [ 1 ]," +
                 "\"locale\": \"en-US\"," +
-                "\"lyrics\": \"Слова, слова,  \\n" +
+                "\"content\": \"Слова, слова,  \\n" +
                     "Немов вуаль,  \\n" +
                     "Там, де тонка діагональ  \\n" +
                     "Звучить кришталь.  \\n" +
@@ -370,7 +370,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
                         "\"lyrics\": [ {" +
                             "\"poetIds\": [ 1 ]," +
                             "\"locale\": \"uk-UA\"," +
-                            "\"lyrics\": \"#### Приспів:  \\n" +
+                            "\"content\": \"#### Приспів:  \\n" +
                                 "Стріляй!  \\n" +
                                 "Скажи, чому боїшся ти  \\n" +
                                 "Зробити цей останній крок?!?  \\n" +
@@ -417,7 +417,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
             "\"lyrics\": [ {" +
                 "\"poetIds\": [ 1 ]," +
                 "\"locale\": \"uk-UA\"," +
-                "\"lyrics\": \"Слова, слова,  \\n" +
+                "\"content\": \"Слова, слова,  \\n" +
                     "Немов вуаль,  \\n" +
                     "Там, де тонка діагональ  \\n" +
                     "Звучить кришталь.  \\n" +
@@ -457,12 +457,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         //- Not Found -//
         //- Mock -//
-        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( null );
-        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( null );
-        when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        doThrow( DataIntegrityViolationException.class ).when(
-            this.songService
-        ).create( any( Song.class ) );
+        when( this.songService.find( anyLong() ) ).thenReturn( null );
 
         //- Failure -//
         this.mockMvc.perform(

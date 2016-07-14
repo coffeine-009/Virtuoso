@@ -93,6 +93,13 @@ public class SongForm {
     public static class MusicNotesForm {
 
         /**
+         * Ids list of composers.
+         */
+        @NotNull
+        @NotEmpty
+        private List<Long> composerIds;
+
+        /**
          * Id of type of music notes.
          * Stave: tab, notation.
          */
@@ -111,6 +118,15 @@ public class SongForm {
 
 
         //- SECTION :: GET -//
+        /**
+         * Get composer's ids.
+         *
+         * @return Composer's ids.
+         */
+        public List<Long> getComposerIds() {
+            return composerIds;
+        }
+
         /**
          * Get id of music notes type.
          *
@@ -139,6 +155,15 @@ public class SongForm {
         }
 
         //- SECTION :: SET -//
+        /**
+         * Set composer's ids.
+         *
+         * @param composerIds    Composer's ids.
+         */
+        public void setComposerIds( List<Long> composerIds ) {
+            this.composerIds = composerIds;
+        }
+
         /**
          * Set id of music notes type.
          *
@@ -190,7 +215,7 @@ public class SongForm {
         @NotNull
         @NotEmpty
         @Length( min = 60 )
-        protected String lyrics;
+        protected String content;
 
 
         //- SECTION :: GET -//
@@ -214,12 +239,12 @@ public class SongForm {
         }
 
         /**
-         * Get lyrics.
+         * Get content.
          *
          * @return Lyrics.
          */
-        public String getLyrics() {
-            return lyrics;
+        public String getContent() {
+            return content;
         }
 
         //- SECTION :: SET -//
@@ -242,12 +267,12 @@ public class SongForm {
         }
 
         /**
-         * Set lyrics.
+         * Set content.
          *
-         * @param lyrics    Lyrics.
+         * @param content    Lyrics.
          */
-        public void setLyrics( String lyrics ) {
-            this.lyrics = lyrics;
+        public void setContent( String content ) {
+            this.content = content;
         }
     }
 
@@ -326,13 +351,6 @@ public class SongForm {
 
     /// *** Properties  *** ///
     /**
-     * Ids list of composers.
-     */
-    @NotNull
-    @NotEmpty
-    private List<Long> composerIds;
-
-    /**
      * Localized data about song.
      */
     @NotNull
@@ -375,15 +393,6 @@ public class SongForm {
 
 
     //- SECTION :: GET -//
-    /**
-     * Get list of composer's ids.
-     *
-     * @return List of ids.
-     */
-    public List<Long> getComposerIds() {
-        return composerIds;
-    }
-
     /**
      * Get list of localized forms.
      *
@@ -440,15 +449,6 @@ public class SongForm {
 
 
     //- SECTION :: SET -//
-    /**
-     * Set list of composer's ids.
-     *
-     * @param composerIds    Composer's ids.
-     */
-    public void setComposerIds( List<Long> composerIds ) {
-        this.composerIds = composerIds;
-    }
-
     /**
      * Set localized data about song.
      *

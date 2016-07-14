@@ -67,7 +67,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
         this.mockMvc.perform(
             get( "/music/songs?page={page}&limit={limit}", 1, 10 )
             .header( "Authorization", this.session.getAuthorizationHeader() )
-        )
+        ).andDo( print() )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$", hasSize( 2 ) ) )
@@ -157,13 +157,15 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
                             "\"locale\": \"en-US\"" +
                         "} ]," +
                         "\"staffs\": [ {" +
+                            "\"composerIds\": [ 1 ]," +
                             "\"musicNotesTypeId\": 1," +
                             "\"styleId\": 1," +
                             "\"file\": \"<xml></xml>\"" +
                         "} ]," +
                         "\"lyrics\": [ {" +
+                            "\"poetIds\": [ 1 ]," +
                             "\"locale\": \"en-US\"," +
-                            "\"lyrics\": \"Слова, слова,  \\n" +
+                            "\"content\": \"Слова, слова,  \\n" +
                                 "Немов вуаль,  \\n" +
                                 "Там, де тонка діагональ  \\n" +
                                 "Звучить кришталь.  \\n" +
@@ -210,12 +212,11 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
             //- Song -//
-//            .andExpect( jsonPath( "$title", notNullValue() ) )
             .andExpect( jsonPath( "$locale", notNullValue() ) )
 //            .andExpect( jsonPath( "$writeDate", notNullValue() ) )
             .andExpect( jsonPath( "$data", notNullValue() ) )
             .andExpect( jsonPath( "$staffs", notNullValue() ) )
-            .andExpect( jsonPath( "$lyricses", notNullValue() ) )
+            .andExpect( jsonPath( "$lyrics", notNullValue() ) )
             .andExpect( jsonPath( "$videos", notNullValue() ) )
             .andDo(
                 document(
