@@ -67,7 +67,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
         this.mockMvc.perform(
             get( "/music/songs?page={page}&limit={limit}", 1, 10 )
             .header( "Authorization", this.session.getAuthorizationHeader() )
-        ).andDo( print() )
+        )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$", hasSize( 2 ) ) )
