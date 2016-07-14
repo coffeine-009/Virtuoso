@@ -14,8 +14,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -71,6 +74,19 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$", hasSize( 1 ) ) )
             .andExpect( jsonPath( "$[*].id", notNullValue() ) )
             .andExpect( jsonPath( "$[*].id", containsInAnyOrder( 1 ) ) )
+            //- Composer -//
+            .andExpect( jsonPath( "$[*].composers", notNullValue() ) )
+            .andExpect( jsonPath( "$[*].composers", not( empty() ) ) )
+            .andExpect( jsonPath( "$[*].composers", hasSize( 2 ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].id", containsInAnyOrder( 1 ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].gender", containsInAnyOrder( true ) ) )
+            .andExpect( jsonPath( "$[*].composers[*].birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$[*].composers[0].deathDate", nullValue() ) )
             .andExpect( jsonPath( "$[*].staffType.id", notNullValue() ) )
             .andExpect( jsonPath( "$[*].staffType.id", containsInAnyOrder( 1 ) ) )
             .andExpect( jsonPath( "$[*].staffType.code", notNullValue() ) )
@@ -97,6 +113,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
                     "staffs-list-example",
                     responseFields(
                         fieldWithPath( "[].id" ).description( "Id of staff." ),
+                        fieldWithPath( "[].composers" ).description( "List of composers." ),
                         fieldWithPath( "[].staffType.id" ).description( "Id of staff type." ),
                         fieldWithPath( "[].staffType.code" ).description( "Code of staff type." ),
                         fieldWithPath( "[].staffType.title" ).description( "Title of staff type." ),
@@ -130,6 +147,20 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
             .andExpect( jsonPath( "$id" ).value( 1 ) )
+            //- Composer -//
+            .andExpect( jsonPath( "$composers", notNullValue() ) )
+            .andExpect( jsonPath( "$composers", not( empty() ) ) )
+            .andExpect( jsonPath( "$composers", hasSize( 1 ) ) )
+            .andExpect( jsonPath( "$composers[*].id", containsInAnyOrder( 1 ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
+            .andExpect( jsonPath( "$composers[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$composers[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$composers[*].gender", containsInAnyOrder( true ) ) )
+            .andExpect( jsonPath( "$composers[*].birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$composers[0].deathDate", nullValue() ) )
+
             .andExpect( jsonPath( "$staffType.id", notNullValue() ) )
             .andExpect( jsonPath( "$staffType.id" ).value( 1 ) )
             .andExpect( jsonPath( "$staffType.code", notNullValue() ) )
@@ -156,6 +187,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
                     "staffs-retrieve-success-example",
                     responseFields(
                         fieldWithPath( "id" ).description( "Id of staff." ),
+                        fieldWithPath( "composers" ).description( "List of composers." ),
                         fieldWithPath( "staffType.id" ).description( "Id of staff type." ),
                         fieldWithPath( "staffType.code" ).description( "Code of staff type." ),
                         fieldWithPath( "staffType.title" ).description( "Title of staff type." ),
@@ -331,6 +363,7 @@ public class FunctionalStaffControllerTest extends AbstractRestControllerTest {
                     ),
                     responseFields(
                         fieldWithPath( "id" ).description( "Id of staff." ),
+                        fieldWithPath( "composers" ).description( "List of composers." ),
                         fieldWithPath( "staffType.id" ).description( "Id of staff type." ),
                         fieldWithPath( "staffType.code" ).description( "Code of staff type." ),
                         fieldWithPath( "staffType.title" ).description( "Title of staff type." ),

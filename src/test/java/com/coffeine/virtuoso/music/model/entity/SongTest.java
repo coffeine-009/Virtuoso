@@ -9,8 +9,6 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
-import com.coffeine.virtuoso.music.model.persistence.mock.ComposerMock;
-import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.Length;
@@ -62,10 +60,6 @@ public class SongTest extends AbstractModel {
         //- Failure -//
         //- Create entity -//
         Song songFailure = new Song(
-            //-Create composer-//
-            ComposerMock.findAll(),
-            //- Create poet-//
-            PoetMock.findAll(),
             null
         );
         //- Validate -//
@@ -78,7 +72,7 @@ public class SongTest extends AbstractModel {
                 new ArrayList<String>() {{
                     add( "data" );
                     add( "staffs" );
-                    add( "texts" );
+                    add( "lyrics" );
                     add( "locale" );
                 }}.contains(
                     this.getPropertyName(
@@ -104,91 +98,6 @@ public class SongTest extends AbstractModel {
             );
         }
 
-        //- Failure: poet and composer are null-//
-        //- Create entity -//
-        Song songFailureNull = new Song(
-            null,
-            null,
-            new HashSet<SongLocale>() {{
-                add(
-                    new SongLocale(
-                        "user",
-                        "uk-UA"
-                    )
-                );
-            }},
-            new HashSet<Staff>() {{
-                add(
-                    new Staff(
-                        new StaffType(
-                            "CHORDS",
-                            "Chords",
-                            "Standard chords"
-                        ),
-                        new Style(
-                            "One",
-                            "Two",
-                            "three"
-                        ),
-                        "uk-UA"
-                    )
-                );
-            }},
-            new HashSet<Text>() {{
-                add(
-                    new Text(
-                        "uk-UA",
-                        "Lyrics"
-                    )
-                );
-            }},
-            new HashSet<Video>() {{
-                add(
-                    new Video(
-                        new VideoType(
-                            "POLKA",
-                            "Polka",
-                            "Ukrainian polka"
-                        ),
-                        "uk-UA",
-                        "user",
-                        "video1"
-                    )
-                );
-            }},
-            "uk-UA"
-        );
-        //- Validate-//
-        constraintViolationSet = validator.validate( songFailureNull );
-
-        assertEquals( 2, constraintViolationSet.size() );
-        for( ConstraintViolation<Song> constraintViolation : constraintViolationSet ) {
-            //- Property name -//
-            assertTrue(
-                new ArrayList<String>() {{
-                    add( "composers" );
-                    add( "poets" );
-                }}.contains(
-                    this.getPropertyName(
-                        constraintViolation.getPropertyPath()
-                    )
-                )
-            );
-            //- Annotation type -//
-            assertTrue(
-                new ArrayList<Class>() {{
-                    add( NotNull.class );
-                }}.contains(
-                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
-                )
-            );
-            //- Message -//
-            assertTrue(
-                new ArrayList<String>() {{
-                    add( "may not be null" );
-                }}.contains( constraintViolation.getMessage() )
-            );
-        }
         //- Failure : Incorrect length  -//
         //- Create entity -//
         Song songFailureLength = SongMock.find();
@@ -239,10 +148,6 @@ public class SongTest extends AbstractModel {
         //- Failure: fields is empty-//
         //- Create entity -//
         Song songFailureEmpty = new Song(
-            //-Create composer-//
-            ComposerMock.findAll(),
-            //- Create poet-//
-            PoetMock.findAll(),
             //- Create list of song locale -//
             new HashSet<>(),
             //- Create list of staff -//
@@ -263,7 +168,7 @@ public class SongTest extends AbstractModel {
                 new ArrayList<String>() {{
                     add( "data" );
                     add( "staffs" );
-                    add( "texts" );
+                    add( "lyrics" );
                     add( "locale" );
                 }}.contains(
                     this.getPropertyName(

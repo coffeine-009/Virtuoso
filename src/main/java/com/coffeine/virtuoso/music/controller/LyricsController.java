@@ -8,11 +8,13 @@
 
 package com.coffeine.virtuoso.music.controller;
 
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
+import com.coffeine.virtuoso.music.model.entity.Poet;
 import com.coffeine.virtuoso.music.model.entity.Song;
-import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.service.LyricsService;
+import com.coffeine.virtuoso.music.model.service.PoetService;
 import com.coffeine.virtuoso.music.model.service.SongService;
-import com.coffeine.virtuoso.music.model.service.TextService;
-import com.coffeine.virtuoso.music.view.form.TextForm;
+import com.coffeine.virtuoso.music.view.form.LyricsForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
@@ -35,65 +38,69 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 
+import static org.springframework.util.Assert.notEmpty;
 import static org.springframework.util.Assert.notNull;
 
 /**
- * Controller for work with song's text(s).
+ * Controller for work with song's lyrics.
  *
  * @version 1.0
  */
 @RestController
-@RequestMapping( value = "/music/texts" )
-public class TextController {
+@RequestMapping( value = "/music/lyrics" )
+public class LyricsController {
 
     /// *** Properties  *** ///
     @Autowired
-    protected TextService textService;
+    protected LyricsService lyricsService;
+
+    @Autowired
+    private PoetService poetService;
 
     @Autowired
     protected SongService songService;
 
 
     /**
-     * Find all texts per page.
+     * Find all lyrics per page.
      *
      * @param page  Number of page.
      * @param limit Count items on page.
      *
-     * @return List of texts.
+     * @return List of lyrics.
      */
     @GET
     @RequestMapping( method = RequestMethod.GET )
     @ResponseStatus( HttpStatus.OK )
     @ResponseBody
-    public List<Text> findAll(
+    public List<Lyrics> findAll(
         @RequestParam( value = "page", required = false, defaultValue = "1" )
         int page, 
 
         @RequestParam( value = "limit", required = false, defaultValue = "10" )
         int limit
     ) {
-        return this.textService.findAll( 
+        return this.lyricsService.findAll(
             Math.max( page - 1, 0 ),
             limit
         );
     }
 
     /**
-     * Create text.
+     * Create lyrics.
      *
      * @param form        Form for input.
      * @param response    Use for work with HTTP.
      *
-     * @return Text.
+     * @return Lyrics.
      */
     @POST
     @RequestMapping( method = RequestMethod.POST )
     @ResponseBody
-    public Text createAction(
+    public Lyrics createAction(
         @RequestBody
         @Valid
-        TextForm form,
+        LyricsForm form,
 
         HttpServletResponse response
     ) {
@@ -101,18 +108,23 @@ public class TextController {
         try {
             //- Search song -//
             Song song = this.songService.find( form.getSongId() );
+            Set<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
             notNull( song );
+            notNull( poets );
+            notEmpty( poets );
 
             //- Set HTTP status -//
             response.setStatus( HttpStatus.CREATED.value() );
             
             //- Try to create text -//
-            return this.textService.create(
-                new Text( 
+            return this.lyricsService.create(
+                new Lyrics(
+                    poets,
                     song,
-                    form.getLocale()
+                    form.getLocale(),
+                    form.getContent()
                 )
             );
         } catch ( IllegalArgumentException e ) {
@@ -127,30 +139,30 @@ public class TextController {
     }
 
     /**
-     * Find text.
+     * Find lyrics.
      *
-     * @param id          Id of text.
+     * @param id          Id of lyrics.
      * @param response    Use for work with HTTP.
      *
-     * @return Text.
+     * @return Lyrics.
      */
     @GET
     @RequestMapping( value = "/{id}", method = RequestMethod.GET )
     @ResponseBody
-    public Text findAction(
+    public Lyrics findAction(
         @PathVariable( "id" )
         Long id,
 
         HttpServletResponse response
     ) {
         try {
-            //- Search text -//
-            Text text = this.textService.find( id );
+            //- Search lyrics -//
+            Lyrics lyrics = this.lyricsService.find( id );
 
             //- Check -//
-            notNull( text );
+            notNull( lyrics );
 
-            return text;
+            return lyrics;
         } catch ( IllegalArgumentException e ) {
             //- Failure. Cannot find text -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
@@ -160,40 +172,41 @@ public class TextController {
     }
 
     /**
-     * Update text.
+     * Update lyrics.
      *
-     * @param id          Id of text.
+     * @param id          Id of lyrics.
      * @param form        Form for input.
      * @param response    Use for work with HTTP.
      *
-     * @return Text.
+     * @return Lyrics.
      */
     @PUT
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
-    public Text updateAction(
+    public Lyrics updateAction(
         @PathVariable( "id" )
         Long id,
 
         @RequestBody
-        TextForm form,
+        LyricsForm form,
 
         HttpServletResponse response
     ) {
         try {
             //- Search depended entities -//
-            Text text = this.textService.find( id );
+            Lyrics lyrics = this.lyricsService.find( id );
             Song song = this.songService.find( form.getSongId() );
+            //TODO: Poets
 
             //- Check -//
-            notNull( text );
+            notNull( lyrics );
             notNull( song );
 
             //- Update fields -//
-            text.setSong( song );
-            text.setLocale( form.getLocale() );
+            lyrics.setSong( song );
+            lyrics.setLocale( form.getLocale() );
 
-            //- Try to update Text -//
-            return this.textService.update( text );
+            //- Try to update Lyrics -//
+            return this.lyricsService.update( lyrics );
         } catch ( IllegalArgumentException e ) {
             //- Failure. Cannot found related entities -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
@@ -222,9 +235,9 @@ public class TextController {
     ) {
         try {
             //- Try to delete text -//
-            this.textService.delete( id );
+            this.lyricsService.delete( id );
         } catch ( DataAccessException e ) {
-            // Failure. Text doesn't exists
+            // Failure. Lyrics doesn't exists
             //- Set HTTP status -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
         }

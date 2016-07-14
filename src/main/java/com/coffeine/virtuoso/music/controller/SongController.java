@@ -9,11 +9,11 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.music.model.entity.Composer;
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 import com.coffeine.virtuoso.music.model.entity.Poet;
 import com.coffeine.virtuoso.music.model.entity.Song;
 import com.coffeine.virtuoso.music.model.entity.SongLocale;
 import com.coffeine.virtuoso.music.model.entity.Staff;
-import com.coffeine.virtuoso.music.model.entity.Text;
 import com.coffeine.virtuoso.music.model.entity.Video;
 import com.coffeine.virtuoso.music.model.service.ComposerService;
 import com.coffeine.virtuoso.music.model.service.PoetService;
@@ -129,38 +129,47 @@ public class SongController {
         try {
             //- Search related entities -//
             Set<Composer> composers = this.composerService.find( form.getComposerIds() );
-            Set<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
             notNull( composers );
-            notNull( poets );
             notEmpty( composers );
-            notEmpty( poets );
 
             //- Set HTTP status -//
             response.setStatus( HttpServletResponse.SC_CREATED );
 
             Set<SongLocale> data = new HashSet<>();
             Set<Staff> staffs = new HashSet<>();
-            Set<Text> texts = new HashSet<>();
+            Set<Lyrics> lyrics = new HashSet<>();
             Set<Video> videos = new HashSet<>();
             form.getData().forEach(
                 (item) -> data.add( new SongLocale( item.getTitle(), item.getLocale() ) )
             );
             form.getStaffs().forEach( (item) -> staffs.add(
                 new Staff(
+                    composers,
                     this.staffTypeService.find( item.getMusicNotesTypeId() ),
                     this.styleService.find( item.getStyleId() ),
                     item.getFile(),
                     "uk-UA"//FIXME
                 )
             ));
-            form.getTexts().forEach( (item) -> texts.add(
-                new Text(
-                    item.getLocale(),
-                    item.getLyrics()
-                )
-            ));
+            form.getLyrics().forEach(
+                (item) -> {
+                    Set<Poet> poets = this.poetService.find( item.getPoetIds() );
+
+                    //- Check -//
+                    notNull( poets );
+                    notEmpty( poets );
+
+                    lyrics.add(
+                        new Lyrics(
+                            poets,
+                            item.getLocale(),
+                            item.getLyrics()
+                        )
+                    );
+                }
+            );
             form.getVideos().forEach( (item) -> videos.add(
                 new Video(
                     this.videoTypeService.find( item.getVideoTypeId() ),
@@ -174,11 +183,9 @@ public class SongController {
             //- Save song -//
             return this.songService.create(
                 new Song(
-                    composers,
-                    poets,
                     data,
                     staffs,
-                    texts,
+                    lyrics,
                     videos,
                     form.getLocale()
                 )
@@ -253,21 +260,16 @@ public class SongController {
             //- Search related entities -//
             Song song = this.songService.find( id );
             Set<Composer> composers = this.composerService.find( form.getComposerIds() );
-            Set<Poet> poets = this.poetService.find( form.getPoetIds() );
 
             //- Check -//
             notNull( song );
             notNull( composers );
-            notNull( poets );
             notEmpty( composers );
-            notEmpty( poets );
 
             //- Update data -//
-            song.setComposers( composers );
-            song.setPoets( poets );//FIXME
 //            song.setData( form.getData() );
 //            song.setStaffs( form.getStaffs() );
-//            song.setTexts( form.getTexts() );
+//            song.setLyricses( form.getLyricses() );
 //            song.setVideos( form.getVideos() );
             song.setLocale( form.getLocale() );
 

@@ -279,9 +279,9 @@ CREATE TABLE song_locale(
 ENGINE = InnoDB CHARACTER SET = utf8;
 
 /** *** *** *** *** *** *** *** *** *** *
- * Song text
+ * Song lyrics
  *  --- --- --- --- --- --- --- --- --- *
- * Text of songs
+ * Lyrics of songs
 */--*** *** *** *** *** *** *** *** *** *
 CREATE TABLE song_text(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,

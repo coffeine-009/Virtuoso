@@ -8,28 +8,30 @@
 
 package com.coffeine.virtuoso.music.model.persistence.mock;
 
-import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Mock of Text.
+ * Mock of Lyrics.
  */
 public class TextMock {
 
     /**
-     * Get list of texts.
+     * Get list of lyricses.
      *
-     * @return List of texts.
+     * @return List of lyricses.
      */
-    public static List<Text> findAll() {
+    public static List<Lyrics> findAll() {
         //- Mock style -//
-        return new ArrayList<Text>() {{
+        return new ArrayList<Lyrics>() {{
             add(
-                new Text(
+                new Lyrics(
+                    PoetMock.findAll(),
                     SongMock.retrieve(),
-                    "uk-UA"
+                    "uk-UA",
+                    "Lyrics"
                 )
             );
         }};
@@ -38,12 +40,14 @@ public class TextMock {
     /**
      * Get text.
      *
-     * @return Text.
+     * @return Lyrics.
      */
-    public static Text find() {
-        return new Text(
+    public static Lyrics find() {
+        return new Lyrics(
+            PoetMock.findAll(),
             SongMock.retrieve(),
-            "uk-UA"
+            "uk-UA",
+            "Lyrics"
         );
     }
 }

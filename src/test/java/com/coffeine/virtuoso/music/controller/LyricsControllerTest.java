@@ -9,11 +9,11 @@
 package com.coffeine.virtuoso.music.controller;
 
 import com.coffeine.virtuoso.module.controller.AbstractRestControllerTest;
-import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.TextMock;
+import com.coffeine.virtuoso.music.model.service.LyricsService;
 import com.coffeine.virtuoso.music.model.service.SongService;
-import com.coffeine.virtuoso.music.model.service.TextService;
 
 import org.junit.After;
 import org.junit.Before;
@@ -41,16 +41,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @version 1.0
  */
-public class TextControllerTest extends AbstractRestControllerTest {
+public class LyricsControllerTest extends AbstractRestControllerTest {
 
     @Mock
     private SongService songService;
 
     @Mock
-    private TextService textService;
+    private LyricsService lyricsService;
 
     @InjectMocks
-    private TextController textController;
+    private LyricsController lyricsController;
 
 
     /**
@@ -64,7 +64,7 @@ public class TextControllerTest extends AbstractRestControllerTest {
 
         //- Set up application -//
         this.mockMvc = MockMvcBuilders.standaloneSetup(
-            this.textController
+            this.lyricsController
         ).build();
     }
 
@@ -79,18 +79,18 @@ public class TextControllerTest extends AbstractRestControllerTest {
 
 
     /**
-     * Test get list of texts.
+     * Test get list of lyricses.
      *
      * @throws Exception    General Exception of application.
      */
     @Test
     public void testListActionSuccess() throws Exception {
         //- Mock -//
-        when( this.textController.findAll( anyInt(), anyInt() ) ).thenReturn( TextMock.findAll() );
+        when( this.lyricsController.findAll( anyInt(), anyInt() ) ).thenReturn( TextMock.findAll() );
 
         //- Success -//
         this.mockMvc.perform(
-            get( "/music/texts?page={page}&limit={limit}", 1, 10 )
+            get( "/music/lyrics?page={page}&limit={limit}", 1, 10 )
         )
             .andExpect( status().isOk() );
     }
@@ -104,11 +104,11 @@ public class TextControllerTest extends AbstractRestControllerTest {
     @Test
     public void testFindActionSuccess() throws Exception {
         //- Mock -//
-        when( this.textService.find( anyLong() ) ).thenReturn( TextMock.find() );
+        when( this.lyricsService.find( anyLong() ) ).thenReturn( TextMock.find() );
 
         //- Success -//
         this.mockMvc.perform(
-            get( "/music/texts/{id}", 1 )
+            get( "/music/lyrics/{id}", 1 )
         )
             .andExpect( status().isOk() );
     }
@@ -122,11 +122,11 @@ public class TextControllerTest extends AbstractRestControllerTest {
     @Test
     public void testFindActionFailure() throws Exception {
         //- Mock -//
-        when( this.textService.find( anyLong() ) ).thenReturn( null );
+        when( this.lyricsService.find( anyLong() ) ).thenReturn( null );
 
         //- Failure -//
         this.mockMvc.perform(
-            get( "/music/texts/{id}", 1 )
+            get( "/music/lyrics/{id}", 1 )
         )
             .andExpect( status().isNotFound() );
     }
@@ -141,11 +141,11 @@ public class TextControllerTest extends AbstractRestControllerTest {
     public void testCreateActionSuccess() throws Exception {
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        when( this.textService.create( any( Text.class ) ) ).thenReturn( TextMock.find() );
+        when( this.lyricsService.create( any( Lyrics.class ) ) ).thenReturn( TextMock.find() );
 
         //- Success -//
         this.mockMvc.perform(
-            post( "/music/texts" )
+            post( "/music/lyrics" )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -169,12 +169,12 @@ public class TextControllerTest extends AbstractRestControllerTest {
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
         doThrow( DataIntegrityViolationException.class ).when(
-            this.textService
-        ).create( any( Text.class ) );
+            this.lyricsService
+        ).create( any( Lyrics.class ) );
 
         //- Failure -//
         this.mockMvc.perform(
-            post( "/music/texts" )
+            post( "/music/lyrics" )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -189,12 +189,12 @@ public class TextControllerTest extends AbstractRestControllerTest {
         //- Mock -//
         when( this.songService.find( anyLong() ) ).thenReturn( null );
         doThrow( DataIntegrityViolationException.class ).when(
-            this.textService
-        ).create( any( Text.class ) );
+            this.lyricsService
+        ).create( any( Lyrics.class ) );
 
         //- Failure -//
         this.mockMvc.perform(
-            post( "/music/texts" )
+            post( "/music/lyrics" )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -215,13 +215,13 @@ public class TextControllerTest extends AbstractRestControllerTest {
     @Test
     public void testUpdateActionSuccess() throws Exception {
         //- Mock -//
-        when( this.textService.find( anyLong() ) ).thenReturn( TextMock.find() );
+        when( this.lyricsService.find( anyLong() ) ).thenReturn( TextMock.find() );
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        when( this.textService.update( any( Text.class ) ) ).thenReturn( TextMock.find() );
+        when( this.lyricsService.update( any( Lyrics.class ) ) ).thenReturn( TextMock.find() );
 
         //- Success -//
         this.mockMvc.perform(
-            put( "/music/texts/{id}", 1 )
+            put( "/music/lyrics/{id}", 1 )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -243,15 +243,15 @@ public class TextControllerTest extends AbstractRestControllerTest {
     public void testUpdateActionFailure() throws Exception {
         //- Conflict -//
         //- Mock -//
-        when( this.textService.find( anyLong() ) ).thenReturn( TextMock.find() );
+        when( this.lyricsService.find( anyLong() ) ).thenReturn( TextMock.find() );
         when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
         doThrow( DataIntegrityViolationException.class ).when(
-            this.textService
-        ).update( any( Text.class ) );
+            this.lyricsService
+        ).update( any( Lyrics.class ) );
 
         //- Success -//
         this.mockMvc.perform(
-            put( "/music/texts/{id}", 1 )
+            put( "/music/lyrics/{id}", 1 )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -264,15 +264,15 @@ public class TextControllerTest extends AbstractRestControllerTest {
 
         //- Not found -//
         //- Mock -//
-        when( this.textService.find( anyLong() ) ).thenReturn( null );
+        when( this.lyricsService.find( anyLong() ) ).thenReturn( null );
         when( this.songService.find( anyLong() ) ).thenReturn( null );
         doThrow( DataIntegrityViolationException.class ).when(
-            this.textService
-        ).update( any( Text.class ) );
+            this.lyricsService
+        ).update( any( Lyrics.class ) );
 
         //- Success -//
         this.mockMvc.perform(
-            put( "/music/texts/{id}", 1 )
+            put( "/music/lyrics/{id}", 1 )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
@@ -293,11 +293,11 @@ public class TextControllerTest extends AbstractRestControllerTest {
     @Test
     public void testDeleteActionSuccess() throws Exception {
         //- Mock -//
-        doNothing().when( this.textService ).delete( anyLong() );
+        doNothing().when( this.lyricsService ).delete( anyLong() );
 
         //- Success -//
         this.mockMvc.perform(
-            delete( "/music/texts/{id}", 1 )
+            delete( "/music/lyrics/{id}", 1 )
         )
             .andExpect( status().isOk() );
     }
@@ -312,12 +312,12 @@ public class TextControllerTest extends AbstractRestControllerTest {
     public void testDeleteActionFailure() throws Exception {
         //- Mock -//
         doThrow( EmptyResultDataAccessException.class ).when(
-            this.textService
+            this.lyricsService
         ).delete( anyLong() );
 
         //- Success -//
         this.mockMvc.perform(
-            delete( "/music/texts/{id}", 1 )
+            delete( "/music/lyrics/{id}", 1 )
         )
             .andExpect( status().isNotFound() );
     }

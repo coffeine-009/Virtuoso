@@ -170,7 +170,14 @@ public class SongForm {
     /**
      * Form for input text(s).
      */
-    public static class TextForm {
+    public static class LyricsForm {
+
+        /**
+         * List of poets ids.
+         */
+        @NotNull
+        @NotEmpty
+        protected List<Long> poetIds = new ArrayList<>();
 
         /**
          * Selected locale.
@@ -187,6 +194,16 @@ public class SongForm {
 
 
         //- SECTION :: GET -//
+
+        /**
+         * Get list of poets ids.
+         *
+         * @return Poets ids.
+         */
+        public List<Long> getPoetIds() {
+            return poetIds;
+        }
+
         /**
          * Get locale.
          *
@@ -206,6 +223,15 @@ public class SongForm {
         }
 
         //- SECTION :: SET -//
+        /**
+         * Set poets ids.
+         *
+         * @param poetIds    List of poets ids.
+         */
+        public void setPoetIds( List<Long> poetIds ) {
+            this.poetIds = poetIds;
+        }
+
         /**
          * Set locale.
          *
@@ -307,13 +333,6 @@ public class SongForm {
     private List<Long> composerIds;
 
     /**
-     * Ids list of poets.
-     */
-    @NotNull
-    @NotEmpty
-    private List<Long> poetIds;
-
-    /**
      * Localized data about song.
      */
     @NotNull
@@ -328,11 +347,11 @@ public class SongForm {
     protected List<SongForm.MusicNotesForm> staffs = new ArrayList<>();
 
     /**
-     * List of texts.
+     * List of lyrics.
      */
     @NotNull
     @NotEmpty
-    private List<SongForm.TextForm> texts = new ArrayList<>();
+    private List<LyricsForm> lyrics = new ArrayList<>();
 
     /**
      * List of videos(Covers, clips, ... ,).
@@ -366,15 +385,6 @@ public class SongForm {
     }
 
     /**
-     * Get list of poet's ids.
-     *
-     * @return List of ids.
-     */
-    public List<Long> getPoetIds() {
-        return poetIds;
-    }
-
-    /**
      * Get list of localized forms.
      *
      * @return List of localized forms.
@@ -393,12 +403,12 @@ public class SongForm {
     }
 
     /**
-     * Get texts.
+     * Get lyrics.
      *
-     * @return List of texts.
+     * @return List of lyrics.
      */
-    public List<TextForm> getTexts() {
-        return texts;
+    public List<LyricsForm> getLyrics() {
+        return lyrics;
     }
 
     /**
@@ -440,15 +450,6 @@ public class SongForm {
     }
 
     /**
-     * Set list of poet's ids.
-     *
-     * @param poetIds    Poet's ids.
-     */
-    public void setPoetIds( List<Long> poetIds ) {
-        this.poetIds = poetIds;
-    }
-
-    /**
      * Set localized data about song.
      *
      * @param data    List of SongLocalForm
@@ -467,12 +468,12 @@ public class SongForm {
     }
 
     /**
-     * Set list of texts.
+     * Set list of lyrics.
      *
-     * @param texts    List of texts.
+     * @param lyrics    List of lyrics.
      */
-    public void setTexts( List<TextForm> texts ) {
-        this.texts = texts;
+    public void setLyrics( List<LyricsForm> lyrics ) {
+        this.lyrics = lyrics;
     }
 
     /**
