@@ -160,15 +160,9 @@ INSERT INTO song_notes(
 ) VALUES
 ( 1, 1, 1, 1, 'uk-UA', 'ok\n==============', NOW() );
 
-INSERT INTO song_composers(
-  id_song,
+INSERT INTO song_notes_composers(
+  id_song_notes,
   id_composer
-) VALUES
-( 1, 1 );
-
-INSERT INTO song_poets(
-  id_song,
-  id_poet
 ) VALUES
 ( 1, 1 );
 
@@ -192,7 +186,7 @@ INSERT INTO video(
 ) VALUES
 ( 1, 1, 1, 'uk-UA', 'Rose', 'Rose. Ukrainian song.', 'rose.mp4', NOW() );
 
-INSERT INTO song_text(
+INSERT INTO lyrics(
   id,
   id_song,
   locale,
@@ -200,3 +194,9 @@ INSERT INTO song_text(
   creation
 ) VALUES
 ( 1, 1, 'uk-UA', 'Rose\n==============', NOW() );
+
+INSERT INTO lyrics_poets(
+  id_lyrics,
+  id_poet
+) VALUES
+( 1, 1 );

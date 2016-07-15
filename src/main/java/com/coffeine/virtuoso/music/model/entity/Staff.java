@@ -9,19 +9,26 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -46,6 +53,37 @@ public class Staff implements Serializable {
     @ManyToOne
     @JoinColumn( name = "id_song" )
     protected Song song;
+
+    @JsonManagedReference
+    @NotNull
+    @Valid
+    @ManyToMany( fetch = FetchType.EAGER )
+    @JoinTable(
+        name = "song_notes_composers",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                columnNames = {
+                    "id_composer",
+                    "id_song_notes"
+                }
+            )
+        },
+        joinColumns = {
+            @JoinColumn(
+                name = "id_song_notes",
+                nullable = false,
+                updatable = false
+            )
+        },
+        inverseJoinColumns = {
+            @JoinColumn(
+                name = "id_composer",
+                nullable = false,
+                updatable = false
+            )
+        }
+    )
+    protected Set<Composer> composers = new HashSet<>();
 
     @NotNull
     @Valid
@@ -112,6 +150,7 @@ public class Staff implements Serializable {
      * @param locale       Locale.
      */
     public Staff(
+        Set<Composer> composers,
         StaffType staffType,
         Style style,
         String file,
@@ -119,6 +158,7 @@ public class Staff implements Serializable {
     ) {
         this(staffType, style, file);
 
+        this.composers.forEach( (composer) -> composers.add( composer ) );
         this.locale = locale;
     }
 
@@ -221,6 +261,15 @@ public class Staff implements Serializable {
     }
 
     /**
+     * Get composers.
+     *
+     * @return  Composers.
+     */
+    public Set<Composer> getComposers() {
+        return composers;
+    }
+
+    /**
      * Get staffs type.
      *
      * @return StaffType
@@ -282,6 +331,15 @@ public class Staff implements Serializable {
      */
     public void setSong( Song song ) {
         this.song = song;
+    }
+
+    /**
+     * Set composers.
+     *
+     * @param composers    Composers.
+     */
+    public void setComposers( Set<Composer> composers ) {
+        this.composers = composers;
     }
 
     /**

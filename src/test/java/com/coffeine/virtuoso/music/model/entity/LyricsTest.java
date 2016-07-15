@@ -9,6 +9,7 @@
 package com.coffeine.virtuoso.music.model.entity;
 
 import com.coffeine.virtuoso.module.model.AbstractModel;
+import com.coffeine.virtuoso.music.model.persistence.mock.PoetMock;
 import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -24,27 +25,29 @@ import static org.junit.Assert.assertTrue;
 
 
 /**
- * Tests for Text
- * @see Text
+ * Tests for Lyrics
+ * @see Lyrics
  *
  * @version 1.0
  */
-public class TextTest extends AbstractModel {
+public class LyricsTest extends AbstractModel {
     /**
      * Test field validation for entity field correct
      */
     @Test
     public void testTextFieldsSuccess() {
 
-        Set < ConstraintViolation < Text > > constraintViolationSet;
+        Set < ConstraintViolation <Lyrics> > constraintViolationSet;
         //- Success -//
         //- Create entity -//
-        Text textSuccess = new Text(
+        Lyrics lyricsSuccess = new Lyrics(
+            PoetMock.findAll(),
             SongMock.find(),
-            "uk-UA"
+            "uk-UA",
+            "Lyrics"
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( textSuccess );
+        constraintViolationSet = validator.validate( lyricsSuccess );
 
         assertEquals( 0, constraintViolationSet.size() );
     }
@@ -54,17 +57,17 @@ public class TextTest extends AbstractModel {
      */
     @Test
     public void testSongFieldsFailure() {
-        Set < ConstraintViolation < Text > > constraintViolationSet;
+        Set < ConstraintViolation <Lyrics> > constraintViolationSet;
         //- Failure : incorrect song -//
         //- Create entity -//
-        Text textFailureSong = new Text();
-            textFailureSong.setLocale( "uk-UA" );
+        Lyrics lyricsFailureSong = new Lyrics();
+            lyricsFailureSong.setLocale( "uk-UA" );
 
         //- Validate -//
-        constraintViolationSet = validator.validate( textFailureSong );
+        constraintViolationSet = validator.validate( lyricsFailureSong );
 
         assertEquals( 1, constraintViolationSet.size() );
-        for ( ConstraintViolation < Text > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation <Lyrics> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -92,15 +95,17 @@ public class TextTest extends AbstractModel {
         }
         //- Failure : incorrect locale -//
         //- Create entity -//
-        Text textFailureLocale = new Text(
+        Lyrics lyricsFailureLocale = new Lyrics(
+            PoetMock.findAll(),
             SongMock.find(),
-            null
+            null,
+            "Lyrics"
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( textFailureLocale );
+        constraintViolationSet = validator.validate( lyricsFailureLocale );
 
         assertEquals( 2, constraintViolationSet.size() );
-        for ( ConstraintViolation < Text > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation <Lyrics> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{
@@ -136,19 +141,21 @@ public class TextTest extends AbstractModel {
     @Test
     public void testTextFieldEmpty() {
 
-        Set < ConstraintViolation < Text > > constraintViolationSet;
+        Set < ConstraintViolation <Lyrics> > constraintViolationSet;
 
         //- Failure: fields is empty-//
         //- Create entity -//
-        Text textFailureEmpty = new Text(
+        Lyrics lyricsFailureEmpty = new Lyrics(
+            PoetMock.findAll(),
             SongMock.find(),
-            ""
+            "",
+            "Lyrics"
         );
         //- Validate -//
-        constraintViolationSet = validator.validate( textFailureEmpty );
+        constraintViolationSet = validator.validate( lyricsFailureEmpty );
 
         assertEquals( 1, constraintViolationSet.size() );
-        for ( ConstraintViolation < Text > constraintViolation : constraintViolationSet ) {
+        for ( ConstraintViolation <Lyrics> constraintViolation : constraintViolationSet ) {
             //- Property name -//
             assertTrue(
                 new ArrayList < String >() {{

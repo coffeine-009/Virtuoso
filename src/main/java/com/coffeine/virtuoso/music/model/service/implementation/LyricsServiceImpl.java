@@ -8,9 +8,9 @@
 
 package com.coffeine.virtuoso.music.model.service.implementation;
 
-import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 import com.coffeine.virtuoso.music.model.repository.TextRepository;
-import com.coffeine.virtuoso.music.model.service.TextService;
+import com.coffeine.virtuoso.music.model.service.LyricsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -19,12 +19,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service for work with texts.
+ * Service for work with lyricses.
  *
  * @version 1.0
  */
 @Service
-public class TextServiceImpl implements TextService {
+public class LyricsServiceImpl implements LyricsService {
 
     /// *** Properties  *** ///
     @Autowired
@@ -34,14 +34,14 @@ public class TextServiceImpl implements TextService {
     /// *** Methods     *** ///
     //- SECTION :: MAIN -//
     /**
-     * Find song's texts for page.
+     * Find song's lyricses for page.
      *
      * @param page  Number of page for search.
      * @param limit Count of items per page.
      *
-     * @return List of song's texts per page.
+     * @return List of song's lyricses per page.
      */
-    public List<Text> findAll( int page, int limit ) {
+    public List<Lyrics> findAll( int page, int limit ) {
         return this.textRepository.findAll(
             new PageRequest( page, limit )
         )
@@ -51,37 +51,37 @@ public class TextServiceImpl implements TextService {
     /**
      * Create.
      *
-     * @param text Data for create new song's text
-     * @return Text Created
+     * @param lyrics Data for create new song's lyrics
+     * @return Lyrics Created
      */
-    public Text create( Text text ) {
-        return this.textRepository.save( text );
+    public Lyrics create( Lyrics lyrics ) {
+        return this.textRepository.save( lyrics );
     }
 
     /**
-     * Find song's text by id.
+     * Find song's lyrics by id.
      *
      * @param id Unique identificator
-     * @return Text Found
+     * @return Lyrics Found
      */
-    public Text find( Long id ) {
+    public Lyrics find( Long id ) {
         return this.textRepository.findOne( id );
     }
 
     /**
      * Update.
      *
-     * @param text Text for update
-     * @return Text Updated text
+     * @param lyrics Lyrics for update
+     * @return Lyrics Updated lyrics
      */
-    public Text update( Text text ) {
-        return this.textRepository.save( text );
+    public Lyrics update( Lyrics lyrics ) {
+        return this.textRepository.save( lyrics );
     }
 
     /**
      * Delete.
      *
-     * @param id Identificator of text
+     * @param id Identificator of lyrics
      */
     public void delete( Long id ) {
         this.textRepository.delete( id );

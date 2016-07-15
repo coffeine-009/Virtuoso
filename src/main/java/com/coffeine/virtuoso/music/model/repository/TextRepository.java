@@ -8,7 +8,7 @@
 
 package com.coffeine.virtuoso.music.model.repository;
 
-import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @version 1.0
  */
-public interface TextRepository extends JpaRepository<Text, Long> {
+public interface TextRepository extends JpaRepository<Lyrics, Long> {
 
     /// *** Methods     *** ///
 }

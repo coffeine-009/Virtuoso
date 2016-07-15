@@ -8,12 +8,12 @@
 
 package com.coffeine.virtuoso.music.model.persistence.mock;
 
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 import com.coffeine.virtuoso.music.model.entity.Song;
 import com.coffeine.virtuoso.music.model.entity.SongLocale;
 import com.coffeine.virtuoso.music.model.entity.Staff;
 import com.coffeine.virtuoso.music.model.entity.StaffType;
 import com.coffeine.virtuoso.music.model.entity.Style;
-import com.coffeine.virtuoso.music.model.entity.Text;
 import com.coffeine.virtuoso.music.model.entity.Video;
 import com.coffeine.virtuoso.music.model.entity.VideoType;
 
@@ -36,8 +36,6 @@ public abstract class SongMock {
     public static List<Song> getList() {
         //- Create mock for song -//
         final Song song = new Song(
-            ComposerMock.findAll(),
-            PoetMock.findAll(),
             "uk-UA"
         );
         song.setId( 1L );
@@ -54,8 +52,6 @@ public abstract class SongMock {
      */
     public static Song retrieve() {
         Song song = new Song(
-            ComposerMock.findAll(),
-            PoetMock.findAll(),
             "uk-UA"
         );
         song.setId( 1L );
@@ -66,9 +62,6 @@ public abstract class SongMock {
     public static Song find() {
         Song song = new Song(
             //-Create composer-//
-            ComposerMock.findAll(),
-            //- Create poet-//
-            PoetMock.findAll(),
             //- Create list of song locale -//
             new HashSet<SongLocale>() {{
                 add(
@@ -97,9 +90,10 @@ public abstract class SongMock {
                 );
             }},
             //- Create list of text -//
-            new HashSet<Text>() {{
+            new HashSet<Lyrics>() {{
                 add(
-                    new Text(
+                    new Lyrics(
+                        PoetMock.findAll(),
                         "uk-UA",
                         "Lyrics"
                     )

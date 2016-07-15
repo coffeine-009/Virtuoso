@@ -168,19 +168,19 @@ public class SongControllerTest extends AbstractRestControllerTest {
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
-                        "\"composerIds\": [ 1 ]," +
-                        "\"poetIds\": [ 1 ]," +
                         "\"data\": [ {" +
                             "\"title\": \"Rose\"," +
                             "\"locale\": \"en-US\"" +
                         "} ]," +
                         "\"staffs\": [ {" +
+                            "\"composerIds\": [ 1 ]," +
                             "\"musicNotesTypeId\": 1," +
                             "\"styleId\": 1" +
                         "} ]," +
-                        "\"texts\": [ {" +
+                        "\"lyrics\": [ {" +
+                            "\"poetIds\": [ 1 ]," +
                             "\"locale\": \"en-US\"," +
-                            "\"lyrics\": \"Слова, слова,  \\n" +
+                            "\"content\": \"Слова, слова,  \\n" +
                                 "Немов вуаль,  \\n" +
                                 "Там, де тонка діагональ  \\n" +
                                 "Звучить кришталь.  \\n" +
@@ -236,19 +236,19 @@ public class SongControllerTest extends AbstractRestControllerTest {
     public void testCreateActionFailure() throws Exception {
         //- Params -//
         final String content = "{" +
-            "\"composerIds\": [ 1 ]," +
-            "\"poetIds\": [ 1 ]," +
             "\"data\": [ {" +
                 "\"title\": \"Rose\"," +
                 "\"locale\": \"en-US\"" +
             "} ]," +
             "\"staffs\": [ {" +
+                "\"composerIds\": [ 1 ]," +
                 "\"musicNotesTypeId\": 1," +
                 "\"styleId\": 1" +
             "} ]," +
-            "\"texts\": [ {" +
+            "\"lyrics\": [ {" +
+                "\"poetIds\": [ 1 ]," +
                 "\"locale\": \"en-US\"," +
-                "\"lyrics\": \"Слова, слова,  \\n" +
+                "\"content\": \"Слова, слова,  \\n" +
                     "Немов вуаль,  \\n" +
                     "Там, де тонка діагональ  \\n" +
                     "Звучить кришталь.  \\n" +
@@ -358,19 +358,19 @@ public class SongControllerTest extends AbstractRestControllerTest {
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
-                        "\"composerIds\": [ 1 ]," +
-                        "\"poetIds\": [ 1 ]," +
                         "\"data\": [ {" +
                             "\"title\": \"Стріляй\"," +
                             "\"locale\": \"uk-UA\"" +
                         "} ]," +
                         "\"staffs\": [ {" +
+                            "\"composerIds\": [ 1 ]," +
                             "\"musicNotesTypeId\": 1," +
                             "\"styleId\": 1" +
                         "} ]," +
-                        "\"texts\": [ {" +
+                        "\"lyrics\": [ {" +
+                            "\"poetIds\": [ 1 ]," +
                             "\"locale\": \"uk-UA\"," +
-                            "\"lyrics\": \"#### Приспів:  \\n" +
+                            "\"content\": \"#### Приспів:  \\n" +
                                 "Стріляй!  \\n" +
                                 "Скажи, чому боїшся ти  \\n" +
                                 "Зробити цей останній крок?!?  \\n" +
@@ -405,19 +405,19 @@ public class SongControllerTest extends AbstractRestControllerTest {
     public void testUpdateActionFailure() throws Exception {
         //- Params -//
         final String content = "{" +
-            "\"composerIds\": [ 1 ]," +
-            "\"poetIds\": [ 1 ]," +
             "\"data\": [ {" +
                 "\"title\": \"Стріляй\"," +
                 "\"locale\": \"uk-UA\"" +
             "} ]," +
             "\"staffs\": [ {" +
+                "\"composerIds\": [ 1 ]," +
                 "\"musicNotesTypeId\": 1," +
                 "\"styleId\": 1" +
             "} ]," +
-            "\"texts\": [ {" +
+            "\"lyrics\": [ {" +
+                "\"poetIds\": [ 1 ]," +
                 "\"locale\": \"uk-UA\"," +
-                "\"lyrics\": \"Слова, слова,  \\n" +
+                "\"content\": \"Слова, слова,  \\n" +
                     "Немов вуаль,  \\n" +
                     "Там, де тонка діагональ  \\n" +
                     "Звучить кришталь.  \\n" +
@@ -457,12 +457,7 @@ public class SongControllerTest extends AbstractRestControllerTest {
 
         //- Not Found -//
         //- Mock -//
-        when( this.composerService.find( anyListOf( Long.class ) ) ).thenReturn( null );
-        when( this.poetService.find( anyListOf( Long.class ) ) ).thenReturn( null );
-        when( this.songService.find( anyLong() ) ).thenReturn( SongMock.retrieve() );
-        doThrow( DataIntegrityViolationException.class ).when(
-            this.songService
-        ).create( any( Song.class ) );
+        when( this.songService.find( anyLong() ) ).thenReturn( null );
 
         //- Failure -//
         this.mockMvc.perform(

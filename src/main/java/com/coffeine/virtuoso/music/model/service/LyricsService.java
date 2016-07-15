@@ -8,59 +8,59 @@
 
 package com.coffeine.virtuoso.music.model.service;
 
-import com.coffeine.virtuoso.music.model.entity.Text;
+import com.coffeine.virtuoso.music.model.entity.Lyrics;
 
 import java.util.List;
 
 /**
- * Service for work with text.
+ * Service for work with lyrics.
  *
  * @version 1.0
  */
-public interface TextService {
+public interface LyricsService {
 
     //- SECTION :: MAIN -//
     /**
-     * Find song's texts for page.
+     * Find song's lyricses for page.
      *
      * @param page  Number of page for search.
      * @param limit Count of items per page.
      *
-     * @return List of song's texts per page
+     * @return List of song's lyricses per page
      */
-    List<Text> findAll( int page, int limit );
+    List<Lyrics> findAll( int page, int limit );
 
     /**
      * Create.
      *
-     * @param text Data for create new song's text.
+     * @param lyrics Data for create new song's lyrics.
      *
-     * @return Text Created.
+     * @return Lyrics Created.
      */
-    Text create( Text text );
+    Lyrics create( Lyrics lyrics );
 
     /**
-     * Find song's text by id.
+     * Find song's lyrics by id.
      *
      * @param id Unique identificator.
      *
-     * @return Text Found.
+     * @return Lyrics Found.
      */
-    Text find( Long id );
+    Lyrics find( Long id );
 
     /**
      * Update.
      *
-     * @param text Text for update.
+     * @param lyrics Lyrics for update.
      *
-     * @return Text Updated text.
+     * @return Lyrics Updated lyrics.
      */
-    Text update( Text text );
+    Lyrics update( Lyrics lyrics );
 
     /**
      * Delete.
      *
-     * @param id Identificator of text.
+     * @param id Identificator of lyrics.
      */
     void delete( Long id );
 }

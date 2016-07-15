@@ -24,15 +24,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -52,81 +45,11 @@ public class Song implements Serializable {
 
     @JsonManagedReference
     @NotNull
-    @Valid
-    @ManyToMany( fetch = FetchType.EAGER )
-    @JoinTable(
-        name = "song_composers",
-        uniqueConstraints = {
-            @UniqueConstraint(
-                columnNames = {
-                    "id_composer",
-                    "id_song"
-                }
-            )
-        },
-        joinColumns = {
-            @JoinColumn(
-                name = "id_song",
-                unique = false,
-                nullable = false,
-                updatable = false
-            )
-        },
-        inverseJoinColumns = {
-            @JoinColumn(
-                name = "id_composer",
-                unique = false,
-                nullable = false,
-                updatable = false
-            )
-        }
-    )
-    protected Set<Composer> composers = new HashSet<>();
-
-    @JsonManagedReference
-    @NotNull
-    @Valid
-    @ManyToMany( fetch = FetchType.EAGER )
-    @JoinTable(
-        name = "song_poets",
-        uniqueConstraints = {
-            @UniqueConstraint(
-                columnNames = {
-                    "id_poet",
-                    "id_song"
-                }
-            )
-        },
-        joinColumns = {
-            @JoinColumn(
-                name = "id_song",
-                unique = false,
-                nullable = false,
-                updatable = false
-            )
-        },
-        inverseJoinColumns = {
-            @JoinColumn(
-                name = "id_poet",
-                unique = false,
-                nullable = false,
-                updatable = false
-            )
-        }
-    )
-    protected Set<Poet> poets = new HashSet<>();
-
-    @Transient
-    protected String title;
-
-    @JsonManagedReference
-    @NotNull
     @NotEmpty
     @OneToMany(
         mappedBy = "song",
         fetch = FetchType.EAGER,
-        cascade = CascadeType.ALL,
-        orphanRemoval = false
+        cascade = CascadeType.ALL
     )
     @Fetch( FetchMode.JOIN )
     protected Set<SongLocale> data = new HashSet<>();
@@ -137,8 +60,7 @@ public class Song implements Serializable {
     @OneToMany(
         mappedBy = "song",
         fetch = FetchType.EAGER,
-        cascade = CascadeType.ALL,
-        orphanRemoval = false
+        cascade = CascadeType.ALL
     )
     @Fetch( FetchMode.JOIN )
     protected Set<Staff> staffs = new HashSet<>();
@@ -149,19 +71,17 @@ public class Song implements Serializable {
     @OneToMany(
         mappedBy = "song",
         fetch = FetchType.EAGER,
-        cascade = CascadeType.ALL,
-        orphanRemoval = false
+        cascade = CascadeType.ALL
     )
     @Fetch( FetchMode.JOIN )
-    protected Set<Text> texts = new HashSet<>();
+    protected Set<Lyrics> lyrics = new HashSet<>();
 
     @JsonManagedReference
     @NotNull
     @OneToMany(
         mappedBy = "song",
         fetch = FetchType.EAGER,
-        cascade = CascadeType.ALL,
-        orphanRemoval = false
+        cascade = CascadeType.ALL
     )
     @Fetch( FetchMode.JOIN )
     protected Set<Video> videos = new HashSet<>();
@@ -193,25 +113,19 @@ public class Song implements Serializable {
     /**
      * Constructor.
      *
-     * @param poets     List of posts.
-     * @param title     Title.
-     * @param texts     List of texts.
+     * @param lyrics     List of lyricses.
      * @param videos    List of videos.
      * @param locale    Locale.
      */
     public Song(
-        Set<Poet> poets,
-        String title,
-        Set<Text> texts,
+        Set<Lyrics> lyrics,
         Set<Video> videos,
         String locale
     ) {
         //- Initialization -//
         this();
 
-        this.poets = poets;
-        this.title = title;
-        this.texts = texts;
+        this.lyrics = lyrics;
         this.videos = videos;
         this.locale = locale;
     }
@@ -219,18 +133,14 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composers    List of composers.
-     * @param poets        List of poets.
      * @param data         Localized data.
-     * @param texts        List of texts.
+     * @param lyrics        List of lyricses.
      * @param videos       List of videos.
      * @param locale       Locale.
      */
     public Song(
-        Set<Composer> composers,
-        Set<Poet> poets,
         Set<SongLocale> data,
-        Set<Text> texts,
+        Set<Lyrics> lyrics,
         Set<Video> videos,
         String locale
 
@@ -238,11 +148,8 @@ public class Song implements Serializable {
         //- Initialization -//
         this();
 
-        this.composers = composers;
-        this.poets = poets;
-
         data.forEach( songLocale -> this.addSongLocale( songLocale ) );
-        texts.forEach( text -> this.addText( text ) );
+        lyrics.forEach( text -> this.addText( text ) );
         videos.forEach( video -> this.addVideo( video ) );
 
         this.locale = locale;
@@ -251,29 +158,22 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composers    List of composers.
-     * @param poets        List of poets.
      * @param data         Localized data.
      * @param staffs       List of staffs.
-     * @param texts        List of texts.
+     * @param lyricses        List of lyricses.
      * @param videos       List of videos.
      * @param locale       Locale.
      */
     public Song(
-        Set<Composer> composers,
-        Set<Poet> poets,
         Set<SongLocale> data,
         Set<Staff> staffs,
-        Set<Text> texts,
+        Set<Lyrics> lyricses,
         Set<Video> videos,
         String locale
 
     ) {
         //- Initialization -//
         this();
-
-        this.composers = composers;
-        this.poets = poets;
 
         for ( SongLocale songLocale : data ) {
             this.addSongLocale( songLocale );
@@ -284,8 +184,9 @@ public class Song implements Serializable {
             this.addStaff( staff );
         }
 
-        for ( Text text : texts ) {
-            this.addText( text );
+        for ( Lyrics lyrics : lyricses ) {
+            lyrics.setSong( this );
+            this.addText( lyrics );
         }
 
         for ( Video video : videos ) {
@@ -298,19 +199,11 @@ public class Song implements Serializable {
     /**
      * Constructor for create new song.
      *
-     * @param composers    List of composers.
-     * @param poets        List of poets.
      * @param locale       Locale.
      */
     public Song(
-        Set<Composer> composers,
-        Set<Poet> poets,
         String locale
     ) {
-        this.composers = composers;
-        poets.forEach( (poet) -> {
-            this.poets.add( poet );
-        });
         this.locale = locale;
     }
 
@@ -324,32 +217,6 @@ public class Song implements Serializable {
         return this.id;
     }
 
-    /**
-     * Get composer of song.
-     *
-     * @return Composer.
-     */
-    public Set<Composer> getComposers() {
-        return composers;
-    }
-
-    /**
-     * Get poet of song.
-     *
-     * @return Poet.
-     */
-    public Set<Poet> getPoets() {
-        return poets;
-    }
-
-    /**
-     * Get title of song.
-     *
-     * @return String.
-     */
-    public String getTitle() {
-        return title;
-    }
     /**
      * Get data for locale.
      *
@@ -369,12 +236,12 @@ public class Song implements Serializable {
     }
 
     /**
-     * Get text.
+     * Get lyrics.
      *
      * @return List of SongText.
      */
-    public Set<Text> getTexts() {
-        return texts;
+    public Set<Lyrics> getLyrics() {
+        return lyrics;
     }
 
     /**
@@ -425,24 +292,6 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set composer of song.
-     *
-     * @param composers Composer of song
-     */
-    public void setComposers( Set<Composer> composers ) {
-        this.composers = composers;
-    }
-
-    /**
-     * Set poet of this song.
-     *
-     * @param poets Poet of song.
-     */
-    public void setPoets( Set<Poet> poets ) {
-        this.poets = poets;
-    }
-
-    /**
      * Set data for current locale.
      *
      * @param data Localized data.
@@ -461,12 +310,12 @@ public class Song implements Serializable {
     }
 
     /**
-     * Set text.
+     * Set lyrics.
      *
-     * @param texts List of texts.
+     * @param lyricses List of lyricses.
      */
-    public void setTexts( Set<Text> texts ) {
-        this.texts = texts;
+    public void setLyrics( Set<Lyrics> lyricses ) {
+        this.lyrics = lyricses;
     }
 
     /**
@@ -498,25 +347,17 @@ public class Song implements Serializable {
 
 
     /**
-     * Set not stored fields.
-     */
-    @PostLoad
-    public void reinit() {
-        //TODO
-    }
-
-    /**
-     * Add text.
+     * Add lyrics.
      *
-     * @param text    Text of song.
+     * @param lyrics    Lyrics of song.
      */
-    public void addText( Text text ) {
+    public void addText( Lyrics lyrics ) {
         //- Set Song-//
-        text.setSong( this );
+        lyrics.setSong( this );
 
-        //- Add Text-//
-        if ( !this.texts.contains( text) ) {
-            this.texts.add( text );
+        //- Add Lyrics-//
+        if ( !this.lyrics.contains( lyrics ) ) {
+            this.lyrics.add( lyrics );
         }
     }
 

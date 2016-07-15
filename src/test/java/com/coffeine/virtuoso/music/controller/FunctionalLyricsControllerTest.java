@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @version 1.0
  */
-public class FunctionalTextControllerTest extends AbstractRestControllerTest {
+public class FunctionalLyricsControllerTest extends AbstractRestControllerTest {
 
     /**
      * Prepare environment to run tests.
@@ -54,7 +56,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Get list of texts.
+     * Get list of lyrics.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -63,7 +65,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testListAction() throws Exception {
         //- Success -//
         this.mockMvc.perform(
-            get( "/music/texts?page={page}&limit={limit}", 1, 10 )
+            get( "/music/lyrics?page={page}&limit={limit}", 1, 10 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() )
@@ -71,6 +73,16 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$", hasSize( 1 ) ) )
             .andExpect( jsonPath( "$[*].id", notNullValue() ) )
             .andExpect( jsonPath( "$[*].id", containsInAnyOrder( 1 ) ) )
+            //- Poet -//
+            .andExpect( jsonPath( "$[*].poets[*].id", containsInAnyOrder( 1 ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].gender", containsInAnyOrder( true ) ) )
+            .andExpect( jsonPath( "$[*].poets[*].birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$[*].poets[0].deathDate", nullValue() ) )
             .andExpect( jsonPath( "$[*].locale", notNullValue() ) )
             .andExpect( jsonPath( "$[*].locale", containsInAnyOrder( "uk-UA" ) ) )
             .andExpect( jsonPath( "$[*].lyrics", notNullValue() ) )
@@ -78,9 +90,10 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$[*].creation", notNullValue() ) )
             .andDo(
                 document(
-                    "texts-list-example",
+                    "lyrics-list-example",
                     responseFields(
                         fieldWithPath( "[].id" ).description( "Id of text." ),
+                        fieldWithPath( "[].poets" ).description( "List of poets." ),
                         fieldWithPath( "[].locale" ).description( "Locale of the text." ),
                         fieldWithPath( "[].lyrics" ).description( "Lyrics of the text." ),
                         fieldWithPath( "[].creation" ).description( "Creation date of the text." )
@@ -90,7 +103,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Get a text.
+     * Get a lyrics.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -99,12 +112,22 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testFindActionSuccess() throws Exception {
         //- Success -//
         this.mockMvc.perform(
-            get( "/music/texts/{id}", 1 )
+            get( "/music/lyrics/{id}", 1 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
+            //- Poet -//
+            .andExpect( jsonPath( "$poets[*].id", containsInAnyOrder( 1 ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].firstName", containsInAnyOrder( "Test" ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].lastName", containsInAnyOrder( "Unit" ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].middleName", containsInAnyOrder( "Mockito" ) ) )
+            .andExpect( jsonPath( "$poets[*].data[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$poets[*].locale", containsInAnyOrder( "uk-UA" ) ) )
+            .andExpect( jsonPath( "$poets[*].gender", containsInAnyOrder( true ) ) )
+            .andExpect( jsonPath( "$poets[*].birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$poets[0].deathDate", nullValue() ) )
             .andExpect( jsonPath( "$locale", notNullValue() ) )
             .andExpect( jsonPath( "$locale" ).value( "uk-UA" ) )
             .andExpect( jsonPath( "lyrics", notNullValue() ) )
@@ -112,9 +135,10 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "$creation", notNullValue() ) )
             .andDo(
                 document(
-                    "texts-retrieve-success-example",
+                    "lyrics-retrieve-success-example",
                     responseFields(
                         fieldWithPath( "id" ).description( "Id of text." ),
+                        fieldWithPath( "poets" ).description( "List of poets." ),
                         fieldWithPath( "locale" ).description( "Locale of the text." ),
                         fieldWithPath( "lyrics" ).description( "Lyrics of the text." ),
                         fieldWithPath( "creation" ).description( "Creation date of the text." )
@@ -124,7 +148,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     }
 
     /**
-     * Get a text.
+     * Get a lyrics.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -133,15 +157,15 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testFindActionFailure() throws Exception {
         //- Failure -//
         this.mockMvc.perform(
-            get( "/music/texts/{id}", 99999 )
+            get( "/music/lyrics/{id}", 99999 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isNotFound() )
-            .andDo( document( "texts-retrieve-failure-example" ) );
+            .andDo( document( "lyrics-retrieve-failure-example" ) );
     }
 
     /**
-     * Create a text.
+     * Create a lyrics.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -150,16 +174,19 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testCreateActionSuccess() throws Exception {
         //- Success -//
         this.mockMvc.perform(
-            post( "/music/texts" )
+            post( "/music/lyrics" )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
+                        "\"poetIds\": [ 1 ]," +
                         "\"songId\": 2," +
-                        "\"locale\": \"en-US\"" +
+                        "\"locale\": \"en-US\"," +
+                        "\"content\": \"Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.\"" +
                     "}"
                 )
         )//FIXME
+            .andDo( print() )
             .andExpect( status().isCreated() )
             .andExpect( jsonPath( "$", notNullValue() ) )
             .andExpect( jsonPath( "$id", notNullValue() ) )
@@ -170,17 +197,19 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
 //            .andExpect( jsonPath( "$creation", notNullValue() ) )
             .andDo(
                 document(
-                    "texts-create-success-example",
+                    "lyrics-create-success-example",
                     requestFields(
-                        fieldWithPath( "songId" ).description( "Id of song." ),
-                        fieldWithPath( "locale" ).description( "Locale of the video." )
+                        fieldWithPath( "songId" ).description( "Id of lyrics." ),
+                        fieldWithPath( "poetIds" ).description( "Poets ids of lyrics." ),
+                        fieldWithPath( "locale" ).description( "Locale of the Lyrics." ),
+                        fieldWithPath( "content" ).description( "Lyrics content." )
                     )
                 )
             );
     }
 
     /**
-     * Create a text.
+     * Create a lyrics.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -189,7 +218,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testCreateActionFailure() throws Exception {
         //- Failure -//
         this.mockMvc.perform(
-            post( "/music/texts" )
+            post( "/music/lyrics" )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
@@ -200,11 +229,11 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
                 )
         )
 //            .andExpect( status().isConflict() )
-            .andDo( document( "texts-create-failure-example" ) );
+            .andDo( document( "lyrics-create-failure-example" ) );
     }
 
     /**
-     * Create a text.
+     * Create a lyrics.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -213,22 +242,24 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testCreateActionFailureInput() throws Exception {
         //- Failure -//
         this.mockMvc.perform(
-            post( "/music/texts" )
+            post( "/music/lyrics" )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
                     "{" +
+                        "\"poetIds\": [ 1 ]," +
                         "\"songId\": 99999," +
-                        "\"locale\": \"uk-UA\"" +
+                        "\"locale\": \"uk-UA\"," +
+                        "\"content\": \"Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.Lyrics content.\"" +
                     "}"
                 )
-        )
+        ).andDo( print() )
             .andExpect( status().isNotFound() )
-            .andDo( document( "texts-create-failure-input-example" ) );
+            .andDo( document( "lyrics-create-failure-input-example" ) );
     }
 
     /**
-     * Update a text.
+     * Update a lyrics.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -237,7 +268,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testUpdateActionSuccess() throws Exception {
         //- Success -//
         this.mockMvc.perform(
-            put( "/music/texts/{id}", 1 )
+            put( "/music/lyrics/{id}", 1 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
@@ -255,11 +286,11 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
             .andExpect( jsonPath( "lyrics", notNullValue() ) )
             .andExpect( jsonPath( "lyrics" ).value( "Rose\\n==============" ) )
             .andExpect( jsonPath( "$creation", notNullValue() ) )
-            .andDo( document( "texts-update-success-example" ) );
+            .andDo( document( "lyrics-update-success-example" ) );
     }
 
     /**
-     * Update a text.
+     * Update a lyrics.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -268,7 +299,7 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testUpdateActionFailure() throws Exception {
         //- Failure -//
         this.mockMvc.perform(
-            put( "/music/texts/{id}", 99999 )
+            put( "/music/lyrics/{id}", 99999 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
                 .header( "Content-Type", "application/json" )
                 .content(
@@ -279,11 +310,11 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
                 )
         )
             .andExpect( status().isNotFound() )
-            .andDo( document( "texts-update-failure-example" ) );
+            .andDo( document( "lyrics-update-failure-example" ) );
     }
 
     /**
-     * Delete a text.
+     * Delete a lyrics.
      * Success.
      *
      * @throws Exception    General Exception of application.
@@ -292,15 +323,15 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testDeleteActionSuccess() throws Exception {
         //- Failure -//
         this.mockMvc.perform(
-            delete( "/music/texts/{id}", 1 )
+            delete( "/music/lyrics/{id}", 1 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isOk() )
-            .andDo( document( "texts-delete-success-example" ) );
+            .andDo( document( "lyrics-delete-success-example" ) );
     }
 
     /**
-     * Delete a text.
+     * Delete a lyrics.
      * Failure.
      *
      * @throws Exception    General Exception of application.
@@ -309,10 +340,10 @@ public class FunctionalTextControllerTest extends AbstractRestControllerTest {
     public void testDeleteActionFailure() throws Exception {
         //- Failure -//
         this.mockMvc.perform(
-            delete( "/music/texts/{id}", 99999 )
+            delete( "/music/lyrics/{id}", 99999 )
                 .header( "Authorization", this.session.getAuthorizationHeader() )
         )
             .andExpect( status().isNotFound() )
-            .andDo( document( "texts-delete-failure-example" ) );
+            .andDo( document( "lyrics-delete-failure-example" ) );
     }
 }
