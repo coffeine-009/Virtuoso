@@ -47,7 +47,6 @@ import static org.springframework.util.Assert.notNull;
  * @version 1.0
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
-@SuppressWarnings( "serial" )
 @Entity
 @Table(
     name = "composer",
@@ -69,7 +68,7 @@ public class Composer implements Serializable {
 
     @JsonBackReference
     @Valid
-    @OneToOne
+    @OneToOne( fetch = FetchType.EAGER )
     @JoinColumn( name = "id_user" )
     protected User user;
 

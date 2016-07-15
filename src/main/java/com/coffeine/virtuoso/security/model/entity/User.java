@@ -48,7 +48,6 @@ import static org.springframework.util.Assert.notNull;
  * @version 1.0
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
-@SuppressWarnings( "serial" )
 @Entity
 @Table( name = "users" )
 public class User implements Serializable {
