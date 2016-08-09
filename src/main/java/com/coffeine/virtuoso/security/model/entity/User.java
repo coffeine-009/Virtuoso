@@ -21,8 +21,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -125,6 +127,17 @@ public class User implements Serializable {
         orphanRemoval = false
     )
     protected List<Email> emails = new ArrayList<>();
+
+    /**
+     * List of social accounts.
+     */
+    @OneToMany(
+        mappedBy = "user",
+        fetch = FetchType.EAGER,
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
+    protected Set<SocialAccount> socialAccounts = new HashSet<>();
 
     /**
      * Composer If user has role COMPOSER.
@@ -372,6 +385,15 @@ public class User implements Serializable {
     }
 
     /**
+     * Get social accounts.
+     *
+     * @return  List of social accounts.
+     */
+    public Set<SocialAccount> getSocialAccounts() {
+        return socialAccounts;
+    }
+
+    /**
      * Get composer's data if this user is composer.
      *
      * @return Composer
@@ -479,6 +501,15 @@ public class User implements Serializable {
      */
     public void setEmails( List<Email> emails ) {
         this.emails = emails;
+    }
+
+    /**
+     * Set list of social accounts.
+     *
+     * @param socialAccounts    List of social accounts.
+     */
+    public void setSocialAccounts( Set<SocialAccount> socialAccounts ) {
+        this.socialAccounts = socialAccounts;
     }
 
     /**

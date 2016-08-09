@@ -20,9 +20,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Authentication provider of users.
@@ -59,14 +61,20 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         Authentication authentication
     ) throws AuthenticationException {
 
+        final Map<String, String> details = (Map<String, String>) authentication.getDetails();
+        final String socialToken = details.get( "social_token" );
+
         //- Search user -//
-        User user = this.userService.findByUsernameAndPassword(
-            authentication.getPrincipal().toString(),
-            this.passwordEncoder.encodePassword(
-                authentication.getCredentials().toString(),
-                null
+        User user = StringUtils.isEmpty( socialToken )
+            ? this.userService.findByUsernameAndPassword(
+                authentication.getPrincipal().toString(),
+                this.passwordEncoder.encodePassword(
+                    authentication.getCredentials().toString(),
+                    null
+                )
             )
-        );
+            : this.userService.findBySocialId( Long.parseLong( details.get( "userId" ) ) );
+
         if ( user != null ) {
             //- Set authorities -//
             List<GrantedAuthority> authorities = new ArrayList<>();

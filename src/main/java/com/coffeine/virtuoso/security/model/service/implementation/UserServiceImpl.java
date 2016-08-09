@@ -108,6 +108,17 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Find user by social id.
+     *
+     * @param socialId Id from social network.
+     * @return User.
+     */
+    @Override
+    public User findBySocialId( Long socialId ) {
+        return this.userRepository.findBySocialId( socialId );
+    }
+
+    /**
      * Find all.
      *
      * @param page  Requested page.

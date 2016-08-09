@@ -40,6 +40,15 @@ public interface UserService {
     User findByUsername( String username );
 
     /**
+     * Find user by social id.
+     *
+     * @param socialId    Id from social network.
+     *
+     * @return User.
+     */
+    User findBySocialId( Long socialId );
+
+    /**
      * Find all.
      *
      * @param page  Requested page.

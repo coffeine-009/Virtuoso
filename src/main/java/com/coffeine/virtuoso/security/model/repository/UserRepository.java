@@ -35,10 +35,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "u "
         + "FROM "
             + "User u "
-            + "LEFT JOIN "
-            + "u.emails e "
-            + "LEFT JOIN "
-            + "u.access a "
+            + "LEFT JOIN u.emails e "
+            + "LEFT JOIN u.access a "
         + "WHERE "
             + "e.address = :username "
             + "AND "
@@ -64,10 +62,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "u "
         + "FROM "
             + "User u "
-            + "LEFT JOIN "
-            + "u.emails e "
+            + "LEFT JOIN u.emails e "
         + "WHERE "
             + "e.address = :username"
     )
     User findByUsername( @Param( "username" ) String username );
+
+    /**
+     * Find user by social id.
+     *
+     * @param socialId    Id from social network.
+     *
+     * @return User.
+     */
+    @Query(
+        "SELECT "
+            + "u " +
+        "FROM "
+            + "User u "
+            + "LEFT JOIN u.socialAccounts sa "
+        + "WHERE "
+            + "sa.socialId = :socialId"
+    )
+    User findBySocialId( @Param( "socialId" ) Long socialId );
 }
