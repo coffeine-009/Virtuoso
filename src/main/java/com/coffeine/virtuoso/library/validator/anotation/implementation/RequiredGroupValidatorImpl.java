@@ -49,7 +49,7 @@ public class RequiredGroupValidatorImpl implements ConstraintValidator<RequiredG
 
                 if (!value.isEmpty()) isGroup = true;
 
-                isTrue( (isGroup && !value.isEmpty()) || !isGroup );
+                isTrue( isGroup && !value.isEmpty() || !isGroup );
             } catch (
                 IllegalAccessException
                 | IllegalArgumentException

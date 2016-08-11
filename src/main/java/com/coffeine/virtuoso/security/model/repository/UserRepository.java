@@ -77,8 +77,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     @Query(
         "SELECT "
-            + "u " +
-        "FROM "
+            + "u "
+        + "FROM "
             + "User u "
             + "LEFT JOIN u.socialAccounts sa "
         + "WHERE "
