@@ -38,7 +38,6 @@ import static org.springframework.util.Assert.notNull;
  * @version 1.0
  */
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
     /// *** Constants   *** ///
