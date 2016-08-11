@@ -195,6 +195,7 @@ public class UserServiceImpl implements UserService {
      *
      * @return Updated user.
      */
+    @Transactional
     @Override
     public User update( User user ) {
         //- Save user to persistence -//
@@ -206,6 +207,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param id    Id of user.
      */
+    @Transactional
     public void delete( Long id ) {
         this.userRepository.delete( id );
     }
