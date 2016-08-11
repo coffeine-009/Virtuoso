@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.common.base.MoreObjects;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -137,6 +139,7 @@ public class User implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
+    @Fetch( FetchMode.JOIN )
     protected Set<SocialAccount> socialAccounts = new HashSet<>();
 
     /**

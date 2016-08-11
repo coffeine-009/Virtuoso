@@ -67,9 +67,9 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         //- Search user -//
         User user = StringUtils.isEmpty( socialToken )
             ? this.userService.findByUsernameAndPassword(
-                authentication.getPrincipal().toString(),
+                "" + authentication.getPrincipal(),
                 this.passwordEncoder.encodePassword(
-                    authentication.getCredentials().toString(),
+                    "" + authentication.getCredentials(),
                     null
                 )
             )
