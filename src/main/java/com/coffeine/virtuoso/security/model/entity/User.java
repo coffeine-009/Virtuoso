@@ -148,7 +148,7 @@ public class User implements Serializable {
     @JsonManagedReference
     @Valid
     @OneToOne(
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
@@ -161,7 +161,7 @@ public class User implements Serializable {
     @JsonManagedReference
     @Valid
     @OneToOne( 
-        fetch = FetchType.EAGER, 
+        fetch = FetchType.LAZY,
         cascade = CascadeType.ALL, 
         orphanRemoval = false
     )
