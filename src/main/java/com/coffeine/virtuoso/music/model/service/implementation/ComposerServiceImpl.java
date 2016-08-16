@@ -19,12 +19,14 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.transaction.Transactional;
 
 /**
  * Service for work with composer.
  *
  * @version 1.0
  */
+@Transactional
 @Service
 public class ComposerServiceImpl implements ComposerService {
 

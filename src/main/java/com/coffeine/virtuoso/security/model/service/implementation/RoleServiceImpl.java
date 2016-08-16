@@ -16,12 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import javax.transaction.Transactional;
 
 /**
  * Interface for work with persistence layout.
  *
  * @version 1.0
  */
+@Transactional
 @Service
 public class RoleServiceImpl implements RoleService {
 

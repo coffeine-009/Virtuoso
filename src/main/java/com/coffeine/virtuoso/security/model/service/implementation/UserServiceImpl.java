@@ -37,6 +37,7 @@ import static org.springframework.util.Assert.notNull;
  *
  * @version 1.0
  */
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -141,7 +142,6 @@ public class UserServiceImpl implements UserService {
      *
      * @return Created user.
      */
-    @Transactional
     @Override
     public User create( User user ) {
         //- Save user to persistence -//
@@ -195,7 +195,6 @@ public class UserServiceImpl implements UserService {
      *
      * @return Updated user.
      */
-    @Transactional
     @Override
     public User update( User user ) {
         //- Save user to persistence -//
@@ -207,7 +206,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param id    Id of user.
      */
-    @Transactional
+    @Override
     public void delete( Long id ) {
         this.userRepository.delete( id );
     }

@@ -12,11 +12,14 @@ import com.coffeine.virtuoso.security.model.service.AccessService;
 
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * Service for work with access.
  *
  * @version 1.0
  */
+@Transactional
 @Service
 public class AccessServiceImpl implements AccessService {
 
