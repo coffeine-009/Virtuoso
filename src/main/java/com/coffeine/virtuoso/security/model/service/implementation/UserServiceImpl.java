@@ -37,8 +37,8 @@ import static org.springframework.util.Assert.notNull;
  *
  * @version 1.0
  */
-@Service
 @Transactional
+@Service
 public class UserServiceImpl implements UserService {
 
     /// *** Constants   *** ///
@@ -108,6 +108,17 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Find user by social id.
+     *
+     * @param socialId Id from social network.
+     * @return User.
+     */
+    @Override
+    public User findBySocialId( Long socialId ) {
+        return this.userRepository.findBySocialId( socialId );
+    }
+
+    /**
      * Find all.
      *
      * @param page  Requested page.
@@ -131,7 +142,6 @@ public class UserServiceImpl implements UserService {
      *
      * @return Created user.
      */
-    @Transactional
     @Override
     public User create( User user ) {
         //- Save user to persistence -//
@@ -196,6 +206,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param id    Id of user.
      */
+    @Override
     public void delete( Long id ) {
         this.userRepository.delete( id );
     }

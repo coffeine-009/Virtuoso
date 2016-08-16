@@ -166,7 +166,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"locale\": \"en-US\", " +
                         "\"roles\": [" +
                         "], " +
-                        "\"birthday\": \"1990-08-10\"" +
+                            "\"birthday\": \"1990-08-10\"" +
                         "}"
                 )
         ).andDo(print())
@@ -200,7 +200,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"locale\": \"en-US\", " +
                         "\"roles\": [" +
                         "], " +
-                        "\"birthday\": \"1990-08/10\"" +
+                            "\"birthday\": \"1990-08/10\"" +
                         "}"
                 )
         ).andDo(print())

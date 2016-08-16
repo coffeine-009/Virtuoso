@@ -35,10 +35,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "u "
         + "FROM "
             + "User u "
-            + "LEFT JOIN "
-            + "u.emails e "
-            + "LEFT JOIN "
-            + "u.access a "
+            + "LEFT JOIN FETCH u.emails e "
+            + "LEFT JOIN FETCH u.access a "
+            + "LEFT JOIN FETCH u.composer c "
+            + "LEFT JOIN FETCH u.poet p "
         + "WHERE "
             + "e.address = :username "
             + "AND "
@@ -64,10 +64,31 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "u "
         + "FROM "
             + "User u "
-            + "LEFT JOIN "
-            + "u.emails e "
+            + "LEFT JOIN FETCH u.emails e "
+            + "LEFT JOIN FETCH u.composer c "
+            + "LEFT JOIN FETCH u.poet p "
         + "WHERE "
             + "e.address = :username"
     )
     User findByUsername( @Param( "username" ) String username );
+
+    /**
+     * Find user by social id.
+     *
+     * @param socialId    Id from social network.
+     *
+     * @return User.
+     */
+    @Query(
+        "SELECT "
+            + "u "
+        + "FROM "
+            + "User u "
+            + "LEFT JOIN FETCH u.socialAccounts sa "
+            + "LEFT JOIN FETCH u.composer c "
+            + "LEFT JOIN FETCH u.poet p "
+        + "WHERE "
+            + "sa.socialId = :socialId"
+    )
+    User findBySocialId( @Param( "socialId" ) Long socialId );
 }

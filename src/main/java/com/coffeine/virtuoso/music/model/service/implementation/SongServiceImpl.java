@@ -19,12 +19,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import javax.transaction.Transactional;
 
 /**
  * Service for work with songs.
  *
  * @version 1.0
  */
+@Transactional
 @Service
 public class SongServiceImpl implements SongService {
 

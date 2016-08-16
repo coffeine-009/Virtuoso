@@ -27,6 +27,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  */
 public abstract class AbstractRestControllerTest extends AbstractControllerTest {
 
+    private static Token token;
+
     /**
      * Mocked session
      */
@@ -111,7 +113,12 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
         super.tearUp();
 
         //- Authorize user -//
-        authorization();
+        if (null == token) {
+            authorization();
+            token = this.session;
+        } else {
+            this.session = token;
+        }
 
         //- Init mocks -//
         MockitoAnnotations.initMocks( this );

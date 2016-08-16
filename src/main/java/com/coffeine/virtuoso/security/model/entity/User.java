@@ -15,14 +15,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.common.base.MoreObjects;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +38,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
@@ -110,7 +113,7 @@ public class User implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List<Access> access = new ArrayList<>();
+    protected Set<Access> access = new HashSet<>();
 
     /**
      * List of e-mails.
@@ -127,16 +130,23 @@ public class User implements Serializable {
     protected List<Email> emails = new ArrayList<>();
 
     /**
-     * Composer If user has role COMPOSER.
+     * List of social accounts.
      */
-    @JsonManagedReference
-    @Valid
-    @OneToOne(
+    @OneToMany(
+        mappedBy = "user",
         fetch = FetchType.EAGER,
         cascade = CascadeType.ALL,
         orphanRemoval = false
     )
-    @PrimaryKeyJoinColumn
+    protected Set<SocialAccount> socialAccounts = new HashSet<>();
+
+    /**
+     * Composer If user has role COMPOSER.
+     */
+    @JsonManagedReference
+    @Valid
+    @OneToOne( mappedBy = "user" )
+    @Fetch( FetchMode.JOIN )
     protected Composer composer;
 
     /**
@@ -144,12 +154,8 @@ public class User implements Serializable {
      */
     @JsonManagedReference
     @Valid
-    @OneToOne( 
-        fetch = FetchType.EAGER, 
-        cascade = CascadeType.ALL, 
-        orphanRemoval = false
-    )
-    @PrimaryKeyJoinColumn
+    @OneToOne( mappedBy = "user" )
+    @Fetch( FetchMode.JOIN )
     protected Poet poet;
 
     /**
@@ -358,7 +364,7 @@ public class User implements Serializable {
      *
      * @return List of access
      */
-    public List<Access> getAccess() {
+    public Set<Access> getAccess() {
         return access;
     }
 
@@ -369,6 +375,15 @@ public class User implements Serializable {
      */
     public List<Email> getEmails() {
         return emails;
+    }
+
+    /**
+     * Get social accounts.
+     *
+     * @return  List of social accounts.
+     */
+    public Set<SocialAccount> getSocialAccounts() {
+        return socialAccounts;
     }
 
     /**
@@ -468,7 +483,7 @@ public class User implements Serializable {
      *
      * @param access    List of accesses.
      */
-    public void setAccess( List<Access> access ) {
+    public void setAccess( Set<Access> access ) {
         this.access = access;
     }
 
@@ -479,6 +494,15 @@ public class User implements Serializable {
      */
     public void setEmails( List<Email> emails ) {
         this.emails = emails;
+    }
+
+    /**
+     * Set list of social accounts.
+     *
+     * @param socialAccounts    List of social accounts.
+     */
+    public void setSocialAccounts( Set<SocialAccount> socialAccounts ) {
+        this.socialAccounts = socialAccounts;
     }
 
     /**

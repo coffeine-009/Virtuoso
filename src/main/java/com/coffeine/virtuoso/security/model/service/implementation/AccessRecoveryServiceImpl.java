@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.transaction.Transactional;
 
@@ -41,6 +41,7 @@ import static org.springframework.util.Assert.notNull;
  * @version 1.0
  * @see AccessRecoveryService
  */
+@Transactional
 @Service
 public class AccessRecoveryServiceImpl implements AccessRecoveryService {
 
@@ -82,7 +83,6 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
      *
      * @throws IOException  Cannot send via SMTP.
      */
-    @Transactional
     @Override
     public void lostAccess( Contact contact ) throws IOException {
         //- Create one-time link for recovery access -//
@@ -131,7 +131,6 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
      * @param hash     One time hash.
      * @param password New password.
      */
-    @Transactional
     @Override
     public void restore( String hash, String password ) {
         //- Search request for recovering access -//
@@ -144,10 +143,10 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
         User user = recoveryAccess.getUser();
 
         //- Get access -//
-        List<Access> access = user.getAccess();
+        Set<Access> access = user.getAccess();
 
         //- Update access params -//
-        access.get( 0 ).setPassword(
+        access.iterator().next().setPassword(
             this.passwordEncoder.encodePassword(
                 password,
                 null

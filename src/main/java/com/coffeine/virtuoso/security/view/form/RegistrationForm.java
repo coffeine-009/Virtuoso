@@ -10,15 +10,18 @@ package com.coffeine.virtuoso.security.view.form;
 
 import com.coffeine.virtuoso.library.validator.anotation.Event;
 import com.coffeine.virtuoso.library.validator.anotation.InEnum;
+import com.coffeine.virtuoso.library.validator.anotation.RequiredGroup;
 import com.coffeine.virtuoso.security.model.entity.Roles;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,6 +31,14 @@ import javax.validation.constraints.Size;
  * @version 1.0
  */
 @Event( start = "birthday", end = "deathDate" )
+@RequiredGroup(
+    fields = {
+        "socialId",
+        "accessToken",
+        "expiresIn"
+    },
+    message = "{RequiredGroup.registrationForm.social}"
+)
 public class RegistrationForm {
 
     /// *** Properties  *** ///
@@ -38,6 +49,14 @@ public class RegistrationForm {
 
     @NotEmpty
     protected String password;
+
+    protected Long socialId;
+
+    @Length( min = 32 )
+    protected String accessToken;
+
+    @Min( 100 )
+    protected Integer expiresIn;
 
     @NotNull
     @NotEmpty
@@ -169,6 +188,23 @@ public class RegistrationForm {
     }
 
     /**
+     * Get social network id.
+     *
+     * @return Social id.
+     */
+    public Long getSocialId() {
+        return socialId;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public Integer getExpiresIn() {
+        return expiresIn;
+    }
+
+    /**
      * Get first name.
      *
      * @return String First name.
@@ -249,6 +285,23 @@ public class RegistrationForm {
      */
     public void setPassword( String password ) {
         this.password = password;
+    }
+
+    /**
+     * Set social network id.
+     *
+     * @param socialId    Id of social network.
+     */
+    public void setSocialId( Long socialId ) {
+        this.socialId = socialId;
+    }
+
+    public void setAccessToken( String accessToken ) {
+        this.accessToken = accessToken;
+    }
+
+    public void setExpiresIn( Integer expiresIn ) {
+        this.expiresIn = expiresIn;
     }
 
     /**
