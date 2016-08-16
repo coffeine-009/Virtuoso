@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import javax.transaction.Transactional;
 
@@ -143,10 +143,10 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
         User user = recoveryAccess.getUser();
 
         //- Get access -//
-        List<Access> access = user.getAccess();
+        Set<Access> access = user.getAccess();
 
         //- Update access params -//
-        access.get( 0 ).setPassword(
+        access.iterator().next().setPassword(
             this.passwordEncoder.encodePassword(
                 password,
                 null

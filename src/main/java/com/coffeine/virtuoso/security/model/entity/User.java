@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.common.base.MoreObjects;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -111,7 +113,7 @@ public class User implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List<Access> access = new ArrayList<>();
+    protected Set<Access> access = new HashSet<>();
 
     /**
      * List of e-mails.
@@ -144,6 +146,7 @@ public class User implements Serializable {
     @JsonManagedReference
     @Valid
     @OneToOne( mappedBy = "user" )
+    @Fetch( FetchMode.JOIN )
     protected Composer composer;
 
     /**
@@ -152,6 +155,7 @@ public class User implements Serializable {
     @JsonManagedReference
     @Valid
     @OneToOne( mappedBy = "user" )
+    @Fetch( FetchMode.JOIN )
     protected Poet poet;
 
     /**
@@ -360,7 +364,7 @@ public class User implements Serializable {
      *
      * @return List of access
      */
-    public List<Access> getAccess() {
+    public Set<Access> getAccess() {
         return access;
     }
 
@@ -479,7 +483,7 @@ public class User implements Serializable {
      *
      * @param access    List of accesses.
      */
-    public void setAccess( List<Access> access ) {
+    public void setAccess( Set<Access> access ) {
         this.access = access;
     }
 
