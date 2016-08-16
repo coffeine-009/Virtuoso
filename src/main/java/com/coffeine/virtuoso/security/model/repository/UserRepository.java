@@ -62,7 +62,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "u "
         + "FROM "
             + "User u "
-            + "LEFT JOIN u.emails e "
+            + "JOIN FETCH u.emails e "
         + "WHERE "
             + "e.address = :username"
     )
@@ -80,7 +80,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             + "u "
         + "FROM "
             + "User u "
-            + "LEFT JOIN u.socialAccounts sa "
+            + "JOIN FETCH u.socialAccounts sa "
         + "WHERE "
             + "sa.socialId = :socialId"
     )
