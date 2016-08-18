@@ -17,6 +17,7 @@ import com.coffeine.virtuoso.security.model.entity.Access;
 import com.coffeine.virtuoso.security.model.entity.Email;
 import com.coffeine.virtuoso.security.model.entity.Role;
 import com.coffeine.virtuoso.security.model.entity.Roles;
+import com.coffeine.virtuoso.security.model.entity.SocialAccount;
 import com.coffeine.virtuoso.security.model.entity.User;
 import com.coffeine.virtuoso.security.model.service.AccessRecoveryService;
 import com.coffeine.virtuoso.security.model.service.RoleService;
@@ -147,6 +148,17 @@ public class SecurityController {
                 //- User's locale -//
                 registrationForm.getLocale()
             );
+
+            //- Add social account -//
+            if ( null != registrationForm.getSocialId() ) {
+                newUser.addSocialAccount(
+                    new SocialAccount(
+                        registrationForm.getSocialId(),
+                        registrationForm.getAccessToken(),
+                        registrationForm.getExpiresIn()
+                    )
+                );
+            }
 
             //- Create a new composer -//
             if ( requestRoles.contains( Roles.COMPOSER.name() ) ) {

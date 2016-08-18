@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.security.model.entity;
 
 import com.coffeine.virtuoso.music.model.entity.Composer;
 import com.coffeine.virtuoso.music.model.entity.Poet;
+import com.coffeine.virtuoso.security.model.configuration.Social;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -132,6 +133,7 @@ public class User implements Serializable {
     /**
      * List of social accounts.
      */
+    @JsonManagedReference
     @OneToMany(
         mappedBy = "user",
         fetch = FetchType.EAGER,
@@ -145,7 +147,7 @@ public class User implements Serializable {
      */
     @JsonManagedReference
     @Valid
-    @OneToOne( mappedBy = "user" )
+    @OneToOne( mappedBy = "user", cascade = CascadeType.ALL )
     @Fetch( FetchMode.JOIN )
     protected Composer composer;
 
@@ -154,7 +156,7 @@ public class User implements Serializable {
      */
     @JsonManagedReference
     @Valid
-    @OneToOne( mappedBy = "user" )
+    @OneToOne( mappedBy = "user", cascade = CascadeType.ALL )
     @Fetch( FetchMode.JOIN )
     protected Poet poet;
 
@@ -615,6 +617,20 @@ public class User implements Serializable {
         if ( !this.emails.contains( email ) ) {
             // Add a new email for user
             this.emails.add( email );
+        }
+    }
+
+    /**
+     * Add a new social account.
+     *
+     * @param socialAccount    Social account data.
+     */
+    public void addSocialAccount( SocialAccount socialAccount ) {
+        socialAccount.setUser( this );
+        socialAccount.setSocialName( Social.FACEBOOK );
+
+        if (!this.socialAccounts.contains( socialAccount )) {
+            this.socialAccounts.add( socialAccount );
         }
     }
 

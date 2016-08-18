@@ -51,6 +51,19 @@ INSERT INTO access(
 ( 1, 1, '40bd001563085fc35165329ea1ff5c5ecbdbbeef' );
 
 /**
+ * Social accounts
+ */
+INSERT INTO social_accounts(
+  id,
+  id_user,
+  access_token,
+  expires_in,
+  social_id,
+  social_name
+) VALUES
+( 1, 1, 'acces$token', 3600, 1, 'FACEBOOK' );
+
+/**
  * Requests for recovering access.
  */
 INSERT INTO recovery_access(

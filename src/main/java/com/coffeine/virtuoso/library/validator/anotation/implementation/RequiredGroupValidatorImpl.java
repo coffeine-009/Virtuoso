@@ -47,7 +47,9 @@ public class RequiredGroupValidatorImpl implements ConstraintValidator<RequiredG
             try {
                 String value = BeanUtils.getProperty( obj, field );
 
-                if (!value.isEmpty()) isGroup = true;
+                if (!value.isEmpty()) {
+                    isGroup = true;
+                }
 
                 isTrue( isGroup && !value.isEmpty() || !isGroup );
             } catch (
@@ -68,18 +70,19 @@ public class RequiredGroupValidatorImpl implements ConstraintValidator<RequiredG
 
                 return false;
             } catch ( NullPointerException e ) {
-                context.disableDefaultConstraintViolation();
-                context.buildConstraintViolationWithTemplate(
-                    context.getDefaultConstraintMessageTemplate()
-                )
-                    .addPropertyNode( field )
-                    .addConstraintViolation();
+                if (isGroup) {
+                    context.disableDefaultConstraintViolation();
+                    context.buildConstraintViolationWithTemplate(
+                        context.getDefaultConstraintMessageTemplate()
+                    )
+                        .addPropertyNode( field )
+                        .addConstraintViolation();
 
-                if (isGroup) return false;
+                    return false;
+                }
             }
         }
 
         return true;
     }
 }
-

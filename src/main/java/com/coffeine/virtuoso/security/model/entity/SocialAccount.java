@@ -10,6 +10,7 @@ package com.coffeine.virtuoso.security.model.entity;
 
 import com.coffeine.virtuoso.security.model.configuration.Social;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -40,6 +41,7 @@ public class SocialAccount implements Serializable {
     @GeneratedValue
     protected Long id;
 
+    @JsonBackReference
     @NotNull
     @Valid
     @ManyToOne
