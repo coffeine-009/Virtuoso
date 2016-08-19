@@ -13,7 +13,8 @@ INSERT INTO role(
   description
 ) VALUES
 ( 1, 'ADMIN', 'Administrator', 'Admin' ),
-( 2, 'POET', 'Poet', 'Poet.' );
+( 2, 'POET', 'Poet', 'Poet.' ),
+( 3, 'COMPOSER', 'Composer', 'Composer.' );
 
 /**
  * Users.
@@ -49,6 +50,19 @@ INSERT INTO access(
   password
 ) VALUES
 ( 1, 1, '40bd001563085fc35165329ea1ff5c5ecbdbbeef' );
+
+/**
+ * Social accounts
+ */
+INSERT INTO social_accounts(
+  id,
+  id_user,
+  access_token,
+  expires_in,
+  social_id,
+  social_name
+) VALUES
+( 1, 1, 'acces$token', 3600, 1, 'FACEBOOK' );
 
 /**
  * Requests for recovering access.

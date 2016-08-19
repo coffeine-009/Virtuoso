@@ -145,7 +145,97 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     }
 
     /**
+     * Test successful registration attempt via social network.
+     *
+     * @throws Exception    General exception from mockMVC.
+     */
+    @Test
+    public void testSocialRegistrationActionSuccess() throws Exception {
+
+        //- Do Sign Up request -//
+        this.mockMvc.perform(
+            post( "/security/signup" )
+                .contentType( MediaType.APPLICATION_JSON )
+                .content(
+                    "{" +
+                        "\"username\": \"unit-social@test.com\", " +
+                        "\"password\": \"Te$t\", " +
+                        "\"firstName\": \"Unit\", " +
+                        "\"lastName\": \"Test\", " +
+                        "\"gender\": false, " +
+                        "\"locale\": \"en-US\", " +
+                        "\"roles\": [" +
+                            "\"COMPOSER\"," +
+                            "\"POET\"" +
+                        "], " +
+                        "\"birthday\": \"1990-08-10\"," +
+                        "\"socialId\": 1," +
+                        "\"accessToken\": \"acces$tokenacces$tokenacces$token\"," +
+                        "\"expiresIn\": 3600" +
+                    "}"
+                )
+        )
+            .andExpect( status().isCreated() )
+            .andExpect( jsonPath( "$.id", notNullValue() ) )
+            .andExpect( jsonPath( "$.id", not( empty() ) ) )
+            .andExpect( jsonPath( "$.roles", notNullValue() ) )
+            .andExpect( jsonPath( "$.roles", not( empty() ) ) )
+            .andExpect( jsonPath( "$.roles[0].code", notNullValue() ) )
+            .andExpect( jsonPath( "$.roles[0].code", not( empty() ) ) )
+            .andExpect( jsonPath( "$.roles[0].code" ).value( "COMPOSER" ) )
+            .andExpect( jsonPath( "$.roles[1].code", notNullValue() ) )
+            .andExpect( jsonPath( "$.roles[1].code", not( empty() ) ) )
+            .andExpect( jsonPath( "$.roles[1].code" ).value( "POET" ) )
+            .andExpect( jsonPath( "$.socialAccounts", notNullValue() ) )
+            .andExpect( jsonPath( "$.socialAccounts", not( empty() ) ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].socialId", notNullValue() ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].socialId" ).value( 1 ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].accessToken", notNullValue() ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].accessToken", not( empty() ) ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].accessToken" ).value( "acces$tokenacces$tokenacces$token" ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].expiresIn", notNullValue() ) )
+            .andExpect( jsonPath( "$.socialAccounts[0].expiresIn" ).value( 3600 ) )
+            .andExpect( jsonPath( "$.firstName", notNullValue() ) )
+            .andExpect( jsonPath( "$.firstName", not( empty() ) ) )
+            .andExpect( jsonPath( "$.firstName" ).value( "Unit" ) )
+            .andExpect( jsonPath( "$.lastName", notNullValue() ) )
+            .andExpect( jsonPath( "$.lastName", not( empty() ) ) )
+            .andExpect( jsonPath( "$.lastName" ).value( "Test" ) )
+            .andExpect( jsonPath( "$.gender" ).value( false ) )
+            .andExpect( jsonPath( "$.locale" ).value( "en-US" ) )
+            .andExpect( jsonPath( "$.poet", notNullValue() ) )
+            .andExpect( jsonPath( "$.poet", not( empty() ) ) )
+            .andExpect( jsonPath( "$.poet.birthday", notNullValue() ) )
+            .andExpect( jsonPath( "$.poet.birthday", not( empty() ) ) )
+//            .andExpect( jsonPath( "$.poet.birthday" ).value( "1990-08-10" ) )//FIXME: Configure JsonSerializer for LocalDate
+            .andExpect( jsonPath( "$.poet.deathDate", nullValue() ) )
+            .andDo(
+                document(
+                    "signup-social-example",
+                    requestFields(
+                        fieldWithPath( "username" ).description( "E-mail of new user." ),
+                        fieldWithPath( "password" ).description( "Password of new user." ),
+                        fieldWithPath( "firstName" ).description( "First name of new user." ),
+                        fieldWithPath( "lastName" ).description( "Las name of new user." ),
+                        fieldWithPath( "gender" ).description( "Gender of new user." ),
+                        fieldWithPath( "locale" ).description( "Locale of new user." ),
+                        fieldWithPath( "roles" ).description( "List of roles of new user." ),
+                        fieldWithPath( "birthday" ).description( "Birthday of new user." ),
+                        fieldWithPath( "socialId" ).description( "Social id of user." ),
+                        fieldWithPath( "accessToken" ).description( "Access token from social network user." ),
+                        fieldWithPath( "expiresIn" ).description( "Time of token expiration." )
+                    )
+                )
+            );
+
+        //- Check if notification was sent -//
+        assertEquals( "Count of messages does not matches", 1, smtpServer.getReceivedMessages().length );
+        //TODO: Add checking email.
+    }
+
+    /**
      * Test unsuccessful registration attempt.
+     * Wrong email.
      *
      * @throws Exception    General exception from mockMVC.
      */
@@ -166,8 +256,8 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"locale\": \"en-US\", " +
                         "\"roles\": [" +
                         "], " +
-                            "\"birthday\": \"1990-08-10\"" +
-                        "}"
+                        "\"birthday\": \"1990-08-10\"" +
+                    "}"
                 )
         ).andDo(print())
             .andExpect(status().isBadRequest())
@@ -198,10 +288,9 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"lastName\": \"test\", " +
                         "\"gender\": false, " +
                         "\"locale\": \"en-US\", " +
-                        "\"roles\": [" +
-                        "], " +
-                            "\"birthday\": \"1990-08/10\"" +
-                        "}"
+                        "\"roles\": [], " +
+                        "\"birthday\": \"1990-08/10\"" +
+                    "}"
                 )
         ).andDo(print())
             .andExpect(status().isBadRequest())
@@ -209,6 +298,38 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect(jsonPath("$.fieldErrors", not(empty())))
         ;
         //TODO: finish
+    }
+
+    /**
+     * Test unsuccessful registration attempt.
+     * Wrong role name.
+     *
+     * @throws Exception    General exception from mockMVC.
+     */
+    @Test
+    public void testRegistrationActionFailureRoles() throws Exception {
+
+        //- Do Sign Up request -//
+        this.mockMvc.perform(
+            post("/security/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    "{" +
+                        "\"username\": \"unit@test.com\", " +
+                        "\"password\": \"Te$t\", " +
+                        "\"firstName\": \"Unit\", " +
+                        "\"lastName\": \"test\", " +
+                        "\"gender\": false, " +
+                        "\"locale\": \"en-US\", " +
+                        "\"roles\": [" +
+                            "\"MUSICIAN\"," +
+                            "\"POET\"" +
+                        "], " +
+                        "\"birthday\": \"1990-08-10\"" +
+                    "}"
+                )
+        )
+            .andExpect(status().isConflict());
     }
 
     /**
@@ -256,6 +377,67 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                     requestParameters(
                         parameterWithName( "username" ).description( "E-mail of new user." ),
                         parameterWithName( "password" ).description( "Password of new user." ),
+                        parameterWithName( "clientId" ).description( "Client(app) id." ),
+                        parameterWithName( "clientSecret" ).description( "Client(app) password." ),
+                        parameterWithName( "scope" ).description( "Scope." ),
+                        parameterWithName( "grant_type" ).description( "Grant type." )
+                    ),
+                    responseFields(
+                        fieldWithPath( "access_token" ).description( "Token for access to private API." ),
+                        fieldWithPath( "refresh_token" ).description( "Token for refresh access token to private API." ),
+                        fieldWithPath( "scope" ).description( "Token scope." ),
+                        fieldWithPath( "token_type" ).description( "Type of token." ),
+                        fieldWithPath( "expires_in" ).description( "Time of expiring." )
+                    )
+                )
+            );
+    }
+
+    /**
+     * Test successful sign in attempt via social network.
+     *
+     * @throws Exception    General exception from mockMVC.
+     */
+    @Test
+    public void testSignInSocialSuccess() throws Exception {
+
+        //- Success -//
+        this.mockMvc.perform(
+            post( "/oauth/token" )
+                .contentType( MediaType.APPLICATION_FORM_URLENCODED )
+                .header(
+                    "Authorization",
+                    "Basic " + new String(
+                        Base64.encodeBase64(
+                            "developer:developer32".getBytes()
+                        )
+                    )
+                )
+                .param( "grant_type", "password" )
+                .param( "scope", "read" )
+                .param( "clientId", "developer" )
+                .param( "clientSecret", "developer32" )
+                .param( "social_token", "true" )
+                .param( "userId", "1" )
+        )
+            .andExpect( status().isOk() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.access_token", notNullValue() ) )
+            .andExpect( jsonPath( "$.access_token", not( empty() ) ) )
+            .andExpect( jsonPath( "$.expires_in", notNullValue() ) )
+            .andExpect( jsonPath( "$.expires_in", not( empty() ) ) )
+            .andExpect( jsonPath( "$.token_type", notNullValue() ) )
+            .andExpect( jsonPath( "$.token_type", not( empty() ) ) )
+            .andExpect( jsonPath( "$.token_type" ).value( "bearer" ) )
+            .andExpect( jsonPath( "$.scope", notNullValue() ) )
+            .andExpect( jsonPath( "$.scope", not( empty() ) ) )
+            .andExpect( jsonPath( "$.scope" ).value( "read" ) )
+            .andDo(
+                document(
+                    "sign-in-social-example",
+                    requestParameters(
+                        parameterWithName( "social_token" ).description( "Flag to auth via social." ),
+                        parameterWithName( "userId" ).description( "User social network id." ),
                         parameterWithName( "clientId" ).description( "Client(app) id." ),
                         parameterWithName( "clientSecret" ).description( "Client(app) password." ),
                         parameterWithName( "scope" ).description( "Scope." ),
