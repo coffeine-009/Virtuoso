@@ -147,7 +147,11 @@ public class User implements Serializable {
      */
     @JsonManagedReference
     @Valid
-    @OneToOne( mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToOne(
+        mappedBy = "user",
+        cascade = CascadeType.PERSIST,
+        orphanRemoval = false
+    )
     @Fetch( FetchMode.JOIN )
     protected Composer composer;
 
@@ -156,7 +160,11 @@ public class User implements Serializable {
      */
     @JsonManagedReference
     @Valid
-    @OneToOne( mappedBy = "user", cascade = CascadeType.ALL )
+    @OneToOne(
+        mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false
+    )
     @Fetch( FetchMode.JOIN )
     protected Poet poet;
 
