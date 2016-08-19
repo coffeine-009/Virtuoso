@@ -336,7 +336,7 @@ public class RegistrationForm {
      *
      * @param roles    List of roles.
      */
-    public void setRole( List<String> roles ) {
+    public void setRoles( List<String> roles ) {
         this.roles = roles;
     }
 

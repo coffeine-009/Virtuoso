@@ -158,13 +158,14 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                 .contentType( MediaType.APPLICATION_JSON )
                 .content(
                     "{" +
-                        "\"username\": \"unit@test.com\", " +
+                        "\"username\": \"unit-social@test.com\", " +
                         "\"password\": \"Te$t\", " +
                         "\"firstName\": \"Unit\", " +
                         "\"lastName\": \"Test\", " +
                         "\"gender\": false, " +
                         "\"locale\": \"en-US\", " +
                         "\"roles\": [" +
+                            "\"COMPOSER\"," +
                             "\"POET\"" +
                         "], " +
                         "\"birthday\": \"1990-08-10\"," +
@@ -181,7 +182,10 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect( jsonPath( "$.roles", not( empty() ) ) )
             .andExpect( jsonPath( "$.roles[0].code", notNullValue() ) )
             .andExpect( jsonPath( "$.roles[0].code", not( empty() ) ) )
-            .andExpect( jsonPath( "$.roles[0].code" ).value( "POET" ) )
+            .andExpect( jsonPath( "$.roles[0].code" ).value( "COMPOSER" ) )
+            .andExpect( jsonPath( "$.roles[1].code", notNullValue() ) )
+            .andExpect( jsonPath( "$.roles[1].code", not( empty() ) ) )
+            .andExpect( jsonPath( "$.roles[1].code" ).value( "POET" ) )
             .andExpect( jsonPath( "$.socialAccounts", notNullValue() ) )
             .andExpect( jsonPath( "$.socialAccounts", not( empty() ) ) )
             .andExpect( jsonPath( "$.socialAccounts[0].socialId", notNullValue() ) )
@@ -231,6 +235,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
 
     /**
      * Test unsuccessful registration attempt.
+     * Wrong email.
      *
      * @throws Exception    General exception from mockMVC.
      */
@@ -251,8 +256,8 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"locale\": \"en-US\", " +
                         "\"roles\": [" +
                         "], " +
-                            "\"birthday\": \"1990-08-10\"" +
-                        "}"
+                        "\"birthday\": \"1990-08-10\"" +
+                    "}"
                 )
         ).andDo(print())
             .andExpect(status().isBadRequest())
@@ -283,10 +288,9 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         "\"lastName\": \"test\", " +
                         "\"gender\": false, " +
                         "\"locale\": \"en-US\", " +
-                        "\"roles\": [" +
-                        "], " +
-                            "\"birthday\": \"1990-08/10\"" +
-                        "}"
+                        "\"roles\": [], " +
+                        "\"birthday\": \"1990-08/10\"" +
+                    "}"
                 )
         ).andDo(print())
             .andExpect(status().isBadRequest())
@@ -294,6 +298,38 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
             .andExpect(jsonPath("$.fieldErrors", not(empty())))
         ;
         //TODO: finish
+    }
+
+    /**
+     * Test unsuccessful registration attempt.
+     * Wrong role name.
+     *
+     * @throws Exception    General exception from mockMVC.
+     */
+    @Test
+    public void testRegistrationActionFailureRoles() throws Exception {
+
+        //- Do Sign Up request -//
+        this.mockMvc.perform(
+            post("/security/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                    "{" +
+                        "\"username\": \"unit@test.com\", " +
+                        "\"password\": \"Te$t\", " +
+                        "\"firstName\": \"Unit\", " +
+                        "\"lastName\": \"test\", " +
+                        "\"gender\": false, " +
+                        "\"locale\": \"en-US\", " +
+                        "\"roles\": [" +
+                            "\"MUSICIAN\"," +
+                            "\"POET\"" +
+                        "], " +
+                        "\"birthday\": \"1990-08-10\"" +
+                    "}"
+                )
+        )
+            .andExpect(status().isConflict());
     }
 
     /**

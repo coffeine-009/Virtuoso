@@ -13,7 +13,8 @@ INSERT INTO role(
   description
 ) VALUES
 ( 1, 'ADMIN', 'Administrator', 'Admin' ),
-( 2, 'POET', 'Poet', 'Poet.' );
+( 2, 'POET', 'Poet', 'Poet.' ),
+( 3, 'COMPOSER', 'Composer', 'Composer.' );
 
 /**
  * Users.
