@@ -76,6 +76,29 @@ public class PoetTest extends AbstractModel {
         constraintViolationSet = validator.validate( poetSuccess );
 
         assertEquals(0, constraintViolationSet.size());
+
+
+        //- Success: No user -//
+        //- Create entity -//
+        Poet poetFailureUser = new Poet(
+            null,
+            new ArrayList<PoetLocale>() {{
+                add(
+                    new PoetLocale(
+                        "Test",
+                        "Unit",
+                        "Validation",
+                        "en-US"
+                    )
+                );
+            }},
+            "uk-UA"
+        );
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( poetFailureUser );
+
+        assertEquals( 0, constraintViolationSet.size() );
     }
 
     /*
@@ -136,54 +159,6 @@ public class PoetTest extends AbstractModel {
                 new ArrayList<String>() {{
                     add( "may not be null" );
                     add( "may not be empty" );
-                }}.contains( constraintViolation.getMessage() )
-            );
-        }
-
-        //- Failure: Incorrect user -//
-        //- Create entity -//
-        Poet poetFailureUser = new Poet(
-            null,
-            new ArrayList<PoetLocale>() {{
-                add(
-                    new PoetLocale(
-                        "Test",
-                        "Unit",
-                        "Validation",
-                        "en-US"
-                    )
-                );
-            }},
-            "uk-UA"
-        );
-
-        //- Validate -//
-        constraintViolationSet = validator.validate( poetFailureUser );
-
-        assertEquals( 1, constraintViolationSet.size() );
-        for ( ConstraintViolation<Poet> constraintViolation : constraintViolationSet ) {
-            //- Property name -//
-            assertTrue(
-                new ArrayList<String>() {{
-                    add("user");
-                }}.contains(
-                    this.getPropertyName(
-                        constraintViolation.getPropertyPath()
-                    )
-                )
-            );
-            //- Annotation type -//
-            assertTrue(
-                new ArrayList<Class>() {{
-                    add( NotNull.class );
-                }}.contains(
-                    constraintViolation.getConstraintDescriptor().getAnnotation().annotationType()
-                )
-            );
-            //- Message -//
-            assertTrue(
-                new ArrayList<String>() {{
-                    add( "may not be null" );
                 }}.contains( constraintViolation.getMessage() )
             );
         }
