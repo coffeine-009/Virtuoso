@@ -66,10 +66,9 @@ public class Poet implements Serializable {
     protected Long id;
 
     @JsonBackReference
-    @NotNull
     @Valid
     @OneToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "id_user" )
+    @JoinColumn( name = "id_user", nullable = true )
     protected User user;
 
     @NotNull

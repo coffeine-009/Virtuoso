@@ -69,7 +69,7 @@ public class Composer implements Serializable {
     @JsonBackReference
     @Valid
     @OneToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "id_user" )
+    @JoinColumn( name = "id_user", nullable = true )
     protected User user;
 
     @NotNull
