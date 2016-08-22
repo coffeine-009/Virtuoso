@@ -106,7 +106,7 @@
             client-id="developer"
             secret = "developer32"
             authorized-grant-types = "password,authorization_code,refresh_token"
-            authorities = "ADMIN"
+            authorities = "ADMINISTRATOR"
             scope = "read,write"
             access-token-validity = "3600"
             refresh-token-validity = "3600"
