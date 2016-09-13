@@ -417,7 +417,7 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                 .param( "scope", "read" )
                 .param( "clientId", "developer" )
                 .param( "clientSecret", "developer32" )
-                .param( "social_token", "true" )
+                .param( "social_token", "acces$token" )
                 .param( "user_id", "1" )
                 .param( "expires_in", "3600" )
         )
