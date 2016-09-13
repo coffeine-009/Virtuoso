@@ -85,8 +85,9 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
                 final Integer expiresIn = Integer.parseInt( details.get( "expires_in" ) );
 
                 final SocialAccount socialAccount = user.getSocialAccounts().iterator().next();
-                    socialAccount.setAccessToken( socialToken );
-                    socialAccount.setExpiresIn( expiresIn );
+                //- Update access params -//
+                socialAccount.setAccessToken( socialToken );
+                socialAccount.setExpiresIn( expiresIn );
 
                 this.userService.update( user );
             }
