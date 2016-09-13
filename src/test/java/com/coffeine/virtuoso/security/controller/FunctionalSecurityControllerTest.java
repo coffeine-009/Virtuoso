@@ -418,7 +418,8 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                 .param( "clientId", "developer" )
                 .param( "clientSecret", "developer32" )
                 .param( "social_token", "true" )
-                .param( "userId", "1" )
+                .param( "user_id", "1" )
+                .param( "expires_in", "3600" )
         )
             .andExpect( status().isOk() )
             .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
@@ -437,7 +438,8 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                     "sign-in-social-example",
                     requestParameters(
                         parameterWithName( "social_token" ).description( "Flag to auth via social." ),
-                        parameterWithName( "userId" ).description( "User social network id." ),
+                        parameterWithName( "user_id" ).description( "User social network id." ),
+                        parameterWithName( "expires_in" ).description( "Time of life social token." ),
                         parameterWithName( "clientId" ).description( "Client(app) id." ),
                         parameterWithName( "clientSecret" ).description( "Client(app) password." ),
                         parameterWithName( "scope" ).description( "Scope." ),

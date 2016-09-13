@@ -9,6 +9,7 @@
 package com.coffeine.virtuoso.security.model.provider.implementation;
 
 import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
+import com.coffeine.virtuoso.security.model.entity.SocialAccount;
 import com.coffeine.virtuoso.security.model.entity.User;
 import com.coffeine.virtuoso.security.model.service.UserService;
 
@@ -25,6 +26,7 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.transaction.Transactional;
 
 /**
  * Authentication provider of users.
@@ -56,6 +58,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
      *
      * @throws AuthenticationException if credentials are bad.
      */
+    @Transactional
     @Override
     public Authentication authenticate(
         Authentication authentication
@@ -65,17 +68,29 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         final String socialToken = details.get( "social_token" );
 
         //- Search user -//
-        User user = StringUtils.isEmpty( socialToken )
-            ? this.userService.findByUsernameAndPassword(
+        final boolean isSocialSignIn = !StringUtils.isEmpty( socialToken );
+        User user = isSocialSignIn
+            ? this.userService.findBySocialId( Long.parseLong( details.get( "user_id" ) ) )
+            : this.userService.findByUsernameAndPassword(
                 "" + authentication.getPrincipal(),
                 this.passwordEncoder.encodePassword(
                     "" + authentication.getCredentials(),
                     null
                 )
-            )
-            : this.userService.findBySocialId( Long.parseLong( details.get( "userId" ) ) );
+            );
 
         if ( user != null ) {
+            //- Update acces token -//
+            if ( isSocialSignIn ) {
+                final Integer expiresIn = Integer.parseInt( details.get( "expires_in" ) );
+
+                final SocialAccount socialAccount = user.getSocialAccounts().iterator().next();
+                    socialAccount.setAccessToken( socialToken );
+                    socialAccount.setExpiresIn( expiresIn );
+
+                this.userService.update( user );
+            }
+
             //- Set authorities -//
             List<GrantedAuthority> authorities = new ArrayList<>();
 
