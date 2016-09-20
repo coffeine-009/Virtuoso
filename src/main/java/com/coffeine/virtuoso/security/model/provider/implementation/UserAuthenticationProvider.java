@@ -76,7 +76,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
             //- Check params -//
             isTrue(
-                (isSocialSignIn && !StringUtils.isEmpty( userId ) && !StringUtils.isEmpty( expiresIn ))
+                isSocialSignIn && !StringUtils.isEmpty( userId )
+                && !StringUtils.isEmpty( expiresIn )
                 || !isSocialSignIn
             );
 
