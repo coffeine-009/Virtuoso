@@ -9,12 +9,21 @@
 package com.coffeine.virtuoso.music.model.service;
 
 import com.coffeine.virtuoso.module.model.service.AbstractServiceTest;
+import com.coffeine.virtuoso.music.model.entity.Song;
+import com.coffeine.virtuoso.music.model.persistence.mock.SongMock;
+import com.coffeine.virtuoso.music.model.repository.SongRepository;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static junit.framework.TestCase.assertNotNull;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.when;
 
 /**
  * Tests for SongService
@@ -25,6 +34,12 @@ import org.mockito.MockitoAnnotations;
 public class SongServiceTest extends AbstractServiceTest {
 
     /// *** Properties  *** ///
+    @Mock
+    private SongRepository songRepository;
+
+    @InjectMocks
+    @Autowired
+    private SongService songService;
 
 
     /// *** Methods     *** ///
@@ -50,11 +65,15 @@ public class SongServiceTest extends AbstractServiceTest {
     }
 
     /**
-     * Test findAll
+     * Test find.
      */
-    @Ignore
     @Test
-    public void testFindAll() {
-        //TODO: put here asserts
+    public void testFind() {
+
+        when( this.songRepository.findOne( anyLong() ) ).thenReturn( SongMock.retrieve() );
+
+        final Song song = this.songService.find( 1L );
+
+        assertNotNull( song );
     }
 }

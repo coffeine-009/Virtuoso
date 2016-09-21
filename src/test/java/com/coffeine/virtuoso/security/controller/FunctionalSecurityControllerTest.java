@@ -417,8 +417,9 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                 .param( "scope", "read" )
                 .param( "clientId", "developer" )
                 .param( "clientSecret", "developer32" )
-                .param( "social_token", "true" )
-                .param( "userId", "1" )
+                .param( "social_token", "acces$token" )
+                .param( "user_id", "1" )
+                .param( "expires_in", "3600" )
         )
             .andExpect( status().isOk() )
             .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
@@ -437,7 +438,8 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                     "sign-in-social-example",
                     requestParameters(
                         parameterWithName( "social_token" ).description( "Flag to auth via social." ),
-                        parameterWithName( "userId" ).description( "User social network id." ),
+                        parameterWithName( "user_id" ).description( "User social network id." ),
+                        parameterWithName( "expires_in" ).description( "Time of life social token." ),
                         parameterWithName( "clientId" ).description( "Client(app) id." ),
                         parameterWithName( "clientSecret" ).description( "Client(app) password." ),
                         parameterWithName( "scope" ).description( "Scope." ),
@@ -449,6 +451,62 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
                         fieldWithPath( "scope" ).description( "Token scope." ),
                         fieldWithPath( "token_type" ).description( "Type of token." ),
                         fieldWithPath( "expires_in" ).description( "Time of expiring." )
+                    )
+                )
+            );
+    }
+
+    /**
+     * Test failure sign in attempt via social network.
+     *
+     * @throws Exception    General exception from mockMVC.
+     */
+    @Test
+    public void testSignInSocialFailure() throws Exception {
+
+        //- Success -//
+        this.mockMvc.perform(
+            post( "/oauth/token" )
+                .contentType( MediaType.APPLICATION_FORM_URLENCODED )
+                .header(
+                    "Authorization",
+                    "Basic " + new String(
+                        Base64.encodeBase64(
+                            "developer:developer32".getBytes()
+                        )
+                    )
+                )
+                .param( "grant_type", "password" )
+                .param( "scope", "read" )
+                .param( "clientId", "developer" )
+                .param( "clientSecret", "developer32" )
+                .param( "social_token", "acces$token" )
+                .param( "user_id", "99999999" )
+                .param( "expires_in", "3600" )
+        )
+            .andExpect( status().isBadRequest() )
+            .andExpect( content().contentType( MediaType.APPLICATION_JSON + ";charset=UTF-8" ) )
+            .andExpect( jsonPath( "$.error", notNullValue() ) )
+            .andExpect( jsonPath( "$.error", not( empty() ) ) )
+            .andExpect( jsonPath( "$.error" ).value( "invalid_grant" ) )
+            .andExpect( jsonPath( "$.error_description", notNullValue() ) )
+            .andExpect( jsonPath( "$.error_description", not( empty() ) ) )
+            .andExpect( jsonPath( "$.error_description" ).value( "Bad user credentials" ) )
+            .andDo(
+                document(
+                    "sign-in-social-example",
+                    requestParameters(
+                        parameterWithName( "social_token" ).description( "Flag to auth via social." ),
+                        parameterWithName( "user_id" ).description( "User social network id." ),
+                        parameterWithName( "expires_in" ).description( "Time of life social token." ),
+                        parameterWithName( "clientId" ).description( "Client(app) id." ),
+                        parameterWithName( "clientSecret" ).description( "Client(app) password." ),
+                        parameterWithName( "scope" ).description( "Scope." ),
+                        parameterWithName( "grant_type" ).description( "Grant type." )
+                    ),
+                    responseFields(
+                        fieldWithPath( "error" ).description( "Error code." ),
+                        fieldWithPath( "error_description" ).description( "Error message." )
                     )
                 )
             );
