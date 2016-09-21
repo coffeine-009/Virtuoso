@@ -9,7 +9,7 @@
 
 <Configuration
   name = "tests"
-  status = "debug"
+  status = "info"
   packages = "com.coffeine.virtuoso"
 >
   <!-- Appenders -->
