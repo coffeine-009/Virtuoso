@@ -26,7 +26,7 @@
         pattern = "/oauth/token"
     >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
-        <security:anonymous enabled = "false" />
+        <security:anonymous />
         <security:custom-filter
             before = "BASIC_AUTH_FILTER"
             ref = "clientCredentialsTokenEndpointFilter"
@@ -42,18 +42,14 @@
     <security:http
         create-session = "never"
         entry-point-ref = "securityAuthenticationEntryPoint"
-        pattern = "/music/**"
         access-decision-manager-ref = "accessDecisionManager"
+        use-expressions = "true"
     >
         <security:access-denied-handler ref = "securityAccessDeniedHandler" />
-        <security:anonymous enabled = "false" />
+        <security:anonymous />
         <security:custom-filter
             before = "PRE_AUTH_FILTER"
             ref = "resourceServerFilter"
-        />
-        <security:intercept-url
-            pattern = "/music/**"
-            access = "IS_AUTHENTICATED_FULLY"
         />
     </security:http>
 
