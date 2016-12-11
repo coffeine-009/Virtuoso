@@ -12,7 +12,10 @@ import com.coffeine.virtuoso.module.model.AbstractModel;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests fo composer form.
@@ -21,6 +24,16 @@ public class PoetFormTest extends AbstractModel {
 
     @Test
     public void testRequiredFieldsSuccess() {
-        assertTrue(true);//FIXME: make impl
+        //- Set of constraints after validation -//
+        Set< ConstraintViolation< PoetForm > > constraintViolationSet;
+
+        PoetForm form = new PoetForm();
+
+        //- Validate -//
+        constraintViolationSet = validator.validate( form );
+
+        //- Assertions -//
+        assertEquals( 3, constraintViolationSet.size() );
+        //FIXME: make impl
     }
 }
