@@ -35,11 +35,25 @@ public class RequiredGroupValidatorImpl implements ConstraintValidator<RequiredG
 
     private String[] fields;
 
+
+    /**
+     * Initialize validator.
+     *
+     * @param constraint    Constraint configuration.
+     */
     public void initialize( RequiredGroup constraint ) {
 
         this.fields = constraint.fields();
     }
 
+    /**
+     * Check input.
+     *
+     * @param obj        Object with input.
+     * @param context    Context.
+     *
+     * @return True - input is valid, false - invalid.
+     */
     public boolean isValid( Object obj, ConstraintValidatorContext context ) {
         boolean isGroup = false;
 
