@@ -41,7 +41,7 @@ public class SnapshotController {
      * @param response    Http response.
      */
     @RequestMapping( method = RequestMethod.GET )
-    public void create(
+    public void make(
         @RequestParam( value = "_escaped_fragment_" )
         String path,
 
