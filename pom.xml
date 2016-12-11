@@ -351,6 +351,10 @@
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <!-- Entity manager -->
@@ -451,6 +455,30 @@
         <version>1.1</version>
     </dependency>
 
+    <!-- Search indexing. Snapshots -->
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>2.23</version>
+      <exclusions>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.4.01</version>
+    </dependency>
+
+
     <!-- Servlet API 3.0 -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -472,6 +500,12 @@
       <groupId>com.github.jknack</groupId>
       <artifactId>handlebars</artifactId>
       <version>4.0.1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- Logger -->

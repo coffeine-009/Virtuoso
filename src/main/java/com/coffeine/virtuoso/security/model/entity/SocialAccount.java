@@ -68,9 +68,19 @@ public class SocialAccount implements Serializable {
     protected Integer expiresIn;
 
 
+    /**
+     * Default constructor.
+     */
     public SocialAccount() {
     }
 
+    /**
+     * Create a new Social account.
+     *
+     * @param socialId       Social id.
+     * @param accessToken    Social access token.
+     * @param expiresIn      Access token expiration time.
+     */
     public SocialAccount(
         Long socialId,
         String accessToken,
