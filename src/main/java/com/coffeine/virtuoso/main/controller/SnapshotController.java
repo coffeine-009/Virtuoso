@@ -12,6 +12,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,8 +41,11 @@ public class SnapshotController {
      * @param path        Special fragment from crawlers.
      * @param response    Http response.
      */
-    @RequestMapping( method = RequestMethod.GET )
+    @RequestMapping( value = "/{file}", method = RequestMethod.GET )
     public void make(
+        @PathVariable( value = "file" )
+        String file,
+
         @RequestParam( value = "_escaped_fragment_" )
         String path,
 
