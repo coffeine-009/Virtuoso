@@ -46,7 +46,7 @@ public class SnapshotController {
         @PathVariable( value = "file" )
         String file,
 
-        @RequestParam( value = "_escaped_fragment_" )
+        @RequestParam( value = "_escaped_fragment_", required = false, defaultValue = "" )
         String path,
 
         HttpServletResponse response
