@@ -11,6 +11,7 @@ package com.coffeine.virtuoso.music.model.service;
 import com.coffeine.virtuoso.music.model.entity.Song;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service for work with song.
@@ -47,6 +48,15 @@ public interface SongService {
      * @return Song
      */
     Song find( Long id );
+
+    /**
+     * Find songs by their ids.
+     *
+     * @param songsIds    List of ids.
+     *
+     * @return List of songs.
+     */
+    Set<Song> findByIds( Set<Long> songsIds );
 
     /**
      * Update.
