@@ -33,7 +33,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Class for reflect song_text table from persistence layout..
+ * Class for reflect song_text table from persistence layout.
  *
  * @version 1.0
  */
@@ -144,6 +144,7 @@ public class Staff implements Serializable {
     /**
      * Constructor for create new Staff.
      *
+     * @param composers    List of composers.
      * @param staffType    Staff type.
      * @param style        Style.
      * @param file         File content(MusicXML).

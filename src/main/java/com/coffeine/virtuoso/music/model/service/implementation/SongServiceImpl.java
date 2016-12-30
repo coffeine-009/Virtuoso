@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.transaction.Transactional;
 
 /**
@@ -82,6 +84,18 @@ public class SongServiceImpl implements SongService {
     @Override
     public Song find( Long id ) {
         return songRepository.findOne( id );
+    }
+
+    /**
+     * Find songs by their ids.
+     *
+     * @param songsIds List of ids.
+     *
+     * @return List of songs.
+     */
+    @Override
+    public Set<Song> findByIds( Set<Long> songsIds ) {
+        return new HashSet<>( this.songRepository.findByIds( songsIds ) );
     }
 
     /**

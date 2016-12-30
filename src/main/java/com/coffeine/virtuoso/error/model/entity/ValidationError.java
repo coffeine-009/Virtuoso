@@ -22,7 +22,7 @@ public class ValidationError {
     /**
      * List of errors/field.
      */
-    protected List<Field> fieldErrors = new ArrayList<>();
+    private List<Field> fieldErrors = new ArrayList<>();
 
 
     //***    Methods     *** ///
@@ -50,16 +50,5 @@ public class ValidationError {
      */
     public List<Field> getFieldErrors() {
         return fieldErrors;
-    }
-
-
-    //- SECTION :: SET -//
-    /**
-     * Set field error.
-     *
-     * @param fieldErrors List of errors/fields.
-     */
-    public void setFieldErrors( List<Field> fieldErrors ) {
-        this.fieldErrors = fieldErrors;
     }
 }

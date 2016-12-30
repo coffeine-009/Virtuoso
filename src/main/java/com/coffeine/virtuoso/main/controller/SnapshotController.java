@@ -38,6 +38,7 @@ public class SnapshotController {
      * Make snapshot for dynamic page.
      * Used by crawlers for indexing.
      *
+     * @param file        Temporary. Handle index.html from crawlers.
      * @param path        Special fragment from crawlers.
      * @param response    Http response.
      */
