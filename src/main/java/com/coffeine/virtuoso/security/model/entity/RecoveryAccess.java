@@ -9,6 +9,7 @@
 package com.coffeine.virtuoso.security.model.entity;
 
 import com.google.common.base.MoreObjects;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.time.OffsetDateTime;
@@ -78,12 +79,10 @@ public class RecoveryAccess {
     protected OffsetDateTime expiredAt;
 
     /**
-     * Time of creation.
+     * Date and time of creation.
      */
-    @Column(
-        name = "created_at",
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-    )
+    @ColumnDefault( "CURRENT_TIMESTAMP" )
+    @Column( name = "created_at", insertable = false, nullable = false )
     protected OffsetDateTime createdAt;
 
 

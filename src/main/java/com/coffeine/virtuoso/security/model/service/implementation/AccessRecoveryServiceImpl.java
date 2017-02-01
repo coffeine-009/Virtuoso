@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
      * Encoder for create hash of password.
      */
     @Autowired
-    private ShaPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private Handlebars templateManager;
@@ -93,10 +94,7 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
         notNull( user );
 
         //- Generate one-time hash -//
-        String hash = this.passwordEncoder.encodePassword(
-            UUID.randomUUID().toString(),
-            null
-        );
+        String hash = this.passwordEncoder.encode( UUID.randomUUID().toString() );
 
         //- Add one-time hash for recovery access -//
         this.accessRecoveryRepository.save(
@@ -147,10 +145,7 @@ public class AccessRecoveryServiceImpl implements AccessRecoveryService {
 
         //- Update access params -//
         access.iterator().next().setPassword(
-            this.passwordEncoder.encodePassword(
-                password,
-                null
-            )
+            this.passwordEncoder.encode( password )
         );
 
         //- Save changes -//

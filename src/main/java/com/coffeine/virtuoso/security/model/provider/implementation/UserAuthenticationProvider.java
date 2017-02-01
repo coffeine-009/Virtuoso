@@ -8,6 +8,7 @@
 
 package com.coffeine.virtuoso.security.model.provider.implementation;
 
+import com.coffeine.virtuoso.security.model.entity.Access;
 import com.coffeine.virtuoso.security.model.entity.AuthenticationToken;
 import com.coffeine.virtuoso.security.model.entity.SocialAccount;
 import com.coffeine.virtuoso.security.model.entity.User;
@@ -16,11 +17,11 @@ import com.coffeine.virtuoso.security.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
      * Encoder for create hash of password.
      */
     @Autowired
-    private ShaPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -81,19 +82,22 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
                 || !isSocialSignIn
             );
 
+            //- Raw password -//
+            final String username = "" + authentication.getPrincipal();
+            final String password = "" + authentication.getCredentials();
+
             //- Search user -//
             User user = isSocialSignIn
                 ? this.userService.findBySocialId( Long.parseLong( userId ) )
-                : this.userService.findByUsernameAndPassword(
-                    "" + authentication.getPrincipal(),
-                    this.passwordEncoder.encodePassword(
-                        "" + authentication.getCredentials(),
-                        null
-                    )
-                );
+                : this.userService.findByUsername( username );
 
             //- Check if user exists -//
             notNull( user );
+
+            final Access access = user.getAccess().stream().findFirst().get();
+
+            //- Check if passwords are equal -//
+            isTrue( this.passwordEncoder.matches( password, access.getPassword() ) );
 
             //- Update acces token -//
             if ( isSocialSignIn ) {

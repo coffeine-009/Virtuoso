@@ -57,8 +57,6 @@ public class FunctionalSecurityControllerTest extends AbstractControllerTest {
     @Before
     @Override
     public void tearUp() {
-        super.tearUp();
-
         //- Turn on SMTP Server -//
         smtpServer.start();
     }

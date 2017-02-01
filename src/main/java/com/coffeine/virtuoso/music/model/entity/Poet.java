@@ -20,9 +20,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -81,7 +82,7 @@ public class Poet implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List<PoetLocale> data = new ArrayList<>();
+    protected Set<PoetLocale> data = new HashSet<>();
 
     @NotNull
     @NotEmpty
@@ -114,7 +115,7 @@ public class Poet implements Serializable {
     public Poet() {
 
         //- Initialization -//
-        this.data = new ArrayList<>();
+        this.data = new HashSet<>();
     }
 
     /**
@@ -131,7 +132,7 @@ public class Poet implements Serializable {
         Boolean gender,
         LocalDate birthday,
         LocalDate deathDate,
-        List<PoetLocale> data
+        Set<PoetLocale> data
     ) {
         //- Check params -//
         notNull( data );
@@ -214,6 +215,7 @@ public class Poet implements Serializable {
         this.data = null;
         this.locale = locale;
     }
+
     //- SECTION :: GET -//
     /**
      * Get ID of poet.
@@ -238,7 +240,7 @@ public class Poet implements Serializable {
      *
      * @return  Localized data.
      */
-    public List<PoetLocale> getData() {
+    public Set<PoetLocale> getData() {
         return data;
     }
 
@@ -302,7 +304,7 @@ public class Poet implements Serializable {
      *
      * @param data    Localized data.
      */
-    public void setData( List<PoetLocale> data ) {
+    public void setData( Set<PoetLocale> data ) {
         this.data = data;
     }
 

@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.binary.Base64;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Date;
@@ -25,6 +27,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  *
  * @version 1.0
  */
+@SqlGroup({
+    @Sql( executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:init.sql" ),
+    @Sql( executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:clean.sql" )
+})
 public abstract class AbstractRestControllerTest extends AbstractControllerTest {
 
     private static Token token;
@@ -109,8 +115,6 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
      */
     @Override
     public void tearUp() {
-        //- Prepare parent controller -//
-        super.tearUp();
 
         //- Authorize user -//
         if (null == token) {

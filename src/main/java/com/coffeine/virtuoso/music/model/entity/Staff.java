@@ -205,6 +205,7 @@ public class Staff implements Serializable {
         this.locale = locale;
         this.file = file;
     }
+
     /**
      * Create staff for song.
      *

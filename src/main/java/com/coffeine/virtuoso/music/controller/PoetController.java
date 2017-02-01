@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
@@ -98,7 +100,7 @@ public class PoetController {
             response.setStatus(HttpServletResponse.SC_CREATED);
 
             //- Prepare data for localization -//
-            List<PoetLocale> data = new ArrayList<>();
+            Set<PoetLocale> data = new HashSet<>();
             for (PoetForm.Data dataLocalized : form.getData()) {
                 data.add(
                         new PoetLocale(

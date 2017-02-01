@@ -82,7 +82,7 @@ INSERT INTO composer(
   gender,
   locale,
   birthday,
-  deathDate,
+  death_date,
   creation
 ) VALUES
 ( 1, 1, true, 'uk-UA', NOW(), NULL , NOW() );
@@ -104,7 +104,7 @@ INSERT INTO poet(
   gender,
   locale,
   birthday,
-  deathDate,
+  death_date,
   creation
 ) VALUES
 ( 1, 1, true, 'uk-UA', NOW(), NULL , NOW() );
@@ -148,22 +148,22 @@ INSERT INTO style(
   id,
   code,
   title,
-  description 
-) VALUES 
+  description
+) VALUES
 ( 1, 'WALTZ', 'Waltz', 'Waltz.' );
 
 INSERT INTO staff_type(
   id,
   code,
   title,
-  description 
-) VALUES 
+  description
+) VALUES
 ( 1, 'TAB', 'Tabs', 'Tabulatures.' );
 
 /**
  * Staffs of songs.
  */
-INSERT INTO song_notes( 
+INSERT INTO song_notes(
   id,
   id_song,
   id_staff_type,

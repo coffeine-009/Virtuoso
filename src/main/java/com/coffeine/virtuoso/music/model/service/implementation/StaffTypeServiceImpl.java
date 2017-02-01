@@ -24,7 +24,7 @@ import java.util.List;
  * @version 1.0
  */
 @Service
-public class StaffTypeServiceImpl implements StaffTypeService{
+public class StaffTypeServiceImpl implements StaffTypeService {
 
     @Autowired
     protected StaffTypeRepository staffTypeRepository;

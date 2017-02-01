@@ -15,6 +15,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Mock for Composer in persistence layout.
@@ -36,16 +38,12 @@ public class ComposerMock {
             true,
             LocalDate.now(),
             null,
-            new ArrayList<ComposerLocale>() {{
-                add(
-                    new ComposerLocale(
-                        "Test",
-                        "Unit",
-                        "Mockito",
-                        "uk-UA"
-                    )
-                );
-            }}
+            Stream.of(new ComposerLocale(
+                "Test",
+                "Unit",
+                "Mockito",
+                "uk-UA"
+            )).collect( Collectors.toSet() )
         );
         composer.setId( 1L );
 

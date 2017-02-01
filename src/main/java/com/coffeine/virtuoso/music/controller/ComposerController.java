@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
@@ -96,7 +97,7 @@ public class ComposerController {
             response.setStatus( HttpServletResponse.SC_CREATED );
 
             //- Prepare data for localization -//
-            List<ComposerLocale> data = new ArrayList<>();
+            Set<ComposerLocale> data = new HashSet<>();
             form.getData().forEach( (dataLocalized) ->
                 data.add(
                     new ComposerLocale(

@@ -49,8 +49,6 @@ public class SongServiceTest extends AbstractServiceTest {
     @Before
     @Override
     public void tearUp() {
-        super.tearUp();
-
         //- Init mocks -//
         MockitoAnnotations.initMocks( this );
     }

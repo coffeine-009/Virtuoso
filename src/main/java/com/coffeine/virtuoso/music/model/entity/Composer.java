@@ -20,9 +20,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -82,7 +83,7 @@ public class Composer implements Serializable {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    protected List<ComposerLocale> data;
+    protected Set<ComposerLocale> data;
 
     @Transient
     protected String firstName;
@@ -111,7 +112,7 @@ public class Composer implements Serializable {
 
     //TODO: add validation
     @JsonSerialize( using = JsonDateSerializer.class )
-    @Column( name = "deathDate", columnDefinition = "DATE" )
+    @Column( name = "death_date", columnDefinition = "DATE" )
     protected LocalDate deathDate;
 
     @Column(
@@ -127,7 +128,7 @@ public class Composer implements Serializable {
      */
     public Composer() {
         //- Initialization -//
-        this.data = new ArrayList<>();
+        this.data = new HashSet<>();
     }
 
     /**
@@ -166,7 +167,7 @@ public class Composer implements Serializable {
         Boolean gender,
         LocalDate birthday,
         LocalDate deathDate,
-        List<ComposerLocale> data
+        Set<ComposerLocale> data
     ) {
         //- Check params -//
         notNull( data );
@@ -238,7 +239,7 @@ public class Composer implements Serializable {
      *
      * @return List of ComposerLocales.
      */
-    public List<ComposerLocale> getData() {
+    public Set<ComposerLocale> getData() {
         return data;
     }
 
@@ -339,7 +340,7 @@ public class Composer implements Serializable {
      *
      * @param data    Localized data.
      */
-    public void setData( List<ComposerLocale> data ) {
+    public void setData( Set<ComposerLocale> data ) {
         this.data = data;
     }
 

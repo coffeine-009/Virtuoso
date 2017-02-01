@@ -33,6 +33,7 @@ import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +43,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -75,7 +78,7 @@ public class SecurityController {
      * Encoder for create hash of password.
      */
     @Autowired
-    private ShaPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
 
     //- SECTION :: SERVICES -//
@@ -134,9 +137,8 @@ public class SecurityController {
                 roles,
                 //- Add access params -//
                 new Access(
-                    this.passwordEncoder.encodePassword(
-                        registrationForm.getPassword(),
-                        null
+                    this.passwordEncoder.encode(
+                        registrationForm.getPassword()
                     )
                 ), 
                 //- Add e-mail -//
@@ -169,15 +171,13 @@ public class SecurityController {
                         newUser.getGender(),
                         registrationForm.getBirthday(),
                         registrationForm.getDeathDate(),
-                        new ArrayList<ComposerLocale>() {{
-                            add(
-                                new ComposerLocale(
-                                    registrationForm.getFirstName(),
-                                    registrationForm.getLastName(),
-                                    registrationForm.getLocale()
-                                )
-                            );
-                        }}
+                        Stream.of(
+                            new ComposerLocale(
+                                registrationForm.getFirstName(),
+                                registrationForm.getLastName(),
+                                registrationForm.getLocale()
+                            )
+                        ).collect( Collectors.toSet())
                     )
                 );
             }
@@ -191,15 +191,13 @@ public class SecurityController {
                         newUser.getGender(),
                         registrationForm.getBirthday(),
                         registrationForm.getDeathDate(),
-                        new ArrayList<PoetLocale>() {{
-                            add(
-                                new PoetLocale(
-                                    registrationForm.getFirstName(),
-                                    registrationForm.getLastName(),
-                                    registrationForm.getLocale()
-                                )
-                            );
-                        }}
+                        Stream.of(
+                            new PoetLocale(
+                                registrationForm.getFirstName(),
+                                registrationForm.getLastName(),
+                                registrationForm.getLocale()
+                            )
+                        ).collect( Collectors.toSet() )
                     )
                 );
             }
