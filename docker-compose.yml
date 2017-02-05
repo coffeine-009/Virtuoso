@@ -10,6 +10,8 @@ services:
   #- REST API server -#
   virtuoso-api:
     image: coffeine/virtuoso-api
+    build:
+      context: .
     environment:
       DB_HOST: postgres
     ports:
@@ -23,6 +25,8 @@ services:
   #- Storage :: REST API server -#
   storage:
     image: coffeine/storage
+    build:
+      context: ../Storage
     environment:
       DB_HOST: mongodb
     ports:
@@ -36,6 +40,8 @@ services:
   #- Configuration -#
   config:
     image: coffeine/config
+    build:
+      context: ../Config
     environment:
       VCAP_APPLICATION_PORT: 8888
     ports:
@@ -47,10 +53,38 @@ services:
   #- Discovery -#
   discovery:
     image: coffeine/discovery
+    build:
+      context: ../Discovery
     environment:
       VCAP_APPLICATION_PORT: 8761
     ports:
       - "8761:8761"
+    links:
+      - rabbitmq
+
+  auth:
+    image: coffeine/auth
+    build:
+      context: ../Auth
+    environment:
+      DB_HOST: postgres
+    ports:
+      - "8080"
+    links:
+      - config
+      - postgres
+      - rabbitmq
+
+  edge:
+    image: coffeine/edge
+    build:
+      context: ../Edge
+    ports:
+      - "8080"
+    links:
+      - config
+      - rabbitmq
+      - auth
 
   #- Database -#
   postgres:
@@ -68,6 +102,9 @@ services:
   #- JMS :: RabitMQ -#
   rabbitmq:
     image: rabbitmq:3.6
+    environment:
+      RABBITMQ_DEFAULT_USER: virtuoso
+      RABBITMQ_DEFAULT_PASS: virtuoso
     ports:
       - "5672"
 
