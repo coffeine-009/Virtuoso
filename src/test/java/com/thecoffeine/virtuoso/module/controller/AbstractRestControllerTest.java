@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.security.oauth2.client.test.OAuth2ContextSetup;
 import org.springframework.security.oauth2.client.test.RestTemplateHolder;
-import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.web.client.RestOperations;
@@ -52,14 +51,5 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
 
     public void setRestTemplate( RestOperations restOperations ) {
         this.restOperations = restOperations;
-    }
-}
-
-class MyDetails extends ResourceOwnerPasswordResourceDetails {
-    public MyDetails(final Object obj) {
-        setAccessTokenUri("/oauth/token");
-        setClientId("myclientwith");
-        setUsername("user");
-        setPassword("password");
     }
 }
