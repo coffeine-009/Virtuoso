@@ -14,6 +14,12 @@ docker build --rm -t coffeine/virtuoso-api .
 docker run -p 8080:8080 -d coffeine/virtuoso-api
 docker run -it coffeine/virtuoso-api bash
 ```
+
+#### Docker compose
+```bash
+docker-compose up -d
+```
+
 _(Coming soon)_
 
 ## Documentation
