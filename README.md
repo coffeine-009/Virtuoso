@@ -24,6 +24,11 @@ docker-compose build
 docker-compose up -d
 ```
 
+Development version:
+```bash
+docker-compose ...
+```
+
 _(Coming soon)_
 
 ## Documentation
