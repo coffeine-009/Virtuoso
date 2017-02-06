@@ -12,6 +12,7 @@ import com.thecoffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.thecoffeine.virtuoso.module.util.TypeHelper;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -55,6 +56,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testListAction() throws Exception {
 
@@ -86,6 +88,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionSuccess() throws Exception {
 
@@ -133,6 +136,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionFailure() throws Exception {
 
@@ -166,6 +170,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testFindActionSuccess() throws Exception {
 
@@ -201,6 +206,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testFindActionFailure() throws Exception {
 
@@ -218,6 +224,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionSuccess() throws Exception {
 
@@ -265,6 +272,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionFailure() throws Exception {
 
@@ -300,6 +308,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionSuccess() throws Exception {
 
@@ -316,6 +325,7 @@ public class FunctionalVideoTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionFailure() throws Exception {
 

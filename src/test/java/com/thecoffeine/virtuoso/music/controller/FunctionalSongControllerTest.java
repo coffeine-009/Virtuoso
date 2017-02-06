@@ -11,6 +11,7 @@ package com.thecoffeine.virtuoso.music.controller;
 import com.thecoffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -59,6 +60,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General application exception.
      */
+    @Ignore
     @Test
     public void testListActionSuccess() throws Exception {
 
@@ -87,6 +89,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    Exception    General application exception.
      */
+    @Ignore
     @Test
     public void testRetrieveSongActionSuccess() throws Exception {
 
@@ -128,6 +131,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General application exception.
      */
+    @Ignore
     @Test
     public void testRetrieveSongActionFailure() throws Exception {
 
@@ -139,6 +143,7 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
             .andDo( document( "songs-retrieve-failure-example" ) );
     }
 
+    @Ignore
     @Test
     public void testCreateSongActionSuccess() throws Exception {
         //- Success. Create a new style -//

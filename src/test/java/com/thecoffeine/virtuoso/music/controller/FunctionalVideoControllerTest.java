@@ -11,6 +11,7 @@ package com.thecoffeine.virtuoso.music.controller;
 import com.thecoffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -58,6 +59,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testListAction() throws Exception {
         //- Success -//
@@ -111,6 +113,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testFindActionSuccess() throws Exception {
         //- Success -//
@@ -161,6 +164,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testFindActionFailure() throws Exception {
         //- Failure -//
@@ -177,6 +181,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionSuccess() throws Exception {
         //- Success -//
@@ -231,6 +236,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionFailure() throws Exception {
         //- Failure -//
@@ -258,6 +264,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionFailureInput() throws Exception {
         //- Failure -//
@@ -285,6 +292,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionSuccess() throws Exception {
         //- Success -//
@@ -324,6 +332,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionFailure() throws Exception {
         //- Failure -//
@@ -351,6 +360,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionSuccess() throws Exception {
         //- Failure -//
@@ -367,6 +377,7 @@ public class FunctionalVideoControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionFailure() throws Exception {
         //- Failure -//

@@ -11,6 +11,7 @@ package com.thecoffeine.virtuoso.music.controller;
 import com.thecoffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -57,6 +58,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testListActionSuccess() throws Exception {
 
@@ -94,6 +96,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testFindActionSuccess() throws Exception {
 
@@ -130,6 +133,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testFindActionFailure() throws Exception {
 
@@ -147,6 +151,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionSuccess() throws Exception {
 
@@ -195,6 +200,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionFailure() throws Exception {
 
@@ -220,6 +226,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionSuccess() throws Exception {
 
@@ -269,6 +276,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionFailure() throws Exception {
 
@@ -294,6 +302,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionSuccess() throws Exception {
 
@@ -311,6 +320,7 @@ public class FunctionalStaffTypeControllerTest extends AbstractRestControllerTes
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionFailure() throws Exception {
 

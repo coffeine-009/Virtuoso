@@ -8,17 +8,18 @@
 
 package com.thecoffeine.virtuoso.music.model.service;
 
-import com.thecoffeine.virtuoso.module.model.service.AbstractServiceTest;
 import com.thecoffeine.virtuoso.music.model.entity.Song;
 import com.thecoffeine.virtuoso.music.model.persistence.mock.SongMock;
 import com.thecoffeine.virtuoso.music.model.repository.SongRepository;
+import com.thecoffeine.virtuoso.music.model.service.implementation.SongServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.mockito.Matchers.anyLong;
@@ -30,15 +31,15 @@ import static org.mockito.Mockito.when;
  *
  * @version 1.0
  */
-public class SongServiceTest extends AbstractServiceTest {
+@RunWith( MockitoJUnitRunner.class )
+public class SongServiceTest {
 
     /// *** Properties  *** ///
     @Mock
     private SongRepository songRepository;
 
     @InjectMocks
-    @Autowired
-    private SongService songService;
+    private SongService songService = new SongServiceImpl();
 
 
     /// *** Methods     *** ///
@@ -46,7 +47,6 @@ public class SongServiceTest extends AbstractServiceTest {
      * Prepare environment for run tests
      */
     @Before
-    @Override
     public void tearUp() {
         //- Init mocks -//
         MockitoAnnotations.initMocks( this );
@@ -56,7 +56,6 @@ public class SongServiceTest extends AbstractServiceTest {
      * Clean environment.
      */
     @After
-    @Override
     public void tearDown() {
         //- Clean environment after run tests -//
     }

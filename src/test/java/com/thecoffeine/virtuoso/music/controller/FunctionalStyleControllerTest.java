@@ -12,6 +12,7 @@ import com.thecoffeine.virtuoso.module.controller.AbstractRestControllerTest;
 import com.thecoffeine.virtuoso.module.util.TypeHelper;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -58,6 +59,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testListActionSuccess() throws Exception {
         // Success. Get list of styles
@@ -88,6 +90,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testRetrieveActionSuccess() throws Exception {
         // Success. Get list of styles
@@ -123,6 +126,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testRetrieveActionFailure() throws Exception {
         // Success. Get list of styles
@@ -139,6 +143,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionSuccess() throws Exception {
         //- Success. Create a new style -//
@@ -185,6 +190,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testCreateActionFailure() throws Exception {
         //- Failure. Create a new style -//
@@ -209,6 +215,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionSuccess() throws Exception {
         //- Success. Update a new style -//
@@ -255,6 +262,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testUpdateActionFailure() throws Exception {
         //- Failure. Update a new style -//
@@ -279,6 +287,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionSuccess() throws Exception {
         //- Success. Delete a style by id -//
@@ -295,6 +304,7 @@ public class FunctionalStyleControllerTest extends AbstractRestControllerTest {
      *
      * @throws Exception    General Exception of application.
      */
+    @Ignore
     @Test
     public void testDeleteActionFailure() throws Exception {
         //- Failure. Delete a style by id -//
