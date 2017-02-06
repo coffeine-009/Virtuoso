@@ -16,6 +16,8 @@ docker run -it coffeine/virtuoso-api bash
 ```
 
 #### Docker compose
+Run the commands bellow to run all containers.
+
 ```bash
 docker-compose build
 docker-compose up -d
