@@ -14,6 +14,21 @@ docker build --rm -t coffeine/virtuoso-api .
 docker run -p 8080:8080 -d coffeine/virtuoso-api
 docker run -it coffeine/virtuoso-api bash
 ```
+
+#### Docker compose
+Run the commands bellow to run all containers.
+Note: production version.
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+
+Development version:
+```bash
+docker-compose ...
+```
+
 _(Coming soon)_
 
 ## Documentation
