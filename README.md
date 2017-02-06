@@ -17,6 +17,7 @@ docker run -it coffeine/virtuoso-api bash
 
 #### Docker compose
 ```bash
+docker-compose build
 docker-compose up -d
 ```
 
