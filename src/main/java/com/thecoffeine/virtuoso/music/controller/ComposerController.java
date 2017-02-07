@@ -13,7 +13,6 @@ import com.thecoffeine.virtuoso.music.model.entity.ComposerLocale;
 import com.thecoffeine.virtuoso.music.model.service.ComposerService;
 import com.thecoffeine.virtuoso.music.view.form.ComposerForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,43 +87,32 @@ public class ComposerController {
 
         HttpServletResponse response
     ) {
-        //- Try to create new composer -//
-        try {
-            //- Set HTTP status -//
-            response.setStatus( HttpServletResponse.SC_CREATED );
+        //- Set HTTP status -//
+        response.setStatus( HttpServletResponse.SC_CREATED );
 
-            //- Prepare data for localization -//
-            Set<ComposerLocale> data = new HashSet<>();
-            form.getData().forEach( (dataLocalized) ->
-                data.add(
-                    new ComposerLocale(
-                        dataLocalized.getFirstName(),
-                        dataLocalized.getLastName(),
-                        dataLocalized.getFatherName(),
-                        dataLocalized.getLocale()
-                    )
+        //- Prepare data for localization -//
+        Set<ComposerLocale> data = new HashSet<>();
+        form.getData().forEach( (dataLocalized) ->
+            data.add(
+                new ComposerLocale(
+                    dataLocalized.getFirstName(),
+                    dataLocalized.getLastName(),
+                    dataLocalized.getFatherName(),
+                    dataLocalized.getLocale()
                 )
-            );
+            )
+        );
 
-            //- Success. Composer has created -//
-            return this.composerService.create(
-                new Composer(
-                    form.getLocale(),
-                    form.getGender(),
-                    form.getBirthday(),
-                    form.getDeathDate(),
-                    data
-                )
-            );
-        } catch ( DataIntegrityViolationException exception ) {
-            //- Warning, can not create duplicate -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        } catch ( Exception exception ) {
-            //- Failure. Can not to create a composer -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        }
-
-        return null;
+        //- Success. Composer has created -//
+        return this.composerService.create(
+            new Composer(
+                form.getLocale(),
+                form.getGender(),
+                form.getBirthday(),
+                form.getDeathDate(),
+                data
+            )
+        );
     }
 
     /**
@@ -153,9 +141,6 @@ public class ComposerController {
         } catch ( IllegalArgumentException e ) {
             //- Composer did not find -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        } catch ( Exception e ) {
-            //- Failure. Unknown error -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
 
         return null;
@@ -202,12 +187,6 @@ public class ComposerController {
         } catch ( IllegalArgumentException e ) {
             //- Warning. Composer has not found -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        } catch ( DataIntegrityViolationException e ) {
-            //- Warning, can not create duplicate -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
-        } catch ( Exception e ) {
-            //- Failure. Can not to create a composer -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
 
         return null;
@@ -234,9 +213,6 @@ public class ComposerController {
         } catch ( EmptyResultDataAccessException e ) {
             //- Warning. Composer has not found -//
             response.setStatus( HttpServletResponse.SC_NOT_FOUND );
-        } catch ( Exception e ) {
-            //- Failure. Unknown error -//
-            response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
         }
     }
 }

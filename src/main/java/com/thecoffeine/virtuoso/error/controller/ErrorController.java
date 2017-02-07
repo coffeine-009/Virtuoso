@@ -13,6 +13,7 @@ import com.thecoffeine.virtuoso.error.model.entity.ValidationError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -84,6 +85,30 @@ public class ErrorController {
         return this.processFieldErrors(
             exeption.getBindingResult().getFieldErrors()
         );
+    }
+
+    /**
+     * Handle conflict situations.
+     *
+     * @param e    Data integrity violation.
+     */
+    @ExceptionHandler( DataIntegrityViolationException.class )
+    @ResponseStatus( HttpStatus.CONFLICT )
+    @ResponseBody
+    public void processConflictError( DataIntegrityViolationException e ) {
+        //TODO: log
+    }
+
+    /**
+     * General error handler.
+     *
+     * @param e    General exception.
+     */
+    @ExceptionHandler( Exception.class )
+    @ResponseStatus( HttpStatus.INTERNAL_SERVER_ERROR )
+    @ResponseBody
+    public void processGeneralError( Exception e ) {
+        //TODO
     }
 
 
