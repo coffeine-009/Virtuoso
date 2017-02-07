@@ -26,7 +26,7 @@ docker-compose up -d
 
 Development version:
 ```bash
-docker-compose ...
+docker-compose -f ...
 ```
 
 _(Coming soon)_
