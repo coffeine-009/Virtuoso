@@ -1,0 +1,127 @@
+import java.util.regex.Matcher
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.5.RELEASE'
+        springCloudVersion = 'Dalston.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "net.saliman:gradle-cobertura-plugin:2.4.0"
+        classpath "de.aaschmid:gradle-cpd-plugin:1.0"
+    }
+}
+
+
+plugins {
+    id 'net.researchgate.release' version '2.4.0'
+}
+
+group 'com.thecoffeine'
+version "$version"
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'net.saliman.cobertura'
+//apply plugin: 'findbugs'
+//apply plugin: 'pmd'
+//apply plugin: "de.aaschmid.cpd"
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+/// *** Tasks   *** ///
+cobertura {
+    coverageFormats = [ 'xml', 'html' ]
+}
+
+//cpdCheck {
+//    reports {
+//        text.enabled = true
+//        xml.enabled = false
+//    }
+//    source = [ sourceSets.main.allJava, sourceSets.test.allJava ]
+//}
+
+checkstyle {
+    toolVersion = '6.12.1'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+release {
+    preTagCommitMessage = 'Release. [ci skip]'
+    tagCommitMessage = 'Release.'
+    newVersionCommitMessage = 'Increment version. [ci skip]'
+    versionPropertyFile = 'gradle.properties'
+    versionProperties = []
+    buildTasks = ['build']
+    versionPatterns = [
+            /(\d+)([^\d]*$)/: { Matcher m, Project p -> m.replaceAll("${(m[0][1] as int) + 1}${m[0][2]}") }
+    ]
+    scmAdapters = [
+            net.researchgate.release.GitAdapter
+    ]
+
+    git {
+        requireBranch = 'master'
+        pushToRemote = 'origin'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-mail'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-undertow'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile "org.springframework.cloud:spring-cloud-starter-oauth2"
+    compile "org.springframework.cloud:spring-cloud-starter-security"
+
+    compile 'org.springframework.cloud:spring-cloud-starter-hystrix'
+    compile 'org.springframework.cloud:spring-cloud-starter-eureka'
+    compile 'org.springframework.cloud:spring-cloud-starter-config'
+    compile 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+    compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    compile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.2.RELEASE'
+
+    compile 'org.springframework:spring-context-support:4.1.8.RELEASE'
+
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5'
+    compile 'commons-beanutils:commons-beanutils:1.9.2'
+    compile 'net.sourceforge.htmlunit:htmlunit:2.13'
+    compile 'com.github.jknack:handlebars:4.0.1'
+    compile 'postgresql:postgresql:9.1-901-1.jdbc4'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5'
+    compile 'org.hibernate:hibernate-java8:5.0.4.Final'
+    compile 'org.apache.logging.log4j:log4j-core:2.5'
+    compile 'org.apache.logging.log4j:log4j-api:2.5'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.security:spring-security-test:4.0.3.RELEASE'
+    testCompile 'com.icegreen:greenmail:1.4.1'
+    testCompile 'org.hsqldb:hsqldb:2.3.2'
+}

@@ -1,0 +1,127 @@
+---
+##
+# Configuration of docker compose.
+# Link and run related images.
+#
+
+version: '2'
+
+services:
+  #- REST API server -#
+  virtuoso-api:
+    image: coffeine/virtuoso-api
+    build:
+      context: .
+    environment:
+      DB_HOST: postgres
+    ports:
+     - "8080:8080"
+  #  volumes:
+  #    - .:/usr/src/virtuoso
+    links:
+      - postgres
+      - storage
+
+  #- Storage :: REST API server -#
+  storage:
+    image: coffeine/storage
+    build:
+      context: ../Storage
+    environment:
+      DB_HOST: mongodb
+    ports:
+      - 8080
+    links:
+      - mongodb
+      - config
+      - rabbitmq
+
+  #- Infrastructure :: Support servers -#
+  #- Configuration -#
+  config:
+    image: coffeine/config
+    build:
+      context: ../Config
+    environment:
+      VCAP_APPLICATION_PORT: 8888
+    ports:
+      - "8888:8888"
+    links:
+      - discovery
+      - rabbitmq
+
+  #- Discovery -#
+  discovery:
+    image: coffeine/discovery
+    build:
+      context: ../Discovery
+    environment:
+      VCAP_APPLICATION_PORT: 8761
+    ports:
+      - "8761:8761"
+    links:
+      - rabbitmq
+
+  auth:
+    image: coffeine/auth
+    build:
+      context: ../Auth
+    environment:
+      DB_HOST: postgres
+    ports:
+      - "8079:8080"
+    links:
+      - config
+      - postgres
+      - rabbitmq
+
+  edge:
+    image: coffeine/edge
+    build:
+      context: ../Edge
+    ports:
+      - "8078:8080"
+    links:
+      - config
+      - rabbitmq
+      - auth
+
+  #- Database -#
+  postgres:
+    image: postgres:9.6
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+     - "5432:5432"
+    environment:
+      POSTGRES_DB: "virtuoso"
+      POSTGRES_USER: "virtuoso"
+      POSTGRES_PASSWORD: "virtuoso"
+      PGDATA: "/var/lib/postgresql/data"
+
+  #- JMS :: RabitMQ -#
+  rabbitmq:
+    image: rabbitmq:3.6
+    environment:
+      RABBITMQ_DEFAULT_USER: virtuoso
+      RABBITMQ_DEFAULT_PASS: virtuoso
+    ports:
+      - "5672"
+
+  #- Database :: Sharded cluster -#
+  #- Router :: #1 -#
+  mongodb:
+    image: coffeine/mongo
+    build:
+      context: ../Storage/config/db
+    ports:
+      - 27017
+    volumes:
+      - mongo:/data/db
+    command: mongod --auth --keyFile /tmp/keyfile
+
+volumes:
+  #- PostgreSQL -#
+  postgres:
+  #- Config -#
+  mongo:

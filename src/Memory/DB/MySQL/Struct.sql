@@ -95,29 +95,6 @@ CREATE TABLE email(
 ENGINE = InnoDB CHARACTER SET = utf8;
 
 /** *** *** *** *** *** *** *** *** *** *
- * Facebook
- *  --- --- --- --- --- --- --- --- --- *
- * Data about facebook accounts of users
-*/--*** *** *** *** *** *** *** *** *** *
-CREATE TABLE facebook(
-    id              BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
-
-    id_user         BIGINT( 20 ) NOT NULL,
-
-    access_token    VARCHAR( 512 ) NOT NULL, 
-    refresh_token   VARCHAR( 512 ) NOT NULL, 
-
-    creation    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    PRIMARY KEY( id ),
-
-    FOREIGN KEY( id_user ) REFERENCES user( id )
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
-)
-ENGINE = InnoDB CHARACTER SET = utf8;
-
-/** *** *** *** *** *** *** *** *** *** *
  * Composer
  *  --- --- --- --- --- --- --- --- --- *
  * Data about composers
@@ -125,9 +102,7 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 CREATE TABLE composer(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    id_user     BIGINT( 20 ) UNIQUE,
-
-    gender      BOOLEAN, 
+    gender      BOOLEAN,
 
     locale      VARCHAR( 5 ) NOT NULL, 
 
@@ -180,9 +155,7 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 CREATE TABLE poet(
     id          BIGINT( 20 ) NOT NULL AUTO_INCREMENT,
 
-    id_user     BIGINT( 20 ),
-
-    gender      BOOLEAN, 
+    gender      BOOLEAN,
 
     locale      VARCHAR( 5 ) NOT NULL, 
 
