@@ -18,4 +18,4 @@ EXPOSE 8080
 #- Entry point -#
 CMD [ "java", "-jar", "/opt/virtuoso/virtuoso.jar" ]
 
-ADD build/libs/virtuoso-1.0.1-SNAPSHOT.jar /opt/virtuoso/virtuoso.jar
+ADD build/libs/virtuoso-*.jar /opt/virtuoso/virtuoso.jar
