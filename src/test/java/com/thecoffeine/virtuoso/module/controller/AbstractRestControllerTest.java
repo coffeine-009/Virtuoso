@@ -11,10 +11,13 @@ package com.thecoffeine.virtuoso.module.controller;
 import org.junit.Rule;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.TestRestTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.test.OAuth2ContextSetup;
 import org.springframework.security.oauth2.client.test.RestTemplateHolder;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.web.client.RestOperations;
 
 /**
@@ -32,6 +35,12 @@ public abstract class AbstractRestControllerTest extends AbstractControllerTest 
 
     @Rule
     public OAuth2ContextSetup contextSetup = OAuth2ContextSetup.standard( this );
+
+    public static RequestPostProcessor security() {
+        return SecurityMockMvcRequestPostProcessors.securityContext(
+            SecurityContextHolder.getContext()
+        );
+    }
 
 
     /// *** Methods     *** ///

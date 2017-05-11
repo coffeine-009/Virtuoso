@@ -9,6 +9,7 @@
 package com.thecoffeine.virtuoso.music.controller;
 
 import com.thecoffeine.virtuoso.module.controller.AbstractRestControllerTest;
+import com.thecoffeine.virtuoso.module.util.WithMockSecurityUser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -61,12 +62,14 @@ public class FunctionalSongControllerTest extends AbstractRestControllerTest {
      * @throws Exception    General application exception.
      */
     @Ignore
+    @WithMockSecurityUser
     @Test
     public void testListActionSuccess() throws Exception {
 
         // Success. Get list of songs
         this.mockMvc.perform(
             get( "/music/songs?page={page}&limit={limit}", 1, 10 )
+                .with( security() )
         )
             .andExpect( status().isOk() )
             .andExpect( jsonPath( "$", notNullValue() ) )

@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * Virtuoso application.
@@ -13,7 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * @version 1.0
  */
 @SpringBootApplication
-@EnableResourceServer
+//@EnableResourceServer//FIXME: mock auth server for tests.
 @EnableDiscoveryClient
 @EnableEurekaClient
 @EnableFeignClients
