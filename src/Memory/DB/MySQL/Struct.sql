@@ -9,6 +9,15 @@
 /**
  * Create database
  */
+/* 9.2
+CREATE DATABASE virtuoso
+  WITH
+    OWNER "virtuoso"
+    ENCODING 'UTF8'
+    LC_COLLATE = 'en_US.UTF-8'
+    LC_CTYPE = 'en_US.UTF-8'
+    TEMPLATE template0;
+*/
 CREATE DATABASE virtuoso
     DEFAULT
         CHARACTER SET utf8
