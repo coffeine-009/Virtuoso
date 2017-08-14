@@ -3,8 +3,7 @@ package com.thecoffeine.virtuoso;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 /**
  * Virtuoso application.
@@ -12,10 +11,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @version 1.0
  */
 @SpringBootApplication
-//@EnableResourceServer//FIXME: mock auth server for tests.
+@EnableGlobalMethodSecurity( prePostEnabled = true )
 @EnableDiscoveryClient
-@EnableEurekaClient
-@EnableFeignClients
 public class VirtuosoApplication {
 
     /**

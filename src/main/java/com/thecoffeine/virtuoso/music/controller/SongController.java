@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,6 +113,7 @@ public class SongController {
      *
      * @return Song
      */
+    @PreAuthorize( "#oauth.hasScope('write')" )
     @POST
     @RequestMapping( method = RequestMethod.POST, produces = { "application/json" } )
     @ResponseBody
@@ -246,7 +247,7 @@ public class SongController {
      *
      * @return Song.
      */
-    @Secured( "MUSICIAN" )
+    @PreAuthorize( "#oauth.hasScope('write')" )
     @RequestMapping( value = "/{id}", method = RequestMethod.PUT )
     @ResponseBody
     public Song updateAction(
@@ -288,7 +289,7 @@ public class SongController {
      * @param id        id of song.
      * @param response  Use for work with HTTP.
      */
-    @Secured( "ADMINISTRATOR" )
+    @PreAuthorize( "#oauth.hasScope('write')" )
     @DELETE
     @RequestMapping( value = "/{id}", method = RequestMethod.DELETE )
     @ResponseBody
