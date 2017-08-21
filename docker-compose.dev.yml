@@ -12,14 +12,18 @@ services:
     image: coffeine/virtuoso-api
     build:
       context: .
+      dockerfile: Dockerfile-dev
     environment:
-      DB_HOST: postgres
+#      DB_HOST: postgres
+      DB_HOST: db.thecoffeine.com
+      CONFIG_SERVER_URL: http://user:password@config.thecoffeine.com:8888
+      AUTHORIZATION_SERVER_URL: http://auth:8080/user/info
     ports:
      - "8080:8080"
-  #  volumes:
-  #    - .:/usr/src/virtuoso
+    volumes:
+      - .:/opt/virtuoso
     links:
-      - postgres
+#      - postgres
       - storage
 
   #- Storage :: REST API server -#
@@ -29,84 +33,96 @@ services:
       context: ../Storage
     environment:
       DB_HOST: mongodb
+      CONFIG_SERVER_URL: http://user:password@config.thecoffeine.com:8888
+      AUTHORIZATION_SERVER_URL: http://auth:8080/user/info
     ports:
       - 8080
+#    volumes:
+#      - ./../Storage:/opt/storage
     links:
       - mongodb
-      - config
-      - rabbitmq
+#      - config
+#      - rabbitmq
 
   #- Infrastructure :: Support servers -#
   #- Configuration -#
-  config:
-    image: coffeine/config
-    build:
-      context: ../Config
-    environment:
-      VCAP_APPLICATION_PORT: 8888
-    ports:
-      - "8888:8888"
-    links:
-      - discovery
-      - rabbitmq
+#  config:
+#    image: coffeine/config
+#    build:
+#      context: ../Config
+#    environment:
+#      VCAP_APPLICATION_PORT: 8888
+#    ports:
+#      - "8888:8888"
+#    links:
+#      - discovery
+#      - rabbitmq
 
   #- Discovery -#
-  discovery:
-    image: coffeine/discovery
-    build:
-      context: ../Discovery
-    environment:
-      VCAP_APPLICATION_PORT: 8761
-    ports:
-      - "8761:8761"
-    links:
-      - rabbitmq
+#  discovery:
+#    image: coffeine/discovery
+#    build:
+#      context: ../Discovery
+#    environment:
+#      VCAP_APPLICATION_PORT: 8761
+#    ports:
+#      - "8761:8761"
+#    links:
+#      - rabbitmq
 
   auth:
     image: coffeine/auth
     build:
       context: ../Auth
+      dockerfile: Dockerfile-dev
     environment:
-      DB_HOST: postgres
+#      DB_HOST: postgres
+      CONFIG_SERVER_URL: http://user:password@config.thecoffeine.com:8888
+      DB_HOST: db.thecoffeine.com
     ports:
       - "8079:8080"
-    links:
-      - config
-      - postgres
-      - rabbitmq
+    volumes:
+      - ../Auth:/opt/auth
+#    links:
+#      - config
+#      - postgres
+#      - rabbitmq
 
   edge:
     image: coffeine/edge
     build:
       context: ../Edge
+    environment:
+      CONFIG_SERVER_URL: http://user:password@config.thecoffeine.com:8888
+      AUTHORIZATION_SERVER_URL: http://auth:8080/user/info
     ports:
-      - "8078:8080"
+      - "8078:8765"
     links:
-      - config
-      - rabbitmq
+#      - config
+#      - rabbitmq
       - auth
 
   #- Database -#
-  postgres:
-    image: postgres:9.6
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    ports:
-     - "5432:5432"
-    environment:
-      POSTGRES_DB: "virtuoso"
-      POSTGRES_USER: "virtuoso"
-      POSTGRES_PASSWORD: "virtuoso"
-      PGDATA: "/var/lib/postgresql/data"
+#  postgres:
+#    image: postgres:9.6
+#    volumes:
+#      - postgres:/var/lib/postgresql/data
+#    ports:
+#     - "5432:5432"
+#    environment:
+#      POSTGRES_DB: "virtuoso"
+#      POSTGRES_USER: "virtuoso"
+#      POSTGRES_PASSWORD: "virtuoso"
+#      PGDATA: "/var/lib/postgresql/data"
 
   #- JMS :: RabitMQ -#
-  rabbitmq:
-    image: rabbitmq:3.6
-    environment:
-      RABBITMQ_DEFAULT_USER: virtuoso
-      RABBITMQ_DEFAULT_PASS: virtuoso
-    ports:
-      - "5672"
+#  rabbitmq:
+#    image: rabbitmq:3.6
+#    environment:
+#      RABBITMQ_DEFAULT_USER: virtuoso
+#      RABBITMQ_DEFAULT_PASS: virtuoso
+#    ports:
+#      - "5672"
 
   #- Database :: Sharded cluster -#
   #- Router :: #1 -#
@@ -122,6 +138,6 @@ services:
 
 volumes:
   #- PostgreSQL -#
-  postgres:
+#  postgres:
   #- Config -#
   mongo:
