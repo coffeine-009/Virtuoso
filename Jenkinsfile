@@ -33,6 +33,7 @@ pipeline {
         always {
             archive 'build/libs/**/*.jar'
             junit 'build/test-results/**/*.xml'
+            sh "docker rmi thecoffeine/virtuoso-api registry.hub.docker.com/thecoffeine/virtuoso-api"
         }
         success {
             slackSend channel: '#release',
