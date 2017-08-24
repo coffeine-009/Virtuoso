@@ -2,6 +2,7 @@ package com.thecoffeine.virtuoso.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * Resource server configuration.
@@ -10,7 +11,7 @@ import org.springframework.context.annotation.Profile;
  */
 @Profile( "default" )
 @Configuration
-//@EnableResourceServer
+@EnableResourceServer
 public class SecurityConfig {//} extends ResourceServerConfigurerAdapter {
 
 //    @Override
